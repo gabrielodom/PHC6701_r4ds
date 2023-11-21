@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "PHC6701_r4ds",
+    "title": "PHC 6701: R for Data Science // Advanced R",
     "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "These are the written lecture materials for the class PHC 6701 (commonly known as “Advanced R”) at Florida International University’s Stempel College of Public Health."
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,103 @@
     "title": "About",
     "section": "",
     "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html",
+    "href": "lessons/lesson01_GreaterDataScience.html",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "",
+    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\""
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#data-preparation-and-exploration",
+    "href": "lessons/lesson01_GreaterDataScience.html#data-preparation-and-exploration",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Preparation and Exploration",
+    "text": "Data Preparation and Exploration\nThis is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.\n\nExamples: designing the questions on a patient survey, creating a database to hold clinical trials data, finding the most common answers to a question, finding the largest or smallest values of a measurement, reporting the proportion of missing answers to a battery of questions between three cohorts."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#data-representation-and-transformation",
+    "href": "lessons/lesson01_GreaterDataScience.html#data-representation-and-transformation",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Representation and Transformation",
+    "text": "Data Representation and Transformation\nThis deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.\n\nExamples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together)."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#computing-with-data",
+    "href": "lessons/lesson01_GreaterDataScience.html#computing-with-data",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Computing with Data",
+    "text": "Computing with Data\nThis part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.\n\nExamples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create “packages” of computer code to repeat the same types of analyses on new data sets."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#data-modeling",
+    "href": "lessons/lesson01_GreaterDataScience.html#data-modeling",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Modeling",
+    "text": "Data Modeling\nThis part of data science is the most well-known portion. It is what most lay-people consider “data science”: statistical modelling and machine learning. This is where simple techniques like t-tests, linear regression, or ANOVA come in, but it also includes highly complex models and routines such as deep neural networks, random coefficient mixed models, support vector machines, or discriminant analysis. Traditional statistics departments have historically taught or developed most of these techniques, although some interesting modern research has come from computer science and econometrics."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#data-visualization-and-presentation",
+    "href": "lessons/lesson01_GreaterDataScience.html#data-visualization-and-presentation",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Visualization and Presentation",
+    "text": "Data Visualization and Presentation\nThis portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be reproducible. Furthermore, the presentation of data in order to further an argument or claim is part of visual rhetoric, and is subject to questions of ethics. In traditional statistics departments, some of these tools are used, but rarely taught.\n\nExamples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.\n\n“A picture is worth a thousand words. Make sure your picture says the right thousand words.”"
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#science-about-data-science",
+    "href": "lessons/lesson01_GreaterDataScience.html#science-about-data-science",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Science about Data Science",
+    "text": "Science about Data Science\nThis portion of data science involves research meta-analysis about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with philosophy and ethics, it has hardly anything to do with academic statistics.\n\nExamples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#the-reproducibility-crisis",
+    "href": "lessons/lesson01_GreaterDataScience.html#the-reproducibility-crisis",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "The Reproducibility Crisis",
+    "text": "The Reproducibility Crisis\nPublished bio-science is largely not reproducible:\n\nOncology: 53 published articles tested, six successes (11%) (Nature, 2012)\nPsychology: 100 published articles, 39 successes (Nature News, 2015); 71 published articles tested, 92 replication attempts, 35 successes (38%; the PsychFileDrawer project is ongoing).\nPharmacology: 67 published models tested, 14 successes (21%) (Nature Reviews, 2011)"
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#the-ioannidis-crusade",
+    "href": "lessons/lesson01_GreaterDataScience.html#the-ioannidis-crusade",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "The Ioannidis crusade",
+    "text": "The Ioannidis crusade\nJohn Ioannidis, physician scientist at Stanford, speaks harshly against the lack of replicability in science:\n\n“Replication validity of genetic association studies” (2001)\n“Contradicted and Initially Stronger Effects in Highly Cited Clinical Research” (2005)\n“Why Most Published Research Findings Are False” (2005)\n“Why Most Clinical Research Is Not Useful” (2016)"
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#reproducible-data-science",
+    "href": "lessons/lesson01_GreaterDataScience.html#reproducible-data-science",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Reproducible Data Science",
+    "text": "Reproducible Data Science\nBefore reproducibility must come preproducibility.\n“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that enough information is provided to allow a dedicated reader to repeat the calculations in the paper for herself.”\n– Philip B. Stark, Professor of Statistics, UC Berkeley"
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#use-code",
+    "href": "lessons/lesson01_GreaterDataScience.html#use-code",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Use Code!",
+    "text": "Use Code!\nIf you want your analyses and figures to be reproducible, then you must use computer code to do this. Point-and-click software does not (usually) give you a record of your steps or allow you to repeat them. Building your data management, data modelling, and visualizations steps in a programming language means that you always have the tools necessary to repeat your work. In this class, you will learn how to write computer code to clean and transform your data, perform your analyses, and build the figures and tables for your papers. If you do this properly, this will ensure that anyone can recreate your analysis results, figures, and tables relatively quickly and painlessly."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#downloading-and-installing-r",
+    "href": "lessons/lesson01_GreaterDataScience.html#downloading-and-installing-r",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Downloading and Installing R",
+    "text": "Downloading and Installing R\n\nFor Windows\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\n\nClick on the “Download R for Windows” link at the top of the page.\n\nClick on the “install R for the first time” link at the top of the page.\nClick “Download R for Windows” and save the executable file somewhere on your computer (your desktop is fine, because you will delete this file later).\nDouble-click on the .exe file to “run” it and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\nClick on the “Download R for (Mac) OS X” link at the top of the page.\nClick on the file containing the latest version of R under “Files.”\nSave the .pkg file (to your desktop; you will delete it at the end)\nDouble-click the .pkg file to open, and follow the installation instructions (click “Next” or “Allow” a bunch).\n\nNow that R is installed, you need to download and install RStudio."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#download-and-install-rstudio",
+    "href": "lessons/lesson01_GreaterDataScience.html#download-and-install-rstudio",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Download and Install RStudio",
+    "text": "Download and Install RStudio\n\nFor Windows\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Windows version, and save the executable file (probably to your desktop, because we’re just going to delete it afterwards).\nDouble-click on the .exe file and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Mac version, and save the .dmg (disk image) file on your computer (probably to your desktop, because we are just going to delete it later)\nDouble-click the .dmg file to open it, and then drag and drop it to your applications folder."
+  },
+  {
+    "objectID": "lessons/lesson01_GreaterDataScience.html#check-the-install",
+    "href": "lessons/lesson01_GreaterDataScience.html#check-the-install",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Check the Install",
+    "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the &gt; symbol). Type (you don’t have to type the &gt; symbol; it’s just there for reference)\n\n&gt; \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
   }
 ]

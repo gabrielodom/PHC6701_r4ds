@@ -2,11 +2,12 @@ project:
   type: website
 
 website:
-  title: "PHC6701_r4ds"
+  title: "PHC 6701: R for Data Science"
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - href: lessons/lesson01_GreaterDataScience.qmd
       - about.qmd
 
 format:

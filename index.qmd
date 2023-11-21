@@ -1,11 +1,5 @@
 ---
-title: "PHC6701_r4ds"
+title: "PHC 6701: R for Data Science // Advanced R"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+These are the written lecture materials for the class PHC 6701 (commonly known as "Advanced R") at Florida International University's Stempel College of Public Health.
