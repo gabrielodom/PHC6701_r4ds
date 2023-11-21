@@ -1,0 +1,60 @@
+---
+title: "Lesson 5 Supplement: Documenting Basic Functions"
+author: "Gabriel Odom"
+date: "9/9/2019"
+output:  
+  word_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Documenting your Functions
+Code comments are the glue that hold a collaboration team together across time and space. You write comments to three people: yourself today, yourself in six months, and people who have never seen your code. These comments will include:
+
+1. the function name and description,
+2. names and descriptions for each argument to the function,
+3. a description of what the function returns,
+4. a thorough commentary on how the function works,
+5. at least one working example, and
+6. citation, external links, internal links, etc. all as appropriate.
+
+Comments *always* have a single space between the comment character (`#`) and the start of the comment.
+
+If your functions are *not* saved within a package, add these same comments as the first lines within your function. This ensures that the comments *about* the function always travel *with* the function.
+```
+CalculateSampleCovariance <- function(x, y, verbose = TRUE) {
+  # Computes the sample covariance between two vectors.
+  #
+  # Args:
+  #   x: One of two vectors whose sample covariance is to be calculated.
+  #   y: The other vector. x and y must have the same length, greater than one,
+  #      with no missing values.
+  #   verbose: If TRUE, prints sample covariance; if not, not. Default is TRUE.
+  #
+  # Returns:
+  #   The sample covariance between x and y.
+  # 
+  # Example:
+  # CalculateSampleCovariance(x = rnorm(10), y = rnorm(10))
+  
+  
+  n <- length(x)
+  # Error handling
+  if (n <= 1 || n != length(y)) {
+    stop("Arguments x and y have different lengths: ",
+         length(x), " and ", length(y), ".")
+  }
+  if (TRUE %in% is.na(x) || TRUE %in% is.na(y)) {
+    stop(" Arguments x and y must not have missing values.")
+  }
+  covariance <- var(x, y)
+  if (verbose)
+    cat("Covariance = ", round(covariance, 4), ".\n", sep = "")
+  return(covariance)
+}
+```

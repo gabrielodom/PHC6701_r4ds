@@ -1,0 +1,36 @@
+---
+title: "Lesson 2 Supplement: R Scripts for Reproducibility"
+author: "Gabriel Odom"
+date: "8/21/2019"
+output:  
+  word_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Writing Scripts to Store Your Work
+So far, if you needed to repeat all of the work you have done today, you would be in serious trouble! If we can repeat what we did, then we certainly can't call our work *reproducible*. One simple thing we can do, is to write our code in a *script*.
+
+## My First R Script
+To create a new script, go to "File" > "New File" > "R Script". The keyboard shortcut for this is CTRL + Shift + N on Windows, and CMD + Shift + N on Mac. You should now have a window that looks like this:
+
+![](../figures/intro_first_script_empty.png)
+
+At the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of **code comment**, and should be marked as such.
+
+> Exercises:
+>
+> 1. Create a new script to run some of the commands you learned in Lesson 2. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.
+> 2. Add some of the code from that lesson (a few operations).
+> 3. Add comments explaining to yourself what these operations are doing.
+> 4. Save your script with a good name, and---if possible--today's date (in a computer-sortable format). Notice that your file name font colour changed from red back to black. Why? **Mac Users:** make sure you add `.R` to the end of your file name.
+
+This is what mine looks like:
+
+![](../figures/intro_first_script.png)
+
+As you learn more about R, your comments should quickly become more about *why* you did what you did, rather than *what* you did.

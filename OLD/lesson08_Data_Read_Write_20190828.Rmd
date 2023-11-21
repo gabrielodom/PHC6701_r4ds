@@ -1,0 +1,291 @@
+---
+title: "Lesson 8: Importing Tabular Data"
+author: "Gabriel Odom "
+date: "9/25/2019"
+output:
+  word_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
+```
+
+# Review
+What did we learn last class? Answer at <https://www.PollEv.com/gabrielodom151>
+
+1. Positive position subsetting
+2. Negative position subsetting
+3. Named subsetting
+4. Logical/Boolean subsetting
+5. Relational Subsetting
+
+
+# Overview
+In this lesson, we will cover the following:
+
+0. Find some raw data
+1. Reading in flat text / CSV files
+2. Tibbles and "tidy" data
+3. Writing flat text / CSV files
+
+## A Quick Comment to Begin...
+When you use the RStudio IDE, you have access to a point-and-click data import guide for data files in many different forms. Such forms include tab-seperated, fixed-width, .csv, Stata, SAS, SPSS, Excel, and many others. A word of caution: you should practice importing the your data with the `read_fwf()`, `read_delim`, or `read_csv` functions (from the `readr` package) using the point-and-click RStudio interface. At each import, copy the code you build in the interactive window into a script so that you can see how the functions work. Once you are familiar with how these functions treat your data, then you can start writing the `readr` functions directly within a script instead of using the point-and-click RStudio IDE importing steps. 
+
+If you have never imported data before, this can be one of the most challenging tasks in data science. Also, read [R4DS Chapter 11](https://r4ds.had.co.nz/data-import.html), which covers importing data from a variety of sources. I have seen many problems in code because a tiny little peice of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don't let this happen to you.
+
+## Example Data: Food Stamp Usage by ZIP Code
+In order to plot food stamp usage by ZIP code, we first need data.
+
+### Miami-Dade and Broward County ZIP Codes
+All of the ZIP codes in Broward and Miami Data counties and are online:  <https://www.zip-codes.com/county/fl-broward.asp> and <https://www.zip-codes.com/county/fl-miami-dade.asp>, respectively. They are stored in tables that look like this:
+![](../figures/r4ds_miamidade_ZIP_website_raw.PNG)
+
+> Exercise: For Miami-Dade and Broward counties, go to the websites above, highlight all the data in the table, copy it, paste it into a basic text editor (like Notepad or TextEdit), and save it into your directory for this class in your "data" folder (or whatever you named the folder for your data).
+
+You will end up with a `.txt` file that should look like this:
+![](../figures/r4ds_miamidade_ZIP_text_raw.PNG)
+
+### Food Stamps by ZIP Code
+For data on households receiving Supplemental Nutrition Assistance Program (SNAP) benefits, we check with the US Census Bureau: <https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml>.
+
+> Exercise: download the ACS data on food stamp benefits by ZIP code (big kudos to Gazelle Rouhani for figuring this out)
+>
+> 1. **Specify the dataset with the following steps**:
+>    + Go to the link above and click "Download Center".
+>    + Select the "I know the dataset or table(s) that I want to download." option and click "Next".
+>    + In the "Select a Progam" dropdown menu, choose the American Community Survey data; then, in the "Select a dataset" box, select the 2016 five-year estimates. Click "Add to Your Selections".
+>    + You should see the "2016 ACS 5-year estimates" data set label in the "Your Selections" box with over 2,000 matching data sets. Click "Next".
+> 2. **Specify the geographical features**:
+>    + In the "Select a Geographic Type" drop-down menu, scroll down to the "5-Digit ZIP Code Tabulation Area - 860" option.
+>    + In the subsequent drop-down menu for state, select Florida.
+>    + In the "geographic areas" box, select "All 5-Digit ZIP Code Tabulation Areas fully within/partially within Florida" (it should be the only option), and click "Add to Your Selections".
+>    + You should see the "2016 ACS 5-year estimates" and "All 5-Digit ZIP Code Tabulation Areas fully within/partially within Florida" data set labels in the "Your Selections" box with about 1,000 matching data sets. Click "Next".
+> 3. **Specify the features of interest**:
+>    + In the search bar, type `"food stamps"`. Click "GO".
+>    + In the search results, you should see the table "FOOD STAMPS/Supplemental Nutrition Assistance Program (SNAP)" (table ID: S2201). Check the box next to this data set.
+> 4. **Download the data**:
+>    + Click "Download". In the pop-up window, **uncheck the box to include descriptive feature names** (it will make importing the data into R easier). Click "OK".
+>    + Wait for the data to download, then click the "Download" button.
+>    + Save the zipped folder in your **data** directory for this class, then unzip the folder and delete the zipped original.
+
+You should have a metadata file called `ACS_16_5YR_S2201_metadata.csv` which explains all the variable names and a data file called `ACS_16_5YR_S2201_with_ann.csv` that contains all the features of interest. The first few rows and columns of the data file should look like this:  
+![](../figures/r4ds_ACS_survey_header.PNG)
+
+Notice that the `GEO.id2` column contains the ZIP codes.
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Reading in Flat / CSV Data
+We finally have some raw data files on our data directory: two `.txt` files and one `.csv` file. While there are purely command-driven importing tools in R, we will discuss importing data with the RStudio (integrated development environment) IDE (graphical user interface) GUI first. In the top-right pane of the IDE, there is a menu of buttons to import different types of data.
+
+![](../figures/r4ds_import_data_menu.PNG)
+
+Notice that we can import Excel, SAS, Stata, or SPSS data files, or we can import any text-based file with the `From Text (readr)...` button.
+
+
+## The `readr` Package
+The `readr` package (<https://cran.r-project.org/web/packages/readr/README.html> is the data import package of the `tidyverse`. If you want a good overview of how to use this package, read Chapter 11 of R4DS. We'll load the `tidyverse` package suite now.
+```{r load_tidyverse, message=FALSE}
+library(tidyverse)
+```
+
+### Package Goals
+The `readr` pacakge has three main goals: 
+
+1. Be faster than the `base::` package reading functions (`read.csv`, `read.delim`, `read.fwf`, etc.).
+2. Import data as a tibble, so that we don't get hung up on character / factor conversion and we don't mess up row and column names. For more on the tibble object, read their vignette: <https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html>
+3. Operate similarly on all operating systems.
+
+### The Main Function(s)
+There is one main file-reading function in the `readr` package, and two extensions of this function for commonly-occuring data formats (there are obviously more functions than just these three, but knowing how two of these three work will help you import the majority of data files you will see in practice).
+
+1. `read_delim`: read any text-based delimited file into `R` as a tibble.
+2. `read_csv`: an extension of `read_delim` designed to make reading `.csv` files easy.
+2. `read_tsv`: an extension of `read_delim` designed to make reading tab-delimited `.txt` files easy.
+
+Because these functions import data as a tibble ("table" + "data frame"), you should try to store data files such that each entry of a column is of the same atomic type (all character, numeric, logical, etc.).
+
+
+## Read a `.csv` File with `read_csv`
+In the "Import Dataset" drop-down menu, select `From Text (readr)...`. In the "Import Text Data" pop-up window, click "Browse" to find and open your data. If you are using an RStudio project, then the "Browse" file finder should open directly to your directory for this class, and the data directory where you saved all three data files should be visible. Select the ACS data `.csv` file and click "Open". You should see this window:
+
+![](../figures/r4ds_import_ACS_survey.PNG)
+
+There is a lot of stuff going on in this window! Let's unpack all of our options:
+
+- The "Data Preview" pane shows you an Excel-style view of the first few rows and columns of your data:
+    + The column names were imported correctly.
+    + The `readr` package identifies the data type for each column by looking at the first 1000 rows.
+    + The down-arrow next to the column name lets you manually override `readr`'s best guess for the column data type, as well as include, skip, or include only the column:
+    
+    ![](../figures/r4ds_import_column_options.PNG)
+    
+- The "Import Options" pane allows you more direct control over *how* the data file is imported:
+    + "Name" --- what name do you want to give the data tibble in the working directory? Often, the file itself has a long name, so it's better to name the tibble saved in your `R` environment a shorthand version.
+    + "Skip" --- skip reading the first rows of the file. This is helpful if you have metadata in the first few rows of the file, and the data itself doesn't start until later.
+    + Check Box Options --- these do what they say they do.
+    + "Delimiter: Comma" --- this drop-down menu allows you to switch among commas, tabs, semicolons, white space, or other delimiters. The `readr` package correctly identified that our `.csv` file was comma-delimited.
+    + "NA" --- how are missing values coded in your data? The drop-down menu has only a few options, but have more flexibility by interacting with the code itself (more on that in the next lesson).
+- The "Code Preview" pane shows you the results of all of the options you specified. Here is what the "Import Options" and "Code Preview" panes look like for the ACS SNAP `.csv` data:
+
+![](../figures/r4ds_import_options_ACS.PNG)
+![](../figures/r4ds_import_codepreview_ACS.PNG)
+
+The "Code Preview" pane shows what code will be ran automatically when I click the "Import" button in that window. Specifically, I've chosen to import the ZIP code column as a character column, I've named the incoming data object `FL_allZIPs`, and I've turned off the automatic `View()` command. Also, notice that because `readr` identified that the data file was a `.csv` file, the `read_csv()` function was selected automatically. We click "Import" and this code runs for us:
+```{r read_SNAP_csv}
+FL_allZIPs <- read_csv("../data/ACS_16_5YR_S2201_with_ann.csv", 
+    col_types = cols(GEO.id2 = col_character()))
+```
+
+
+## Read a Tab-Delimited `.txt` File with `read_tsv`
+Now that we have a decent idea of how the `read_csv` function works, we can easily read in the Miami-Dade and Broward ZIP code files with the `read_tsv` function---it has the same syntax! *Note: you will have to change the file path to match where your data is stored; mine is stored in a subfolder called `data/`.*
+```{r read_ZIPs_txt}
+miamidade_ZIPs <- read_tsv("../data/miamidade_ZIPcodes.txt")
+broward_ZIPs <- read_tsv("../data/broward_ZIPcodes.txt")
+```
+
+Notice the messages `readr` gives us when importing data: all the columns (except for population) were imported as character columns.
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Tibbles and Tidy Data
+So far this semester, we have seen and used data in a tidy form (recall the `mpg` dataset), but we have had very little discussion of *what* this form entails and *why* it is important. We draw our information from *R for Data Science*, chapter 12.
+
+## Data Format Example: Tuberculosis Cases
+Consider data with counts of tuberculosis (TB) cases for three countries measured over a single 10-year interval. What could our data look like?
+
+| Country       | Year | Rate                |
+|---------------|------|---------------------|
+| "Afghanistan" | 1999 |      "745/19987071" |
+| "Afghanistan" | 2000 |     "2666/20595360" |
+| "Brazil"      | 1999 |   "37737/172006362" |  
+| "Brazil"      | 2000 |   "80488/174504898" |  
+| "China"       | 1999 | "212258/1272915272" |
+| "China"       | 2000 | "213766/1280428583" |
+
+Notice that this table has all the information we need: the name of the country, the year of the demograpic measurement, the number of TB cases in that year for each country, and the total population in the country at that time. The data is in a good format for humans. However, the information in this data is not immediately accesible by the *computer*.
+
+> Exercises:
+> 
+> 1. Discuss with your neighbour about why this data may not be useful to us in R.  
+> 2. Why are the rate values in quotes?
+
+## What is Tidy Data?
+Before we try to "tidy up" the data set above, we need a grammar for data. Specifically, mathematical convention holds that (if you would like the justification for these rules, please see [Wickham (2014)](https://www.doi.org/10.18637/jss.v059.i10)):
+
+- Each variable must have its own column.
+- Each observation must have its own row.
+- Each value must have its own cell.
+
+Visually, tidy data has this form:
+
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+### Tidy the TB Data
+Now that we have some rules, we can tidy up the TB data. Honestly, it was already pretty close; we simply need to split the "Rate" column into its numerator and denominator (this allows us to remove the quotes):
+
+| Country       | Year | Cases  | Population |
+|---------------|------|--------|------------|
+| "Afghanistan" | 1999 |    745 |   19987071 |
+| "Afghanistan" | 2000 |   2666 |   20595360 |
+| "Brazil"      | 1999 |  37737 |  172006362 |  
+| "Brazil"      | 2000 |  80488 |  174504898 |  
+| "China"       | 1999 | 212258 | 1272915272 |
+| "China"       | 2000 | 213766 | 1280428583 |
+
+## Why Tidy Data
+Most of my work as a data scientist is extracting or cleaning data. As such, here are the reasons I use the tidy data format:
+
+1. It is mathematically consistent. When we perform calculations with statistics, the notation of matrix algebra and calculus assume that the observations are in the rows of a matrix while the measurements are in its columns.
+2. Keeping the same structure for all raw data means I don't waste time re-writing code to work with data in different formats. If I write code that works for one data set, it will usually work for another data set with only slight modifications.
+3. Storing measurements in columns of a tibble means that R treats the data set as a vector of atomic vectors (recall that a tibble is actually a list, and as such it is a non-atomic vector of other vectors). Because of this, we get to take advantages of R's strength as a vectorised language.
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Writing Tibbles to Flat / CSV Data Files
+While the county ZIP code data sets are both in flat text files, we may want to save them as CSV files for future use. If the function `read_csv()` **reads** in (or *imports*) a `.csv` file as a tibble object, then `write_csv()` should **write** a tibble object to a `.csv` file.
+```{r, eval=FALSE}
+write_csv(x = miamidade_ZIPs, path = "../data/miamidade_ZIPcodes.csv")
+write_csv(x = broward_ZIPs, path = "../data/broward_ZIPcodes.csv")
+```
+
+> Exercises:
+>
+> 1. Check the directory for the files that you wrote. Did these CSV files write correctly?
+> 2. Inpsect the help file for `write_csv()` and `write_delim()`. What are some of the other file formats you can save your data in?
+> 3. Can you think of a situation where using comma as the delimiter would not be a good idea?
+> 4. For next class, install the `nycflights13` package.
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Aside: The Pipe Operator
+When writing scripts, I strongly recommend the use of the ` %>% ` (pipe) operator (from the [magrittr](https://magrittr.tidyverse.org/articles/magrittr.html) package---included in `dplyr` and the `tidyverse`). Pipe operators turn
+\[
+f(g(h(j(k(y, e), d), c), b), a)
+\]
+into
+\[
+y \mapsto k(.,e) \mapsto j(.,d) \mapsto h(.,c) \mapsto g(.,b) \mapsto f(.,a),
+\]
+which turns into the following code:
+```
+y %>% k(e) %>% j(d) %>% h(c) %>% g(b) %>% f(a).
+```
+
+You get the pipe operator any time you load the `tidyverse` package suite. Insert a pipe in your code with the keyboard **Ctrl + Shift + M** (Windows) or **Cmd + Shift + M** (Mac).
+```{r eval=FALSE}
+library(tidyverse)
+
+x <- rnorm(30)
+
+# These two commands are identical:
+# 1.
+t.test(x, mu = 1)
+# 2.
+x %>% t.test(mu = 1)
+```
+
+
+The operations are then considerably easier to follow. Consider the following code (from a nice University of Cincinnati [article](https://uc-r.github.io/pipe)), before and after the use of the pipe operator:
+```
+# Before
+sum(select(filter(babynames,sex=="M",name=="Taylor"),n))
+
+# After
+babynames %>%
+  filter(sex == "M", name == "Taylor") %>%
+  select(n) %>%
+  sum
+```
+The pipe operator makes chained or nested code much easier to read. However, this clarity comes with a drawback: the pipe operator uses [non-standard evaluation](http://adv-r.had.co.nz/Computing-on-the-language.html), which means that *development* with the pipe operator [can be more challenging](https://bookdown.org/rdpeng/RProgDA/non-standard-evaluation.html). However, do not let this discourage you from using the pipe operator in your scripts.
+
+> Exercise:
+> Install and load the `nycflights13` package. Re-write the following code with the pipe operator:
+```
+arrange(mutate(summarise(group_by(flights, dest), delay = mean(arr_delay, na.rm = TRUE)), resid_delay = delay - mean(delay, na.rm = TRUE)), resid_delay)
+```
+> Confirm that the results before and after are the same.
+<!-- > 2. Re-compose the following functions by removing the pipe operator: -->
+<!-- ``` -->
+<!-- flights %>% -->
+<!--   filter(month == 1, day == 1) %>%  -->
+<!--   select(-year, -month, -day) -->
+<!-- ``` -->

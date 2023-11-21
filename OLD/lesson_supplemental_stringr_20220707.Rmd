@@ -1,0 +1,198 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(palmerpenguins)
+library(tidyverse)
+
+data("penguins")
+```
+
+
+## Introduction to lab
+
+We are going to work with the data set *penguins_raw* from the
+`palmerpinguins` package. 
+
+Data set description: 
+*A tibble with 344 rows and 17 variables*
+
+
+| Variable Name     | Description                                                                             |
+| ----------------- | --------------------------------------------------------------------------------------- |
+| studyName         | Sampling expedition from which data were collected, generated, etc.                     |
+| Sample Number     | an integer denoting the continuous numbering sequence for each sample                   |
+| Species           | a character string denoting the penguin species                                         |
+| Region            | a character string denoting the region of Palmer LTER sampling grid                     |
+| Island            | a character string denoting the island near Palmer Station where samples were collected |
+| Stage             | a character string denoting reproductive stage at sampling                              |
+| Individual ID     | a character string denoting the unique ID for each individual in dataset                |
+| Clutch Completion | a character string denoting if the study nest observed with a full clutch, i.e., 2 eggs |
+| Date Egg          | a date denoting the date study nest observed with 1 egg (sampled)                       |
+| Culmen Length     | a number denoting the length of the dorsal ridge of a bird's bill (millimeters)         |
+| Culmen Depth      | a number denoting the depth of the dorsal ridge of a bird's bill (millimeters)          |
+| Flipper Length    | an integer denoting the length penguin flipper (millimeters)                            |
+| Body Mass         | an integer denoting the penguin body mass (grams)                                       |
+| Sex               | a character string denoting the sex of an animal                                        |
+| Delta 15 N        | a number denoting the measure of the ratio of stable isotopes 15N:14N                   |
+| Delta 13 C        | a number denoting the measure of the ratio of stable isotopes 13C:12C                   |
+| Comments          | a character string with text providing additional relevant information for data         |
+
+
+
+## Create a String vector
+
+### Excercise 1
+
+Create a vector that contains at least three different characters
+
+```{r create-vector, exercise=TRUE}
+
+```
+
+```{r create-vector-hint}
+my_string <- c()
+```
+
+```{r create-vector-solution}
+my_string <- c("my string", "has", "3 things!")
+```
+
+## stringr Functions
+
+### Excercise 2
+
+What function would you use to answer the following question:
+
+*How many characters has the longest comment on the penguins_raw data set?*. 
+(Remember the data set is called `penguins_raw` and the variable is called
+`Comments`)
+
+```{r number-characters, exercise=TRUE}
+
+```
+
+```{r number-characters-hint}
+str_length()
+```
+
+```{r number-characters-solution}
+str_length(penguins_raw$Comments)
+```
+
+
+### Exercise 3
+
+We are going to clean the Species vector so we can have only the name of the species
+
+First, we have to explore the `Species` vector. 
+
+What function would you use to display on your console the information contained 
+in the `Species` vector?
+
+```{r explore, exercise=TRUE}
+
+
+```
+
+```{r explore-hint}
+table(penguins_raw$Species)
+#or
+penguins_raw %>% 
+  pull(Species) %>% 
+  table()
+
+```
+
+
+### Excercise 4
+
+Let's remove all the unnecessary information that is contained inside the `Species` vector
+and create a new data set called penguins_clean
+
+
+```{r clean-species,  exercise=TRUE}
+
+```
+
+```{r clean-species-hint}
+
+penguins_clean <- 
+  penguins_raw %>% 
+  mutate(
+    Species = str_remove_all(Species, "Penguin")
+  ) %>% 
+  mutate(
+    Species = str_remove_all(Species,  "\\(.+")
+   ) 
+
+```
+
+### Excercise 5
+
+Your PI just realized that he does not like that the individual ID contains letters with 
+that are not related to penguins. 
+Modify the  letters of the code and replace it with a P in the data set you just created 
+(`penguins_clean`)
+
+```{r clean-id,  exercise=TRUE}
+
+```
+
+```{r clean-id-hint}
+# penguins_clean <- 
+#   penguins_raw %>% 
+#   mutate(
+#   `Individual ID` = str_replace_all( 
+```
+
+```{r clean-id-solution}
+ penguins_clean <- 
+  penguins_clean %>% 
+  mutate(
+  `Individual ID` = str_replace_all(
+    `Individual ID`, 
+    c("N" = "P", "A" = "P"))
+  )
+```
+
+
+### Excercise 6
+
+The vector named `Stage` has a comma separating the information. Explore the vector and separate 
+it by the comma. The remaining information should not be eliminated, it should be stored in a new vector named `egg_stage`. To check your code select only the two variables of interest. 
+
+```{r split, exercise=TRUE}
+
+```
+
+
+## Regular expressions
+
+### Quiz
+
+Some questions to verify that you understand the purposes of regular expressions
+
+```{r quiz}
+quiz(
+  question("Which of the following symbols helps you escape in order to match a (?",
+    answer("\\\\(", correct = TRUE),
+    answer("\\//("),
+    answer("("),
+    answer("\\*(\\*")
+  ),
+  question("Which of the following symbols will match all the characters in a vector?",
+    answer("D", correct = TRUE),
+    answer("[az]"),
+    answer("[AZ]"),
+    answer("[A-Z]", correct = TRUE)
+  )
+)
+
+```
+

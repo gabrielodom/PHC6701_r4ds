@@ -1,0 +1,74 @@
+---
+title: "Lesson 6 Supplement: Missing Values"
+author: "Gabriel Odom and Data Carpentry Collaborators"
+date: "9/11/2019"
+output:
+  word_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
+```
+
+## Missing Data Atomic Vectors
+Missing values in R are represented by `NA`: not `-999`, `?`, `" "`, `"."`, or even `NaN`. When you import any data into R, pay attention to the missing value codes from other data analysis software. R treats missing values (the `NA`s) as a statement saying "I don't know". Also, understand that missing values are "contagious" in R. Here are some examples:
+```{r}
+NA < 3    # Is something I don't know less than 3? I don't know.
+NA * 2    # What is "I don't know" multiplied by 2? I don't know.
+NA & TRUE # Are these both TRUE? I don't know.
+NA | TRUE # Are either of these TRUE? Yes, one of them is TRUE.
+NA == NA  # Is something I don't know equal to something else I don't know? I don't know.
+is.na(NA) # Is this something we don't know? Yes.
+```
+
+
+### Review: Atomic Vector Types
+Because there are multiple types of atomic data, there are *technically* multiple types of `NA`. Recall the atomic data types:
+
+1. `logical`: This is the most basic type of information that can be stored in `R`. A vector with elements of class `logical` is a vector of only `TRUE` or `FALSE` values.
+2. `integer`: This is the second-most basic type of information. An `integer` vector is a vector of positive or negative counting numbers (and 0).
+3. `numeric`: This is the class for the Real numbers in `R`. Any object of class `integer` is necessarily also an object of class `numeric`, but the reverse is not true.
+4. `character`: This is the most complex class of atomic information. This class ensures that the information you type into `R` stays marked with the keystrokes you typed to enter it. Therefore, `"10"` is not recorded as the integer 10, or the real number 10.000000..., but rather the combined keystrokes of the "1" and "0" keys on your keyboard (to be very technical, "1" and "0" are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).
+
+### Type-Specific Missing Values
+Because we have four major atomic types, we have four ways that data from atomic vectors could be missing. They all start with `NA`.
+
+1. `NA`: This is the missing value marker for a **logical** vector.
+2. `NA_integer_`: This is the missing value marker for an **integer** vector.
+3. `NA_real_`: This is the missing value marker for a **double** vector. Remember that **numeric** vectors have two types: `integer` or `double`. This missing value breaks with the naming convention, but I don't know why.
+4. `NA_character_`: This is the missing value marker for a **character** vector.
+
+> Exercise: Confirm with both the `typeof()` and `class()` functions that these missing values have the types and classes that they should.
+
+### Arithmetically-Induced "Missing" Values
+There are some times that the results of a function are mathematically "missing" (I am putting this word in quotes because it's not true; the values aren't missing, people just think they are). For instance, from algebra we remember that anything divided by 0 does not exist. It's not that this value is "missing", it's that this value cannot exist by definition.
+
+Here is how R handles special arthimetically-induced "missingness":
+```{r, warning=FALSE}
+log(-1)
+
+1 / (0 ^ 2)
+
+-1 / (0 ^ 2)
+```
+
+*Note: most computer languages differ in how they handle the quantity `1 / 0`. R, Mathematica, and FORTRAN treat it as `Inf`; C++ treats it as a "floating point exception"; Python has a special class of results to handle these cases called a `ZeroDivisionError`; SAS issues a warning and replaces the value with the missing value symbol, `.`. Overall, you shouldn't be dividing by 0 very often, but just be aware that these exceptions in computer arithmetic can trip you up.
+
+
+## Non-Atomic Vector Types
+Because non-atomic vectors are defined by what behaviour they *don't* show, it's nearly impossible to list all of the types on non-atomic vectors. It would be like trying to define the idea of "cold" without having any idea of what "warm" or "hot" means. Non-atomic vectors are what they are simply because they are **not atomic**.
+
+Because of this, we use the `NULL` symbol to denote a missing non-atomic value. Recall the attributes of an atomic vector:
+```{r}
+# With Attributes
+x1 <- c(height = 73)
+attributes(x1)
+
+# Without Attributes
+x2 <- 73
+attributes(x2)
+```
+
+What is the difference between these two? Recall that attributes are stored as a **list**, making them non-atomic. Therefore, when attributes are missing or empty, R treats them as `NULL`.
