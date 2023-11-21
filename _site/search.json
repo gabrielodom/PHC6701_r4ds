@@ -14,6 +14,69 @@
     "text": "1 + 1\n\n[1] 2"
   },
   {
+    "objectID": "lessons/lesson02_introductionToR.html",
+    "href": "lessons/lesson02_introductionToR.html",
+    "title": "Lesson 2: Introduction to R",
+    "section": "",
+    "text": "Data science is the intersection of statistics, code, and domain knowledge.\n\n\n\nData science has a few major components:\n\nData Preparation and Exploration\nData Representation and Transformation\nComputing with Data\nModelling Data\nVisualizing and Presenting Data\nScience / Philosophy about Data Science\n\nReproducible research is pre-producible: research results that have been created with code can be re-created at will.\n\"Hello, world!\""
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#characters",
+    "href": "lessons/lesson02_introductionToR.html#characters",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Characters",
+    "text": "Characters\nYour first code in R last class was to instruct R to tell the world hello. R uses \" (double quotes) and ' (single quotes) to mark textual information.\n\n\n\n\n\n\nExercise\n\n\n\nInstruct R to greet your neighbour, but using single quotes instead of double quotes. What changed?\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can use the “up arrow” key to recall the last command you typed."
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#scalar-arithmetic",
+    "href": "lessons/lesson02_introductionToR.html#scalar-arithmetic",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Scalar Arithmetic",
+    "text": "Scalar Arithmetic\nR can do lots of powerful things, but it can also act as a very simple calculator. To add two numbers, after the > prompt, type\n\n> 867 + 5309\n\nIf you would like to chain multiple operations together, you can use multiple lines. The catch: you have to end all but your last line with an operator.\n\n> 24 *\n+   7\n\n\n\n\n\n\n\nExercise\n\n\n\nType your age, then the plus sign (+), then hit Enter. What happens to the prompt? Can you type other commands, like a \"Hello, world!\"? What do you think you should do to get the original prompt back?\n\n\nNote that from here on out, I will be assuming that you will type code at the proper > prompt, so I won’t include that anymore.\nWhy “scalar” arithmetic? Did you notice the “[1]” next to your answers? In mathematics, a scalar is a quantity represented in one dimension, or—as most commonly refer to them—numbers. We will return to this concept, and why it is important in R, shortly."
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#logic",
+    "href": "lessons/lesson02_introductionToR.html#logic",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Logic",
+    "text": "Logic\nWe can use R’s logic system to compare values. A simple comparison is, “is 5 less than 3”? In R, this is\n\n5 < 3\n\n[1] FALSE\n\n\nThis comparison returns a logical indicator, FALSE. Notice that this value is not surrounded by quotes, and it’s also not a “number”. TRUE and FALSE are special symbols in R.\nThe following symbols are useful in logical comparisons:\n\n\n\nSymbol\nMeaning\nExample\n\n\n\n\n>\ngreater than\n5 > 3\n\n\n<\nless than\n5 < 3\n\n\n>=\ngreater than or equal to\n5 >= 3\n\n\n<=\nless than or equal to\n5 <= 3\n\n\n==\nequal to\n5 == 3\n\n\n!=\nnot equal to\n5 != 3"
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#the-code-comment",
+    "href": "lessons/lesson02_introductionToR.html#the-code-comment",
+    "title": "Lesson 2: Introduction to R",
+    "section": "The Code Comment",
+    "text": "The Code Comment\nMany times, we want to include notes with our code, to remind ourselves why we did what we did. In these cases, we don’t want R to try to evaluate these notes, so we use a special character to mark our notes as “code comments”.\n\n2 + 4 + 6 + 8\n\n[1] 20\n\n# Who do you appreciate?\n\n\n\n\n\n\n\nExercises\n\n\n\n\nIs the character string “florida” equal to the character string “Florida”?\nInput TRUE | FALSE. What does this evaluate to? What about FALSE | TRUE? What do you think the “|” symbol represents?\nWhat simple comparison symbol should replace ??? in TRUE ??? FALSE to make R return FALSE?"
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#what-is-an-object",
+    "href": "lessons/lesson02_introductionToR.html#what-is-an-object",
+    "title": "Lesson 2: Introduction to R",
+    "section": "What is an Object?",
+    "text": "What is an Object?\nAn object is like a basket or container to hold stuff. Let’s make our very first object. We are going to create an object named x, and store the number 2 in it:\n\nx <- 2\n\nNow, we can recall this value any time we evaluate x.\n\nx\n\n[1] 2\n\n\nNow look at the “Environment” pane on the top right. You should see this:\n\nWhat happened? Consider this analogy: you have a meal container, you put the number 2 in it, and you label the container as x.\n\nSo far, you have used “containers” without labelling them. When you executed 24 * 7, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate 24 * 7 from scratch.\nWe can perform calculations with objects just like we could with anything contained in that object. For instance, if you wanted 10 to the power of 2, we see that the following are equivalent:\n\n10 ^ 2\n\n[1] 100\n\n10 ^ x\n\n[1] 100\n\n\nJust like any real lunch container, we can always empty out old food and put new food in it. To do this, we simply assign some new value to x:\n\nx <- 3\n\n\n\n\n\n\n\nTip\n\n\n\nYou can use the keyboard shortcut Alt + - to insert the <- symbol with spaces around it. Recall that to use a keyboard shortcut, the “+” symbol means “press these keys at the same time”.\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate an object named myState that holds your current state of residence (e.g., “Florida”). Use the logical check for equality to show that the myState object and the object “florida” are not equal.\nCreate a new object y which is x + 3. Examine y. Now assign x to be “FL”. What happens to y? Why? What does this tell you about x?"
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#vectors",
+    "href": "lessons/lesson02_introductionToR.html#vectors",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Vectors",
+    "text": "Vectors\nRecall that our examples had scalar values? R, however, is designed to work with ordered sets of values, known as a vector. There are a few simple ways to make vectors in R, depending on what you want these vectors to contain. Let’s first make a vector of the digits on a keypad.\n\nkeypad <- 0:9\n\nWe see that the syntax a:b creates a sequence of integers from a to b. We can do everything with a vector of numbers that we could do with a scalar value:\n\nkeypad + 3\n\n [1]  3  4  5  6  7  8  9 10 11 12\n\nkeypad * 2\n\n [1]  0  2  4  6  8 10 12 14 16 18\n\n10 - keypad\n\n [1] 10  9  8  7  6  5  4  3  2  1\n\n2 ^ keypad\n\n [1]   1   2   4   8  16  32  64 128 256 512\n\nkeypad < 5\n\n [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a sequence from 70 to 100. How does the display of this vector differ from the display of the object keypad?\nCreate a vector called revKeypad with the integers from 9 to 0.\nAll of the values we combined with the keypad vector were scalars. Multiply two vectors together: revKeypad * keypad. What happened? Is this what you expected?\nCreate a new vector of integers from -1 to 1. Multiply this new vector by keypad. What happened? Is this what you expected?"
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#the-concatenate-function",
+    "href": "lessons/lesson02_introductionToR.html#the-concatenate-function",
+    "title": "Lesson 2: Introduction to R",
+    "section": "The “Concatenate” Function",
+    "text": "The “Concatenate” Function\nOne of the most important functions you will learn is the function to create simple vectors:\n\nc(1, 3, 6, 12)\n\n[1]  1  3  6 12\n\n\nThe c() function will put almost anything you want into a single vector, provided that they are all similar things. For instance\n\nme <- c(\"Prof.\", \"Gabriel\", \"J.\", \"Odom\", \"PhD\", \"ThD\")\nme\n\n[1] \"Prof.\"   \"Gabriel\" \"J.\"      \"Odom\"    \"PhD\"     \"ThD\""
+  },
+  {
+    "objectID": "lessons/lesson02_introductionToR.html#function-components",
+    "href": "lessons/lesson02_introductionToR.html#function-components",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Function Components",
+    "text": "Function Components\nFunctions have three main components: its name, its arguments’ names, and its arguments’ values. For instance, the function to take an arithmetic mean in R is mean(). When you type mean in the Console pane, RStudio displays a hint on how to use the function. Let’s use this hint to find the expected roll on a six-sided die:\n\nmean(x = 1:6)\n\n[1] 3.5\n\n\nWe unpack this as follows:\n\nThe function is named “mean”.\nThe mean function has an argument named “x”.\nWe supply the vector of integers from 1 to 6 as the value to the argument “x”.\n\nWe can even put functions inside of other functions:\n\nlog(c(10, 100, 1000))\n\n[1] 2.302585 4.605170 6.907755\n\n\nNotice that the name of the argument to the mean() function is “x”. Most functions have named arguments, but the c() function does not. It allows you to choose your own names.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a vector of your first name, last name, and your degrees with the c() function.\nCreate the same vector as above, but name each of the components as you create the vector. Hint: think back to how we referenced the name of the argument for the mean() function."
+  },
+  {
     "objectID": "lessons/lesson01_GreaterDataScience.html",
     "href": "lessons/lesson01_GreaterDataScience.html",
     "title": "Lesson 01: Overview of Data Science",
@@ -109,6 +172,6 @@
     "href": "lessons/lesson01_GreaterDataScience.html#check-the-install",
     "title": "Lesson 01: Overview of Data Science",
     "section": "Check the Install",
-    "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the &gt; symbol). Type (you don’t have to type the &gt; symbol; it’s just there for reference)\n\n&gt; \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
+    "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the > symbol). Type (you don’t have to type the > symbol; it’s just there for reference)\n\n> \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
   }
 ]
