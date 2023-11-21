@@ -11,6 +11,7 @@ website:
         text: Home
       - href: lessons/lesson01_GreaterDataScience.qmd
       - href: lessons/lesson02_introductionToR.qmd
+      - href: lessons/lesson02_suppl_scripts.qmd
       - about.qmd
 
 format:

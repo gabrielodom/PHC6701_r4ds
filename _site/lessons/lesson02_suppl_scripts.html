@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-08-21">
 
-<title>PHC 6701: R for Data Science - PHC 6701: R for Data Science // Advanced R</title>
+<title>PHC 6701: R for Data Science - Lesson 2 Supplement: R Scripts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,22 +20,22 @@ ul.task-list{list-style: none;}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -55,7 +57,7 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -64,7 +66,7 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">PHC 6701: R for Data Science // Advanced R</h1>
+      <h1 class="quarto-secondary-nav-title">Lesson 2 Supplement: R Scripts</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -77,7 +79,7 @@ ul.task-list{list-style: none;}
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">PHC 6701: R for Data Science</a> 
+      <a href="../">PHC 6701: R for Data Science</a> 
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -89,27 +91,27 @@ ul.task-list{list-style: none;}
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Home</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lessons/lesson01_GreaterDataScience.html" class="sidebar-item-text sidebar-link">Lesson 01: Overview of Data Science</a>
+  <a href="../lessons/lesson01_GreaterDataScience.html" class="sidebar-item-text sidebar-link">Lesson 01: Overview of Data Science</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lessons/lesson02_introductionToR.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  <a href="../lessons/lesson02_introductionToR.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lessons/lesson02_suppl_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  <a href="../lessons/lesson02_suppl_scripts.html" class="sidebar-item-text sidebar-link active">Lesson 2 Supplement: R Scripts</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link">About</a>
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
   </div>
 </li>
     </ul>
@@ -117,30 +119,81 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#writing-scripts-to-store-your-work" id="toc-writing-scripts-to-store-your-work" class="nav-link active" data-scroll-target="#writing-scripts-to-store-your-work">Writing Scripts to Store Your Work</a>
+  <ul class="collapse">
+  <li><a href="#my-first-r-script" id="toc-my-first-r-script" class="nav-link" data-scroll-target="#my-first-r-script">My First R Script</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">PHC 6701: R for Data Science // Advanced R</h1>
+<h1 class="title d-none d-lg-block">Lesson 2 Supplement: R Scripts</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 21, 2019</p>
+    </div>
+  </div>
     
   </div>
   
 
 </header>
 
-<p>These are the written lecture materials for the class PHC 6701 (commonly known as “Advanced R”) at Florida International University’s Stempel College of Public Health.</p>
+<section id="writing-scripts-to-store-your-work" class="level1">
+<h1>Writing Scripts to Store Your Work</h1>
+<p>So far, if you needed to repeat all of the work you have done today, you would be in serious trouble! If we can repeat what we did, then we certainly can’t call our work <em>reproducible</em>. One simple thing we can do, is to write our code in a <em>script</em>.</p>
+<section id="my-first-r-script" class="level2">
+<h2 class="anchored" data-anchor-id="my-first-r-script">My First R Script</h2>
+<p>To create a new script, go to “File” &gt; “New File” &gt; “R Script”. The keyboard shortcut for this is <code>CTRL</code> + <code>Shift</code> + <code>N</code> on Windows, and <code>CMD</code> + <code>Shift</code> + <code>N</code> on Mac. You should now have a window that looks like this:</p>
+<p><img src="../_figures/intro_first_script_empty.png" class="img-fluid"></p>
+<p>At the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of <strong>code comment</strong>, and should be marked as such.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Create a new script to run some of the commands you learned in Lesson 2. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.</li>
+<li>Add some of the code from that lesson (a few operations).</li>
+<li>Add comments explaining to yourself what these operations are doing.</li>
+<li>Save your script with a good name, and—if possible–today’s date (in a computer-sortable format). Notice that your file name font colour changed from red back to black. Why? <strong>Mac Users:</strong> make sure you add <code>.R</code> to the end of your file name.</li>
+</ol>
+</div>
+</div>
+<p>This is what mine looks like:</p>
+<p><img src="../_figures/intro_first_script.png" class="img-fluid"></p>
+<p>As you learn more about R, your comments should quickly become more about <em>why</em> you did what you did, rather than <em>what</em> you did.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
