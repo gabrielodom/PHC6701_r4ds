@@ -285,5 +285,131 @@
     "title": "Lesson 01: Overview of Data Science",
     "section": "Check the Install",
     "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the > symbol). Type (you don’t have to type the > symbol; it’s just there for reference)\n\n> \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html",
+    "href": "lessons/lesson04_ggplot_examples.html",
+    "title": "ggplot Examples",
+    "section": "",
+    "text": "This chapter is a supplemental chapter to Lesson 04 containing many more ggplot2 examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven’t seen yet. If you need some of these packages, make sure to “uncomment” the install.packages() call for the packages you need.\n\n# install.packages(\"Stat2Data\")\n# install.packages(\"RColorBrewer\")\n# install.packages(\"jtools\")\n# install.packages(\"viridis\")\n# install.packages(\"ggthemes\")\n# install.packages(\"xkcd\")\n\nlibrary(Stat2Data)\nlibrary(RColorBrewer)\nlibrary(jtools)\nlibrary(viridis)\nlibrary(xkcd)\nlibrary(ggthemes)\nlibrary(tidyverse)\nset.seed(012922)"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#exercise",
+    "href": "lessons/lesson04_ggplot_examples.html#exercise",
+    "title": "ggplot Examples",
+    "section": "Exercise",
+    "text": "Exercise\nDiscuss this plot with your neighbours. What do you like about this plot? What is it missing?"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#title-and-related",
+    "href": "lessons/lesson04_ggplot_examples.html#title-and-related",
+    "title": "ggplot Examples",
+    "section": "Title (and related)",
+    "text": "Title (and related)\nGive your plots informative titles. An informative title helps tell the story of the plot. Here are two examples:\n\nBAD: Relationship between HS GPA and college GPA\n\n\nGOOD: High school GPA is positively related to college GPA\n\nHere’s a title with more information (to show how you can add additional details).\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\", \n    subtitle = \"Among students at X University\", \n    caption = \"Data from FirstYearGPA in the Stat2Data package\", \n    tag = \"Figure 1\",\n    alt = \"Scatter plot showing the positive relationship between HS GPA and\n    college GPA, colored by student gender\",\n    x = \"High School GPA\",\n    y = \"College GPA\"\n  ) +\n  geom_point() \n\n\n\n\nThat’s a bit much, so let’s just stick with the title going forward.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\"\n  ) +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-labels",
+    "href": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-labels",
+    "title": "ggplot Examples",
+    "section": "X and Y axis labels",
+    "text": "X and Y axis labels\nLet’s change the X and Y axes to be more informative. These aren’t the worst named variables, but you do need to infer that GPA is probably for college. Unless you go look at the information about the dataset – but we want our plot to speak for itself.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    x = \"High school GPA\", \n    y = \"First year college GPA\"\n  ) +\n  geom_point()\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(name = \"High school GPA\") +\n  scale_y_continuous(name = \"First year college GPA\") +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-limits",
+    "href": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-limits",
+    "title": "ggplot Examples",
+    "section": "X and Y axis limits",
+    "text": "X and Y axis limits\nSomething else you might want to do sometimes to provide context for your plot and data is adjust the limits of the axes beyond the values of the data. In this case, it would make it easier to see if the values run the full (potential) range of the variable.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  xlim(0, 4) + \n  ylim(0, 4) +\n  geom_point()\n\nWarning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(limits = c(2, 4)) +\n  scale_y_continuous(limits = c(2, 4)) +\n  geom_point()\n\nWarning: Removed 3 rows containing missing values (`geom_point()`).\n\n\n\n\n\nEither way, you can see that the values don’t run the full range of potential values. The X axis is probably because they collected data from college students and it’s harder to get into college if you have a very low GPA."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#legend-title-and-labels",
+    "href": "lessons/lesson04_ggplot_examples.html#legend-title-and-labels",
+    "title": "ggplot Examples",
+    "section": "Legend title and labels",
+    "text": "Legend title and labels\nThe way to change the legend title is not at all obvious. And there are multiple ways to do it.\nThe easiest thing to do is use the labs() function, but there’s not an argument that explicitly has to do with the legend. The argument ties back to how you mapped the variable in the original plot. You can also only change the title of the legend with this function, not the labels.\nIn base_plot_gg, we used color = as_factor(Male) to map color onto the variable Male. So we’ll use color here.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(color = \"Gender\") +\n  geom_point()\n\n\n\n\nA more general way is to use the scale_color_discrete() function, which allows you to change the title and labels. There are several of these functions, all of the same form:\n\nscale_color_discrete()\nscale_fill_discrete()\nscale_linetype_discrete()\nscale_shape_discrete()\nscale_size_discrete()\nscale_alpha_discrete()\n\nUse the appropriate one for your variable type: if you mapped the variable to the fill attribute then use fill; if you mapped the variable to the shape attribute then use shape; etc.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()\n\n\n\n\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#color-palettes",
+    "href": "lessons/lesson04_ggplot_examples.html#color-palettes",
+    "title": "ggplot Examples",
+    "section": "Color palettes",
+    "text": "Color palettes\n\nset theme for whole document\nAdd titles\nChanging axis, legend, and other labels\nText, size, font, color, etc.\nModifying background colors\nRotating objects\nOrdering variable options (alphabetical, increasing, etc.)"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#changing-the-color-palette",
+    "href": "lessons/lesson04_ggplot_examples.html#changing-the-color-palette",
+    "title": "ggplot Examples",
+    "section": "Changing the color palette",
+    "text": "Changing the color palette\nThe default colors are fine. They’re easy to distinguish (for me), but they might not work well for someone who is color blind."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#color-blind-friendly-color-palettes",
+    "href": "lessons/lesson04_ggplot_examples.html#color-blind-friendly-color-palettes",
+    "title": "ggplot Examples",
+    "section": "Color blind friendly color palettes",
+    "text": "Color blind friendly color palettes\nviridis is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html\n\nbase_plot_gg + \n  scale_color_viridis(discrete = TRUE)\n\n\n\n\nI find this a little hard to see. So maybe not the best choice.\nNotice the warning:\n## Scale for 'colour' is already present. Adding another scale for 'colour',\n## which will replace the existing scale.\nThis means that scale_color_viridis() overwrites scale_color_discrete() that we used above to label the legend. Notice that the legend title and labels are gone. We can add those arguments back into the viridis function and get them back.\n\nbase_plot_gg + \n  scale_color_viridis(\n    discrete = TRUE,\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#just-pick-some-colors",
+    "href": "lessons/lesson04_ggplot_examples.html#just-pick-some-colors",
+    "title": "ggplot Examples",
+    "section": "Just pick some colors",
+    "text": "Just pick some colors\nYou can also just choose some colors from the default ones available in R. Here, I’m using some hex color values, but you can also use RBG or CMYK or default R ones (i.e, “blue” or “red”).\nAgain, I’m adding the legend arguments back to this function.\n\nbase_plot_gg +\n  scale_color_manual(\n    values = c(\"#999999\", \"#E69F00\", \"#56B4E9\"), \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nFor a plot that uses the fill() option (like a bar plot), the command is fill_color_manual()."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#some-other-color-palettes",
+    "href": "lessons/lesson04_ggplot_examples.html#some-other-color-palettes",
+    "title": "ggplot Examples",
+    "section": "Some other color palettes",
+    "text": "Some other color palettes\nThe RColorBrewer package has several pre-built color palettes that you can use. You can view all the RColorBrewer palettes using\n\ndisplay.brewer.all()\n\n\n\n\nHere are just the palettes that work for color blind people:\n\ndisplay.brewer.all(colorblindFriendly = TRUE)\n\n\n\n\nThis is a qualitative palette, meaning that it works for nominal type variables. Again, adding the legend arguments back.\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Set2\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nA diverging palette that goes from red to yellow to blue:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"RdYlBu\", \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nThis is a sequential palette of blues:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Blues\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nVery hard to see the lighter dots on the grey background."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#color-based-on-continuous-variable",
+    "href": "lessons/lesson04_ggplot_examples.html#color-based-on-continuous-variable",
+    "title": "ggplot Examples",
+    "section": "Color based on continuous variable",
+    "text": "Color based on continuous variable\nIf you wanted to color based on a continuous variable, you would get many more colors than just the two here. Imagine that, instead of gender, we wanted to color the points based on how many social sciences units they enrolled in (SS in the dataset).\n\nbase_plot_cont_gg &lt;- \n  ggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = SS\n  ) +\n  labs(\n    title = \"First year college GPA versus high school GPA\", \n    x = \"High school GPA\", \n    y = \"First year college GPA\", \n    color = \"Social studies units\"\n  ) +\n  geom_point()\n\nbase_plot_cont_gg\n\n\n\n\nAbove is the default color scheme from ggplot. Let’s create a gradient for the SS variable, starting at blue and increasing to red. The function scale_color_gradient() lets you specify just the ends and it fills in between.\n\nbase_plot_cont_gg +\n    scale_color_gradient(low = \"blue\", high = \"red\")\n\n\n\n\nNotice that the continuous variable doesn’t need any edits to the legend labels, so the we don’t have to repeat those options like we did for the plot with the gender variable."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#color-fill-commands",
+    "href": "lessons/lesson04_ggplot_examples.html#color-fill-commands",
+    "title": "ggplot Examples",
+    "section": "Color fill commands",
+    "text": "Color fill commands\nWhen you’re using plots that fill rather than create lines or points, the commands are similar but include fill in them. Here is an unedited bar plot that uses one of the RColorBrewer color palettes.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Gender\", \n    labels = c(\"Female\", \"Male\")\n  ) +\n  labs(y = \"Frequency\") +\n  geom_bar(position = \"dodge\")\n\n\n\n\nNotice that I added labels to the (discrete) X axis and (continuous) Y axis too."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#adding-annotations",
+    "href": "lessons/lesson04_ggplot_examples.html#adding-annotations",
+    "title": "ggplot Examples",
+    "section": "Adding annotations",
+    "text": "Adding annotations\nLet’s return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students, those with GPA &gt; 3.8.\n\nbase_plot_gg +\n  annotate(\n    geom = \"rect\", \n    xmin = 3.8, \n    xmax = 4.01, \n    ymin = 2.0, \n    ymax = 4.2, \n    fill = \"red\", \n    alpha = 0.2\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.4, \n    y = 4.1, \n    label = \"High school honor roll students \\n (GPA &gt; 3.8)\"\n  )\n\n\n\n\nThis is pretty basic and built in as an annotation.\nWhat about a line indicating academic probation?\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.5, \n    yend = 2.5, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.95, \n    y = 4.5, \n    label = \"Students below the line are on probation\"\n  )\n\n\n\n\nWe can add a line indicating equal GPAs in high school and college and add text explaining why that line is important.\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.25, \n    yend = 4.25, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.5, \n    y = 2, \n    label = \"Students below the line did better in high school\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.9, \n    y = 4.0, \n    label = \"Students above the line did better in college\"\n  )\n\n\n\n\nAnother use of the line segment could be to indicate which groups are significantly different from one another in a bar plot.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = Male, \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(palette = \"Set2\") +\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = -0.25, \n    xend = 0.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 0, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nThis doesn’t look as good as it could, so let’s clean up the axes and labels.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = c(\"0\" = \"Female\", \"1\" = \"Male\")\n  ) +\n  labs(y = \"Frequency\")+\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = 0.75, \n    xend = 1.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 1, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nNotice a couple of things here:\n\nI had to specify that the gender variable was categorical with as_factor(Male). If I didn’t, the X axis labels didn’t show up at all (axis label or category labels).\nIn scale_x_discrete(), I specified which category the labels go with: \"0\" = \"Female\", \"1\" = \"Male\". This is not actually required but may be helpful.\nNotice the location of the line and star. I had to adjust their horizontal locations because factors in R do unexpected things: ggplot now places the bars at x = 1 and 2 instead of 0 and 1 because R is interpreting these factors as the numbers 1 and 2. We will discuss this more when we talk about atomic type coercion later this semester."
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#built-in-themes",
+    "href": "lessons/lesson04_ggplot_examples.html#built-in-themes",
+    "title": "ggplot Examples",
+    "section": "Built-in themes",
+    "text": "Built-in themes\nBlack and white theme:\n\nbase_plot_gg +\n  theme_bw()\n\n\n\n\nMinimal theme:\n\nbase_plot_gg + \n  theme_minimal()\n\n\n\n\nClassic theme:\n\nbase_plot_gg + \n  theme_classic()"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#package-themes",
+    "href": "lessons/lesson04_ggplot_examples.html#package-themes",
+    "title": "ggplot Examples",
+    "section": "Package themes",
+    "text": "Package themes\nThere is an APA theme in the jtools package, which was installed and loaded above. As of today, it is APA Publication Manual Version 6 compliant.\n\nbase_plot_gg +\n  theme_apa()\n\n\n\n\nWhat if I want my plot to look like it could be in the Wall Street Journal? (from the ggthemes package)\n\nbase_plot_gg + \n  theme_wsj()\n\n\n\n\nWell, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.\nWhat about the Economist? (also ggthemes)\n\nbase_plot_gg +\n  theme_economist()"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#editing-your-own-theme",
+    "href": "lessons/lesson04_ggplot_examples.html#editing-your-own-theme",
+    "title": "ggplot Examples",
+    "section": "Editing your own theme",
+    "text": "Editing your own theme\nYou can also change individual parts of the plot yourself. Maybe you just want all the text to be a little larger in a theme. This is good for presentations—the fonts are always a little too small to read well.\n\nbase_plot_gg + \n  theme_bw(base_size = 16)\n\n\n\n\nHow about changing the background of the plot (and the gridlines) to black to make it really striking?\n\nbase_plot_gg + \n  theme(\n    panel.background = element_rect(fill = \"black\"), \n    panel.grid = element_line(color = \"black\")\n  )\n\n\n\n\nAll of the objects you can modify are listed here: https://ggplot2.tidyverse.org/reference/theme.html.\n\n\n\n\n\n\nExercises\n\n\n\nExercises\n\nChange base_plot_gg to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.\nDiscuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?"
+  },
+  {
+    "objectID": "lessons/lesson04_ggplot_examples.html#exercises",
+    "href": "lessons/lesson04_ggplot_examples.html#exercises",
+    "title": "ggplot Examples",
+    "section": "Exercises",
+    "text": "Exercises\n\nChange base_plot_gg to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.\nDiscuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?"
   }
 ]

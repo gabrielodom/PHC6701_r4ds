@@ -14,6 +14,7 @@ website:
       - href: lessons/lesson02_suppl_scripts.qmd
       - href: lessons/lesson03_introduction_to_Quarto.qmd
       - href: lessons/lesson04_ggplot.qmd
+      - href: lessons/lesson04_ggplot_examples.qmd
       - about.qmd
 
 format:
