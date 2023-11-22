@@ -14,74 +14,130 @@
     "text": "1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "lessons/lesson02_introductionToR.html",
-    "href": "lessons/lesson02_introductionToR.html",
-    "title": "Lesson 2: Introduction to R",
-    "section": "",
-    "text": "Data science is the intersection of statistics, code, and domain knowledge.\n\n\n\nData science has a few major components:\n\nData Preparation and Exploration\nData Representation and Transformation\nComputing with Data\nModelling Data\nVisualizing and Presenting Data\nScience / Philosophy about Data Science\n\nReproducible research is pre-producible: research results that have been created with code can be re-created at will.\n\"Hello, world!\""
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#characters",
-    "href": "lessons/lesson02_introductionToR.html#characters",
-    "title": "Lesson 2: Introduction to R",
-    "section": "Characters",
-    "text": "Characters\nYour first code in R last class was to instruct R to tell the world hello. R uses \" (double quotes) and ' (single quotes) to mark textual information.\n\n\n\n\n\n\nExercise\n\n\n\nInstruct R to greet your neighbour, but using single quotes instead of double quotes. What changed?\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can use the “up arrow” key to recall the last command you typed."
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#scalar-arithmetic",
-    "href": "lessons/lesson02_introductionToR.html#scalar-arithmetic",
-    "title": "Lesson 2: Introduction to R",
-    "section": "Scalar Arithmetic",
-    "text": "Scalar Arithmetic\nR can do lots of powerful things, but it can also act as a very simple calculator. To add two numbers, after the > prompt, type\n\n> 867 + 5309\n\nIf you would like to chain multiple operations together, you can use multiple lines. The catch: you have to end all but your last line with an operator.\n\n> 24 *\n+   7\n\n\n\n\n\n\n\nExercise\n\n\n\nType your age, then the plus sign (+), then hit Enter. What happens to the prompt? Can you type other commands, like a \"Hello, world!\"? What do you think you should do to get the original prompt back?\n\n\nNote that from here on out, I will be assuming that you will type code at the proper > prompt, so I won’t include that anymore.\nWhy “scalar” arithmetic? Did you notice the “[1]” next to your answers? In mathematics, a scalar is a quantity represented in one dimension, or—as most commonly refer to them—numbers. We will return to this concept, and why it is important in R, shortly."
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#logic",
-    "href": "lessons/lesson02_introductionToR.html#logic",
-    "title": "Lesson 2: Introduction to R",
-    "section": "Logic",
-    "text": "Logic\nWe can use R’s logic system to compare values. A simple comparison is, “is 5 less than 3”? In R, this is\n\n5 < 3\n\n[1] FALSE\n\n\nThis comparison returns a logical indicator, FALSE. Notice that this value is not surrounded by quotes, and it’s also not a “number”. TRUE and FALSE are special symbols in R.\nThe following symbols are useful in logical comparisons:\n\n\n\nSymbol\nMeaning\nExample\n\n\n\n\n>\ngreater than\n5 > 3\n\n\n<\nless than\n5 < 3\n\n\n>=\ngreater than or equal to\n5 >= 3\n\n\n<=\nless than or equal to\n5 <= 3\n\n\n==\nequal to\n5 == 3\n\n\n!=\nnot equal to\n5 != 3"
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#the-code-comment",
-    "href": "lessons/lesson02_introductionToR.html#the-code-comment",
-    "title": "Lesson 2: Introduction to R",
-    "section": "The Code Comment",
-    "text": "The Code Comment\nMany times, we want to include notes with our code, to remind ourselves why we did what we did. In these cases, we don’t want R to try to evaluate these notes, so we use a special character to mark our notes as “code comments”.\n\n2 + 4 + 6 + 8\n\n[1] 20\n\n# Who do you appreciate?\n\n\n\n\n\n\n\nExercises\n\n\n\n\nIs the character string “florida” equal to the character string “Florida”?\nInput TRUE | FALSE. What does this evaluate to? What about FALSE | TRUE? What do you think the “|” symbol represents?\nWhat simple comparison symbol should replace ??? in TRUE ??? FALSE to make R return FALSE?"
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#what-is-an-object",
-    "href": "lessons/lesson02_introductionToR.html#what-is-an-object",
-    "title": "Lesson 2: Introduction to R",
-    "section": "What is an Object?",
-    "text": "What is an Object?\nAn object is like a basket or container to hold stuff. Let’s make our very first object. We are going to create an object named x, and store the number 2 in it:\n\nx <- 2\n\nNow, we can recall this value any time we evaluate x.\n\nx\n\n[1] 2\n\n\nNow look at the “Environment” pane on the top right. You should see this:\n\nWhat happened? Consider this analogy: you have a meal container, you put the number 2 in it, and you label the container as x.\n\nSo far, you have used “containers” without labelling them. When you executed 24 * 7, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate 24 * 7 from scratch.\nWe can perform calculations with objects just like we could with anything contained in that object. For instance, if you wanted 10 to the power of 2, we see that the following are equivalent:\n\n10 ^ 2\n\n[1] 100\n\n10 ^ x\n\n[1] 100\n\n\nJust like any real lunch container, we can always empty out old food and put new food in it. To do this, we simply assign some new value to x:\n\nx <- 3\n\n\n\n\n\n\n\nTip\n\n\n\nYou can use the keyboard shortcut Alt + - to insert the <- symbol with spaces around it. Recall that to use a keyboard shortcut, the “+” symbol means “press these keys at the same time”.\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate an object named myState that holds your current state of residence (e.g., “Florida”). Use the logical check for equality to show that the myState object and the object “florida” are not equal.\nCreate a new object y which is x + 3. Examine y. Now assign x to be “FL”. What happens to y? Why? What does this tell you about x?"
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#vectors",
-    "href": "lessons/lesson02_introductionToR.html#vectors",
-    "title": "Lesson 2: Introduction to R",
-    "section": "Vectors",
-    "text": "Vectors\nRecall that our examples had scalar values? R, however, is designed to work with ordered sets of values, known as a vector. There are a few simple ways to make vectors in R, depending on what you want these vectors to contain. Let’s first make a vector of the digits on a keypad.\n\nkeypad <- 0:9\n\nWe see that the syntax a:b creates a sequence of integers from a to b. We can do everything with a vector of numbers that we could do with a scalar value:\n\nkeypad + 3\n\n [1]  3  4  5  6  7  8  9 10 11 12\n\nkeypad * 2\n\n [1]  0  2  4  6  8 10 12 14 16 18\n\n10 - keypad\n\n [1] 10  9  8  7  6  5  4  3  2  1\n\n2 ^ keypad\n\n [1]   1   2   4   8  16  32  64 128 256 512\n\nkeypad < 5\n\n [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a sequence from 70 to 100. How does the display of this vector differ from the display of the object keypad?\nCreate a vector called revKeypad with the integers from 9 to 0.\nAll of the values we combined with the keypad vector were scalars. Multiply two vectors together: revKeypad * keypad. What happened? Is this what you expected?\nCreate a new vector of integers from -1 to 1. Multiply this new vector by keypad. What happened? Is this what you expected?"
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#the-concatenate-function",
-    "href": "lessons/lesson02_introductionToR.html#the-concatenate-function",
-    "title": "Lesson 2: Introduction to R",
-    "section": "The “Concatenate” Function",
-    "text": "The “Concatenate” Function\nOne of the most important functions you will learn is the function to create simple vectors:\n\nc(1, 3, 6, 12)\n\n[1]  1  3  6 12\n\n\nThe c() function will put almost anything you want into a single vector, provided that they are all similar things. For instance\n\nme <- c(\"Prof.\", \"Gabriel\", \"J.\", \"Odom\", \"PhD\", \"ThD\")\nme\n\n[1] \"Prof.\"   \"Gabriel\" \"J.\"      \"Odom\"    \"PhD\"     \"ThD\""
-  },
-  {
-    "objectID": "lessons/lesson02_introductionToR.html#function-components",
-    "href": "lessons/lesson02_introductionToR.html#function-components",
-    "title": "Lesson 2: Introduction to R",
-    "section": "Function Components",
-    "text": "Function Components\nFunctions have three main components: its name, its arguments’ names, and its arguments’ values. For instance, the function to take an arithmetic mean in R is mean(). When you type mean in the Console pane, RStudio displays a hint on how to use the function. Let’s use this hint to find the expected roll on a six-sided die:\n\nmean(x = 1:6)\n\n[1] 3.5\n\n\nWe unpack this as follows:\n\nThe function is named “mean”.\nThe mean function has an argument named “x”.\nWe supply the vector of integers from 1 to 6 as the value to the argument “x”.\n\nWe can even put functions inside of other functions:\n\nlog(c(10, 100, 1000))\n\n[1] 2.302585 4.605170 6.907755\n\n\nNotice that the name of the argument to the mean() function is “x”. Most functions have named arguments, but the c() function does not. It allows you to choose your own names.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a vector of your first name, last name, and your degrees with the c() function.\nCreate the same vector as above, but name each of the components as you create the vector. Hint: think back to how we referenced the name of the argument for the mean() function."
-  },
-  {
     "objectID": "lessons/lesson02_suppl_scripts.html",
     "href": "lessons/lesson02_suppl_scripts.html",
     "title": "Lesson 2 Supplement: R Scripts",
     "section": "",
     "text": "So far, if you needed to repeat all of the work you have done today, you would be in serious trouble! If we can repeat what we did, then we certainly can’t call our work reproducible. One simple thing we can do, is to write our code in a script.\n\n\nTo create a new script, go to “File” > “New File” > “R Script”. The keyboard shortcut for this is CTRL + Shift + N on Windows, and CMD + Shift + N on Mac. You should now have a window that looks like this:\n\nAt the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of code comment, and should be marked as such.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a new script to run some of the commands you learned in Lesson 2. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.\nAdd some of the code from that lesson (a few operations).\nAdd comments explaining to yourself what these operations are doing.\nSave your script with a good name, and—if possible–today’s date (in a computer-sortable format). Notice that your file name font colour changed from red back to black. Why? Mac Users: make sure you add .R to the end of your file name.\n\n\n\nThis is what mine looks like:\n\nAs you learn more about R, your comments should quickly become more about why you did what you did, rather than what you did."
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html",
+    "href": "lessons/lesson02_introduction_to_R.html",
+    "title": "Lesson 2: Introduction to R",
+    "section": "",
+    "text": "Data science is the intersection of statistics, code, and domain knowledge.\n\n\n\nData science has a few major components:\n\nData Preparation and Exploration\nData Representation and Transformation\nComputing with Data\nModelling Data\nVisualizing and Presenting Data\nScience / Philosophy about Data Science\n\nReproducible research is pre-producible: research results that have been created with code can be re-created at will.\n\"Hello, world!\""
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#characters",
+    "href": "lessons/lesson02_introduction_to_R.html#characters",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Characters",
+    "text": "Characters\nYour first code in R last class was to instruct R to tell the world hello. R uses \" (double quotes) and ' (single quotes) to mark textual information.\n\n\n\n\n\n\nExercise\n\n\n\nInstruct R to greet your neighbour, but using single quotes instead of double quotes. What changed?\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can use the “up arrow” key to recall the last command you typed."
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#scalar-arithmetic",
+    "href": "lessons/lesson02_introduction_to_R.html#scalar-arithmetic",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Scalar Arithmetic",
+    "text": "Scalar Arithmetic\nR can do lots of powerful things, but it can also act as a very simple calculator. To add two numbers, after the > prompt, type\n\n> 867 + 5309\n\nIf you would like to chain multiple operations together, you can use multiple lines. The catch: you have to end all but your last line with an operator.\n\n> 24 *\n+   7\n\n\n\n\n\n\n\nExercise\n\n\n\nType your age, then the plus sign (+), then hit Enter. What happens to the prompt? Can you type other commands, like a \"Hello, world!\"? What do you think you should do to get the original prompt back?\n\n\nNote that from here on out, I will be assuming that you will type code at the proper > prompt, so I won’t include that anymore.\nWhy “scalar” arithmetic? Did you notice the “[1]” next to your answers? In mathematics, a scalar is a quantity represented in one dimension, or—as most commonly refer to them—numbers. We will return to this concept, and why it is important in R, shortly."
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#logic",
+    "href": "lessons/lesson02_introduction_to_R.html#logic",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Logic",
+    "text": "Logic\nWe can use R’s logic system to compare values. A simple comparison is, “is 5 less than 3”? In R, this is\n\n5 < 3\n\n[1] FALSE\n\n\nThis comparison returns a logical indicator, FALSE. Notice that this value is not surrounded by quotes, and it’s also not a “number”. TRUE and FALSE are special symbols in R.\nThe following symbols are useful in logical comparisons:\n\n\n\nSymbol\nMeaning\nExample\n\n\n\n\n>\ngreater than\n5 > 3\n\n\n<\nless than\n5 < 3\n\n\n>=\ngreater than or equal to\n5 >= 3\n\n\n<=\nless than or equal to\n5 <= 3\n\n\n==\nequal to\n5 == 3\n\n\n!=\nnot equal to\n5 != 3"
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#the-code-comment",
+    "href": "lessons/lesson02_introduction_to_R.html#the-code-comment",
+    "title": "Lesson 2: Introduction to R",
+    "section": "The Code Comment",
+    "text": "The Code Comment\nMany times, we want to include notes with our code, to remind ourselves why we did what we did. In these cases, we don’t want R to try to evaluate these notes, so we use a special character to mark our notes as “code comments”.\n\n2 + 4 + 6 + 8\n\n[1] 20\n\n# Who do you appreciate?\n\n\n\n\n\n\n\nExercises\n\n\n\n\nIs the character string “florida” equal to the character string “Florida”?\nInput TRUE | FALSE. What does this evaluate to? What about FALSE | TRUE? What do you think the “|” symbol represents?\nWhat simple comparison symbol should replace ??? in TRUE ??? FALSE to make R return FALSE?"
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#what-is-an-object",
+    "href": "lessons/lesson02_introduction_to_R.html#what-is-an-object",
+    "title": "Lesson 2: Introduction to R",
+    "section": "What is an Object?",
+    "text": "What is an Object?\nAn object is like a basket or container to hold stuff. Let’s make our very first object. We are going to create an object named x, and store the number 2 in it:\n\nx <- 2\n\nNow, we can recall this value any time we evaluate x.\n\nx\n\n[1] 2\n\n\nNow look at the “Environment” pane on the top right. You should see this:\n\nWhat happened? Consider this analogy: you have a meal container, you put the number 2 in it, and you label the container as x.\n\nSo far, you have used “containers” without labelling them. When you executed 24 * 7, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate 24 * 7 from scratch.\nWe can perform calculations with objects just like we could with anything contained in that object. For instance, if you wanted 10 to the power of 2, we see that the following are equivalent:\n\n10 ^ 2\n\n[1] 100\n\n10 ^ x\n\n[1] 100\n\n\nJust like any real lunch container, we can always empty out old food and put new food in it. To do this, we simply assign some new value to x:\n\nx <- 3\n\n\n\n\n\n\n\nTip\n\n\n\nYou can use the keyboard shortcut Alt + - to insert the <- symbol with spaces around it. Recall that to use a keyboard shortcut, the “+” symbol means “press these keys at the same time”.\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate an object named myState that holds your current state of residence (e.g., “Florida”). Use the logical check for equality to show that the myState object and the object “florida” are not equal.\nCreate a new object y which is x + 3. Examine y. Now assign x to be “FL”. What happens to y? Why? What does this tell you about x?"
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#vectors",
+    "href": "lessons/lesson02_introduction_to_R.html#vectors",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Vectors",
+    "text": "Vectors\nRecall that our examples had scalar values? R, however, is designed to work with ordered sets of values, known as a vector. There are a few simple ways to make vectors in R, depending on what you want these vectors to contain. Let’s first make a vector of the digits on a keypad.\n\nkeypad <- 0:9\n\nWe see that the syntax a:b creates a sequence of integers from a to b. We can do everything with a vector of numbers that we could do with a scalar value:\n\nkeypad + 3\n\n [1]  3  4  5  6  7  8  9 10 11 12\n\nkeypad * 2\n\n [1]  0  2  4  6  8 10 12 14 16 18\n\n10 - keypad\n\n [1] 10  9  8  7  6  5  4  3  2  1\n\n2 ^ keypad\n\n [1]   1   2   4   8  16  32  64 128 256 512\n\nkeypad < 5\n\n [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a sequence from 70 to 100. How does the display of this vector differ from the display of the object keypad?\nCreate a vector called revKeypad with the integers from 9 to 0.\nAll of the values we combined with the keypad vector were scalars. Multiply two vectors together: revKeypad * keypad. What happened? Is this what you expected?\nCreate a new vector of integers from -1 to 1. Multiply this new vector by keypad. What happened? Is this what you expected?"
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#the-concatenate-function",
+    "href": "lessons/lesson02_introduction_to_R.html#the-concatenate-function",
+    "title": "Lesson 2: Introduction to R",
+    "section": "The “Concatenate” Function",
+    "text": "The “Concatenate” Function\nOne of the most important functions you will learn is the function to create simple vectors:\n\nc(1, 3, 6, 12)\n\n[1]  1  3  6 12\n\n\nThe c() function will put almost anything you want into a single vector, provided that they are all similar things. For instance\n\nme <- c(\"Prof.\", \"Gabriel\", \"J.\", \"Odom\", \"PhD\", \"ThD\")\nme\n\n[1] \"Prof.\"   \"Gabriel\" \"J.\"      \"Odom\"    \"PhD\"     \"ThD\""
+  },
+  {
+    "objectID": "lessons/lesson02_introduction_to_R.html#function-components",
+    "href": "lessons/lesson02_introduction_to_R.html#function-components",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Function Components",
+    "text": "Function Components\nFunctions have three main components: its name, its arguments’ names, and its arguments’ values. For instance, the function to take an arithmetic mean in R is mean(). When you type mean in the Console pane, RStudio displays a hint on how to use the function. Let’s use this hint to find the expected roll on a six-sided die:\n\nmean(x = 1:6)\n\n[1] 3.5\n\n\nWe unpack this as follows:\n\nThe function is named “mean”.\nThe mean function has an argument named “x”.\nWe supply the vector of integers from 1 to 6 as the value to the argument “x”.\n\nWe can even put functions inside of other functions:\n\nlog(c(10, 100, 1000))\n\n[1] 2.302585 4.605170 6.907755\n\n\nNotice that the name of the argument to the mean() function is “x”. Most functions have named arguments, but the c() function does not. It allows you to choose your own names.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a vector of your first name, last name, and your degrees with the c() function.\nCreate the same vector as above, but name each of the components as you create the vector. Hint: think back to how we referenced the name of the argument for the mean() function."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html",
+    "href": "lessons/lesson03_introduction_to_Quarto.html",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "",
+    "text": "What did we learn last class?\n\nEverything in R is an Object. Objects are baskets that are labelled and hold values. We learned about objects that contain character, numeric, or logical information, among other things.\nCreate new objects with containerName <- value syntax.\nR is a vectorised language: it treats single values as part of a larger set.\nUse functions with functionName(argumentName = argumentValue) syntax.\nGet help with ? or Google."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#setting-up-a-basic-qurto-file",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#setting-up-a-basic-qurto-file",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Setting up a Basic Qurto File",
+    "text": "Setting up a Basic Qurto File\n\n\n\n\n\n\nExercise\n\n\n\nGo to “File” > “New File” > “Quarto Document…”.\n\n\nThis window appears, giving us some options:\n\nThis window gives us a few options:\n\nType of document:\n\nDocument (plain manuscript style)\nPresentation (slide deck)\nShiny (interactive website)\nFrom Template (download a template from a journal or major conference, and write your manuscript to their formatting specifications)\n\nTitle and Author(s): if you are working in a group, this is where you add the names of your co-authors\nOutput Format:\n\nHTML (the default). This is the recommended starting place for any document. I will show you how to change this output type for a document that you have already written. We will use this option now, as it is the easiest to learn.\nPDF (advanced). This output style requires that you have additional advanced software installed, such as Windows MiKTeX or MacOS MacTeX. If you plan to use LaTeX to write your PhD dissertation, then you should learn how to use these tools; otherwise, avoid this option. Most people don’t need it.\nWORD (intermediate). This output style requires you to have MS Word installed on your computer (most people do). We will use this option for our reports later in the semester.\n\n\n\n\n\n\n\n\nExercise\n\n\n\nCustomise your title and author fields. Once you have finished your customization, click “OK”."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#inspecting-your-quarto-file",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#inspecting-your-quarto-file",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Inspecting your Quarto File",
+    "text": "Inspecting your Quarto File\nWe should all see this basic Quarto template:\n\nLet’s dive in to the structure and syntax of this document.\n\nThe Meta-Data Header\nThe first few lines of the document are the document header. These lines tell R crucial information about how to build your report. The entire header, and all of the document options in it, are bounded by the three horizontal dashes (---) above and below.\nCurrently our header is quite basic. It includes:\n\nThe title of the document; title: \"My First Quarto\"\nWho wrote it: author: \"Gabriel Odom\"\nToday’s date: date: \"format(Sys.time(), '%b %d, %Y')\" (this looks crazy, but don’t worry about it now; we will learn what this means later if we need to)\nThe output type: format: html\n\nNotice that each one of these options (other than the date) are directly filled by your choices in the previous window.\n\n\nCode Chunks\nThe next thing we see is a code chunk. Code chunks look like this:\n\nThe components are:\n\nComputing language: Quarto documents can compile more than just R code, but we specify the language R here (with r).\nChunk name: this part is not required, but it can be helpful if you have errors in your code to know where they come from.\nChunk options: there are a few common options, which we will discuss later. This echo=false option means that this code chunk will not be included in the report output.\nChunk delimiters: all code chunks start and end with three backticks (```). If you want code that will run in a certain language (which most of the time, we do), add {} after the opening set of backtick delimiters, and put the language in first. For example, a basic code chunk could look like\n\n\n\nChunk body: this is where you put the actual R code that you want to compute.\n\nNotice two more things: 1) code chunks are on a grey background so they are easier to spot in the document, and 2) you can test the code in the chunk by clicking the green “Run Current Chunk” button on the top right.\n\n\nMarkup Text\nNow that you have a report with a header and some code, you need to explain what your code is doing and why. This is where the plain text comes in. Outside of a code chunk, type anything you want. You can even include pictures and tables. We will discuss these options, and the text formatting options, later.\n\n\n\n\n\n\nExercise\n\n\n\nSave the report. Mac Users: make sure you add .qmd to the end of the file name."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#render-your-report",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#render-your-report",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Render your Report",
+    "text": "Render your Report\nNow that you have saved the Quarto file, you can “Render” your report.\n\n\n\n\n\n\nExercise\n\n\n\nRender your report. This may require you to install some packages, so click “OK” on the installation popup.\n\n\n\nWhile your report is building, notice that the “Console” pane has a new tab called “Background Jobs”. If this tab isn’t already open, click on it. You should see the following (I’ve annotated some of the important components in blue):\n\nNote that the names of the code chunks appear in this build report, as well as their options. Any text that doesn’t include R code to evaluate is labelled as “ordinary text without R code”. We can also see the progress in percent on the right side of the report."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#inspect-the-final-product",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#inspect-the-final-product",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Inspect the Final Product",
+    "text": "Inspect the Final Product\nFinally, we have a rendered report!\n\nWe can see how each of the components of the original .qmd file control the look of the report itself. We can see that the meta-data set the title, author, and date of the report. We can see how the typed text is formatted in the final report.\n\n\n\n\n\n\nExercise\n\n\n\nCompare the three code chunks and their options with what R code appears in the report. Can you explain what the code chunk options are doing?"
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#the-quarto-guide",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#the-quarto-guide",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "The Quarto Guide",
+    "text": "The Quarto Guide\nSo that you don’t have to try to remember all of what we just covered in excruciating detail, there is a very handy website with all of the major points of today’s lesson: https://quarto.org/."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#including-code-chunks",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#including-code-chunks",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Including Code Chunks",
+    "text": "Including Code Chunks\nTo construct your own report, you will need to create your own code chunks. The keyboard shortcut for this is CTRL + Alt + I on Windows, CMD + Alt + I on Mac. This will insert a basic code chunk with the R language selected. From there, you can name your chunk, add chunk options, and include code for R to execute. For chunk options, see Section 5 of the cheat sheet."
+  },
+  {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#annotating-your-work",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#annotating-your-work",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Annotating your Work",
+    "text": "Annotating your Work\nGood code has good explanations. Whenever you write code, you should include explanations for why you are doing what you are doing. Good code should be readable, in the sense that someone who knows the language can look at the code and see what you are doing. However, no one but you knows exactly why you chose to do what you did in the way that you did it.\nAs will most textual explanation, we often need to organize it, format it, and add supplemental figures and tables to explain it. Here are the rules for formatting your report:\n\n\n\n\n\n\n\nExercises\n\n\n\n\nMake a Quarto report to include some of your notes from the past few lectures. Include:\n\ncode examples\nannotations for what you learned about the code you had to write\nan image of a meme that you find funny (look at the cheat sheet for how to include images) as a hyperlink\n\nRender your report as an .html document first, and check to see that your formatting is appropriate.\nAlso render your report as a Word document. Note the slight changes in formatting.\n\n\n\nCongratulations! You are now well on your way to writing powerful and flexible scientific reports with Quarto.\n\n\n\n\n\n\nFinal Exercise\n\n\n\nInstall the tidyverse package the same way you installed the knitr package above. (We need it for next class.)"
   },
   {
     "objectID": "lessons/lesson01_GreaterDataScience.html",

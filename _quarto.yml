@@ -12,6 +12,7 @@ website:
       - href: lessons/lesson01_GreaterDataScience.qmd
       - href: lessons/lesson02_introductionToR.qmd
       - href: lessons/lesson02_suppl_scripts.qmd
+      - href: lessons/lesson03_introduction_to_Quarto.qmd
       - about.qmd
 
 format:
