@@ -19,6 +19,12 @@ What did we learn last class?
 4. Use functions with `functionName(argumentName = argumentValue)` syntax.
 5. Get help with `?` or Google.
 
+</br>
+
+*******************************************************************************
+</br>
+
+
 
 # Overview
 We will cover the following:
@@ -73,7 +79,6 @@ Now we know what package we want to use for reports, but how do we download it f
 
 After we have installed the `knitr` package. It is available for R to use. However, if we want to use the package directly, we need to take one more step, called *loading the library*. We will cover this in the next lesson. For what we need to do today, simply having the package installed is enough.
 
-
 </br>
 
 *******************************************************************************
@@ -90,8 +95,6 @@ Thankfully, we can build a report that meets all of our needs, a Quarto report. 
 
 
 ## Setting up a Basic Qurto File
-
-
 ::: {.callout-note title="Exercise"}
 ## Exercise
 Go to "File" > "New File" > "Quarto Document...".
@@ -195,7 +198,6 @@ We can see how each of the components of the original `.qmd` file control the lo
 Compare the three code chunks and their options with what R code appears in the report. Can you explain what the code chunk options are doing?
 :::
 
-
 </br>
 
 *******************************************************************************
@@ -221,7 +223,6 @@ Good code has good explanations. Whenever you write code, you should include exp
 As will most textual explanation, we often need to organize it, format it, and add supplemental figures and tables to explain it. Here are the rules for formatting your report:
 
 ![](../_figures/rmd_text_formatting_options.png)
-
 
 ::: {.callout-note title="Exercises"}
 ## Exercises

@@ -13,6 +13,7 @@ website:
       - href: lessons/lesson02_introductionToR.qmd
       - href: lessons/lesson02_suppl_scripts.qmd
       - href: lessons/lesson03_introduction_to_Quarto.qmd
+      - href: lessons/lesson04_ggplot.qmd
       - about.qmd
 
 format:

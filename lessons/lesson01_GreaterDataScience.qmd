@@ -203,4 +203,4 @@ In the console pane, move your cursor to the prompt (the `>` symbol). Type (you 
 > "Hello, world!"
 ```
 
-You should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn.
+You should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: *to learn*.

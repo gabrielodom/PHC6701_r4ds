@@ -31,6 +31,13 @@ knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
 3. Reproducible research is pre-producible: research results that have been created with code can be re-created at will.
 4. `"Hello, world!"`
 
+</br>
+
+*******************************************************************************
+</br>
+
+
+
 # Overview
 We will cover the following:
 
@@ -45,6 +52,8 @@ We will cover the following:
 *******************************************************************************
 </br>
 
+
+
 # The RStudio User Interface
 Open RStudio. We should see something like this:
 
@@ -57,14 +66,16 @@ This window is broken up into "panes". Each pane is useful for different parts o
 Building on the last thing we covered last class, have R greet you good morning.
 :::
 
-
 </br>
 
 *******************************************************************************
 </br>
 
+
+
 # Basic Operations
 Now that R has told us good morning, we can learn some of the other basic things we can ask R to do.
+
 
 ## Characters
 Your first code in R last class was to instruct R to tell the world hello. R uses `"` (double quotes) and `'` (single quotes) to mark **textual information**.
@@ -96,10 +107,10 @@ If you would like to chain multiple operations together, you can use multiple li
 Type your age, then the plus sign (`+`), then hit `Enter`. What happens to the prompt? Can you type other commands, like a `"Hello, world!"`? What do you think you should do to get the original prompt back?
 :::
 
-
 Note that from here on out, I will be assuming that you will type code at the proper `>` prompt, so I won't include that anymore.
 
 **Why "scalar" arithmetic?** Did you notice the "[1]" next to your answers? In mathematics, a scalar is a quantity represented in one dimension, or---as most commonly refer to them---numbers. We will return to this concept, and why it is important in R, shortly.
+
 
 ## Logic
 We can use R's logic system to compare values. A simple comparison is, "is 5 less than 3"? In R, this is
@@ -135,11 +146,12 @@ Many times, we want to include notes with our code, to remind ourselves *why* we
 3. What simple comparison symbol should replace `???` in `TRUE ??? FALSE` to make R return `FALSE`?
 :::
 
-
 </br>
 
 *******************************************************************************
 </br>
+
+
 
 # Objects in R
 
@@ -180,8 +192,6 @@ Just like any real lunch container, we can always empty out old food and put new
 x <- 3
 ```
 
-
-
 ::: {.callout-tip}
 You can use the keyboard shortcut `Alt` + `-` to insert the `<-` symbol with spaces around it. Recall that to use a keyboard shortcut, the "+" symbol means "press these keys at the same time".
 :::
@@ -215,14 +225,16 @@ keypad < 5
 4. Create a new vector of integers from -1 to 1. Multiply this new vector by `keypad`. What happened? Is this what you expected?
 :::
 
-
 </br>
 
 *******************************************************************************
 </br>
 
+
+
 # Calling Functions in R
 You are probably thinking about now, "but what if I want to make a vector with something other than just sequential integers?" That's a great question. To create some of the more complicated vectors, we need *functions*.
+
 
 ## The "Concatenate" Function
 One of the most important functions you will learn is the function to create simple vectors:
@@ -235,6 +247,7 @@ The `c()` function will put almost anything you want into a single vector, provi
 me <- c("Prof.", "Gabriel", "J.", "Odom", "PhD", "ThD")
 me
 ```
+
 
 ## Function Components
 Functions have three main components: its name, its arguments' names, and its arguments' values. For instance, the function to take an arithmetic mean in R is `mean()`. When you type `mean` in the Console pane, RStudio displays a hint on how to use the function. Let's use this hint to find the expected roll on a six-sided die:
@@ -255,18 +268,18 @@ log(c(10, 100, 1000))
 
 Notice that the name of the argument to the `mean()` function is "x". Most functions have named arguments, but the `c()` function does not. It allows you to choose your own names.
 
-
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. Create a vector of your first name, last name, and your degrees with the `c()` function.
 2. Create the same vector as above, but *name* each of the components as you create the vector. *Hint: think back to how we referenced the name of the argument for the `mean()` function.*
 :::
 
-
 </br>
 
 *******************************************************************************
 </br>
+
+
 
 # Getting Help
 Sometimes, you need to get some help with R code: <https://www.youtube.com/watch?v=OzRuuFA6oUs>.
@@ -290,7 +303,6 @@ Help files in R are all structured the same way. The super important parts are
 The "Examples" section is where I go first, and then I go to "Arguments", "Value" (if applicable), and "Details" after that.
 
 We can also use Google. Websites like <https://www.stackoverflow.com> can be very helpful. Later on, when we use packages of R code, finding the package webiste or user guide can also be very helpful.
-
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
