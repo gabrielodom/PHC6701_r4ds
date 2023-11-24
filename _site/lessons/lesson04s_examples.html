@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.0.35">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,16 +13,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,13 +43,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -91,8 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -104,16 +127,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/lesson04_ggplot_examples.html">ggplot Examples</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">ggplot Examples</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav>
@@ -121,71 +139,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">PHC 6701: R for Data Science</a> 
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson01_GreaterDataScience.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lesson 01: Overview of Data Science</span></a>
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 01: Overview of Data Science</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson02_suppl_scripts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lesson 2 Supplement: R Scripts</span></a>
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lesson 3: Quarto for Reproducible Reports</span></a>
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lesson 4: ggplot and the Layered Grammar of Graphics</span></a>
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson04_ggplot_examples.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">ggplot Examples</span></a>
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link active">ggplot Examples</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About</span></a>
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#base-plot" id="toc-base-plot" class="nav-link" data-scroll-target="#base-plot">Base plot</a></li>
@@ -221,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ggplot Examples</h1>
+<h1 class="title d-none d-lg-block">ggplot Examples</h1>
 </div>
 
 
@@ -239,13 +254,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
       <p class="date">February 1, 2023</p>
-    </div>
-  </div>
-  
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">November 22, 2023</p>
     </div>
   </div>
     
@@ -318,29 +326,28 @@ $ CollegeBound &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>base_plot_gg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
+<div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 Exercise
 </div>
 </div>
-<section id="exercise" class="level2 callout-body-container callout-body">
-<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<div class="callout-body-container callout-body" title="Exercise">
 <p>Discuss this plot with your neighbours. What do you like about this plot? What is it missing?</p>
-</section>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 Tip
 </div>
 </div>
@@ -383,7 +390,7 @@ Tip
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/base_plus-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/base_plus-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>That’s a bit much, so let’s just stick with the title going forward.</p>
@@ -399,7 +406,7 @@ Tip
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/base_title-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/base_title-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -419,7 +426,7 @@ Tip
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/base_axes-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/base_axes-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can also do this using the <code>scale()</code> functions:</p>
@@ -434,7 +441,7 @@ Tip
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"First year college GPA"</span>) <span class="sc">+</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/scale_axes-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/scale_axes-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -455,7 +462,7 @@ Tip
 <pre><code>Warning: Removed 1 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/intro_limits-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/intro_limits-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can also do this using the <code>scale()</code> functions:</p>
@@ -473,7 +480,7 @@ Tip
 <pre><code>Warning: Removed 3 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/base_limits-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/base_limits-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Either way, you can see that the values don’t run the full range of potential values. The X axis is probably because they collected data from college students and it’s harder to get into college if you have a very low GPA.</p>
@@ -493,7 +500,7 @@ Tip
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Gender"</span>) <span class="sc">+</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/legend_title-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/legend_title-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A more general way is to use the <code>scale_color_discrete()</code> function, which allows you to change the title and labels. There are several of these functions, all of the same form:</p>
@@ -519,7 +526,7 @@ Tip
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/base_legend-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/base_legend-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
@@ -535,7 +542,7 @@ Tip
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/base-legend2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/base-legend2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><br></p>
@@ -568,7 +575,7 @@ Tip
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_viridis-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_viridis-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>I find this a little hard to see. So maybe not the best choice.</p>
@@ -584,7 +591,7 @@ Tip
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_viridis2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_viridis2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -600,7 +607,7 @@ Tip
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_choose-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_choose-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>For a plot that uses the <code>fill()</code> option (like a bar plot), the command is <code>fill_color_manual()</code>.</p>
@@ -611,14 +618,14 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/rcolorbrewer_show-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/rcolorbrewer_show-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Here are just the palettes that work for color blind people:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>(<span class="at">colorblindFriendly =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/rcolorbrewer_show2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/rcolorbrewer_show2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This is a qualitative palette, meaning that it works for <em>nominal</em> type variables. Again, adding the legend arguments back.</p>
@@ -630,7 +637,7 @@ Tip
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_rcolorbrewer-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_rcolorbrewer-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A diverging palette that goes from red to yellow to blue:</p>
@@ -642,7 +649,7 @@ Tip
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_rcolorbrewer2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_rcolorbrewer2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This is a sequential palette of blues:</p>
@@ -654,7 +661,7 @@ Tip
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_rcolorbrewer3-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_rcolorbrewer3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Very hard to see the lighter dots on the grey background.</p>
@@ -680,7 +687,7 @@ Tip
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>base_plot_cont_gg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_continuous-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_continuous-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Above is the default color scheme from <strong>ggplot</strong>. Let’s create a gradient for the <code>SS</code> variable, starting at blue and increasing to red. The function <code>scale_color_gradient()</code> lets you specify just the ends and it fills in between.</p>
@@ -688,7 +695,7 @@ Tip
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>base_plot_cont_gg <span class="sc">+</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_continuous2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_continuous2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Notice that the continuous variable doesn’t need any edits to the legend labels, so the we don’t have to repeat those options like we did for the plot with the gender variable.</p>
@@ -714,7 +721,7 @@ Tip
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
 <span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/geom_bar_1stgen_gender_dodge-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/geom_bar_1stgen_gender_dodge-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Notice that I added labels to the (discrete) X axis and (continuous) Y axis too.</p>
@@ -740,7 +747,7 @@ Tip
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"High school honor roll students </span><span class="sc">\n</span><span class="st"> (GPA &gt; 3.8)"</span></span>
 <span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/annotate-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/annotate-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This is pretty basic and built in as an annotation.</p>
@@ -763,7 +770,7 @@ Tip
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Students below the line are on probation"</span></span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/annotate2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/annotate2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We can add a line indicating equal GPAs in high school and college and add text explaining why that line is important.</p>
@@ -791,7 +798,7 @@ Tip
 <span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Students above the line did better in college"</span></span>
 <span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/annotate3-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/annotate3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Another use of the line segment could be to indicate which groups are significantly different from one another in a bar plot.</p>
@@ -819,7 +826,7 @@ Tip
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"*"</span></span>
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/geom_bar_1stgen_gender_dodge_sig-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/geom_bar_1stgen_gender_dodge_sig-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This doesn’t look as good as it could, so let’s clean up the axes and labels.</p>
@@ -856,7 +863,7 @@ Tip
 <span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"*"</span></span>
 <span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/geom_bar_1stgen_gender_dodge_sig2-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/geom_bar_1stgen_gender_dodge_sig2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Notice a couple of things here:</p>
@@ -879,7 +886,7 @@ Tip
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_bw-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_bw-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Minimal theme:</p>
@@ -887,7 +894,7 @@ Tip
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_min-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_min-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Classic theme:</p>
@@ -895,7 +902,7 @@ Tip
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_classic-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_classic-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -906,7 +913,7 @@ Tip
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_apa</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_apa-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_apa-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>What if I want my plot to look like it could be in the Wall Street Journal? (from the <strong>ggthemes</strong> package)</p>
@@ -914,7 +921,7 @@ Tip
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_wsj</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_wsj-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_wsj-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Well, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.</p>
@@ -923,7 +930,7 @@ Tip
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/plot_econ-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/plot_econ-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -934,7 +941,7 @@ Tip
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/biggertheme-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/biggertheme-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>How about changing the background of the plot (and the gridlines) to black to make it really striking?</p>
@@ -945,26 +952,25 @@ Tip
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>)</span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson04_ggplot_examples_files/figure-html/blackback-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson04s_examples_files/figure-html/blackback-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>All of the objects you can modify are listed here: <a href="https://ggplot2.tidyverse.org/reference/theme.html" class="uri">https://ggplot2.tidyverse.org/reference/theme.html</a>.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
+<div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 Exercises
 </div>
 </div>
-<section id="exercises" class="level2 callout-body-container callout-body">
-<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
 <li>Change <code>base_plot_gg</code> to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.</li>
 <li>Discuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?</li>
 </ol>
-</section>
+</div>
 </div>
 
 
@@ -999,23 +1005,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1027,24 +1019,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
     setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1072,136 +1047,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
       });
-    }
+      return popup.innerHTML;
+    });
   }
 });
 </script>

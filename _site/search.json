@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "PHC 6701: R for Data Science // Advanced R",
     "section": "",
-    "text": "If you want help, there is a great community of R programmers on Slack: https://rfordatasci.com/."
+    "text": "Getting Started\n\nSetting up your computer:\n\nWindows: https://derailment.netlify.app/2019-11-01-configure-a-windows-pc-for-data-science/ (ignore the stuff about LaTeX)\nMac: https://derailment.netlify.app/2019-10-29-configure-a-mac-for-data-science/ (ignore the stuff about LaTeX)\n\nInstalling R/Rstudio:\n\nWindows: https://derailment.netlify.app/2019-12-10-installing-r-rstudio-on-windows/\nMac: https://derailment.netlify.app/2019-11-16-installing-r-rstudio-on-a-mac/\n\nSetting up R/RStudio: https://derailment.netlify.app/2019-12-22-configuring-rstudio/\nIf you want help, there is a great community of R programmers on Slack: https://rfordatasci.com/."
   },
   {
     "objectID": "about.html",
@@ -14,11 +14,214 @@
     "text": "1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "lessons/lesson02_suppl_scripts.html",
-    "href": "lessons/lesson02_suppl_scripts.html",
-    "title": "Lesson 2 Supplement: R Scripts",
+    "objectID": "lessons/lesson01_greater_data_science.html",
+    "href": "lessons/lesson01_greater_data_science.html",
+    "title": "Lesson 01: Overview of Data Science",
     "section": "",
-    "text": "So far, if you needed to repeat all of the work you have done today, you would be in serious trouble! If we can repeat what we did, then we certainly can’t call our work reproducible. One simple thing we can do, is to write our code in a script.\n\n\nTo create a new script, go to “File” > “New File” > “R Script”. The keyboard shortcut for this is CTRL + Shift + N on Windows, and CMD + Shift + N on Mac. You should now have a window that looks like this:\n\nAt the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of code comment, and should be marked as such.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a new script to run some of the commands you learned in Lesson 2. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.\nAdd some of the code from that lesson (a few operations).\nAdd comments explaining to yourself what these operations are doing.\nSave your script with a good name, and—if possible–today’s date (in a computer-sortable format). Notice that your file name font colour changed from red back to black. Why? Mac Users: make sure you add .R to the end of your file name.\n\n\n\nThis is what mine looks like:\n\nAs you learn more about R, your comments should quickly become more about why you did what you did, rather than what you did."
+    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\""
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#data-preparation-and-exploration",
+    "href": "lessons/lesson01_greater_data_science.html#data-preparation-and-exploration",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Preparation and Exploration",
+    "text": "Data Preparation and Exploration\nThis is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.\n\nExamples: designing the questions on a patient survey, creating a database to hold clinical trials data, finding the most common answers to a question, finding the largest or smallest values of a measurement, reporting the proportion of missing answers to a battery of questions between three cohorts."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#data-representation-and-transformation",
+    "href": "lessons/lesson01_greater_data_science.html#data-representation-and-transformation",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Representation and Transformation",
+    "text": "Data Representation and Transformation\nThis deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.\n\nExamples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together)."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#computing-with-data",
+    "href": "lessons/lesson01_greater_data_science.html#computing-with-data",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Computing with Data",
+    "text": "Computing with Data\nThis part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.\n\nExamples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create “packages” of computer code to repeat the same types of analyses on new data sets."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#data-modeling",
+    "href": "lessons/lesson01_greater_data_science.html#data-modeling",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Modeling",
+    "text": "Data Modeling\nThis part of data science is the most well-known portion. It is what most lay-people consider “data science”: statistical modelling and machine learning. This is where simple techniques like t-tests, linear regression, or ANOVA come in, but it also includes highly complex models and routines such as deep neural networks, random coefficient mixed models, support vector machines, or discriminant analysis. Traditional statistics departments have historically taught or developed most of these techniques, although some interesting modern research has come from computer science and econometrics."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#data-visualization-and-presentation",
+    "href": "lessons/lesson01_greater_data_science.html#data-visualization-and-presentation",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Data Visualization and Presentation",
+    "text": "Data Visualization and Presentation\nThis portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be reproducible. Furthermore, the presentation of data in order to further an argument or claim is part of visual rhetoric, and is subject to questions of ethics. In traditional statistics departments, some of these tools are used, but rarely taught.\n\nExamples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.\n\n“A picture is worth a thousand words. Make sure your picture says the right thousand words.”"
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#science-about-data-science",
+    "href": "lessons/lesson01_greater_data_science.html#science-about-data-science",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Science about Data Science",
+    "text": "Science about Data Science\nThis portion of data science involves research meta-analysis about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with philosophy and ethics, it has hardly anything to do with academic statistics.\n\nExamples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#the-reproducibility-crisis",
+    "href": "lessons/lesson01_greater_data_science.html#the-reproducibility-crisis",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "The Reproducibility Crisis",
+    "text": "The Reproducibility Crisis\nPublished bio-science is largely not reproducible:\n\nOncology: 53 published articles tested, six successes (11%) (Nature, 2012)\nPsychology: 100 published articles, 39 successes (Nature News, 2015); 71 published articles tested, 92 replication attempts, 35 successes (38%; the PsychFileDrawer project is ongoing).\nPharmacology: 67 published models tested, 14 successes (21%) (Nature Reviews, 2011)"
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#the-ioannidis-crusade",
+    "href": "lessons/lesson01_greater_data_science.html#the-ioannidis-crusade",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "The Ioannidis crusade",
+    "text": "The Ioannidis crusade\nJohn Ioannidis, physician scientist at Stanford, speaks harshly against the lack of replicability in science:\n\n“Replication validity of genetic association studies” (2001)\n“Contradicted and Initially Stronger Effects in Highly Cited Clinical Research” (2005)\n“Why Most Published Research Findings Are False” (2005)\n“Why Most Clinical Research Is Not Useful” (2016)"
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#reproducible-data-science",
+    "href": "lessons/lesson01_greater_data_science.html#reproducible-data-science",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Reproducible Data Science",
+    "text": "Reproducible Data Science\nBefore reproducibility must come preproducibility.\n“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that enough information is provided to allow a dedicated reader to repeat the calculations in the paper for herself.”\n– Philip B. Stark, Professor of Statistics, UC Berkeley"
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#use-code",
+    "href": "lessons/lesson01_greater_data_science.html#use-code",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Use Code!",
+    "text": "Use Code!\nIf you want your analyses and figures to be reproducible, then you must use computer code to do this. Point-and-click software does not (usually) give you a record of your steps or allow you to repeat them. Building your data management, data modelling, and visualizations steps in a programming language means that you always have the tools necessary to repeat your work. In this class, you will learn how to write computer code to clean and transform your data, perform your analyses, and build the figures and tables for your papers. If you do this properly, this will ensure that anyone can recreate your analysis results, figures, and tables relatively quickly and painlessly."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#downloading-and-installing-r",
+    "href": "lessons/lesson01_greater_data_science.html#downloading-and-installing-r",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Downloading and Installing R",
+    "text": "Downloading and Installing R\n\nFor Windows\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\n\nClick on the “Download R for Windows” link at the top of the page.\n\nClick on the “install R for the first time” link at the top of the page.\nClick “Download R for Windows” and save the executable file somewhere on your computer (your desktop is fine, because you will delete this file later).\nDouble-click on the .exe file to “run” it and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\nClick on the “Download R for (Mac) OS X” link at the top of the page.\nClick on the file containing the latest version of R under “Files.”\nSave the .pkg file (to your desktop; you will delete it at the end)\nDouble-click the .pkg file to open, and follow the installation instructions (click “Next” or “Allow” a bunch).\n\nNow that R is installed, you need to download and install RStudio."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#download-and-install-rstudio",
+    "href": "lessons/lesson01_greater_data_science.html#download-and-install-rstudio",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Download and Install RStudio",
+    "text": "Download and Install RStudio\n\nFor Windows\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Windows version, and save the executable file (probably to your desktop, because we’re just going to delete it afterwards).\nDouble-click on the .exe file and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Mac version, and save the .dmg (disk image) file on your computer (probably to your desktop, because we are just going to delete it later)\nDouble-click the .dmg file to open it, and then drag and drop it to your applications folder."
+  },
+  {
+    "objectID": "lessons/lesson01_greater_data_science.html#check-the-install",
+    "href": "lessons/lesson01_greater_data_science.html#check-the-install",
+    "title": "Lesson 01: Overview of Data Science",
+    "section": "Check the Install",
+    "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the > symbol). Type (you don’t have to type the > symbol; it’s just there for reference)\n\n> \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html",
+    "href": "lessons/lesson04s_examples.html",
+    "title": "ggplot Examples",
+    "section": "",
+    "text": "This chapter is a supplemental chapter to Lesson 04 containing many more ggplot2 examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven’t seen yet. If you need some of these packages, make sure to “uncomment” the install.packages() call for the packages you need.\n\n# install.packages(\"Stat2Data\")\n# install.packages(\"RColorBrewer\")\n# install.packages(\"jtools\")\n# install.packages(\"viridis\")\n# install.packages(\"ggthemes\")\n# install.packages(\"xkcd\")\n\nlibrary(Stat2Data)\nlibrary(RColorBrewer)\nlibrary(jtools)\nlibrary(viridis)\nlibrary(xkcd)\nlibrary(ggthemes)\nlibrary(tidyverse)\nset.seed(012922)"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#title-and-related",
+    "href": "lessons/lesson04s_examples.html#title-and-related",
+    "title": "ggplot Examples",
+    "section": "Title (and related)",
+    "text": "Title (and related)\nGive your plots informative titles. An informative title helps tell the story of the plot. Here are two examples:\n\nBAD: Relationship between HS GPA and college GPA\n\n\nGOOD: High school GPA is positively related to college GPA\n\nHere’s a title with more information (to show how you can add additional details).\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\", \n    subtitle = \"Among students at X University\", \n    caption = \"Data from FirstYearGPA in the Stat2Data package\", \n    tag = \"Figure 1\",\n    alt = \"Scatter plot showing the positive relationship between HS GPA and\n    college GPA, colored by student gender\",\n    x = \"High School GPA\",\n    y = \"College GPA\"\n  ) +\n  geom_point() \n\n\n\n\nThat’s a bit much, so let’s just stick with the title going forward.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\"\n  ) +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#x-and-y-axis-labels",
+    "href": "lessons/lesson04s_examples.html#x-and-y-axis-labels",
+    "title": "ggplot Examples",
+    "section": "X and Y axis labels",
+    "text": "X and Y axis labels\nLet’s change the X and Y axes to be more informative. These aren’t the worst named variables, but you do need to infer that GPA is probably for college. Unless you go look at the information about the dataset – but we want our plot to speak for itself.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    x = \"High school GPA\", \n    y = \"First year college GPA\"\n  ) +\n  geom_point()\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(name = \"High school GPA\") +\n  scale_y_continuous(name = \"First year college GPA\") +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#x-and-y-axis-limits",
+    "href": "lessons/lesson04s_examples.html#x-and-y-axis-limits",
+    "title": "ggplot Examples",
+    "section": "X and Y axis limits",
+    "text": "X and Y axis limits\nSomething else you might want to do sometimes to provide context for your plot and data is adjust the limits of the axes beyond the values of the data. In this case, it would make it easier to see if the values run the full (potential) range of the variable.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  xlim(0, 4) + \n  ylim(0, 4) +\n  geom_point()\n\nWarning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(limits = c(2, 4)) +\n  scale_y_continuous(limits = c(2, 4)) +\n  geom_point()\n\nWarning: Removed 3 rows containing missing values (`geom_point()`).\n\n\n\n\n\nEither way, you can see that the values don’t run the full range of potential values. The X axis is probably because they collected data from college students and it’s harder to get into college if you have a very low GPA."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#legend-title-and-labels",
+    "href": "lessons/lesson04s_examples.html#legend-title-and-labels",
+    "title": "ggplot Examples",
+    "section": "Legend title and labels",
+    "text": "Legend title and labels\nThe way to change the legend title is not at all obvious. And there are multiple ways to do it.\nThe easiest thing to do is use the labs() function, but there’s not an argument that explicitly has to do with the legend. The argument ties back to how you mapped the variable in the original plot. You can also only change the title of the legend with this function, not the labels.\nIn base_plot_gg, we used color = as_factor(Male) to map color onto the variable Male. So we’ll use color here.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(color = \"Gender\") +\n  geom_point()\n\n\n\n\nA more general way is to use the scale_color_discrete() function, which allows you to change the title and labels. There are several of these functions, all of the same form:\n\nscale_color_discrete()\nscale_fill_discrete()\nscale_linetype_discrete()\nscale_shape_discrete()\nscale_size_discrete()\nscale_alpha_discrete()\n\nUse the appropriate one for your variable type: if you mapped the variable to the fill attribute then use fill; if you mapped the variable to the shape attribute then use shape; etc.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()\n\n\n\n\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#color-palettes",
+    "href": "lessons/lesson04s_examples.html#color-palettes",
+    "title": "ggplot Examples",
+    "section": "Color palettes",
+    "text": "Color palettes\n\nset theme for whole document\nAdd titles\nChanging axis, legend, and other labels\nText, size, font, color, etc.\nModifying background colors\nRotating objects\nOrdering variable options (alphabetical, increasing, etc.)"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#changing-the-color-palette",
+    "href": "lessons/lesson04s_examples.html#changing-the-color-palette",
+    "title": "ggplot Examples",
+    "section": "Changing the color palette",
+    "text": "Changing the color palette\nThe default colors are fine. They’re easy to distinguish (for me), but they might not work well for someone who is color blind."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#color-blind-friendly-color-palettes",
+    "href": "lessons/lesson04s_examples.html#color-blind-friendly-color-palettes",
+    "title": "ggplot Examples",
+    "section": "Color blind friendly color palettes",
+    "text": "Color blind friendly color palettes\nviridis is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html\n\nbase_plot_gg + \n  scale_color_viridis(discrete = TRUE)\n\n\n\n\nI find this a little hard to see. So maybe not the best choice.\nNotice the warning:\n## Scale for 'colour' is already present. Adding another scale for 'colour',\n## which will replace the existing scale.\nThis means that scale_color_viridis() overwrites scale_color_discrete() that we used above to label the legend. Notice that the legend title and labels are gone. We can add those arguments back into the viridis function and get them back.\n\nbase_plot_gg + \n  scale_color_viridis(\n    discrete = TRUE,\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#just-pick-some-colors",
+    "href": "lessons/lesson04s_examples.html#just-pick-some-colors",
+    "title": "ggplot Examples",
+    "section": "Just pick some colors",
+    "text": "Just pick some colors\nYou can also just choose some colors from the default ones available in R. Here, I’m using some hex color values, but you can also use RBG or CMYK or default R ones (i.e, “blue” or “red”).\nAgain, I’m adding the legend arguments back to this function.\n\nbase_plot_gg +\n  scale_color_manual(\n    values = c(\"#999999\", \"#E69F00\", \"#56B4E9\"), \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nFor a plot that uses the fill() option (like a bar plot), the command is fill_color_manual()."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#some-other-color-palettes",
+    "href": "lessons/lesson04s_examples.html#some-other-color-palettes",
+    "title": "ggplot Examples",
+    "section": "Some other color palettes",
+    "text": "Some other color palettes\nThe RColorBrewer package has several pre-built color palettes that you can use. You can view all the RColorBrewer palettes using\n\ndisplay.brewer.all()\n\n\n\n\nHere are just the palettes that work for color blind people:\n\ndisplay.brewer.all(colorblindFriendly = TRUE)\n\n\n\n\nThis is a qualitative palette, meaning that it works for nominal type variables. Again, adding the legend arguments back.\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Set2\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nA diverging palette that goes from red to yellow to blue:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"RdYlBu\", \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nThis is a sequential palette of blues:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Blues\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nVery hard to see the lighter dots on the grey background."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#color-based-on-continuous-variable",
+    "href": "lessons/lesson04s_examples.html#color-based-on-continuous-variable",
+    "title": "ggplot Examples",
+    "section": "Color based on continuous variable",
+    "text": "Color based on continuous variable\nIf you wanted to color based on a continuous variable, you would get many more colors than just the two here. Imagine that, instead of gender, we wanted to color the points based on how many social sciences units they enrolled in (SS in the dataset).\n\nbase_plot_cont_gg <- \n  ggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = SS\n  ) +\n  labs(\n    title = \"First year college GPA versus high school GPA\", \n    x = \"High school GPA\", \n    y = \"First year college GPA\", \n    color = \"Social studies units\"\n  ) +\n  geom_point()\n\nbase_plot_cont_gg\n\n\n\n\nAbove is the default color scheme from ggplot. Let’s create a gradient for the SS variable, starting at blue and increasing to red. The function scale_color_gradient() lets you specify just the ends and it fills in between.\n\nbase_plot_cont_gg +\n    scale_color_gradient(low = \"blue\", high = \"red\")\n\n\n\n\nNotice that the continuous variable doesn’t need any edits to the legend labels, so the we don’t have to repeat those options like we did for the plot with the gender variable."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#color-fill-commands",
+    "href": "lessons/lesson04s_examples.html#color-fill-commands",
+    "title": "ggplot Examples",
+    "section": "Color fill commands",
+    "text": "Color fill commands\nWhen you’re using plots that fill rather than create lines or points, the commands are similar but include fill in them. Here is an unedited bar plot that uses one of the RColorBrewer color palettes.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Gender\", \n    labels = c(\"Female\", \"Male\")\n  ) +\n  labs(y = \"Frequency\") +\n  geom_bar(position = \"dodge\")\n\n\n\n\nNotice that I added labels to the (discrete) X axis and (continuous) Y axis too."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#adding-annotations",
+    "href": "lessons/lesson04s_examples.html#adding-annotations",
+    "title": "ggplot Examples",
+    "section": "Adding annotations",
+    "text": "Adding annotations\nLet’s return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students, those with GPA > 3.8.\n\nbase_plot_gg +\n  annotate(\n    geom = \"rect\", \n    xmin = 3.8, \n    xmax = 4.01, \n    ymin = 2.0, \n    ymax = 4.2, \n    fill = \"red\", \n    alpha = 0.2\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.4, \n    y = 4.1, \n    label = \"High school honor roll students \\n (GPA > 3.8)\"\n  )\n\n\n\n\nThis is pretty basic and built in as an annotation.\nWhat about a line indicating academic probation?\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.5, \n    yend = 2.5, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.95, \n    y = 4.5, \n    label = \"Students below the line are on probation\"\n  )\n\n\n\n\nWe can add a line indicating equal GPAs in high school and college and add text explaining why that line is important.\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.25, \n    yend = 4.25, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.5, \n    y = 2, \n    label = \"Students below the line did better in high school\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.9, \n    y = 4.0, \n    label = \"Students above the line did better in college\"\n  )\n\n\n\n\nAnother use of the line segment could be to indicate which groups are significantly different from one another in a bar plot.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = Male, \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(palette = \"Set2\") +\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = -0.25, \n    xend = 0.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 0, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nThis doesn’t look as good as it could, so let’s clean up the axes and labels.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = c(\"0\" = \"Female\", \"1\" = \"Male\")\n  ) +\n  labs(y = \"Frequency\")+\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = 0.75, \n    xend = 1.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 1, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nNotice a couple of things here:\n\nI had to specify that the gender variable was categorical with as_factor(Male). If I didn’t, the X axis labels didn’t show up at all (axis label or category labels).\nIn scale_x_discrete(), I specified which category the labels go with: \"0\" = \"Female\", \"1\" = \"Male\". This is not actually required but may be helpful.\nNotice the location of the line and star. I had to adjust their horizontal locations because factors in R do unexpected things: ggplot now places the bars at x = 1 and 2 instead of 0 and 1 because R is interpreting these factors as the numbers 1 and 2. We will discuss this more when we talk about atomic type coercion later this semester."
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#built-in-themes",
+    "href": "lessons/lesson04s_examples.html#built-in-themes",
+    "title": "ggplot Examples",
+    "section": "Built-in themes",
+    "text": "Built-in themes\nBlack and white theme:\n\nbase_plot_gg +\n  theme_bw()\n\n\n\n\nMinimal theme:\n\nbase_plot_gg + \n  theme_minimal()\n\n\n\n\nClassic theme:\n\nbase_plot_gg + \n  theme_classic()"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#package-themes",
+    "href": "lessons/lesson04s_examples.html#package-themes",
+    "title": "ggplot Examples",
+    "section": "Package themes",
+    "text": "Package themes\nThere is an APA theme in the jtools package, which was installed and loaded above. As of today, it is APA Publication Manual Version 6 compliant.\n\nbase_plot_gg +\n  theme_apa()\n\n\n\n\nWhat if I want my plot to look like it could be in the Wall Street Journal? (from the ggthemes package)\n\nbase_plot_gg + \n  theme_wsj()\n\n\n\n\nWell, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.\nWhat about the Economist? (also ggthemes)\n\nbase_plot_gg +\n  theme_economist()"
+  },
+  {
+    "objectID": "lessons/lesson04s_examples.html#editing-your-own-theme",
+    "href": "lessons/lesson04s_examples.html#editing-your-own-theme",
+    "title": "ggplot Examples",
+    "section": "Editing your own theme",
+    "text": "Editing your own theme\nYou can also change individual parts of the plot yourself. Maybe you just want all the text to be a little larger in a theme. This is good for presentations—the fonts are always a little too small to read well.\n\nbase_plot_gg + \n  theme_bw(base_size = 16)\n\n\n\n\nHow about changing the background of the plot (and the gridlines) to black to make it really striking?\n\nbase_plot_gg + \n  theme(\n    panel.background = element_rect(fill = \"black\"), \n    panel.grid = element_line(color = \"black\")\n  )\n\n\n\n\nAll of the objects you can modify are listed here: https://ggplot2.tidyverse.org/reference/theme.html.\n\n\n\n\n\n\nExercises\n\n\n\n\nChange base_plot_gg to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.\nDiscuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?"
   },
   {
     "objectID": "lessons/lesson04_ggplot.html",
@@ -68,6 +271,104 @@
     "title": "Lesson 4: ggplot and the Layered Grammar of Graphics",
     "section": "Examples",
     "text": "Examples\n\n\n\n\n\nLook back to the figure. You might notice that there is a group of five points on the top right that stick out: these cars have large engines but higher MPG than other vehicles with large engines. We could ask a few questions to try to explain this disparity:\n\nAre these vehicles hybrids?\nDo these vehicles use diesel?\nAre these vehicles newer?\n\nEach question is a hypothesis, and we will attempt to “test” these hypotheses visually.\n\nHypothesis 1: Outlier Cars are Hybrids\nCheck the help documentation for the mpg data set to find out which column measures the type of the car. We probably won’t see “hybrid”” in this list, because we know that very few hybrid cars were in production in both 1998 and 2008. These cars would have all been classified as “compact” or “sub-compact”. Note: this is where “domain knowledge” is critical for proper data science.\nNow what type of feature is class? The column header of the mpg data table informs us that this feature is a character feature (chr), and therefore discrete. Therefore, we can add it to the graph with the colour or shape aesthetics.\n\n\n\n\n\nIt appears that our hypothesis was incorrect. These vehicles are not small, hybrid cars at all, but sports cars or midsize cars.\n\n\n\n\n\n\nExercise\n\n\n\nWrite the code necessary to create the above graph.\n\n\n\n\nHypothesis 2: Outlier Cars take Diesel\n\n\n\n\n\nOur hypothesis is incorrect. It appears that all five of our outlier vehicles take premium fuel (“p”), not diesel (“d”). This graph, when paired with the previous graph on car class, gives us a better understanding of factors that could influence the relationship between engine size and fuel economy.\n\n\n\n\n\n\nExercises\n\n\n\n\nUsing the help manual for the mpg data set, find which feature of the data measures fuel type.\nWrite the code necessary to create the above graph. Hint: the shape of the points is controlled by the shape argument to the aes() function.\n\n\n\n\n\nHypothesis 3: Outlier Cars are Newer\nWe know that vehicle year can be either 1998 or 2008. Because the manufacture year is a time, we should add it to the graph with the colour, size, fill, or alpha aesthetics.\n\n\n\n\n\nThe manufacture year doesn’t help explain the five outlier points very well. They are rather evenly split between 2000 and 2008.\n\n\n\n\n\n\nExercise\n\n\n\nWrite the code necessary to create the above graph. Hint: the shape is not dependent on the data, so it is not an aesthetic. Think about where you should put the shape argument if you can’t put it in the aes() function.\n\n\n\n\nUpdated Hypothesis: Outlier Cars are Sportscars\nWe can add more than 3 features to a plot. Let’s create an engine size by MPG plot with fuel type and car class added.\n\n\n\n\n\nThis looks promising: it appears that all five outliers take premium fuel, and four of the five outliers are 2-seater coupes. This means that our outliers are probably sports / performance cars: larger engines but lighter bodies.\n\n\n\n\n\n\nExercise\n\n\n\nWrite the code necessary to create the above graph.\n\n\nIf you’re thinking to yourself, “I wish there was a way to clean this graph up, to only show the premium fuel and two-seater cars”, then you are thinking what I’m thinking. However, we need some functions from the dplyr package first, which we will cover in a few weeks. The ggplot package also gives us a way to break graphs into mutually-exclusive pieces, called facets, which we will discuss shortly."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html",
+    "href": "lessons/lesson05_RStudio_projects.html",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "",
+    "text": "What did we learn last class?\n\nThe Layered Grammar of Graphics\nLoading a Package\nMy First ggplot\nMapping Aesthetics\nGeometric Objects\nLabels\nColor palettes and examples"
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#everything-is-an-object",
+    "href": "lessons/lesson05_RStudio_projects.html#everything-is-an-object",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Everything is an Object",
+    "text": "Everything is an Object\nFor the computer programmers out there, R is neither a purely “object-oriented” (OOP) language nor a purely “functional” (FP) language, but shows behaviour from both schools. For everyone else who either doesn’t know or doesn’t care about the OOP v FP distinction, this is the last we’ll talk about it. Remember this, however, everything in R is an object."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#object-names",
+    "href": "lessons/lesson05_RStudio_projects.html#object-names",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Object Names",
+    "text": "Object Names\nAs Shakespeare famously penned,\n\nWhat’s in a name? That which we call a rose\nBy any other word would smell as sweet.\nRomeo and Juliet, Act 2, Scene 2\n\nUnfortunately for us, computer programmers were never very good at Shakespeare, so names are very important in writing good code. Look back to our two examples. Our objects are named myMessage_char and myAge_num. If you are reading my code, could you guess what those two things are? My age and my message, right? What about if we had named the objects Stuff, stuff, x, x1, morestuff, X, or omgNeedCoffee? Notice that cAsE MaTtErS. Use names that are short, but descriptive. There are a few conventions for naming things:\n\nsnake_case\ncamelCase\nperiod.case\naBsoLUTE.andCOMPLETE_utternonsense\n\nNotice another thing about my object names: they all end with a brief tag explaining what type of object they are (we will cover object classes in more detail next lesson). myMessage_char is a character string, while myAge_num is a number (numeric, technically). I recommend using camelCase followed by an abbreviation for the type of the object, but you can pick whatever convention you like (but please be consistent).\n\n\n\n\n\n\nExercises\n\n\n\n\nYou have imported a spreadsheet of phenotype data for subjects with colorectal adenocarcinoma. What are some good names for this data set?\nYou save a subset of the above data set with all HIV-positive males. Name this data set."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#basic-function-syntax",
+    "href": "lessons/lesson05_RStudio_projects.html#basic-function-syntax",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Basic Function Syntax",
+    "text": "Basic Function Syntax\nMost R functions look like this: functionName(argument1 = value1, argument2 = value2, ...). This function is an object called functionName. We don’t know what it does, because the operations of the function are stored within the object functionName. We do know that it takes in two arguments with two values, and does something to them. Let’s use a function to create our first matrix (I’ve annotated the code to show its similarities with an English sentence):\n\n# object      verb   subject1  adverb1   adverb2\nmyData_mat <- matrix(data = 0, nrow = 5, ncol = 2)\nmyData_mat\n\n     [,1] [,2]\n[1,]    0    0\n[2,]    0    0\n[3,]    0    0\n[4,]    0    0\n[5,]    0    0\n\n\nNotice a few things. We used a function called matrix (a verb) with three arguments (data, nrow, and ncol). This function did some things behind the scenes (as defined in the object matrix), and returned an output. This output is a matrix of zeroes (the “noun”) with two columns and five rows (adverbs controlling how the verb should work; not all functions use additional arguments to change their behaviour, but most do). The data input was recycled to fill the entire matrix.\n\n\n\n\n\n\nExercise\n\n\n\nLabel the “subjects”, “verbs”, “adverbs”, and “objects” in the following code:\n\nggplot(data = mpg) +\n  aes(x = displ, y = hwy) +\n  geom_point()"
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#our-first-function",
+    "href": "lessons/lesson05_RStudio_projects.html#our-first-function",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Our First Function",
+    "text": "Our First Function\nSo far, we have only used functions that R provided for us or functions out of supplemental R packages. However, there are many instances where we need to create our own functions. Because we know that functions are also objects, we can create them just like anything else: with a creation function. Function creation has the following syntax:\n\nmyFun_fun <- function(argument1){\n  \n  body\n  \n}\n\nWe can use this syntax to create a function to add two numbers (obviously this function already exists, but bear with me).\n\nmySum_fun <- function(x, y){ x + y }\nmySum_fun(2, 3)\n\n[1] 5\n\n\nWe can create many of our own functions, and use these functions to accomplish very difficult tasks. This flexibility to create any function we can think of is one of R’s greatest strengths, but also part of what gives R its distinct learning curve.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a new function to greet someone good morning. The argument of your function should be who, and it’s value should be a character. Hint: look up the help file for the paste() function.\nModify your function so that it will greet you by default (with no argument value supplied to the who argument)."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#function-best-practices",
+    "href": "lessons/lesson05_RStudio_projects.html#function-best-practices",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Function Best Practices",
+    "text": "Function Best Practices\nBecause R is a functional language, the functions you write should be the most important pieces of your code. Functions in R, through their inherent vectorized efficiency, turn this\nlsum <- 0\nfor (i in 1:length(x)) {\n  lsum <- lsum + log(x[i])\n}\ninto this\nlsum <- sum(log(x))\n(This and other mortal R sins are covered in The R Inferno.) R is a functional programming language, so you must learn to use functions in your code. Furthermore, while this isn’t required, you should probably think about collecting the functions you write into a package. Here are some guidelines on writing functions:\n\nFunctions should do one major thing, only that thing, and that thing well. A function that does a million things is easy to break and horribly difficult to check. Keep your functions simple, and you will not regret it.\nMajor functions should be saved in their own script files. This encourages your project code to be compartmentalized and organized. For projects, this is very important for testing and organization. Overall, I strongly recommend you do not store all of your functions in one file. If you have a ton of functions to source all at once, create a package. Even if you never plan to release the code to anyone outside your group, create a package anyway.\nUtility functions can be collected into one file. Because you probably do not need extensive documentation or checking of utility functions, you can store all related utility functions together."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#documenting-your-functions",
+    "href": "lessons/lesson05_RStudio_projects.html#documenting-your-functions",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Documenting your Functions",
+    "text": "Documenting your Functions\nCode comments are the glue that hold a collaboration team together across time and space. You write comments to three people: yourself today, yourself in six months, and people who have never seen your code. These comments will include:\n\nthe function name and description,\nnames and descriptions for each argument to the function,\na description of what the function returns,\na thorough commentary on how the function works,\nat least one working example, and\ncitation, external links, internal links, etc. all as appropriate.\n\nComments always have a single space between the comment character (#) and the start of the comment. If your functions are not saved within a package, add these same comments as the first lines within your function. This ensures that the comments about the function always travel with the function.\nExample:\nCalculateSampleCovariance <- function(x, y, verbose = TRUE) {\n  # Computes the sample covariance between two vectors.\n  #\n  # Args:\n  #   x: One of two vectors whose sample covariance is to be calculated.\n  #   y: The other vector. x and y must have the same length, greater than one,\n  #      with no missing values.\n  #   verbose: If TRUE, prints sample covariance as a sentence; if not, not. \n  #      Default is TRUE.\n  #\n  # Returns:\n  #   The sample covariance between x and y.\n  # \n  # Example:\n  # CalculateSampleCovariance(x = rnorm(10), y = rnorm(10))\n  \n  \n  n <- length(x)\n  # Error handling\n  if (n <= 1 || n != length(y)) {\n    stop(\"Arguments x and y have different lengths: \",\n         length(x), \" and \", length(y), \".\")\n  }\n  if (TRUE %in% is.na(x) || TRUE %in% is.na(y)) {\n    stop(\" Arguments x and y must not have missing values.\")\n  }\n  covariance <- var(x, y)\n  if (verbose)\n    cat(\"The covariance is \", round(covariance, 4), \".\\n\", sep = \"\")\n  return(covariance)\n}"
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#a-new-r-script",
+    "href": "lessons/lesson05_RStudio_projects.html#a-new-r-script",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "A New R Script",
+    "text": "A New R Script\nLet’s start a new script:\n\nGo to File > New File > R Script\nType “Hello from my first Script!”\nWith your cursor on the line you typed, press CTRL + ENTER to run your code.\n\nYou will notice that \"Hello from my first Script!\" appeared in the Console below, and your cursor moved to a new line in your script. You can write new commands and run them, or you can move your cursor back up to the previous line to edit the code that you’ve written."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#code-paragraph-rules",
+    "href": "lessons/lesson05_RStudio_projects.html#code-paragraph-rules",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Code “Paragraph” Rules",
+    "text": "Code “Paragraph” Rules\nJust like written paragraphs in English have certain rules, code scripts also have rules and best practices to help keep your work organized. Let’s consider an example data analysis for argument’s sake. We need to import the data, clean it, wrangle it (more on this next class), analyze it, and graph the results.\nThese rules are loosely ordered by importance:\n\nAll the code in one script should be related to one subtopic of your analysis. For instance, in the data analysis example above, we would create a seperate script for data import and cleaning, a script for wrangling and transformation, an analysis script, and a graphics script.\nScripts should be named (and often dated) based on what part of the workflow they handle. For example, the analysis script may be called breast_cancer_data_analysis_201906.R. Ordered files in a project pipeline should have leading numbers (00_clean_raw_data.R, 01_explore_clean_data.R, …) to keep presentation orderly.\nPartition chunks, or blocks, of code into sections with six pound signs on either side of a block title. This helps to keep your thoughts organized. Many times I will see that a code block has become very large, which prompts me that it should be it’s own script. In the RStudio IDE, when you name a code block, the name of that block will appear in the bottom left of the Editor pane, right next to the code GPS. If you haven’t organized your script into chunks yet, you should see (Top Level) or Untitled in this space. Here’s an example:\n\n######  New Code Section  #####################################################\n# A new code section in an R script is created with six pound signs (#), two\n#   spaces, the section description, two more spaces, and pound signs until the\n#   80th character slot is reached.\n\nNon-trivial code should be annotated with helpful or clarifying comments. Use the # (pound sign, or hashtag, depending on your age) to comment a single line of code in R. When you add comments to your code, try as much as possible to answer why you wrote the code that you did and the way you did, rather than simply parroting what your line of code does. Remember, comments should never simply “parrot” the code.\nLines in your script should be at or fewer than 80 characters wide whenever possible. You can use the “Code GPS” on the bottom left of the Editor pane to tell you where in the script you are. Why 80 characters per line? Because we are slaves to tradition. Different people have different size computer monitors, and lines that are 80 characters wide can easily be displayed on all sorts of screens. Also, 80-character lines fit on a printed page or in vignette PDFs very well. This rule serves another purpose: if your lines are consistently over 80 characters, this is a signal to you that you need to make your code simpler. If this is not possible, then think of this as an opportunity to write a function to make your code cleaner.\nUse two spaces (no tabs) for indentation. If you ever decide to release a package, then spacing becomes important for R documentation and meta-data files. It’s good to get into the habit of using the “two-space” indentation rule in any case; also, the RStudio IDE does this for you automatically most of the time.\nPad all operator calls with single spaces. Similar to the “80 characters wide” rule, this rule has no bearing on how the code executes, but makes a world of difference to human readability. An exception is commas: commas have one space after but no space before. Overall, don’tmakecodehardertoreadthanithastobe, and GIVE YOUR CODE SOME SPACE. Examples:\n\nrandErr_num <- rnorm(25, sd = 0.1) instead of randErr_num<-rnorm(25,sd=0.1).\nloss <- 3 or loss < -3 instead of loss<-3.\nif (check) { instead of if(check){\n\nMinutiae: Use <- for assignment, not =. Do not end lines with ;. Use double quotes instead of single quotes."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#an-example",
+    "href": "lessons/lesson05_RStudio_projects.html#an-example",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "An Example",
+    "text": "An Example\nI’ll now show you some code that breaks some of these rules, and then some code that follows these rules.\n\nBad Code Formatting\n\n\n\n\n\n\n\nExercise\n\n\n\nTalk with your neighbours. Can you figure out what this code is doing? Could you modify it for your own use? How could you make this script better?\n\n\n\n\nBetter Code Formatting\n\nWe will come back to this script later in the semester to make this even better.\n\n\n\n\n\n\nExercise\n\n\n\nOpen one of your previous scripts. Swap your computer with your neighbour. Have your neighbour point out some of the formatting mistakes, and you do the same for theirs."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#project-directory",
+    "href": "lessons/lesson05_RStudio_projects.html#project-directory",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Project Directory",
+    "text": "Project Directory\nInstead, organize your files by project. These directory names and contents are quite flexible. However, you should pick a directory design and be consistent with it. Here’s an example directory:\n\nThe project directory is for my lectures in the Quantitative Science Clinics for the Sylvester Comprehensive Cancer Center at the University of Miami. Within this directory, I have the following folders:\n\nCode (miscellaneous) or scripts. These are the code scripts to import and clean the data, perform the analysis, tidy the output, create figures and tables, and save the results. Remember, all of these scripts should be related to the current project!\nPackage directory for the project (optional). If you created a package (pipeline) to analyze any data of a certain type, the package should be in the directory you use it (unless it’s a pipeline you use for many different projects, then it should probably be hosted on GitHub).\nRaw and clean data. Any input files go in this folder (even if you pre-process them). Unless the point of your project is to simply clean data, then cleaned data is not an output!\nArticles, user guides, or manuals (often for the literature review of the manuscript or report that you will write to accompany the project). These are the papers, books, articles, etc. you had to read to understand the project. This directory should also include setup documentation from your PI and any data dictionaries. Any written documentation that helped you set up your work or understand your team’s work goes here. Also, this is where you save the bibliography files.\nWritten summaries and manuscript files (drafts, LaTeX logs, etc.). When writing a LaTeX manuscript or an .html report, I usually put each draft in its own subfolder. Also, when you write papers, make sure to mark the draft number as the first two characters of the file name; e.g. 01-draft_modifiedPCA.docx, 02-draft_modifiedPCA.docx. I’ve often seen that one number isn’t enough (only 9 potential drafts). This keeps you from wasting time looking for the latest version.\nProject README. This should be a simple text (.txt) or markdown (.md) file that explains what the point of the project is, and where to find all of the important files. Also, this document should have the start date of the project, the date of the most recent major revision, and the names and emails of your main collaborators. This way, if you reference a “Mandy” somewhere in your notes or file names, everyone know you’re talking about “Amanda from the statistics department”.\nFigures and tables (output files). If your paper has a results section, all that information goes here. Everything that is an “end” of an analysis goes here.\nRStudio Project File. If I were to double-click on this file, RStudio would open with all of my files that I was working in when I last saved that project. When you use RStudio projects, you don’t have to remember all the files you had in use and manually re-open them. I recommend that as soon as you have more that one script (or a single long script that you really should have broken into a few different scripts already—jeez), you create an RStudio project to organize your files."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#do-not-save-your-workspace",
+    "href": "lessons/lesson05_RStudio_projects.html#do-not-save-your-workspace",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "DO NOT: Save your workspace",
+    "text": "DO NOT: Save your workspace\nGet in the habit of starting the day’s work with a fresh environment. This will reduce the “it worked on my machine” errors considerably. You want to periodically restart R and re-run your scripts to ensure that the code results you are seeing aren’t the result of some hidden artefact or forgotten object definition. I restart my R session and re-run my scripts around once per hour or so. To quote the masters,\n\nWith your R scripts (and your data files), you can recreate the environment. It’s much harder to recreate your R scripts from your environment! You’ll either have to retype a lot of code from memory (making mistakes all the way) or you’ll have to carefully mine your R history. - Wickam and Grolemund, R for Data Science\n\nTo this end, I strongly recommend you remove the “restore workspace” option in RStudio (“Tools”” /> “Global Options”).\n\nThe keyboard shortcut for “restart and rerun” is CTRL + SHIFT + 0 (restart) then CTRL + SHIFT + S (source the current script). On a Mac, replace CTRL with CMD for the same effect."
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#do-create-a-project",
+    "href": "lessons/lesson05_RStudio_projects.html#do-create-a-project",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "DO: Create a Project",
+    "text": "DO: Create a Project\nSo that you don’t painfully lose your work every time you restart, RStudio offers built-in project creation. Once you have a directory with a few scripts, data files, output files, and / or graphs, create a project to hold it all.\n\nGo to File > New Project\nSelect the “Existing Directory” option\n\nIn the “Project Working Directory”, click “Browse” and find the directory with your scripts and data files.\n\nClick “Create Project”\n\nNow, any work you do in that project will be associated with your previous work. All your files stay nice and organized. You will use this project to store figures for your publications, as well as the scripts you used to create them. This means that the next time your pesky reviewer asks you to change a plot label, you don’t have to deal with editing the .JPG or .PDF file—you can simply re-run the code to build a new picture! Your data files, analysis scripts, output .csv’s, and publication graphics all stay together under the project banner.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a folder for your work in this class.\nCreate organized subfolders similar to what we discussed in class. The names and purposes for these folders are your prerogative.\nRead this article for tips on organizing your files: https://business.tutsplus.com/tutorials/how-to-organize-computer-files--cms-32191. I recommend project based folders with use-type subfolders. For example, I have a directory called “Teaching”, with a subdirectory for this class. That subdirectory is organized by the type or use of the files: “admin” for attendance, syllabus, and course schedule, “lectures” for my class notes, etc.\nWrite an organization plan that you can stick with.\nOrganize all the files on your computer. Start with your files and folders for your current degree. This will probably take a few days if you’ve never done it before. It could take a few hours if you haven’t done it recently."
+  },
+  {
+    "objectID": "lessons/lesson02s_scripts.html",
+    "href": "lessons/lesson02s_scripts.html",
+    "title": "Lesson 2 Supplement: R Scripts",
+    "section": "",
+    "text": "So far, if you needed to repeat all of the work you have done today, you would be in serious trouble! If we can repeat what we did, then we certainly can’t call our work reproducible. One simple thing we can do, is to write our code in a script.\n\n\nTo create a new script, go to “File” > “New File” > “R Script”. The keyboard shortcut for this is CTRL + Shift + N on Windows, and CMD + Shift + N on Mac. You should now have a window that looks like this:\n\nAt the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of code comment, and should be marked as such.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a new script to run some of the commands you learned in Lesson 2. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.\nAdd some of the code from that lesson (a few operations).\nAdd comments explaining to yourself what these operations are doing.\nSave your script with a good name, and—if possible–today’s date (in a computer-sortable format). Notice that your file name font colour changed from red back to black. Why? Mac Users: make sure you add .R to the end of your file name.\n\n\n\nThis is what mine looks like:\n\nAs you learn more about R, your comments should quickly become more about why you did what you did, rather than what you did."
   },
   {
     "objectID": "lessons/lesson02_introduction_to_R.html",
@@ -187,229 +488,5 @@
     "title": "Lesson 3: Quarto for Reproducible Reports",
     "section": "Annotating your Work",
     "text": "Annotating your Work\nGood code has good explanations. Whenever you write code, you should include explanations for why you are doing what you are doing. Good code should be readable, in the sense that someone who knows the language can look at the code and see what you are doing. However, no one but you knows exactly why you chose to do what you did in the way that you did it.\nAs will most textual explanation, we often need to organize it, format it, and add supplemental figures and tables to explain it. Here are the rules for formatting your report:\n\n\n\n\n\n\n\nExercises\n\n\n\n\nMake a Quarto report to include some of your notes from the past few lectures. Include:\n\ncode examples\nannotations for what you learned about the code you had to write\nan image of a meme that you find funny (look at the cheat sheet for how to include images) as a hyperlink\n\nRender your report as an .html document first, and check to see that your formatting is appropriate.\nAlso render your report as a Word document. Note the slight changes in formatting.\n\n\n\nCongratulations! You are now well on your way to writing powerful and flexible scientific reports with Quarto.\n\n\n\n\n\n\nFinal Exercise\n\n\n\nInstall the tidyverse package the same way you installed the knitr package above. (We need it for next class.)"
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html",
-    "href": "lessons/lesson01_GreaterDataScience.html",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "",
-    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\""
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#data-preparation-and-exploration",
-    "href": "lessons/lesson01_GreaterDataScience.html#data-preparation-and-exploration",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Data Preparation and Exploration",
-    "text": "Data Preparation and Exploration\nThis is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.\n\nExamples: designing the questions on a patient survey, creating a database to hold clinical trials data, finding the most common answers to a question, finding the largest or smallest values of a measurement, reporting the proportion of missing answers to a battery of questions between three cohorts."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#data-representation-and-transformation",
-    "href": "lessons/lesson01_GreaterDataScience.html#data-representation-and-transformation",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Data Representation and Transformation",
-    "text": "Data Representation and Transformation\nThis deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.\n\nExamples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together)."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#computing-with-data",
-    "href": "lessons/lesson01_GreaterDataScience.html#computing-with-data",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Computing with Data",
-    "text": "Computing with Data\nThis part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.\n\nExamples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create “packages” of computer code to repeat the same types of analyses on new data sets."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#data-modeling",
-    "href": "lessons/lesson01_GreaterDataScience.html#data-modeling",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Data Modeling",
-    "text": "Data Modeling\nThis part of data science is the most well-known portion. It is what most lay-people consider “data science”: statistical modelling and machine learning. This is where simple techniques like t-tests, linear regression, or ANOVA come in, but it also includes highly complex models and routines such as deep neural networks, random coefficient mixed models, support vector machines, or discriminant analysis. Traditional statistics departments have historically taught or developed most of these techniques, although some interesting modern research has come from computer science and econometrics."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#data-visualization-and-presentation",
-    "href": "lessons/lesson01_GreaterDataScience.html#data-visualization-and-presentation",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Data Visualization and Presentation",
-    "text": "Data Visualization and Presentation\nThis portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be reproducible. Furthermore, the presentation of data in order to further an argument or claim is part of visual rhetoric, and is subject to questions of ethics. In traditional statistics departments, some of these tools are used, but rarely taught.\n\nExamples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.\n\n“A picture is worth a thousand words. Make sure your picture says the right thousand words.”"
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#science-about-data-science",
-    "href": "lessons/lesson01_GreaterDataScience.html#science-about-data-science",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Science about Data Science",
-    "text": "Science about Data Science\nThis portion of data science involves research meta-analysis about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with philosophy and ethics, it has hardly anything to do with academic statistics.\n\nExamples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#the-reproducibility-crisis",
-    "href": "lessons/lesson01_GreaterDataScience.html#the-reproducibility-crisis",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "The Reproducibility Crisis",
-    "text": "The Reproducibility Crisis\nPublished bio-science is largely not reproducible:\n\nOncology: 53 published articles tested, six successes (11%) (Nature, 2012)\nPsychology: 100 published articles, 39 successes (Nature News, 2015); 71 published articles tested, 92 replication attempts, 35 successes (38%; the PsychFileDrawer project is ongoing).\nPharmacology: 67 published models tested, 14 successes (21%) (Nature Reviews, 2011)"
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#the-ioannidis-crusade",
-    "href": "lessons/lesson01_GreaterDataScience.html#the-ioannidis-crusade",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "The Ioannidis crusade",
-    "text": "The Ioannidis crusade\nJohn Ioannidis, physician scientist at Stanford, speaks harshly against the lack of replicability in science:\n\n“Replication validity of genetic association studies” (2001)\n“Contradicted and Initially Stronger Effects in Highly Cited Clinical Research” (2005)\n“Why Most Published Research Findings Are False” (2005)\n“Why Most Clinical Research Is Not Useful” (2016)"
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#reproducible-data-science",
-    "href": "lessons/lesson01_GreaterDataScience.html#reproducible-data-science",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Reproducible Data Science",
-    "text": "Reproducible Data Science\nBefore reproducibility must come preproducibility.\n“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that enough information is provided to allow a dedicated reader to repeat the calculations in the paper for herself.”\n– Philip B. Stark, Professor of Statistics, UC Berkeley"
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#use-code",
-    "href": "lessons/lesson01_GreaterDataScience.html#use-code",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Use Code!",
-    "text": "Use Code!\nIf you want your analyses and figures to be reproducible, then you must use computer code to do this. Point-and-click software does not (usually) give you a record of your steps or allow you to repeat them. Building your data management, data modelling, and visualizations steps in a programming language means that you always have the tools necessary to repeat your work. In this class, you will learn how to write computer code to clean and transform your data, perform your analyses, and build the figures and tables for your papers. If you do this properly, this will ensure that anyone can recreate your analysis results, figures, and tables relatively quickly and painlessly."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#downloading-and-installing-r",
-    "href": "lessons/lesson01_GreaterDataScience.html#downloading-and-installing-r",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Downloading and Installing R",
-    "text": "Downloading and Installing R\n\nFor Windows\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\n\nClick on the “Download R for Windows” link at the top of the page.\n\nClick on the “install R for the first time” link at the top of the page.\nClick “Download R for Windows” and save the executable file somewhere on your computer (your desktop is fine, because you will delete this file later).\nDouble-click on the .exe file to “run” it and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\nClick on the “Download R for (Mac) OS X” link at the top of the page.\nClick on the file containing the latest version of R under “Files.”\nSave the .pkg file (to your desktop; you will delete it at the end)\nDouble-click the .pkg file to open, and follow the installation instructions (click “Next” or “Allow” a bunch).\n\nNow that R is installed, you need to download and install RStudio."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#download-and-install-rstudio",
-    "href": "lessons/lesson01_GreaterDataScience.html#download-and-install-rstudio",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Download and Install RStudio",
-    "text": "Download and Install RStudio\n\nFor Windows\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Windows version, and save the executable file (probably to your desktop, because we’re just going to delete it afterwards).\nDouble-click on the .exe file and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Mac version, and save the .dmg (disk image) file on your computer (probably to your desktop, because we are just going to delete it later)\nDouble-click the .dmg file to open it, and then drag and drop it to your applications folder."
-  },
-  {
-    "objectID": "lessons/lesson01_GreaterDataScience.html#check-the-install",
-    "href": "lessons/lesson01_GreaterDataScience.html#check-the-install",
-    "title": "Lesson 01: Overview of Data Science",
-    "section": "Check the Install",
-    "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the > symbol). Type (you don’t have to type the > symbol; it’s just there for reference)\n\n> \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html",
-    "href": "lessons/lesson04_ggplot_examples.html",
-    "title": "ggplot Examples",
-    "section": "",
-    "text": "This chapter is a supplemental chapter to Lesson 04 containing many more ggplot2 examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven’t seen yet. If you need some of these packages, make sure to “uncomment” the install.packages() call for the packages you need.\n\n# install.packages(\"Stat2Data\")\n# install.packages(\"RColorBrewer\")\n# install.packages(\"jtools\")\n# install.packages(\"viridis\")\n# install.packages(\"ggthemes\")\n# install.packages(\"xkcd\")\n\nlibrary(Stat2Data)\nlibrary(RColorBrewer)\nlibrary(jtools)\nlibrary(viridis)\nlibrary(xkcd)\nlibrary(ggthemes)\nlibrary(tidyverse)\nset.seed(012922)"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#exercise",
-    "href": "lessons/lesson04_ggplot_examples.html#exercise",
-    "title": "ggplot Examples",
-    "section": "Exercise",
-    "text": "Exercise\nDiscuss this plot with your neighbours. What do you like about this plot? What is it missing?"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#title-and-related",
-    "href": "lessons/lesson04_ggplot_examples.html#title-and-related",
-    "title": "ggplot Examples",
-    "section": "Title (and related)",
-    "text": "Title (and related)\nGive your plots informative titles. An informative title helps tell the story of the plot. Here are two examples:\n\nBAD: Relationship between HS GPA and college GPA\n\n\nGOOD: High school GPA is positively related to college GPA\n\nHere’s a title with more information (to show how you can add additional details).\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\", \n    subtitle = \"Among students at X University\", \n    caption = \"Data from FirstYearGPA in the Stat2Data package\", \n    tag = \"Figure 1\",\n    alt = \"Scatter plot showing the positive relationship between HS GPA and\n    college GPA, colored by student gender\",\n    x = \"High School GPA\",\n    y = \"College GPA\"\n  ) +\n  geom_point() \n\n\n\n\nThat’s a bit much, so let’s just stick with the title going forward.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\"\n  ) +\n  geom_point()"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-labels",
-    "href": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-labels",
-    "title": "ggplot Examples",
-    "section": "X and Y axis labels",
-    "text": "X and Y axis labels\nLet’s change the X and Y axes to be more informative. These aren’t the worst named variables, but you do need to infer that GPA is probably for college. Unless you go look at the information about the dataset – but we want our plot to speak for itself.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    x = \"High school GPA\", \n    y = \"First year college GPA\"\n  ) +\n  geom_point()\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(name = \"High school GPA\") +\n  scale_y_continuous(name = \"First year college GPA\") +\n  geom_point()"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-limits",
-    "href": "lessons/lesson04_ggplot_examples.html#x-and-y-axis-limits",
-    "title": "ggplot Examples",
-    "section": "X and Y axis limits",
-    "text": "X and Y axis limits\nSomething else you might want to do sometimes to provide context for your plot and data is adjust the limits of the axes beyond the values of the data. In this case, it would make it easier to see if the values run the full (potential) range of the variable.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  xlim(0, 4) + \n  ylim(0, 4) +\n  geom_point()\n\nWarning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(limits = c(2, 4)) +\n  scale_y_continuous(limits = c(2, 4)) +\n  geom_point()\n\nWarning: Removed 3 rows containing missing values (`geom_point()`).\n\n\n\n\n\nEither way, you can see that the values don’t run the full range of potential values. The X axis is probably because they collected data from college students and it’s harder to get into college if you have a very low GPA."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#legend-title-and-labels",
-    "href": "lessons/lesson04_ggplot_examples.html#legend-title-and-labels",
-    "title": "ggplot Examples",
-    "section": "Legend title and labels",
-    "text": "Legend title and labels\nThe way to change the legend title is not at all obvious. And there are multiple ways to do it.\nThe easiest thing to do is use the labs() function, but there’s not an argument that explicitly has to do with the legend. The argument ties back to how you mapped the variable in the original plot. You can also only change the title of the legend with this function, not the labels.\nIn base_plot_gg, we used color = as_factor(Male) to map color onto the variable Male. So we’ll use color here.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(color = \"Gender\") +\n  geom_point()\n\n\n\n\nA more general way is to use the scale_color_discrete() function, which allows you to change the title and labels. There are several of these functions, all of the same form:\n\nscale_color_discrete()\nscale_fill_discrete()\nscale_linetype_discrete()\nscale_shape_discrete()\nscale_size_discrete()\nscale_alpha_discrete()\n\nUse the appropriate one for your variable type: if you mapped the variable to the fill attribute then use fill; if you mapped the variable to the shape attribute then use shape; etc.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()\n\n\n\n\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#color-palettes",
-    "href": "lessons/lesson04_ggplot_examples.html#color-palettes",
-    "title": "ggplot Examples",
-    "section": "Color palettes",
-    "text": "Color palettes\n\nset theme for whole document\nAdd titles\nChanging axis, legend, and other labels\nText, size, font, color, etc.\nModifying background colors\nRotating objects\nOrdering variable options (alphabetical, increasing, etc.)"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#changing-the-color-palette",
-    "href": "lessons/lesson04_ggplot_examples.html#changing-the-color-palette",
-    "title": "ggplot Examples",
-    "section": "Changing the color palette",
-    "text": "Changing the color palette\nThe default colors are fine. They’re easy to distinguish (for me), but they might not work well for someone who is color blind."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#color-blind-friendly-color-palettes",
-    "href": "lessons/lesson04_ggplot_examples.html#color-blind-friendly-color-palettes",
-    "title": "ggplot Examples",
-    "section": "Color blind friendly color palettes",
-    "text": "Color blind friendly color palettes\nviridis is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html\n\nbase_plot_gg + \n  scale_color_viridis(discrete = TRUE)\n\n\n\n\nI find this a little hard to see. So maybe not the best choice.\nNotice the warning:\n## Scale for 'colour' is already present. Adding another scale for 'colour',\n## which will replace the existing scale.\nThis means that scale_color_viridis() overwrites scale_color_discrete() that we used above to label the legend. Notice that the legend title and labels are gone. We can add those arguments back into the viridis function and get them back.\n\nbase_plot_gg + \n  scale_color_viridis(\n    discrete = TRUE,\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#just-pick-some-colors",
-    "href": "lessons/lesson04_ggplot_examples.html#just-pick-some-colors",
-    "title": "ggplot Examples",
-    "section": "Just pick some colors",
-    "text": "Just pick some colors\nYou can also just choose some colors from the default ones available in R. Here, I’m using some hex color values, but you can also use RBG or CMYK or default R ones (i.e, “blue” or “red”).\nAgain, I’m adding the legend arguments back to this function.\n\nbase_plot_gg +\n  scale_color_manual(\n    values = c(\"#999999\", \"#E69F00\", \"#56B4E9\"), \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nFor a plot that uses the fill() option (like a bar plot), the command is fill_color_manual()."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#some-other-color-palettes",
-    "href": "lessons/lesson04_ggplot_examples.html#some-other-color-palettes",
-    "title": "ggplot Examples",
-    "section": "Some other color palettes",
-    "text": "Some other color palettes\nThe RColorBrewer package has several pre-built color palettes that you can use. You can view all the RColorBrewer palettes using\n\ndisplay.brewer.all()\n\n\n\n\nHere are just the palettes that work for color blind people:\n\ndisplay.brewer.all(colorblindFriendly = TRUE)\n\n\n\n\nThis is a qualitative palette, meaning that it works for nominal type variables. Again, adding the legend arguments back.\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Set2\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nA diverging palette that goes from red to yellow to blue:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"RdYlBu\", \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nThis is a sequential palette of blues:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Blues\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nVery hard to see the lighter dots on the grey background."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#color-based-on-continuous-variable",
-    "href": "lessons/lesson04_ggplot_examples.html#color-based-on-continuous-variable",
-    "title": "ggplot Examples",
-    "section": "Color based on continuous variable",
-    "text": "Color based on continuous variable\nIf you wanted to color based on a continuous variable, you would get many more colors than just the two here. Imagine that, instead of gender, we wanted to color the points based on how many social sciences units they enrolled in (SS in the dataset).\n\nbase_plot_cont_gg &lt;- \n  ggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = SS\n  ) +\n  labs(\n    title = \"First year college GPA versus high school GPA\", \n    x = \"High school GPA\", \n    y = \"First year college GPA\", \n    color = \"Social studies units\"\n  ) +\n  geom_point()\n\nbase_plot_cont_gg\n\n\n\n\nAbove is the default color scheme from ggplot. Let’s create a gradient for the SS variable, starting at blue and increasing to red. The function scale_color_gradient() lets you specify just the ends and it fills in between.\n\nbase_plot_cont_gg +\n    scale_color_gradient(low = \"blue\", high = \"red\")\n\n\n\n\nNotice that the continuous variable doesn’t need any edits to the legend labels, so the we don’t have to repeat those options like we did for the plot with the gender variable."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#color-fill-commands",
-    "href": "lessons/lesson04_ggplot_examples.html#color-fill-commands",
-    "title": "ggplot Examples",
-    "section": "Color fill commands",
-    "text": "Color fill commands\nWhen you’re using plots that fill rather than create lines or points, the commands are similar but include fill in them. Here is an unedited bar plot that uses one of the RColorBrewer color palettes.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Gender\", \n    labels = c(\"Female\", \"Male\")\n  ) +\n  labs(y = \"Frequency\") +\n  geom_bar(position = \"dodge\")\n\n\n\n\nNotice that I added labels to the (discrete) X axis and (continuous) Y axis too."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#adding-annotations",
-    "href": "lessons/lesson04_ggplot_examples.html#adding-annotations",
-    "title": "ggplot Examples",
-    "section": "Adding annotations",
-    "text": "Adding annotations\nLet’s return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students, those with GPA &gt; 3.8.\n\nbase_plot_gg +\n  annotate(\n    geom = \"rect\", \n    xmin = 3.8, \n    xmax = 4.01, \n    ymin = 2.0, \n    ymax = 4.2, \n    fill = \"red\", \n    alpha = 0.2\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.4, \n    y = 4.1, \n    label = \"High school honor roll students \\n (GPA &gt; 3.8)\"\n  )\n\n\n\n\nThis is pretty basic and built in as an annotation.\nWhat about a line indicating academic probation?\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.5, \n    yend = 2.5, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.95, \n    y = 4.5, \n    label = \"Students below the line are on probation\"\n  )\n\n\n\n\nWe can add a line indicating equal GPAs in high school and college and add text explaining why that line is important.\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.25, \n    yend = 4.25, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.5, \n    y = 2, \n    label = \"Students below the line did better in high school\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.9, \n    y = 4.0, \n    label = \"Students above the line did better in college\"\n  )\n\n\n\n\nAnother use of the line segment could be to indicate which groups are significantly different from one another in a bar plot.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = Male, \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(palette = \"Set2\") +\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = -0.25, \n    xend = 0.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 0, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nThis doesn’t look as good as it could, so let’s clean up the axes and labels.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = c(\"0\" = \"Female\", \"1\" = \"Male\")\n  ) +\n  labs(y = \"Frequency\")+\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = 0.75, \n    xend = 1.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 1, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nNotice a couple of things here:\n\nI had to specify that the gender variable was categorical with as_factor(Male). If I didn’t, the X axis labels didn’t show up at all (axis label or category labels).\nIn scale_x_discrete(), I specified which category the labels go with: \"0\" = \"Female\", \"1\" = \"Male\". This is not actually required but may be helpful.\nNotice the location of the line and star. I had to adjust their horizontal locations because factors in R do unexpected things: ggplot now places the bars at x = 1 and 2 instead of 0 and 1 because R is interpreting these factors as the numbers 1 and 2. We will discuss this more when we talk about atomic type coercion later this semester."
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#built-in-themes",
-    "href": "lessons/lesson04_ggplot_examples.html#built-in-themes",
-    "title": "ggplot Examples",
-    "section": "Built-in themes",
-    "text": "Built-in themes\nBlack and white theme:\n\nbase_plot_gg +\n  theme_bw()\n\n\n\n\nMinimal theme:\n\nbase_plot_gg + \n  theme_minimal()\n\n\n\n\nClassic theme:\n\nbase_plot_gg + \n  theme_classic()"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#package-themes",
-    "href": "lessons/lesson04_ggplot_examples.html#package-themes",
-    "title": "ggplot Examples",
-    "section": "Package themes",
-    "text": "Package themes\nThere is an APA theme in the jtools package, which was installed and loaded above. As of today, it is APA Publication Manual Version 6 compliant.\n\nbase_plot_gg +\n  theme_apa()\n\n\n\n\nWhat if I want my plot to look like it could be in the Wall Street Journal? (from the ggthemes package)\n\nbase_plot_gg + \n  theme_wsj()\n\n\n\n\nWell, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.\nWhat about the Economist? (also ggthemes)\n\nbase_plot_gg +\n  theme_economist()"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#editing-your-own-theme",
-    "href": "lessons/lesson04_ggplot_examples.html#editing-your-own-theme",
-    "title": "ggplot Examples",
-    "section": "Editing your own theme",
-    "text": "Editing your own theme\nYou can also change individual parts of the plot yourself. Maybe you just want all the text to be a little larger in a theme. This is good for presentations—the fonts are always a little too small to read well.\n\nbase_plot_gg + \n  theme_bw(base_size = 16)\n\n\n\n\nHow about changing the background of the plot (and the gridlines) to black to make it really striking?\n\nbase_plot_gg + \n  theme(\n    panel.background = element_rect(fill = \"black\"), \n    panel.grid = element_line(color = \"black\")\n  )\n\n\n\n\nAll of the objects you can modify are listed here: https://ggplot2.tidyverse.org/reference/theme.html.\n\n\n\n\n\n\nExercises\n\n\n\nExercises\n\nChange base_plot_gg to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.\nDiscuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?"
-  },
-  {
-    "objectID": "lessons/lesson04_ggplot_examples.html#exercises",
-    "href": "lessons/lesson04_ggplot_examples.html#exercises",
-    "title": "ggplot Examples",
-    "section": "Exercises",
-    "text": "Exercises\n\nChange base_plot_gg to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.\nDiscuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?"
   }
 ]

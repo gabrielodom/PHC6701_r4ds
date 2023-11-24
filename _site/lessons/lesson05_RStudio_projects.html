@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-09-09">
+
+<title>PHC 6701: R for Data Science - Lesson 5: RStudio Projects</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 5: RStudio Projects</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 01: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link active">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#naming-objects-objects-are-words" id="toc-naming-objects-objects-are-words" class="nav-link" data-scroll-target="#naming-objects-objects-are-words">Naming Objects: Objects are “Words”</a>
+  <ul class="collapse">
+  <li><a href="#everything-is-an-object" id="toc-everything-is-an-object" class="nav-link" data-scroll-target="#everything-is-an-object">Everything is an Object</a></li>
+  <li><a href="#object-names" id="toc-object-names" class="nav-link" data-scroll-target="#object-names">Object Names</a></li>
+  </ul></li>
+  <li><a href="#functions-code-verbs-for-a-sentence" id="toc-functions-code-verbs-for-a-sentence" class="nav-link" data-scroll-target="#functions-code-verbs-for-a-sentence">Functions: Code “Verbs” for a “Sentence”</a>
+  <ul class="collapse">
+  <li><a href="#basic-function-syntax" id="toc-basic-function-syntax" class="nav-link" data-scroll-target="#basic-function-syntax">Basic Function Syntax</a></li>
+  <li><a href="#our-first-function" id="toc-our-first-function" class="nav-link" data-scroll-target="#our-first-function">Our First Function</a></li>
+  <li><a href="#function-best-practices" id="toc-function-best-practices" class="nav-link" data-scroll-target="#function-best-practices">Function Best Practices</a></li>
+  <li><a href="#documenting-your-functions" id="toc-documenting-your-functions" class="nav-link" data-scroll-target="#documenting-your-functions">Documenting your Functions</a></li>
+  </ul></li>
+  <li><a href="#writing-code-scripts-the-code-paragraph" id="toc-writing-code-scripts-the-code-paragraph" class="nav-link" data-scroll-target="#writing-code-scripts-the-code-paragraph">Writing Code Scripts: The Code “Paragraph”</a>
+  <ul class="collapse">
+  <li><a href="#a-new-r-script" id="toc-a-new-r-script" class="nav-link" data-scroll-target="#a-new-r-script">A New R Script</a></li>
+  <li><a href="#code-paragraph-rules" id="toc-code-paragraph-rules" class="nav-link" data-scroll-target="#code-paragraph-rules">Code “Paragraph” Rules</a></li>
+  <li><a href="#an-example" id="toc-an-example" class="nav-link" data-scroll-target="#an-example">An Example</a></li>
+  </ul></li>
+  <li><a href="#organizing-code-scripts-with-projects-the-code-essay" id="toc-organizing-code-scripts-with-projects-the-code-essay" class="nav-link" data-scroll-target="#organizing-code-scripts-with-projects-the-code-essay">Organizing Code Scripts with Projects: The Code “Essay”</a>
+  <ul class="collapse">
+  <li><a href="#project-directory" id="toc-project-directory" class="nav-link" data-scroll-target="#project-directory">Project Directory</a></li>
+  <li><a href="#do-not-save-your-workspace" id="toc-do-not-save-your-workspace" class="nav-link" data-scroll-target="#do-not-save-your-workspace">DO NOT: Save your workspace</a></li>
+  <li><a href="#do-create-a-project" id="toc-do-create-a-project" class="nav-link" data-scroll-target="#do-create-a-project">DO: Create a Project</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 5: RStudio Projects</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 9, 2019</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>The Layered Grammar of Graphics</li>
+<li>Loading a Package</li>
+<li>My First ggplot</li>
+<li>Mapping Aesthetics</li>
+<li>Geometric Objects</li>
+<li>Labels</li>
+<li>Color palettes and examples</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>We will cover the following:</p>
+<ol type="1">
+<li>Naming Objects</li>
+<li>My First R Function</li>
+<li>Formatting Scripts</li>
+<li>Organizing your Files</li>
+<li>RStudio Projects</li>
+</ol>
+<p>In this lesson, we will treat the data analysis process like writing an essay. An essay is often a written work describing or defending one particular point of the author. Essays are composed of paragraphs. A paragraph discusses a single part of the essay’s whole topic. Paragraphs are short collections of sentences, all in regard to the single point of the paragraph. Sentences are the building blocks of essay argumentation or description. Sentences are often built of subjects, verbs, and objects. People often use a text editor, like Microsoft Word or LaTeX, to write, format, and edit essays.</p>
+<p>A code project is written work of computer code and paired descriptions completing one particular goal of the author. Projects are composed of code scripts. A code scipt implements a single part of the project’s whole goal. Scripts are short collections of commands and comments, all in regard to the single purpose of the script. Code commands are the building blocks of project execution. Code commands are often built of inputs, functions, and outputs. People often use an IDE (integrated development environment), like <a href="https://www.rstudio.com/">RStudio</a> or <a href="http://jupyter.org/">jupyter</a>, to write, format, and execute code.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Writing</th>
+<th style="text-align: left;">Coding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MS Word</td>
+<td style="text-align: left;">RStudio</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Essay</td>
+<td style="text-align: left;">Project</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Paragraph</td>
+<td style="text-align: left;">Script</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sentence</td>
+<td style="text-align: left;">Command</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subjects, Verbs, and Objects</td>
+<td style="text-align: left;">Inputs, Functions, and Outputs</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="naming-objects-objects-are-words" class="level1">
+<h1>Naming Objects: Objects are “Words”</h1>
+<p>We first discuss the building blocks of <code>R</code> code: objects, functions, and outputs. Remember, just like in proper English sentences, words have spaces between them. <em>Youwouldn’twriteasentencelikethis</em>, so don’t write your code like that either! Use spaces!</p>
+<section id="everything-is-an-object" class="level2">
+<h2 class="anchored" data-anchor-id="everything-is-an-object">Everything is an Object</h2>
+<p>For the computer programmers out there, <code>R</code> is neither a purely “object-oriented” (OOP) language nor a purely “functional” (FP) language, but shows behaviour from both schools. For everyone else who either doesn’t know or doesn’t care about the OOP v FP distinction, this is the last we’ll talk about it. Remember this, however, <strong>everything in <code>R</code> is an object.</strong></p>
+</section>
+<section id="object-names" class="level2">
+<h2 class="anchored" data-anchor-id="object-names">Object Names</h2>
+<p>As Shakespeare famously penned,</p>
+<blockquote class="blockquote">
+<p>What’s in a name? That which we call a rose<br>
+By any other word would smell as sweet.<br>
+<em>Romeo and Juliet</em>, Act 2, Scene 2</p>
+</blockquote>
+<p>Unfortunately for us, computer programmers were never very good at Shakespeare, so names are <em>very</em> important in writing good code. Look back to our two examples. Our objects are named <code>myMessage_char</code> and <code>myAge_num</code>. If you are reading my code, could you guess what those two things are? My age and my message, right? What about if we had named the objects <code>Stuff</code>, <code>stuff</code>, <code>x</code>, <code>x1</code>, <code>morestuff</code>, <code>X</code>, or <code>omgNeedCoffee</code>? Notice that <strong>cAsE MaTtErS</strong>. Use names that are short, but descriptive. There are a few conventions for naming things:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>snake_case</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>camelCase</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>period.case</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>aBsoLUTE.andCOMPLETE_utternonsense</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice another thing about my object names: they all end with a brief tag explaining <em>what type of object they are</em> (we will cover object <em>classes</em> in more detail next lesson). <code>myMessage_char</code> is a character string, while <code>myAge_num</code> is a number (numeric, technically). I recommend using <code>camelCase</code> followed by an abbreviation for the type of the object, but you can pick whatever convention you like (<strong>but please be consistent</strong>).</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>You have imported a spreadsheet of phenotype data for subjects with colorectal adenocarcinoma. What are some good names for this data set?</li>
+<li>You save a subset of the above data set with all HIV-positive males. Name this data set.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="functions-code-verbs-for-a-sentence" class="level1">
+<h1>Functions: Code “Verbs” for a “Sentence”</h1>
+<p>Functions are the action words of <code>R</code> coding, and they are very flexible and powerful. Functions take in an object, and return another object (even if that object is empty). Remember, <strong>everything you <em>do</em> in <code>R</code> calls a function.</strong> We’ve already seen a special function: the <code>&lt;-</code> (assignment) operator. This function took in our values, and assigned them to objects.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Everything you <em>do</em> in <code>R</code> calls a function</strong>.</p>
+</div>
+</div>
+<p>In grammatical parlance, a complete sentence is a subject and a verb, and most sentences also include an object of the verb. For example, “Tammy hit the ball hard” is a complete sentence. “Tammy” is the subject doing the action, “hit” is the verb showing the action Tammy did, “the ball” is the object Tammy acted upon (technically “the” is an adjective describing “ball”, but whatever), and “hard” is an adverb describing how the action was done. In code, functions are the verbs, the function arguments are the nouns and adverbs, and the output of the function is the object.</p>
+<table class="table">
+<caption>Diagramming Functions</caption>
+<thead>
+<tr class="header">
+<th>Word in Sentence</th>
+<th>Type of Word (English)</th>
+<th>Analogue in R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tammy</td>
+<td>Noun</td>
+<td>Primary Argument</td>
+</tr>
+<tr class="even">
+<td>hit</td>
+<td>Verb</td>
+<td>Function</td>
+</tr>
+<tr class="odd">
+<td>the ball</td>
+<td>Direct Object</td>
+<td>Function Output</td>
+</tr>
+<tr class="even">
+<td>hard</td>
+<td>Adverb</td>
+<td>Secondary Argument</td>
+</tr>
+</tbody>
+</table>
+<section id="basic-function-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="basic-function-syntax">Basic Function Syntax</h2>
+<p>Most <code>R</code> functions look like this: <code>functionName(argument1 = value1, argument2 = value2, ...)</code>. This function is an object called <code>functionName</code>. We don’t know what it does, because the operations of the function are stored within the object <code>functionName</code>. We do know that it takes in two arguments with two values, and does something to them. Let’s use a function to create our first matrix (I’ve annotated the code to show its similarities with an English sentence):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># object      verb   subject1  adverb1   adverb2</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>myData_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>myData_mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    0    0
+[2,]    0    0
+[3,]    0    0
+[4,]    0    0
+[5,]    0    0</code></pre>
+</div>
+</div>
+<p>Notice a few things. We used a function called <code>matrix</code> (a verb) with three arguments (<code>data</code>, <code>nrow</code>, and <code>ncol</code>). This function did some things behind the scenes (as defined in the object <code>matrix</code>), and returned an output. This output is a matrix of zeroes (the “noun”) with two columns and five rows (adverbs controlling <em>how</em> the verb should work; not all functions use additional arguments to change their behaviour, but most do). The <code>data</code> input was recycled to fill the entire matrix.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Label the “subjects”, “verbs”, “adverbs”, and “objects” in the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="our-first-function" class="level2">
+<h2 class="anchored" data-anchor-id="our-first-function">Our First Function</h2>
+<p>So far, we have only used functions that R provided for us or functions out of supplemental R packages. However, there are many instances where we need to create our own functions. Because we know that functions are also objects, we can create them just like anything else: with a creation function. Function creation has the following syntax:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>myFun_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(argument1){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  body</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use this syntax to create a function to add two numbers (obviously this function already exists, but bear with me).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mySum_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y){ x <span class="sc">+</span> y }</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mySum_fun</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>We can create many of our own functions, and use these functions to accomplish very difficult tasks. This flexibility to create any function we can think of is one of <code>R</code>’s greatest strengths, but also part of what gives <code>R</code> its distinct learning curve.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Create a new function to greet someone good morning. The argument of your function should be <code>who</code>, and it’s value should be a character. <em>Hint: look up the help file for the <code>paste()</code> function.</em></li>
+<li>Modify your function so that it will greet you by default (with no argument value supplied to the <code>who</code> argument).</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="function-best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="function-best-practices">Function Best Practices</h2>
+<p>Because R is a functional language, the functions you write should be the most important pieces of your code. Functions in R, through their inherent vectorized efficiency, turn this</p>
+<pre><code>lsum &lt;- 0
+for (i in 1:length(x)) {
+  lsum &lt;- lsum + log(x[i])
+}</code></pre>
+<p>into this</p>
+<pre><code>lsum &lt;- sum(log(x))</code></pre>
+<p>(This and other mortal R sins are covered in <a href="http://www.burns-stat.com/documents/books/the-r-inferno/">The R Inferno</a>.) R is a <em>functional</em> programming language, so you must <em>learn to use functions</em> in your code. Furthermore, while this isn’t required, you should probably think about collecting the functions you write into a package. Here are some guidelines on writing functions:</p>
+<ol type="1">
+<li><strong>Functions should do one major thing, only that thing, and that thing well.</strong> A function that does a million things is easy to break and horribly difficult to check. Keep your functions simple, and you will not regret it.</li>
+<li><strong>Major functions should be saved in their own script files.</strong> This encourages your project code to be compartmentalized and organized. For projects, this is <em>very important</em> for testing and organization. Overall, I <em>strongly</em> recommend you do not store all of your functions in one file. If you have a ton of functions to source all at once, create a package. Even if you never plan to release the code to anyone outside your group, <em>create a package anyway</em>.</li>
+<li><strong>Utility functions can be collected into one file.</strong> Because you probably do not need extensive documentation or checking of utility functions, you can store all related utility functions together.</li>
+</ol>
+</section>
+<section id="documenting-your-functions" class="level2">
+<h2 class="anchored" data-anchor-id="documenting-your-functions">Documenting your Functions</h2>
+<p>Code comments are the glue that hold a collaboration team together across time and space. You write comments to three people: yourself today, yourself in six months, and people who have never seen your code. These comments will include:</p>
+<ol type="1">
+<li>the function name and description,</li>
+<li>names and descriptions for each argument to the function,</li>
+<li>a description of what the function returns,</li>
+<li>a thorough commentary on how the function works,</li>
+<li>at least one working example, and</li>
+<li>citation, external links, internal links, etc. all as appropriate.</li>
+</ol>
+<p>Comments <em>always</em> have a single space between the comment character (<code>#</code>) and the start of the comment. If your functions are <em>not</em> saved within a package, add these same comments as the first lines within your function. This ensures that the comments <em>about</em> the function always travel <em>with</em> the function.</p>
+<p>Example:</p>
+<pre><code>CalculateSampleCovariance &lt;- function(x, y, verbose = TRUE) {
+  # Computes the sample covariance between two vectors.
+  #
+  # Args:
+  #   x: One of two vectors whose sample covariance is to be calculated.
+  #   y: The other vector. x and y must have the same length, greater than one,
+  #      with no missing values.
+  #   verbose: If TRUE, prints sample covariance as a sentence; if not, not. 
+  #      Default is TRUE.
+  #
+  # Returns:
+  #   The sample covariance between x and y.
+  # 
+  # Example:
+  # CalculateSampleCovariance(x = rnorm(10), y = rnorm(10))
+  
+  
+  n &lt;- length(x)
+  # Error handling
+  if (n &lt;= 1 || n != length(y)) {
+    stop("Arguments x and y have different lengths: ",
+         length(x), " and ", length(y), ".")
+  }
+  if (TRUE %in% is.na(x) || TRUE %in% is.na(y)) {
+    stop(" Arguments x and y must not have missing values.")
+  }
+  covariance &lt;- var(x, y)
+  if (verbose)
+    cat("The covariance is ", round(covariance, 4), ".\n", sep = "")
+  return(covariance)
+}</code></pre>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="writing-code-scripts-the-code-paragraph" class="level1">
+<h1>Writing Code Scripts: The Code “Paragraph”</h1>
+<p>Just like we use a word processor when writing an essay, we use an IDE when writing code. Here is the layout of the RStudio IDE. <img src="http://r4ds.had.co.nz/diagrams/rstudio-editor.png" class="img-fluid"></p>
+<p>So far, most of the code we have typed has been in the Console (bottom left) after the code “prompt” (<code>&gt;</code>). This is fine for writing a “sentence” or two at a time, but “paragraphs” should be written in the Editor (top left). In <code>R</code>, it is often very difficult to go back and edit your code once you execute it in the Console. If you write a script (“paragraph”) in the Editor, however, you can make as many edits as you need, all while keeping a record of your steps.</p>
+<section id="a-new-r-script" class="level2">
+<h2 class="anchored" data-anchor-id="a-new-r-script">A New R Script</h2>
+<p>Let’s start a new script:</p>
+<ol type="1">
+<li>Go to File &gt; New File &gt; R Script</li>
+<li>Type “Hello from my first Script!”</li>
+<li>With your cursor on the line you typed, press CTRL + ENTER to <em>run</em> your code.</li>
+</ol>
+<p>You will notice that <code>"Hello from my first Script!"</code> appeared in the Console below, and your cursor moved to a new line in your script. You can write new commands and run them, or you can move your cursor back up to the previous line to edit the code that you’ve written.</p>
+</section>
+<section id="code-paragraph-rules" class="level2">
+<h2 class="anchored" data-anchor-id="code-paragraph-rules">Code “Paragraph” Rules</h2>
+<p>Just like written paragraphs in English have certain rules, code scripts also have rules and best practices to help keep your work organized. Let’s consider an example data analysis for argument’s sake. We need to import the data, clean it, wrangle it (more on this next class), analyze it, and graph the results.</p>
+<p>These rules are loosely ordered by importance:</p>
+<ol type="1">
+<li>All the code in <strong>one script should be related to one subtopic</strong> of your analysis. For instance, in the data analysis example above, we would create a seperate script for data import and cleaning, a script for wrangling and transformation, an analysis script, and a graphics script.</li>
+<li><strong>Scripts should be named</strong> (and often dated) <strong>based on what part of the workflow they handle</strong>. For example, the analysis script may be called <code>breast_cancer_data_analysis_201906.R</code>. Ordered files in a project pipeline should have leading numbers (<code>00_clean_raw_data.R</code>, <code>01_explore_clean_data.R</code>, …) to keep presentation orderly.</li>
+<li><strong>Partition chunks, or blocks, of code into sections</strong> with six pound signs on either side of a block title. This helps to keep your thoughts organized. Many times I will see that a code block has become very large, which prompts me that it should be it’s own script. In the RStudio IDE, when you name a code block, the name of that block will appear in the bottom left of the Editor pane, right next to the code GPS. If you haven’t organized your script into chunks yet, you should see <code>(Top Level)</code> or <code>Untitled</code> in this space. Here’s an example:</li>
+</ol>
+<pre><code>######  New Code Section  #####################################################
+# A new code section in an R script is created with six pound signs (#), two
+#   spaces, the section description, two more spaces, and pound signs until the
+#   80th character slot is reached.</code></pre>
+<ol start="4" type="1">
+<li>Non-trivial <strong>code should be annotated with helpful or clarifying comments</strong>. Use the <code>#</code> (pound sign, or hashtag, depending on your age) to comment a single line of code in <code>R</code>. When you add comments to your code, try as much as possible to answer <em>why</em> you wrote the code that you did and the way you did, rather than simply parroting <em>what</em> your line of code does. Remember, comments should never simply “parrot” the code.</li>
+<li><strong>Lines in your script should be at or fewer than 80 characters wide</strong> whenever possible. You can use the “Code GPS” on the bottom left of the Editor pane to tell you where in the script you are. Why 80 characters per line? Because we are <a href="https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width">slaves</a> to <a href="http://www.columbia.edu/cu/computinghistory/census-tabulator.html">tradition</a>. Different people have different size computer monitors, and lines that are 80 characters wide can easily be displayed on all sorts of screens. Also, 80-character lines fit on a printed page or in vignette PDFs very well. This rule serves another purpose: if your lines are consistently over 80 characters, this is a signal to you that you need to make your code simpler. If this is not possible, then think of this as an opportunity to write a function to make your code cleaner.</li>
+<li><strong>Use two spaces (no tabs) for indentation</strong>. If you ever decide to release a package, then spacing becomes important for R documentation and meta-data files. It’s good to get into the habit of using the “two-space” indentation rule in any case; also, the RStudio IDE does this for you automatically most of the time.</li>
+<li><strong>Pad all operator calls with single spaces.</strong> Similar to the “80 characters wide” rule, this rule has no bearing on how the code executes, but makes a world of difference to human readability. An exception is commas: commas have one space after but no space before. Overall, don’tmakecodehardertoreadthanithastobe, and GIVE YOUR CODE SOME SPACE. Examples:
+<ol type="a">
+<li><code>randErr_num &lt;- rnorm(25, sd = 0.1)</code> instead of <code>randErr_num&lt;-rnorm(25,sd=0.1)</code>.</li>
+<li><code>loss &lt;- 3</code> or <code>loss &lt; -3</code> instead of <code>loss&lt;-3</code>.</li>
+<li><code>if (check) {</code> instead of <code>if(check){</code></li>
+</ol></li>
+<li>Minutiae: <strong>Use <code>&lt;-</code> for assignment, not <code>=</code>. Do not end lines with <code>;</code>. Use double quotes instead of single quotes.</strong></li>
+</ol>
+</section>
+<section id="an-example" class="level2">
+<h2 class="anchored" data-anchor-id="an-example">An Example</h2>
+<p>I’ll now show you some code that breaks some of these rules, and then some code that follows these rules.</p>
+<section id="bad-code-formatting" class="level3">
+<h3 class="anchored" data-anchor-id="bad-code-formatting">Bad Code Formatting</h3>
+<p><img src="../_figures/projects_eg_bad_code.png" class="img-fluid"></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Talk with your neighbours. Can you figure out what this code is doing? Could you modify it for your own use? How could you make this script better?</p>
+</div>
+</div>
+</section>
+<section id="better-code-formatting" class="level3">
+<h3 class="anchored" data-anchor-id="better-code-formatting">Better Code Formatting</h3>
+<p><img src="../_figures/projects_eg_better_code.png" class="img-fluid"></p>
+<p>We will come back to this script later in the semester to make this even better.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Open one of your previous scripts. Swap your computer with your neighbour. Have your neighbour point out some of the formatting mistakes, and you do the same for theirs.</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="organizing-code-scripts-with-projects-the-code-essay" class="level1">
+<h1>Organizing Code Scripts with Projects: The Code “Essay”</h1>
+<p>We have written quite a few code sentences, and we have organized these code sentences in to code paragraphs (scripts). It’s time to create our code essay (project). Projects are the collection of script and data files that are necessary for, or the output of, an analysis workflow.</p>
+<p>We care about good development because we want to make our pipelines and projects more <em>efficient</em>. However, efficiency has little to do with computational speed. <strong>Efficient computing is <em>not</em> about making bad code run faster.</strong> Why is this true? Human time is more valuable than computing time. Well-written code is easier to read and therefore easier to check for errors. Well-documented code is easier to use by other people. Writing a well-organized and well-documented project is better than writing a “fast” project almost every time. Efficiency is more about making you a better programmer, than it is about fast code or quickly-written projects.</p>
+<p>Project code that can be easily understood (i.e.&nbsp;it requires comparatively little human time to understand), is more <em>efficient</em> than code that is just “fast”. Of course this doesn’t mean we don’t try to make our code fast—faster code is better than slower code! However, I have found in many real-life scenarios that writing well-organized and properly documented code leads to that code being “faster” as a byproduct.</p>
+<p>I once worked with a statistician who organized all of their work files like so: all the input data for all of his projects in a <code>data/</code> directory, all of his code (regardless of language or application) in a <code>code/</code> directory, all of his graphs in a <code>figures/</code> directory, all of his manuscripts in a <code>documents/</code> directory, and so on and so forth. His boss transitioned one of his projects to me, and it was <em>hell on earth</em>. I spent weeks trying to find all of the documents scattered throughout his network drive. Don’t do that. Personally, I blame the old Windows OS for training people to use “file-type” organization instead of “project” organization.</p>
+<section id="project-directory" class="level2">
+<h2 class="anchored" data-anchor-id="project-directory">Project Directory</h2>
+<p>Instead, organize your files by project. These directory names and contents are quite flexible. However, you should pick a directory design and be consistent with it. Here’s an example directory:</p>
+<p><img src="../_figures/projects_setup_directory.png" class="img-fluid"></p>
+<p>The project directory is for my lectures in the Quantitative Science Clinics for the Sylvester Comprehensive Cancer Center at the University of Miami. Within this directory, I have the following folders:</p>
+<ol type="1">
+<li><strong>Code</strong> (miscellaneous) or scripts. These are the code scripts to import and clean the data, perform the analysis, tidy the output, create figures and tables, and save the results. Remember, all of these scripts should be related to the current project!</li>
+<li><strong>Package directory</strong> for the project (<em>optional</em>). If you created a package (pipeline) to analyze any data of a certain type, the package should be in the directory you use it (unless it’s a pipeline you use for many different projects, then it should probably be hosted on GitHub).</li>
+<li>Raw and clean <strong>data</strong>. Any input files go in this folder (even if you pre-process them). Unless the point of your project is to simply clean data, then cleaned data is <em>not</em> an output!</li>
+<li><strong>Articles, user guides, or manuals</strong> (often for the literature review of the manuscript or report that you will write to accompany the project). These are the papers, books, articles, etc. you had to read to understand the project. This directory should also include setup documentation from your PI and any data dictionaries. Any written documentation that helped you set up your work or understand your team’s work goes here. Also, this is where you save the bibliography files.</li>
+<li>Written summaries and <strong>manuscript files</strong> (drafts, LaTeX logs, etc.). When writing a LaTeX manuscript or an .html report, I usually put each draft in its own subfolder. Also, when you write papers, make sure to mark the draft number as the first <em>two</em> characters of the file name; e.g.&nbsp;<code>01-draft_modifiedPCA.docx</code>, <code>02-draft_modifiedPCA.docx</code>. I’ve often seen that one number isn’t enough (only 9 potential drafts). This keeps you from wasting time looking for the latest version.</li>
+<li>Project <strong>README</strong>. This should be a simple text (<code>.txt</code>) or markdown (<code>.md</code>) file that explains what the point of the project is, and where to find all of the important files. Also, this document should have the start date of the project, the date of the most recent major revision, and the names and emails of your main collaborators. This way, if you reference a “Mandy” somewhere in your notes or file names, everyone know you’re talking about “Amanda from the statistics department”.</li>
+<li>Figures and tables (<strong>output</strong> files). If your paper has a results section, all that information goes here. Everything that is an “end” of an analysis goes here.</li>
+<li><em>RStudio Project File</em>. If I were to double-click on this file, RStudio would open with all of my files that I was working in when I last saved that project. When you use RStudio projects, you don’t have to remember all the files you had in use and manually re-open them. I recommend that as soon as you have more that one script (or a single long script that you <em>really</em> should have broken into a few different scripts already—jeez), you create an RStudio project to organize your files.</li>
+</ol>
+</section>
+<section id="do-not-save-your-workspace" class="level2">
+<h2 class="anchored" data-anchor-id="do-not-save-your-workspace">DO NOT: Save your workspace</h2>
+<p>Get in the habit of starting the day’s work with a fresh environment. This will reduce the “it worked on my machine” errors considerably. You want to periodically restart <code>R</code> and re-run your scripts to ensure that the code results you are seeing aren’t the result of some hidden artefact or forgotten object definition. I restart my <code>R</code> session and re-run my scripts around once per hour or so. To quote the masters,</p>
+<blockquote class="blockquote">
+<p><em>With your R scripts (and your data files), you can recreate the environment. It’s much harder to recreate your R scripts from your environment! You’ll either have to retype a lot of code from memory (making mistakes all the way) or you’ll have to carefully mine your R history.</em> - Wickam and Grolemund, <strong>R for Data Science</strong></p>
+</blockquote>
+<p>To this end, I <em>strongly</em> recommend you remove the “restore workspace” option in RStudio (“Tools”” /&gt; “Global Options”).</p>
+<p><img src="http://r4ds.had.co.nz/screenshots/rstudio-workspace.png" class="img-fluid" style="width:60.0%"></p>
+<p>The keyboard shortcut for “restart and rerun” is <code>CTRL</code> + <code>SHIFT</code> + <code>0</code> (restart) then <code>CTRL</code> + <code>SHIFT</code> + <code>S</code> (source the current script). On a Mac, replace <code>CTRL</code> with <code>CMD</code> for the same effect.</p>
+</section>
+<section id="do-create-a-project" class="level2">
+<h2 class="anchored" data-anchor-id="do-create-a-project">DO: Create a Project</h2>
+<p>So that you don’t painfully lose your work every time you restart, RStudio offers built-in project creation. Once you have a directory with a few scripts, data files, output files, and / or graphs, create a project to hold it all.</p>
+<ol type="1">
+<li>Go to File &gt; New Project</li>
+<li>Select the “Existing Directory” option<br>
+<img src="../_figures/projects_create_in_existing_dir.png" class="img-fluid"></li>
+<li>In the “Project Working Directory”, click “Browse” and find the directory with your scripts and data files.<br>
+<img src="../_figures/projects_create_in_existing_dir_path.png" class="img-fluid"></li>
+<li>Click “Create Project”</li>
+</ol>
+<p>Now, any work you do in that project will be associated with your previous work. All your files stay nice and organized. You will use this project to store figures for your publications, as well as the scripts you used to create them. This means that the next time your pesky reviewer asks you to change a plot label, you don’t have to deal with editing the .JPG or .PDF file—you can simply re-run the code to build a new picture! Your data files, analysis scripts, output <code>.csv</code>’s, and publication graphics all stay together under the project banner.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Create a folder for your work in this class.</li>
+<li>Create organized subfolders similar to what we discussed in class. The names and purposes for these folders are your prerogative.</li>
+<li>Read this article for tips on organizing your files: <a href="https://business.tutsplus.com/tutorials/how-to-organize-computer-files--cms-32191" class="uri">https://business.tutsplus.com/tutorials/how-to-organize-computer-files--cms-32191</a>. I recommend <em>project based</em> folders with <em>use-type</em> subfolders. For example, I have a directory called “Teaching”, with a subdirectory for this class. That subdirectory is organized by the type or use of the files: “admin” for attendance, syllabus, and course schedule, “lectures” for my class notes, etc.</li>
+<li>Write an organization plan that you can stick with.</li>
+<li>Organize all the files on your computer. Start with your files and folders for your current degree. <strong>This will probably take a few days if you’ve never done it before.</strong> It could take a few hours if you haven’t done it recently.</li>
+</ol>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

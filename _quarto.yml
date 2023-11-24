@@ -9,12 +9,13 @@ website:
     contents:
       - href: index.qmd
         text: Home
-      - href: lessons/lesson01_GreaterDataScience.qmd
+      - href: lessons/lesson01_greater_data_science.qmd
       - href: lessons/lesson02_introductionToR.qmd
-      - href: lessons/lesson02_suppl_scripts.qmd
+      - href: lessons/lesson02s_scripts.qmd
       - href: lessons/lesson03_introduction_to_Quarto.qmd
       - href: lessons/lesson04_ggplot.qmd
-      - href: lessons/lesson04_ggplot_examples.qmd
+      - href: lessons/lesson04s_examples.qmd
+      - href: lessons/lesson05_RStudio_projects.qmd
       - about.qmd
 
 format:
