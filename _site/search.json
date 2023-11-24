@@ -16,210 +16,315 @@
   {
     "objectID": "lessons/lesson01_greater_data_science.html",
     "href": "lessons/lesson01_greater_data_science.html",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "",
     "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\""
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#data-preparation-and-exploration",
     "href": "lessons/lesson01_greater_data_science.html#data-preparation-and-exploration",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Data Preparation and Exploration",
     "text": "Data Preparation and Exploration\nThis is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.\n\nExamples: designing the questions on a patient survey, creating a database to hold clinical trials data, finding the most common answers to a question, finding the largest or smallest values of a measurement, reporting the proportion of missing answers to a battery of questions between three cohorts."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#data-representation-and-transformation",
     "href": "lessons/lesson01_greater_data_science.html#data-representation-and-transformation",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Data Representation and Transformation",
     "text": "Data Representation and Transformation\nThis deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.\n\nExamples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together)."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#computing-with-data",
     "href": "lessons/lesson01_greater_data_science.html#computing-with-data",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Computing with Data",
     "text": "Computing with Data\nThis part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.\n\nExamples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create “packages” of computer code to repeat the same types of analyses on new data sets."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#data-modeling",
     "href": "lessons/lesson01_greater_data_science.html#data-modeling",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Data Modeling",
     "text": "Data Modeling\nThis part of data science is the most well-known portion. It is what most lay-people consider “data science”: statistical modelling and machine learning. This is where simple techniques like t-tests, linear regression, or ANOVA come in, but it also includes highly complex models and routines such as deep neural networks, random coefficient mixed models, support vector machines, or discriminant analysis. Traditional statistics departments have historically taught or developed most of these techniques, although some interesting modern research has come from computer science and econometrics."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#data-visualization-and-presentation",
     "href": "lessons/lesson01_greater_data_science.html#data-visualization-and-presentation",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Data Visualization and Presentation",
     "text": "Data Visualization and Presentation\nThis portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be reproducible. Furthermore, the presentation of data in order to further an argument or claim is part of visual rhetoric, and is subject to questions of ethics. In traditional statistics departments, some of these tools are used, but rarely taught.\n\nExamples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.\n\n“A picture is worth a thousand words. Make sure your picture says the right thousand words.”"
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#science-about-data-science",
     "href": "lessons/lesson01_greater_data_science.html#science-about-data-science",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Science about Data Science",
     "text": "Science about Data Science\nThis portion of data science involves research meta-analysis about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with philosophy and ethics, it has hardly anything to do with academic statistics.\n\nExamples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#the-reproducibility-crisis",
     "href": "lessons/lesson01_greater_data_science.html#the-reproducibility-crisis",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "The Reproducibility Crisis",
     "text": "The Reproducibility Crisis\nPublished bio-science is largely not reproducible:\n\nOncology: 53 published articles tested, six successes (11%) (Nature, 2012)\nPsychology: 100 published articles, 39 successes (Nature News, 2015); 71 published articles tested, 92 replication attempts, 35 successes (38%; the PsychFileDrawer project is ongoing).\nPharmacology: 67 published models tested, 14 successes (21%) (Nature Reviews, 2011)"
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#the-ioannidis-crusade",
     "href": "lessons/lesson01_greater_data_science.html#the-ioannidis-crusade",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "The Ioannidis crusade",
     "text": "The Ioannidis crusade\nJohn Ioannidis, physician scientist at Stanford, speaks harshly against the lack of replicability in science:\n\n“Replication validity of genetic association studies” (2001)\n“Contradicted and Initially Stronger Effects in Highly Cited Clinical Research” (2005)\n“Why Most Published Research Findings Are False” (2005)\n“Why Most Clinical Research Is Not Useful” (2016)"
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#reproducible-data-science",
     "href": "lessons/lesson01_greater_data_science.html#reproducible-data-science",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Reproducible Data Science",
     "text": "Reproducible Data Science\nBefore reproducibility must come preproducibility.\n“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that enough information is provided to allow a dedicated reader to repeat the calculations in the paper for herself.”\n– Philip B. Stark, Professor of Statistics, UC Berkeley"
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#use-code",
     "href": "lessons/lesson01_greater_data_science.html#use-code",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Use Code!",
     "text": "Use Code!\nIf you want your analyses and figures to be reproducible, then you must use computer code to do this. Point-and-click software does not (usually) give you a record of your steps or allow you to repeat them. Building your data management, data modelling, and visualizations steps in a programming language means that you always have the tools necessary to repeat your work. In this class, you will learn how to write computer code to clean and transform your data, perform your analyses, and build the figures and tables for your papers. If you do this properly, this will ensure that anyone can recreate your analysis results, figures, and tables relatively quickly and painlessly."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#downloading-and-installing-r",
     "href": "lessons/lesson01_greater_data_science.html#downloading-and-installing-r",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Downloading and Installing R",
     "text": "Downloading and Installing R\n\nFor Windows\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\n\nClick on the “Download R for Windows” link at the top of the page.\n\nClick on the “install R for the first time” link at the top of the page.\nClick “Download R for Windows” and save the executable file somewhere on your computer (your desktop is fine, because you will delete this file later).\nDouble-click on the .exe file to “run” it and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nOpen an internet browser and go to https://www.r-project.org.\nClick the “download R” link in the middle of the page under “Getting Started.”\nSelect a CRAN location (a mirror site) and click the corresponding link.\nClick on the “Download R for (Mac) OS X” link at the top of the page.\nClick on the file containing the latest version of R under “Files.”\nSave the .pkg file (to your desktop; you will delete it at the end)\nDouble-click the .pkg file to open, and follow the installation instructions (click “Next” or “Allow” a bunch).\n\nNow that R is installed, you need to download and install RStudio."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#download-and-install-rstudio",
     "href": "lessons/lesson01_greater_data_science.html#download-and-install-rstudio",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Download and Install RStudio",
     "text": "Download and Install RStudio\n\nFor Windows\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Windows version, and save the executable file (probably to your desktop, because we’re just going to delete it afterwards).\nDouble-click on the .exe file and follow the installation instructions (click “Next” or “Allow” a bunch of times).\n\n\n\nFor Mac\n\nGo to https://www.rstudio.com and click on the “Download RStudio” button.\nClick on “Download RStudio Desktop.”\nClick on the version recommended for your system, or the latest Mac version, and save the .dmg (disk image) file on your computer (probably to your desktop, because we are just going to delete it later)\nDouble-click the .dmg file to open it, and then drag and drop it to your applications folder."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#check-the-install",
     "href": "lessons/lesson01_greater_data_science.html#check-the-install",
-    "title": "Lesson 01: Overview of Data Science",
+    "title": "Lesson 1: Overview of Data Science",
     "section": "Check the Install",
     "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane, the environment pane, and the file pane.\n\nOur Very First R Code\nIn the console pane, move your cursor to the prompt (the > symbol). Type (you don’t have to type the > symbol; it’s just there for reference)\n\n> \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
   },
   {
+    "objectID": "lessons/lesson06_atomic_vectors.html",
+    "href": "lessons/lesson06_atomic_vectors.html",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "",
+    "text": "What did we learn last class?\n\nNaming Objects\nMy First R Function\nFormatting Scripts\nOrganizing your Files\nRStudio Projects"
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#review-1",
+    "href": "lessons/lesson06_atomic_vectors.html#review-1",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Review",
+    "text": "Review\nWe can assign a series of values to a vector using the c() function. For example we can create a vector of animal weights and assign it to a new object weight_g:\n\nweight_g <- c(50, 60, 65, 82)\nweight_g\n\n[1] 50 60 65 82\n\n\nA vector can also contain characters:\n\nanimals <- c(\"mouse\", \"rat\", \"dog\")\nanimals\n\n[1] \"mouse\" \"rat\"   \"dog\"  \n\n\nRembember that the quotes around “mouse”, “rat”, etc. are essential here. Without these quotes, R will assume there are objects named mouse, rat, and dog. Unless these objects exist in the Global Environment or some of the other environments you have loaded (they shouldn’t), you will get an error message.\n\nanimals <- c(mouse, rat)\n\nError in eval(expr, envir, enclos): object 'mouse' not found\n\n\nYou can also use the c() function to add other elements to one of your existing vectors:\n\n# add to the end of the vector\nweight_g <- c(weight_g, 90) \n# add to the beginning of the vector\nweight_g <- c(30, weight_g) \nweight_g\n\n[1] 30 50 60 65 82 90\n\n\nIn the first line, we take the original vector weight_g, add the value 90 to the end of it, and save the result back into weight_g. Then we add the value 30 to the beginning, again saving the result back into weight_g. While we can do this over and over again to grow a vector, there are usually better ways to make a bigger vector (more on this in our lesson on functions).\n\n\n\n\n\n\nExercise\n\n\n\nWhen you execute the code animals <- c(mouse, rat), R returns an error complaining about the object mouse but not rat. Why?"
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#atomic-classes",
+    "href": "lessons/lesson06_atomic_vectors.html#atomic-classes",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Atomic Classes",
+    "text": "Atomic Classes\nThe basic atomic classes in R (in order of complexity) are\n\nlogical: This is the most basic type of information that can be stored in R. A vector with elements of class logical is a vector of only TRUE or FALSE values.\ninteger: This is the second-most basic type of information. An integer vector is a vector of positive or negative counting numbers (and 0).\nnumeric: This is the class for the Real numbers in R. Any object of class integer is necessarily also an object of class numeric, but the reverse is not true.\ncomplex: This class allows us to represent complex numbers (real and imaginary parts; e.g., 1 + 4i). In the health sciences, we won’t use objects of this class very often, if ever.\ncharacter: This is the most complex class of atomic information. This class ensures that the information you type into R stays marked with the keystrokes you typed to enter it. Therefore, \"10\" is not recorded as the integer 10, or the real number 10.000000…, but rather the combined keystrokes of the “1” and “0” keys on your keyboard (to be very technical, “1” and “0” are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).\n\nThere is one other class below logical in complexity: raw. It measures bits of computer information. We do not use objects of this class."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#examples",
+    "href": "lessons/lesson06_atomic_vectors.html#examples",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Examples",
+    "text": "Examples\n\n“Names and Ages” Vectors\nWe can create a vector of ages and a vector of names for me and my siblings.\n\nages_int   <- c(31, 29, 27, 25, 23, 21)\nnames_char <- c(\n  \"Gabriel\", \"Britni\", \"Michael\", \"Christiana\", \"Olivia\", \"Hannah\"\n)\n\nages_int\n\n[1] 31 29 27 25 23 21\n\n\n\n\n“User ID” Vector\nLet’s consider another example. Suppose we need to create an electronic ID card for ourselves. What information could we put on the ID? We want things like our name, our age, where we live, etc. The medical school wants to know where we’re from, our highest degrees earned, and how long we’ve worked here. We can create a vector with all of this information:\n\n# Build the vector\nDrGabriel <- c(\n  \"Odom\", \"Gabriel\", \"PhD, ThD\", 31, \"Pembroke Pines\", \"FL\", \"TX\", 2.1\n  )\n\n# Inspect the Vector\nDrGabriel\n\n[1] \"Odom\"           \"Gabriel\"        \"PhD, ThD\"       \"31\"            \n[5] \"Pembroke Pines\" \"FL\"             \"TX\"             \"2.1\""
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#positive-position-subsetting",
+    "href": "lessons/lesson06_atomic_vectors.html#positive-position-subsetting",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Positive Position Subsetting",
+    "text": "Positive Position Subsetting\nThe main idea of positive position subsetting is you ask for the positions of the atomic vector based on what you want to keep.\nTo extract the third element of an atomic vector:\n\nnames_char[3]\n\n[1] \"Michael\"\n\n\nRemember that everything in R is an object. The bracket, [, is an object—specifically a function: it takes in the position of the element of the vector and returns the contents at that position.\nTo extract more than one element at once by position, we subset the vector by an atomic vector of integers. To extract names of the first and third sibling:\n\nnames_char[c(1, 3)]\n\n[1] \"Gabriel\" \"Michael\"\n\n\n\n\n\n\n\n\nExercise\n\n\n\nExtract the names of my sisters. Extract their ages from the ages_int vector."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#negative-position-subsetting",
+    "href": "lessons/lesson06_atomic_vectors.html#negative-position-subsetting",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Negative Position Subsetting",
+    "text": "Negative Position Subsetting\nThe main idea of negative position subsetting is you ask for the positions of the atomic vector based on what you want to discard. That is, we specify which entries we don’t want. We specify the elements we don’t want with the negative sign.\nTo remove my oldest sister’s name from the names_char (the second name in the vector), we subset the vector with a -2.\n\nnames_char[-2]\n\n[1] \"Gabriel\"    \"Michael\"    \"Christiana\" \"Olivia\"     \"Hannah\"    \n\n\n\n\n\n\n\n\nExercise\n\n\n\nRemove me and my brother’s names from the names_char vector. Where did you have to put the negative sign? Could you put it somewhere else?"
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#boolean-subsetting",
+    "href": "lessons/lesson06_atomic_vectors.html#boolean-subsetting",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Boolean Subsetting",
+    "text": "Boolean Subsetting\nThe main idea of logical or Boolean subsetting is to answer TRUE or FALSE to whether or not you would like to keep a set of values from the atomic vector. The other methods had you specify the vector element(s) you would like to keep or the vector element(s) you would like to discard. However, the Boolean subsetting method has you create a logical vector of the same length as dimension you are interested in subsetting over, and passing it through the [ function.\n\nReview: Logic and Logical Operators\nRecall that logical values in R are represented by the reserved symbols TRUE and FALSE. Here is a nice picture (shamelessly borrowed from R for Data Science). \n\nAND, OR, and NOT\nThere are three logical operators we will commonly employ: AND, OR, and NOT.\n\nx <- TRUE\ny <- FALSE\n\n# OR: Are either x or y TRUE?\nx | y \n\n[1] TRUE\n\n# AND: Are both x and y TRUE?\nx & y \n\n[1] FALSE\n\n# NOT: What is the opposite of x?\n!x    \n\n[1] FALSE\n\n\n\n\nSet Membership and XOR\nThere are two more operators to think about, but they are shorthands for the primary three.\nThe XOR operator asks “are x or y TRUE, but not both?”\n\n(x | y) & !(x & y)\n\n[1] TRUE\n\nxor(x, y)\n\n[1] TRUE\n\n\nThe set membership operator, %in%, is also known as the “infix” operator. It checks if a value is included in a set of values.\n\nA <- 2\nA == 1 | A == 2 | A == 3\n\n[1] TRUE\n\nA %in% c(1, 2, 3)\n\n[1] TRUE\n\n\n\n\n\nRepeating Values\nBefore we move on to the specific vector-type examples, it is helpful to have a function to repeat values. If you would like to create a vector of six true values in a row, we can use the rep() function.\n\nrep(TRUE, times = 6)\n\n[1] TRUE TRUE TRUE TRUE TRUE TRUE\n\n\nWe can combine this with the c() function for very powerful results.\n\n\n\n\n\n\nExercises\n\n\n\n\nUse the c() function with the rep() function to repeat the vector TRUE, FALSE, FALSE four times.\nCheck the help file of the rep() function to create the vector below:\n\n1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5\n\nNow create this vector:\n\n1 2 2 3 3 3 4 4 4 4 5 5 5 5 5\n\n\n\n\nLogical Subsetting\nWe want to keep the ages for every other child starting after me:\n\nages_int\n\n[1] 31 29 27 25 23 21\n\nages_int[rep(c(FALSE, TRUE), times = 3)]\n\n[1] 29 25 21\n\n\n\n\n\n\n\n\nExercises\n\n\n\n\nUse Boolean subsetting with the rep() function to extract the last three ages.\nUse Boolean subsetting to “de-identify” your electronic ID vector."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#id-example-part-2",
+    "href": "lessons/lesson06_atomic_vectors.html#id-example-part-2",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "ID Example, Part 2",
+    "text": "ID Example, Part 2\nHow can we make our ID vector better? Well, we have discussed what these fields are, but we haven’t formally named them. Let’s do that:\n\n# Re-build\nDrGabriel <- c(\n  Surname = \"Odom\",\n  FirstName = \"Gabriel\",\n  HighestDegrees = \"PhD, ThD\",\n  Age = 31,\n  City = \"Pembroke Pines\",\n  State = \"FL\",\n  MovedFrom = \"TX\",\n  timeEmployed = 2.1 # since Aug 2017\n)\n\n# Inspect\nDrGabriel\n\n         Surname        FirstName   HighestDegrees              Age \n          \"Odom\"        \"Gabriel\"       \"PhD, ThD\"             \"31\" \n            City            State        MovedFrom     timeEmployed \n\"Pembroke Pines\"             \"FL\"             \"TX\"            \"2.1\" \n\n\nWhat if I want my employment in years instead of months?\n\nDrGabriel[8] * 12\n\nError in DrGabriel[8] * 12: non-numeric argument to binary operator\n\n\nWe immediately see an error: non-numeric argument to binary operator. What caused this? R says my age is non-numeric, but we clearly typed a number. What’s going on?\n\n\n\n\n\n\nExercise\n\n\n\nCreate an ID vector with the same components as mine for yourself and your neighbour."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#vector-helper-functions",
+    "href": "lessons/lesson06_atomic_vectors.html#vector-helper-functions",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Vector Helper Functions",
+    "text": "Vector Helper Functions\nIn order to answer these questions, we need to use some helper functions. There are many functions that allow you to inspect the contents of a vector. The error above tells us that one of the values in DrGabriel[8] / 12 is non-numeric. We can use the class() function to tell us what type of information is stored in DrGabriel[8]. One other function you can use is typeof(). This function measures how objects are stored in R’s allocated memory. For most of the atomic vectors, these are identical.\n\nclass(DrGabriel[8])\n\n[1] \"character\"\n\ntypeof(DrGabriel[8])\n\n[1] \"character\"\n\n\n\n\n\n\n\n\nExercise\n\n\n\nObjects of the class numeric have two storage modes (as returned by the typeof() function). What are they? What do you think these names mean, and how might they be related to the storge mode (how the computer stores objects)?\n\n\nlength() tells you how many elements are in a particular vector:\n\nlength(weight_g)\n\n[1] 6\n\nlength(animals)\n\n[1] 3\n\n\nThe function str() provides an overview of the structure of an object and its elements. This is one of the most useful R functions you can learn, but it really shines when working with large and complex (non-atomic) objects. We will cover those next lesson.\n\nstr(DrGabriel)\n\n Named chr [1:8] \"Odom\" \"Gabriel\" \"PhD, ThD\" \"31\" \"Pembroke Pines\" \"FL\" ...\n - attr(*, \"names\")= chr [1:8] \"Surname\" \"FirstName\" \"HighestDegrees\" \"Age\" ...\n\nstr(animals)\n\n chr [1:3] \"mouse\" \"rat\" \"dog\""
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#type-promotion",
+    "href": "lessons/lesson06_atomic_vectors.html#type-promotion",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Type Promotion",
+    "text": "Type Promotion\nWe see that when we created the DrGabriel vector, the numeric age and tenure information was promoted to have class character. When we included both numeric and character information in the same atomic vector, R coerced the numeric information to match the type of information with the highest complexity (the characters). If you ever try to “mix” object of different complexities in an atomic vector, the elements of lower complexity will be “promoted” by force to match the highest complexity level. This is because basic vectors in R must be atomic: all elements they contain must have the same class. For example:\n\nclass(TRUE)\n\n[1] \"logical\"\n\nclass(c(TRUE, 1L))\n\n[1] \"integer\"\n\nclass(c(TRUE, 1L, 2.1))\n\n[1] \"numeric\"\n\nclass(c(TRUE, 1L, 2.1, \"yeeeeeaaaaaaaaaaaahhhhhhhh\"))\n\n[1] \"character\"\n\n\n\n\n\n\n\n\nExercise\n\n\n\nRecall the logical operators. Explain R’s results for the following:\n\n1 == TRUE\n\"1\" == TRUE\n1 == \"1\"\n!1\n!0\n\nHint: it may be helpful to combine some of these values into a single vector in order to see how R coerces their classes."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#finding-attributes",
+    "href": "lessons/lesson06_atomic_vectors.html#finding-attributes",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Finding Attributes",
+    "text": "Finding Attributes\nWe use the attributes() function to find out what the attributes of an object are.\n\nattributes(animals)\n\nNULL\n\nattributes(DrGabriel)\n\n$names\n[1] \"Surname\"        \"FirstName\"      \"HighestDegrees\" \"Age\"           \n[5] \"City\"           \"State\"          \"MovedFrom\"      \"timeEmployed\"  \n\n\nCurrently, the attributes of the animals object is NULL (this is how R describes something that is completely empty; this is not the same as R’s missing data tag, NA, that we saw earlier). However, the attributes of the DrGabriel object is not empty. In fact, it is a new type of data structure called a list that we will discuss in the next lesson.\n\n\n\n\n\n\nExercise\n\n\n\nFind the structure of the attributes of your ID vector."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#creating-attributes",
+    "href": "lessons/lesson06_atomic_vectors.html#creating-attributes",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Creating Attributes",
+    "text": "Creating Attributes\nOne cool thing about attributes is that you can create your own at any time. Let’s create a playing card object. We want the value of the object to be a single number, but we want the attributes to mark the suit of the card.\nWe can create or edit attributes with the attr() function. This function uses a special form of the assignment syntax. We have seen objectName <- value before. For attributes, we have to use a modified syntax because they are part of another object\n\ncard <- 2\nattr(card, \"suit\") <- \"hearts\"\n\ncard\n\n[1] 2\nattr(,\"suit\")\n[1] \"hearts\"\n\n\nThis code says to assign the character \"hearts\" to a container named \"suit\" that is itself contained entirely within another object, the object card.\n\n\n\n\n\n\nExercises\n\n\n\n\nFind the type and class of 1L and 1. What does the L do?\nAdd an attribute to your ID vector. It can be anything you like."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#classes-are-attribute-dependent",
+    "href": "lessons/lesson06_atomic_vectors.html#classes-are-attribute-dependent",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Classes are Attribute-Dependent",
+    "text": "Classes are Attribute-Dependent\nOne of the ways that R makes new classes available to you is by giving a normal atomic object a new set of attributes.\n\nExample\nLet’s make a vector of two pairs of names:\n\nsuperheroes <- c(\n  \"Wonder Woman\", \"Green Lantern\", \"Superman\", \"Diana Prince\", \"Alan Scott\",\n  \"Clark Kent\"\n)\n\nYou may be wondering why Wonder Woman’s name isn’t paired with her alias (Diana Prince). We will fix that momentarily.\nWhat is the current class and type of this vector?\n\nclass(superheroes)\n\n[1] \"character\"\n\ntypeof(superheroes)\n\n[1] \"character\"\n\n\nOne of the special attributes that R objects can have is dimension. We can set the dimension of our superheroes vector by:\n\nattr(superheroes, \"dim\") <- c(3, 2)\nsuperheroes\n\n     [,1]            [,2]          \n[1,] \"Wonder Woman\"  \"Diana Prince\"\n[2,] \"Green Lantern\" \"Alan Scott\"  \n[3,] \"Superman\"      \"Clark Kent\"  \n\n\nNotice that adding a dimension attribute to a character vector puts the same data into a rectangular form. What is the class of this vector now?\n\nclass(superheroes)\n\n[1] \"matrix\" \"array\" \n\ntypeof(superheroes)\n\n[1] \"character\"\n\n\nWe can then see that many of the more exotic types of data are simple types with additional attributes. In R, matrices are just atomic vectors with a dim attribute.\n\n\n\n\n\n\nExercise\n\n\n\nLook in the help file for the attr() function. What are some of the other “special” attributes that might change how R treats an atomic vector?"
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#missing-data-in-atomic-vectors",
+    "href": "lessons/lesson06_atomic_vectors.html#missing-data-in-atomic-vectors",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Missing Data in Atomic Vectors",
+    "text": "Missing Data in Atomic Vectors\nMissing values in R are represented by NA: not -999, ?, \" \", \".\", or even NaN. When you import any data into R, pay attention to the missing value codes from other data analysis software. R treats missing values (the NAs) as a statement saying “I don’t know”. Also, understand that missing values are “contagious” in R. Here are some examples:\n\nNA < 3    # Is something I don't know less than 3? I don't know.\n\n[1] NA\n\nNA * 2    # What is \"I don't know\" multiplied by 2? I don't know.\n\n[1] NA\n\nNA & TRUE # Are these both TRUE? I don't know.\n\n[1] NA\n\nNA | TRUE # Are either of these TRUE? Yes, one of them is TRUE.\n\n[1] TRUE\n\nNA == NA  # Is something I don't know equal to something else I don't know? I don't know.\n\n[1] NA\n\nis.na(NA) # Is this something we don't know? Yes.\n\n[1] TRUE\n\n\n\nReview: Atomic Vector Types\nBecause there are multiple types of atomic data, there are technically multiple types of NA. Recall the atomic data types:\n\nlogical: This is the most basic type of information that can be stored in R. A vector with elements of class logical is a vector of only TRUE or FALSE values.\ninteger: This is the second-most basic type of information. An integer vector is a vector of positive or negative counting numbers (and 0).\nnumeric: This is the class for the Real numbers in R. Any object of class integer is necessarily also an object of class numeric, but the reverse is not true.\ncharacter: This is the most complex class of atomic information. This class ensures that the information you type into R stays marked with the keystrokes you typed to enter it. Therefore, \"10\" is not recorded as the integer 10, or the real number 10.000000…, but rather the combined keystrokes of the “1” and “0” keys on your keyboard (to be very technical, “1” and “0” are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).\n\n\n\nType-Specific Missing Values\nBecause we have four major atomic types, we have four ways that data from atomic vectors could be missing. They all start with NA.\n\nNA: This is the missing value marker for a logical vector.\nNA_integer_: This is the missing value marker for an integer vector.\nNA_real_: This is the missing value marker for a double vector. Remember that numeric vectors have two types: integer or double. This missing value breaks with the naming convention, but I don’t know why.\nNA_character_: This is the missing value marker for a character vector.\n\n\n\n\n\n\n\nExercise\n\n\n\nConfirm with both the typeof() and class() functions that these missing values have the types and classes that they should.\n\n\n\n\nArithmetically-Induced “Missing” Values\nThere are some times that the results of a function are mathematically “missing” (I am putting this word in quotes because it’s not true; the values aren’t missing, people just think they are). For instance, from algebra we remember that anything divided by 0 does not exist. It’s not that this value is “missing”, it’s that this value cannot exist by definition.\nHere is how R handles special arthimetically-induced “missingness”:\n\nlog(-1)\n\n[1] NaN\n\n1 / (0 ^ 2)\n\n[1] Inf\n\n-1 / (0 ^ 2)\n\n[1] -Inf\n\n\n*Note: most computer languages differ in how they handle the quantity 1 / 0. R, Mathematica, and FORTRAN treat it as Inf; C++ treats it as a “floating point exception”; Python has a special class of results to handle these cases called a ZeroDivisionError; SAS issues a warning and replaces the value with the missing value symbol, .. Overall, you shouldn’t be dividing by 0 very often, but just be aware that these exceptions in computer arithmetic can trip you up."
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#missing-values-in-non-atomic-vector-types",
+    "href": "lessons/lesson06_atomic_vectors.html#missing-values-in-non-atomic-vector-types",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Missing Values in Non-Atomic Vector Types",
+    "text": "Missing Values in Non-Atomic Vector Types\nWe will cover non-atomic vectors in the next lesson, but I want to give a brief comment about the NULL value we saw earlier. Because non-atomic vectors are defined by what behaviour they don’t show, it’s nearly impossible to list all of the types on non-atomic vectors. It would be like trying to define the idea of “cold” without having any idea of what “warm” or “hot” means. Non-atomic vectors are what they are simply because they are not atomic.\nBecause of this, we use the NULL symbol to denote a missing non-atomic value. Recall the attributes of an atomic vector:\n\n# With Attributes\nx1 <- c(height = 73)\nattributes(x1)\n\n$names\n[1] \"height\"\n\n# Without Attributes\nx2 <- 73\nattributes(x2)\n\nNULL\n\n\nWhat is the difference between these two? Recall that attributes are stored as a list, making them non-atomic. Therefore, when attributes are missing or empty, R treats them as NULL. Again, don’t worry so much about this yet, because the next lesson is all about lists (non-atomic data)."
+  },
+  {
     "objectID": "lessons/lesson04s_examples.html",
     "href": "lessons/lesson04s_examples.html",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "",
     "text": "This chapter is a supplemental chapter to Lesson 04 containing many more ggplot2 examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven’t seen yet. If you need some of these packages, make sure to “uncomment” the install.packages() call for the packages you need.\n\n# install.packages(\"Stat2Data\")\n# install.packages(\"RColorBrewer\")\n# install.packages(\"jtools\")\n# install.packages(\"viridis\")\n# install.packages(\"ggthemes\")\n# install.packages(\"xkcd\")\n\nlibrary(Stat2Data)\nlibrary(RColorBrewer)\nlibrary(jtools)\nlibrary(viridis)\nlibrary(xkcd)\nlibrary(ggthemes)\nlibrary(tidyverse)\nset.seed(012922)"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#title-and-related",
     "href": "lessons/lesson04s_examples.html#title-and-related",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Title (and related)",
     "text": "Title (and related)\nGive your plots informative titles. An informative title helps tell the story of the plot. Here are two examples:\n\nBAD: Relationship between HS GPA and college GPA\n\n\nGOOD: High school GPA is positively related to college GPA\n\nHere’s a title with more information (to show how you can add additional details).\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\", \n    subtitle = \"Among students at X University\", \n    caption = \"Data from FirstYearGPA in the Stat2Data package\", \n    tag = \"Figure 1\",\n    alt = \"Scatter plot showing the positive relationship between HS GPA and\n    college GPA, colored by student gender\",\n    x = \"High School GPA\",\n    y = \"College GPA\"\n  ) +\n  geom_point() \n\n\n\n\nThat’s a bit much, so let’s just stick with the title going forward.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    title = \"High school GPA is positively related to college GPA, \\nespecially for girls\"\n  ) +\n  geom_point()"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#x-and-y-axis-labels",
     "href": "lessons/lesson04s_examples.html#x-and-y-axis-labels",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "X and Y axis labels",
     "text": "X and Y axis labels\nLet’s change the X and Y axes to be more informative. These aren’t the worst named variables, but you do need to infer that GPA is probably for college. Unless you go look at the information about the dataset – but we want our plot to speak for itself.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  )  +\n  labs(\n    x = \"High school GPA\", \n    y = \"First year college GPA\"\n  ) +\n  geom_point()\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(name = \"High school GPA\") +\n  scale_y_continuous(name = \"First year college GPA\") +\n  geom_point()"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#x-and-y-axis-limits",
     "href": "lessons/lesson04s_examples.html#x-and-y-axis-limits",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "X and Y axis limits",
     "text": "X and Y axis limits\nSomething else you might want to do sometimes to provide context for your plot and data is adjust the limits of the axes beyond the values of the data. In this case, it would make it easier to see if the values run the full (potential) range of the variable.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  xlim(0, 4) + \n  ylim(0, 4) +\n  geom_point()\n\nWarning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\n\nYou can also do this using the scale() functions:\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  scale_x_continuous(limits = c(2, 4)) +\n  scale_y_continuous(limits = c(2, 4)) +\n  geom_point()\n\nWarning: Removed 3 rows containing missing values (`geom_point()`).\n\n\n\n\n\nEither way, you can see that the values don’t run the full range of potential values. The X axis is probably because they collected data from college students and it’s harder to get into college if you have a very low GPA."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#legend-title-and-labels",
     "href": "lessons/lesson04s_examples.html#legend-title-and-labels",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Legend title and labels",
     "text": "Legend title and labels\nThe way to change the legend title is not at all obvious. And there are multiple ways to do it.\nThe easiest thing to do is use the labs() function, but there’s not an argument that explicitly has to do with the legend. The argument ties back to how you mapped the variable in the original plot. You can also only change the title of the legend with this function, not the labels.\nIn base_plot_gg, we used color = as_factor(Male) to map color onto the variable Male. So we’ll use color here.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) + \n  labs(color = \"Gender\") +\n  geom_point()\n\n\n\n\nA more general way is to use the scale_color_discrete() function, which allows you to change the title and labels. There are several of these functions, all of the same form:\n\nscale_color_discrete()\nscale_fill_discrete()\nscale_linetype_discrete()\nscale_shape_discrete()\nscale_size_discrete()\nscale_alpha_discrete()\n\nUse the appropriate one for your variable type: if you mapped the variable to the fill attribute then use fill; if you mapped the variable to the shape attribute then use shape; etc.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()\n\n\n\n\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = as_factor(Male)\n  ) +\n  scale_color_discrete(\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  ) +\n  geom_point()"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#color-palettes",
     "href": "lessons/lesson04s_examples.html#color-palettes",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Color palettes",
     "text": "Color palettes\n\nset theme for whole document\nAdd titles\nChanging axis, legend, and other labels\nText, size, font, color, etc.\nModifying background colors\nRotating objects\nOrdering variable options (alphabetical, increasing, etc.)"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#changing-the-color-palette",
     "href": "lessons/lesson04s_examples.html#changing-the-color-palette",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Changing the color palette",
     "text": "Changing the color palette\nThe default colors are fine. They’re easy to distinguish (for me), but they might not work well for someone who is color blind."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#color-blind-friendly-color-palettes",
     "href": "lessons/lesson04s_examples.html#color-blind-friendly-color-palettes",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Color blind friendly color palettes",
     "text": "Color blind friendly color palettes\nviridis is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html\n\nbase_plot_gg + \n  scale_color_viridis(discrete = TRUE)\n\n\n\n\nI find this a little hard to see. So maybe not the best choice.\nNotice the warning:\n## Scale for 'colour' is already present. Adding another scale for 'colour',\n## which will replace the existing scale.\nThis means that scale_color_viridis() overwrites scale_color_discrete() that we used above to label the legend. Notice that the legend title and labels are gone. We can add those arguments back into the viridis function and get them back.\n\nbase_plot_gg + \n  scale_color_viridis(\n    discrete = TRUE,\n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#just-pick-some-colors",
     "href": "lessons/lesson04s_examples.html#just-pick-some-colors",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Just pick some colors",
     "text": "Just pick some colors\nYou can also just choose some colors from the default ones available in R. Here, I’m using some hex color values, but you can also use RBG or CMYK or default R ones (i.e, “blue” or “red”).\nAgain, I’m adding the legend arguments back to this function.\n\nbase_plot_gg +\n  scale_color_manual(\n    values = c(\"#999999\", \"#E69F00\", \"#56B4E9\"), \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nFor a plot that uses the fill() option (like a bar plot), the command is fill_color_manual()."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#some-other-color-palettes",
     "href": "lessons/lesson04s_examples.html#some-other-color-palettes",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Some other color palettes",
     "text": "Some other color palettes\nThe RColorBrewer package has several pre-built color palettes that you can use. You can view all the RColorBrewer palettes using\n\ndisplay.brewer.all()\n\n\n\n\nHere are just the palettes that work for color blind people:\n\ndisplay.brewer.all(colorblindFriendly = TRUE)\n\n\n\n\nThis is a qualitative palette, meaning that it works for nominal type variables. Again, adding the legend arguments back.\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Set2\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nA diverging palette that goes from red to yellow to blue:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"RdYlBu\", \n    name = \"Sex\",\n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nThis is a sequential palette of blues:\n\nbase_plot_gg +\n  scale_color_brewer(\n    palette = \"Blues\",\n    name = \"Sex\", \n    labels = c(\"Female\", \"Male\")\n  )\n\n\n\n\nVery hard to see the lighter dots on the grey background."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#color-based-on-continuous-variable",
     "href": "lessons/lesson04s_examples.html#color-based-on-continuous-variable",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Color based on continuous variable",
     "text": "Color based on continuous variable\nIf you wanted to color based on a continuous variable, you would get many more colors than just the two here. Imagine that, instead of gender, we wanted to color the points based on how many social sciences units they enrolled in (SS in the dataset).\n\nbase_plot_cont_gg <- \n  ggplot(data = FirstYearGPA) +\n  aes(\n    x = HSGPA, \n    y = GPA, \n    color = SS\n  ) +\n  labs(\n    title = \"First year college GPA versus high school GPA\", \n    x = \"High school GPA\", \n    y = \"First year college GPA\", \n    color = \"Social studies units\"\n  ) +\n  geom_point()\n\nbase_plot_cont_gg\n\n\n\n\nAbove is the default color scheme from ggplot. Let’s create a gradient for the SS variable, starting at blue and increasing to red. The function scale_color_gradient() lets you specify just the ends and it fills in between.\n\nbase_plot_cont_gg +\n    scale_color_gradient(low = \"blue\", high = \"red\")\n\n\n\n\nNotice that the continuous variable doesn’t need any edits to the legend labels, so the we don’t have to repeat those options like we did for the plot with the gender variable."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#color-fill-commands",
     "href": "lessons/lesson04s_examples.html#color-fill-commands",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Color fill commands",
     "text": "Color fill commands\nWhen you’re using plots that fill rather than create lines or points, the commands are similar but include fill in them. Here is an unedited bar plot that uses one of the RColorBrewer color palettes.\n\nggplot(data = FirstYearGPA) +\n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Gender\", \n    labels = c(\"Female\", \"Male\")\n  ) +\n  labs(y = \"Frequency\") +\n  geom_bar(position = \"dodge\")\n\n\n\n\nNotice that I added labels to the (discrete) X axis and (continuous) Y axis too."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#adding-annotations",
     "href": "lessons/lesson04s_examples.html#adding-annotations",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Adding annotations",
     "text": "Adding annotations\nLet’s return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students, those with GPA > 3.8.\n\nbase_plot_gg +\n  annotate(\n    geom = \"rect\", \n    xmin = 3.8, \n    xmax = 4.01, \n    ymin = 2.0, \n    ymax = 4.2, \n    fill = \"red\", \n    alpha = 0.2\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.4, \n    y = 4.1, \n    label = \"High school honor roll students \\n (GPA > 3.8)\"\n  )\n\n\n\n\nThis is pretty basic and built in as an annotation.\nWhat about a line indicating academic probation?\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.5, \n    yend = 2.5, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.95, \n    y = 4.5, \n    label = \"Students below the line are on probation\"\n  )\n\n\n\n\nWe can add a line indicating equal GPAs in high school and college and add text explaining why that line is important.\n\nbase_plot_gg +\n  annotate(\n    geom = \"segment\", \n    x = 2.25, \n    xend = 4.25, \n    y = 2.25, \n    yend = 4.25, \n    linetype = \"dashed\", \n    color = \"blue\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 3.5, \n    y = 2, \n    label = \"Students below the line did better in high school\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 2.9, \n    y = 4.0, \n    label = \"Students above the line did better in college\"\n  )\n\n\n\n\nAnother use of the line segment could be to indicate which groups are significantly different from one another in a bar plot.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = Male, \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(palette = \"Set2\") +\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = -0.25, \n    xend = 0.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 0, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nThis doesn’t look as good as it could, so let’s clean up the axes and labels.\n\nggplot(data = FirstYearGPA) + \n  aes(\n    x = as_factor(Male), \n    fill = as_factor(FirstGen)\n  ) +\n  scale_fill_brewer(\n    palette = \"Set2\", \n    name = \"First generation status\", \n    labels = c(\"Not 1st gen\", \"1st gen\")\n  ) +\n  scale_x_discrete(\n    name = \"Sex\", \n    labels = c(\"0\" = \"Female\", \"1\" = \"Male\")\n  ) +\n  labs(y = \"Frequency\")+\n  geom_bar(position = \"dodge\") +\n  annotate(\n    geom = \"segment\", \n    x = 0.75, \n    xend = 1.25, \n    y = 105, \n    yend = 105, \n    color = \"black\"\n  ) +\n  annotate(\n    geom = \"text\", \n    x = 1, \n    y = 108, \n    size = 8,\n    label = \"*\"\n  )\n\n\n\n\nNotice a couple of things here:\n\nI had to specify that the gender variable was categorical with as_factor(Male). If I didn’t, the X axis labels didn’t show up at all (axis label or category labels).\nIn scale_x_discrete(), I specified which category the labels go with: \"0\" = \"Female\", \"1\" = \"Male\". This is not actually required but may be helpful.\nNotice the location of the line and star. I had to adjust their horizontal locations because factors in R do unexpected things: ggplot now places the bars at x = 1 and 2 instead of 0 and 1 because R is interpreting these factors as the numbers 1 and 2. We will discuss this more when we talk about atomic type coercion later this semester."
   },
   {
     "objectID": "lessons/lesson04s_examples.html#built-in-themes",
     "href": "lessons/lesson04s_examples.html#built-in-themes",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Built-in themes",
     "text": "Built-in themes\nBlack and white theme:\n\nbase_plot_gg +\n  theme_bw()\n\n\n\n\nMinimal theme:\n\nbase_plot_gg + \n  theme_minimal()\n\n\n\n\nClassic theme:\n\nbase_plot_gg + \n  theme_classic()"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#package-themes",
     "href": "lessons/lesson04s_examples.html#package-themes",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Package themes",
     "text": "Package themes\nThere is an APA theme in the jtools package, which was installed and loaded above. As of today, it is APA Publication Manual Version 6 compliant.\n\nbase_plot_gg +\n  theme_apa()\n\n\n\n\nWhat if I want my plot to look like it could be in the Wall Street Journal? (from the ggthemes package)\n\nbase_plot_gg + \n  theme_wsj()\n\n\n\n\nWell, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.\nWhat about the Economist? (also ggthemes)\n\nbase_plot_gg +\n  theme_economist()"
   },
   {
     "objectID": "lessons/lesson04s_examples.html#editing-your-own-theme",
     "href": "lessons/lesson04s_examples.html#editing-your-own-theme",
-    "title": "ggplot Examples",
+    "title": "Lesson 4 Supplement: ggplot Examples",
     "section": "Editing your own theme",
     "text": "Editing your own theme\nYou can also change individual parts of the plot yourself. Maybe you just want all the text to be a little larger in a theme. This is good for presentations—the fonts are always a little too small to read well.\n\nbase_plot_gg + \n  theme_bw(base_size = 16)\n\n\n\n\nHow about changing the background of the plot (and the gridlines) to black to make it really striking?\n\nbase_plot_gg + \n  theme(\n    panel.background = element_rect(fill = \"black\"), \n    panel.grid = element_line(color = \"black\")\n  )\n\n\n\n\nAll of the objects you can modify are listed here: https://ggplot2.tidyverse.org/reference/theme.html.\n\n\n\n\n\n\nExercises\n\n\n\n\nChange base_plot_gg to have larger font throughout, purple points for females, green points for males, a white background inside the plot area, and a grey background outside the plot area. Do this layer by layer. Take your time.\nDiscuss with your neighbour the strengths and weaknesses of this plot. Would you be proud to submit this plot to a journal? What could you do to improve it?"
   },

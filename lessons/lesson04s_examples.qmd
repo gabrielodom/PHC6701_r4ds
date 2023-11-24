@@ -1,5 +1,5 @@
 ---
-title: "ggplot Examples"
+title: "Lesson 4 Supplement: ggplot Examples"
 author: "Anny Rodriguez and Gabriel Odom"
 date: "02/01/2023"
 date-modified: "2023-11-22"
