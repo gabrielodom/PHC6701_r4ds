@@ -17,6 +17,7 @@ website:
       - href: lessons/lesson04s_examples.qmd
       - href: lessons/lesson05_RStudio_projects.qmd
       - href: lessons/lesson06_atomic_vectors.qmd
+      - href: lessons/lesson07_lists_and_tibbles.qmd
       - about.qmd
 
 format:

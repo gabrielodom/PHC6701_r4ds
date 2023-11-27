@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-09-18">
+
+<title>PHC 6701: R for Data Science - Lesson 7: Lists and Tibbles</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 7: Lists and Tibbles</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link active">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#review-of-objects" id="toc-review-of-objects" class="nav-link" data-scroll-target="#review-of-objects">Review of Objects</a></li>
+  <li><a href="#object-dimensions" id="toc-object-dimensions" class="nav-link" data-scroll-target="#object-dimensions">Object Dimensions</a></li>
+  </ul></li>
+  <li><a href="#lists-1-d-non-atomic-vectors" id="toc-lists-1-d-non-atomic-vectors" class="nav-link" data-scroll-target="#lists-1-d-non-atomic-vectors">Lists: 1-D Non-Atomic Vectors</a>
+  <ul class="collapse">
+  <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data">Example Data</a></li>
+  <li><a href="#creating-lists" id="toc-creating-lists" class="nav-link" data-scroll-target="#creating-lists">Creating Lists</a></li>
+  </ul></li>
+  <li><a href="#tibbles-2-d-non-atomic-vectors" id="toc-tibbles-2-d-non-atomic-vectors" class="nav-link" data-scroll-target="#tibbles-2-d-non-atomic-vectors">Tibbles: 2-D Non-Atomic Vectors</a>
+  <ul class="collapse">
+  <li><a href="#creating-tibbles" id="toc-creating-tibbles" class="nav-link" data-scroll-target="#creating-tibbles">Creating Tibbles</a></li>
+  <li><a href="#optional-data-frames" id="toc-optional-data-frames" class="nav-link" data-scroll-target="#optional-data-frames">(OPTIONAL) Data Frames</a></li>
+  <li><a href="#inspecting-tibbles" id="toc-inspecting-tibbles" class="nav-link" data-scroll-target="#inspecting-tibbles">Inspecting Tibbles</a></li>
+  </ul></li>
+  <li><a href="#positional-subsetting" id="toc-positional-subsetting" class="nav-link" data-scroll-target="#positional-subsetting">Positional Subsetting</a>
+  <ul class="collapse">
+  <li><a href="#positive-positional-subsetting" id="toc-positive-positional-subsetting" class="nav-link" data-scroll-target="#positive-positional-subsetting">Positive Positional Subsetting</a></li>
+  <li><a href="#negative-positional-subsetting" id="toc-negative-positional-subsetting" class="nav-link" data-scroll-target="#negative-positional-subsetting">Negative Positional Subsetting</a></li>
+  </ul></li>
+  <li><a href="#relational-subsetting" id="toc-relational-subsetting" class="nav-link" data-scroll-target="#relational-subsetting">Relational Subsetting</a>
+  <ul class="collapse">
+  <li><a href="#boolean-subsetting" id="toc-boolean-subsetting" class="nav-link" data-scroll-target="#boolean-subsetting">Boolean Subsetting</a></li>
+  <li><a href="#relational-subsetting-for-tibbles" id="toc-relational-subsetting-for-tibbles" class="nav-link" data-scroll-target="#relational-subsetting-for-tibbles">Relational Subsetting for Tibbles</a></li>
+  <li><a href="#lists-2" id="toc-lists-2" class="nav-link" data-scroll-target="#lists-2">Lists</a></li>
+  </ul></li>
+  <li><a href="#named-subsetting" id="toc-named-subsetting" class="nav-link" data-scroll-target="#named-subsetting">Named Subsetting</a>
+  <ul class="collapse">
+  <li><a href="#lists-3" id="toc-lists-3" class="nav-link" data-scroll-target="#lists-3">Lists</a></li>
+  <li><a href="#tibbles-2" id="toc-tibbles-2" class="nav-link" data-scroll-target="#tibbles-2">Tibbles</a></li>
+  <li><a href="#the-operator" id="toc-the-operator" class="nav-link" data-scroll-target="#the-operator">The <code>$</code> Operator</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 7: Lists and Tibbles</h1>
+<p class="subtitle lead">Gabriel Odom and Data Carpentry Collaborators</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 18, 2019</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Atomic Vectors</li>
+<li>Basic Subsetting</li>
+<li>Type Coercion</li>
+<li>Attributes</li>
+<li>Named Subsetting</li>
+<li>Factors</li>
+<li>Missing Values</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>First of all, I’d like to acknowledge once again the Data Carpentry instructors for the “R for Ecology” lesson. We worked on updating that lesson last year, so I did not write all of this lesson by myself. In this lesson, we will cover the following:</p>
+<ol type="1">
+<li>Lists</li>
+<li>Tibbles and Data Frames</li>
+<li>Positional Subsetting</li>
+<li>Relational Subsetting</li>
+<li>Named Subsetting</li>
+</ol>
+<section id="review-of-objects" class="level2">
+<h2 class="anchored" data-anchor-id="review-of-objects">Review of Objects</h2>
+<p>Recall that <strong>everything in R is an object</strong>. The objects in R are broken up primarily like this:</p>
+<p><img src="../_figures/vectors_object_review.png" class="img-fluid"></p>
+<p>Also, because R is a <strong>vectorised</strong> language, most non-function objects we encounter are vectors. Vectors in R are broken into two main types: <em>atomic</em> and <em>non-atomic</em>. <em>Atomic</em> vectors mean that all of the elements in the vector have the same <em>type</em> or <em>class</em>. <em>Non-atomic</em> vectors are everything else. Last lesson, we worked on creating and subsetting atomic vectors.</p>
+</section>
+<section id="object-dimensions" class="level2">
+<h2 class="anchored" data-anchor-id="object-dimensions">Object Dimensions</h2>
+<p>The rules and techniques for subsetting data depend on two things:</p>
+<ol type="1">
+<li>Is the object atomic or non-atomic? E.g., an integer vector vs a list.</li>
+<li>Is the object 1-dimensional or higher-dimensional? E.g., a list vs a tibble.</li>
+</ol>
+<p>For these considerations, we use the <strong>class</strong> of the object to decide the proper subsetting rules (rather than the type).</p>
+<p>Here is a table of <strong>example</strong> vector types, their dimensions, and their resulting <em>classes</em> (this is not exhaustive):</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Atomic</th>
+<th>Non-Atomic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1-D</strong></td>
+<td><code>logical</code></td>
+<td><code>list</code></td>
+</tr>
+<tr class="even">
+<td><strong>2-D</strong></td>
+<td><code>matrix</code></td>
+<td><code>data.frame</code></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="lists-1-d-non-atomic-vectors" class="level1">
+<h1>Lists: 1-D Non-Atomic Vectors</h1>
+<section id="example-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-data">Example Data</h2>
+<section id="names-and-ages" class="level3">
+<h3 class="anchored" data-anchor-id="names-and-ages">Names and Ages</h3>
+<p>Last lesson, we had created a basic vector for my sibling’s ages, named with their first names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ages_int   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">31</span>, <span class="dv">29</span>, <span class="dv">27</span>, <span class="dv">25</span>, <span class="dv">23</span>, <span class="dv">21</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>names_char <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Gabriel"</span>, <span class="st">"Britni"</span>, <span class="st">"Michael"</span>, <span class="st">"Christiana"</span>, <span class="st">"Olivia"</span>, <span class="st">"Hannah"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ages_int) <span class="ot">&lt;-</span> names_char</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="electronic-id-object" class="level3">
+<h3 class="anchored" data-anchor-id="electronic-id-object">Electronic ID Object</h3>
+<p>Also, recall the ID vector we created in the last lesson:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DrGabriel <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Surname =</span> <span class="st">"Odom"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">FirstName =</span> <span class="st">"Gabriel"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">HighestDegrees =</span> <span class="st">"PhD, ThD"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="dv">31</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">City =</span> <span class="st">"Pembroke Pines"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">State =</span> <span class="st">"FL"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">MovedFrom =</span> <span class="st">"TX"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">timeEmployed =</span> <span class="fl">2.1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We discovered last lesson that the values for <code>Age</code> and <code>timeEmployed</code> were coerced from numeric to character information due to the restrictions of atomic vectors. However, <strong>non-atomic vectors are vectors such that the type / class of each element in the vector is not forced to be the same.</strong> So far, we have created ID vectors for ourselves, but these do not allow us to mix different classes of data. We need something more flexible.</p>
+</section>
+</section>
+<section id="creating-lists" class="level2">
+<h2 class="anchored" data-anchor-id="creating-lists">Creating Lists</h2>
+<p>Lists are vectors that can have any class of object as its elements—even other lists! They are the opposite of <em>atomic</em>. We have seen one such example so far: the attributes of an atomic vector are a <em>list</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(DrGabriel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$names
+[1] "Surname"        "FirstName"      "HighestDegrees" "Age"           
+[5] "City"           "State"          "MovedFrom"      "timeEmployed"  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">attributes</span>(DrGabriel))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<p>Lists give us flexibility to create an ID vector that has different classes of information, including other vectors! We create a new list with the function <code>list()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a List</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Surname   =</span> <span class="st">"Odom"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Forename  =</span> <span class="st">"Gabriel"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Male      =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">City      =</span> <span class="st">"Pembroke Pines"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">State     =</span> <span class="fu">factor</span>(<span class="st">"FL"</span>, <span class="at">levels =</span> state.abb),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">CurrZIP   =</span> <span class="dv">33025</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">MovedFrom =</span> <span class="st">"TX"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age       =</span> <span class="dv">31</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">MaxDegree =</span> <span class="fu">c</span>(<span class="st">"PhD"</span>, <span class="st">"ThD"</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">TimeEmpl  =</span> <span class="fl">2.1</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Surname
+[1] "Odom"
+
+$Forename
+[1] "Gabriel"
+
+$Male
+[1] TRUE
+
+$City
+[1] "Pembroke Pines"
+
+$State
+[1] FL
+50 Levels: AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD ... WY
+
+$CurrZIP
+[1] 33025
+
+$MovedFrom
+[1] "TX"
+
+$Age
+[1] 31
+
+$MaxDegree
+[1] "PhD" "ThD"
+
+$TimeEmpl
+[1] 2.1</code></pre>
+</div>
+</div>
+<p>If we want to inspect the internal <strong>str</strong>ucture of this list, we can see that the classes of our original atomic vectors have been preserved. There is no class coercion in a list.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 10
+ $ Surname  : chr "Odom"
+ $ Forename : chr "Gabriel"
+ $ Male     : logi TRUE
+ $ City     : chr "Pembroke Pines"
+ $ State    : Factor w/ 50 levels "AL","AK","AZ",..: 9
+ $ CurrZIP  : num 33025
+ $ MovedFrom: chr "TX"
+ $ Age      : num 31
+ $ MaxDegree: chr [1:2] "PhD" "ThD"
+ $ TimeEmpl : num 2.1</code></pre>
+</div>
+</div>
+<p>As with the atomic vectors, we can also find what R thinks about lists and how R stores this information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Review constructing sequential integer vectors. Create a vector from -4 to -1 without the <code>c()</code> function.</li>
+<li>Use the help files to read about the <code>state.abb</code> object I used when making the factor for my current state. Did I create it? Where did it come from?</li>
+<li>The <code>DrGabriel_ls</code> object itself contains an atomic vector of length 2. Is this still a 1-D object? Why or why not?</li>
+<li>Update your ID card to a list format. Include an entry for at least two of your favourite foods as an atomic character vector.</li>
+<li>Open the R script you created last class. Make sure this script includes code to build the atomic vectors above, as well as the example ID lists.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="tibbles-2-d-non-atomic-vectors" class="level1">
+<h1>Tibbles: 2-D Non-Atomic Vectors</h1>
+<p>A tibble is the representation of data in the format of a table where the columns are vectors that all have the same length. Because columns are vectors, each column must contain a single type of data (e.g., characters, integers, logicals, etc). For example, here is a figure depicting a tibble comprised of numeric and character atomic vectors.</p>
+<p><img src="../_figures/vectors_data_frame.png" class="img-fluid"></p>
+<section id="creating-tibbles" class="level2">
+<h2 class="anchored" data-anchor-id="creating-tibbles">Creating Tibbles</h2>
+<p>In order to use tibbles, we need functions from the <code>tidyverse</code>. A tibble can be created by hand, but most commonly we generate them by importing tabular / spreasheet data (with the functions <code>read_csv()</code> or <code>read_delim()</code>; more on these in a week or so).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can create the same ID card as we did with the <code>list()</code> function, but in a rectangular / tabular form. We create a tibble with the <code>tibble()</code> function. Similar to the <code>c()</code> function, we can supply as many inputs as we want, as long as they are all atomic vectors with the same length (notice that I changed the “highest degrees” back to a single character because of this restriction).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Tibble</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>DrGabriel_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Surname =</span> <span class="st">"Odom"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">FirstName =</span> <span class="st">"Gabriel"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">HighestDegrees =</span> <span class="st">"PhD, ThD"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="dv">31</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">City =</span> <span class="st">"Pembroke Pines"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">State =</span> <span class="st">"FL"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">MovedFrom =</span> <span class="st">"TX"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">TimeEmployed =</span> <span class="fl">2.1</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>DrGabriel_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  Surname FirstName HighestDegrees   Age City       State MovedFrom TimeEmployed
+  &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;
+1 Odom    Gabriel   PhD, ThD          31 Pembroke … FL    TX                 2.1</code></pre>
+</div>
+</div>
+<p>(Technically I could have left the degrees entry as an atomic vector with 2 entries, but the <code>tibble()</code> function would have to try to figure out what I meant. Sometimes it guesses correctly, sometimes not. We will discuss the <code>tibble()</code> function more in a few weeks.)</p>
+<p>As with the atomic vectors, we can also find what R thinks about lists and how R stores this information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DrGabriel_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(DrGabriel_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<p>Notice that R still stores a tibble as a list (we see this from the <code>typeof()</code> function). In a tibble, the individual columns <strong>must have the same class</strong> and all columns <strong>must have the same length</strong>, but the entire data set often has different classes of data in each column. Here’s the example from the figure above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>heroes_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">subject_ID =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"008"</span>, <span class="st">"016"</span>, <span class="st">"115"</span>, <span class="st">"027"</span>, <span class="st">"001"</span>)),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Wonder Woman"</span>, <span class="st">"Green Lantern"</span>, <span class="st">"Spider-Man"</span>, <span class="st">"Batman"</span>, <span class="st">"Superman"</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">alias =</span> <span class="fu">c</span>(</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Diana Prince"</span>, <span class="st">"Alan Scott"</span>, <span class="st">"Peter Parker"</span>, <span class="st">"Bruce Wayne"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Clark Kent / Kal-El"</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">city =</span> <span class="fu">c</span>(</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gateway City"</span>, <span class="st">"Capitol City"</span>, <span class="st">"New York City"</span>, <span class="st">"Gotham"</span>, <span class="st">"Metropolis"</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>),</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">heightCM =</span> <span class="fu">c</span>(<span class="fl">183.5</span>, <span class="fl">182.9</span>, <span class="fl">177.8</span>, <span class="fl">188.0</span>, <span class="fl">190.5</span>),</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">weightKg =</span> <span class="fu">c</span>(<span class="fl">74.8</span>, <span class="fl">91.2</span>, <span class="fl">75.7</span>, <span class="fl">95.3</span>, <span class="fl">106.6</span>),</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">firstRun =</span> <span class="fu">c</span>(1941L, 1940L, 1962L, 1939L, 1938L)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that when I create this tibble, each of the entries (columns) <strong>are the same length</strong> (5 elements each), within each column the <strong>classes do not change</strong> (column <code>heightCM</code> is all numeric, column <code>city</code> is all character, etc.).</p>
+<p>We check what this looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>heroes_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  subject_ID name          alias          city  male  heightCM weightKg firstRun
+  &lt;fct&gt;      &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt; &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 008        Wonder Woman  Diana Prince   Gate… FALSE     184.     74.8     1941
+2 016        Green Lantern Alan Scott     Capi… TRUE      183.     91.2     1940
+3 115        Spider-Man    Peter Parker   New … TRUE      178.     75.7     1962
+4 027        Batman        Bruce Wayne    Goth… TRUE      188      95.3     1939
+5 001        Superman      Clark Kent / … Metr… TRUE      190.    107.      1938</code></pre>
+</div>
+</div>
+<p>We see that the classes of the columns are displayed under the column names.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Add the code to create the tibble above to your script from last lesson.</p>
+</div>
+</div>
+</section>
+<section id="optional-data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="optional-data-frames">(OPTIONAL) Data Frames</h2>
+<p>Data frames are and have been the <em>de facto</em> data structure in R for most tabular data for over two decades. They are what people commonly used for statistics and plotting. However, tibbles are simply a modern hybrid of a table and a data frame, which includes many nice attributes, properties, and features. The main difference between tibbles and data frames is that data frames can only have columns of <em>atomic</em> vectors; the other restrictions are the same: only one class per column and all columns have the same length.</p>
+<p>Moving forward, we will make use of tibbles, but you will most likely see older code that uses data frames as you learn more of R. We create the “antique” tibble with the <code>data.frame()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Data Frame</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>heroes_OldDF <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">subjectID =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"008"</span>, <span class="st">"016"</span>, <span class="st">"115"</span>, <span class="st">"027"</span>, <span class="st">"001"</span>)),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Wonder Woman"</span>, <span class="st">"Green Lantern"</span>, <span class="st">"Spider-Man"</span>, <span class="st">"Batman"</span>, <span class="st">"Superman"</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alias =</span> <span class="fu">c</span>(</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Diana Prince"</span>, <span class="st">"Alan Scott"</span>, <span class="st">"Peter Parker"</span>, <span class="st">"Bruce Wayne"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Clark Kent / Kal-El"</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">city =</span> <span class="fu">c</span>(</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gateway City"</span>, <span class="st">"Capitol City"</span>, <span class="st">"New York City"</span>, <span class="st">"Gotham"</span>, <span class="st">"Metropolis"</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">heightCM =</span> <span class="fu">c</span>(<span class="fl">183.5</span>, <span class="fl">182.9</span>, <span class="fl">177.8</span>, <span class="fl">188.0</span>, <span class="fl">190.5</span>),</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">weightKg =</span> <span class="fu">c</span>(<span class="fl">74.8</span>, <span class="fl">91.2</span>, <span class="fl">75.7</span>, <span class="fl">95.3</span>, <span class="fl">106.6</span>),</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">firstRun =</span> <span class="fu">c</span>(1941L, 1940L, 1962L, 1939L, 1938L)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>heroes_OldDF</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  subjectID          name               alias          city  male heightCM
+1       008  Wonder Woman        Diana Prince  Gateway City FALSE    183.5
+2       016 Green Lantern          Alan Scott  Capitol City  TRUE    182.9
+3       115    Spider-Man        Peter Parker New York City  TRUE    177.8
+4       027        Batman         Bruce Wayne        Gotham  TRUE    188.0
+5       001      Superman Clark Kent / Kal-El    Metropolis  TRUE    190.5
+  weightKg firstRun
+1     74.8     1941
+2     91.2     1940
+3     75.7     1962
+4     95.3     1939
+5    106.6     1938</code></pre>
+</div>
+</div>
+<p>If you want some more details on this data frame, use the <code>str()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(heroes_OldDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   5 obs. of  8 variables:
+ $ subjectID: Factor w/ 5 levels "001","008","016",..: 2 3 5 4 1
+ $ name     : chr  "Wonder Woman" "Green Lantern" "Spider-Man" "Batman" ...
+ $ alias    : chr  "Diana Prince" "Alan Scott" "Peter Parker" "Bruce Wayne" ...
+ $ city     : chr  "Gateway City" "Capitol City" "New York City" "Gotham" ...
+ $ male     : logi  FALSE TRUE TRUE TRUE TRUE
+ $ heightCM : num  184 183 178 188 190
+ $ weightKg : num  74.8 91.2 75.7 95.3 106.6
+ $ firstRun : int  1941 1940 1962 1939 1938</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>What are some differences between tibbles and data frames that you can find?</li>
+<li>Check the help file of the <code>data.frame()</code> function to find out how to preserve character information. What option should you add to the code above?</li>
+<li>Last class, we discussed naming conventions. Are the names within my vectors consistent? Why or why not? What might I do to make them better?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="inspecting-tibbles" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-tibbles">Inspecting Tibbles</h2>
+<p>We already saw how the printing the tibble and caling the <code>str()</code> function can be useful to check the content and the structure of data. Because we want to see something more interesting than our ID card, let’s take a look at the <code>mpg</code> data set from last week.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 11
+   manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 audi         a4           1.8  1999     4 auto… f        18    29 p     comp…
+ 2 audi         a4           1.8  1999     4 manu… f        21    29 p     comp…
+ 3 audi         a4           2    2008     4 manu… f        20    31 p     comp…
+ 4 audi         a4           2    2008     4 auto… f        21    30 p     comp…
+ 5 audi         a4           2.8  1999     6 auto… f        16    26 p     comp…
+ 6 audi         a4           2.8  1999     6 manu… f        18    26 p     comp…
+ 7 audi         a4           3.1  2008     6 auto… f        18    27 p     comp…
+ 8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
+ 9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
+10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
+# ℹ 224 more rows</code></pre>
+</div>
+</div>
+<p>Here is a non-exhaustive list of functions to get a sense of the content/structure of your data. Note that—while these functions are very useful, <strong>we get most of this information for free if we are using tibbles</strong> (one of the main reasons we use tibbles instead of the older data frame structure).</p>
+<ul>
+<li>Structure:
+<ul>
+<li><code>str(mpg)</code>: a list of the vectors used to create the <code>mpg</code> data set, their classes, and their lengths (<em>this includes excerpts from most of the functions below</em>)</li>
+</ul></li>
+<li>Size:
+<ul>
+<li><code>dim(mpg)</code>: a vector with the number of rows in the first element, and the number of columns as the second element (these are the <strong>dim</strong>ensions of the object)</li>
+<li><code>nrow(mpg)</code>: the number of rows</li>
+<li><code>ncol(mpg)</code>: the number of columns</li>
+</ul></li>
+<li>Content:
+<ul>
+<li><code>head(mpg)</code>: the first 6 rows</li>
+<li><code>tail(mpg)</code>: the last 6 rows</li>
+<li><code>summary(mpg)</code>: summary statistics for each column</li>
+</ul></li>
+<li>Names:
+<ul>
+<li><code>names(mpg)</code> or <code>colnames(mpg)</code>: the column names</li>
+<li><code>rownames(mpg)</code>: the row names</li>
+</ul></li>
+</ul>
+<p>Note: the <code>head</code>, <code>tail</code>, <code>summary</code>, and <code>names</code> functions are “generic”; that is, they can be used on most other types of objects besides tibbles, including data frames and even atomic vectors. The <code>dim</code>, <code>nrow</code>, and <code>ncol</code> functions are also generic, but they are only applicable to rectangular, layered, or tabular data.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise (OPTIONAL)
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Optional Exercise">
+<p>Tibbles include a lot of meta-data about themselves when they are printed. Which of the above functions would you have to use to find out the same information about a regular data frame?</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="positional-subsetting" class="level1">
+<h1>Positional Subsetting</h1>
+<section id="positive-positional-subsetting" class="level2">
+<h2 class="anchored" data-anchor-id="positive-positional-subsetting">Positive Positional Subsetting</h2>
+<section id="lists" class="level3">
+<h3 class="anchored" data-anchor-id="lists">Lists</h3>
+<p>Let’s extract the eighth element (my age) of a non-atomic vector:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Age
+[1] 31</code></pre>
+</div>
+</div>
+<p>Remember that <code>[</code> takes in the position of the element of the vector and returns the contents at that position. One of the special things about non-atomic vectors (lists) is that their sub-contents are themselves lists.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DrGabriel_ls[<span class="dv">8</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<p>In its list form, this value doesn’t help us very much. For instance, we can’t find my age in months with this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="dv">8</span>] <span class="sc">*</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in DrGabriel_ls[8] * 12: non-numeric argument to binary operator</code></pre>
+</div>
+</div>
+<p>In order to extract the contents of the inner list (the contents of the sixth position of <code>DrGabriel_ls</code>), we need to use a second-level extractor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[[<span class="dv">8</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[[<span class="dv">8</span>]] <span class="sc">*</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 372</code></pre>
+</div>
+</div>
+<p>This is the primary difference between atomic and non-atomic positional subsetting. Consider this figure:</p>
+<p><img src="../_figures/vectors_hadley_subset_pepper.png" class="img-fluid"></p>
+<p>The original object <code>x</code> is a list (the pepper container), and the first element of <code>x</code> is also a list (<code>x[1]</code>; still the pepper container, but now with only one packet of pepper). The contents of the first element’s inner list is an atomic vector (<code>x[[1]]</code>; the packet of pepper). To extract the contents of the <code>x[[1]]</code> atomic vector (the pepper), we subset one last time. Because <code>x[[1]]</code> itself is atomic, we can subset it by either <code>[</code> or <code>[[</code>; common standards have use use <code>[</code> for atomic vectors, however.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Extract the first through third elements of the ID vector you created above using the <code>[</code> function.</li>
+<li>Extract the first through third elements of the ID vector you created above using the <code>[[</code> function. Does this work? What is different? Why?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="tibbles" class="level3">
+<h3 class="anchored" data-anchor-id="tibbles">Tibbles</h3>
+<p>To extract the element in the second row and third column from a tibble, we can type (using <strong>row</strong>, <strong>column</strong> notation):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="dv">2</span>, <span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  alias     
+  &lt;chr&gt;     
+1 Alan Scott</code></pre>
+</div>
+</div>
+<p>To extract the third and fourth row within the first and third column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  subject_ID alias       
+  &lt;fct&gt;      &lt;chr&gt;       
+1 115        Peter Parker
+2 027        Bruce Wayne </code></pre>
+</div>
+</div>
+<p>To extract an entire column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>heroes_df[, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  name         
+  &lt;chr&gt;        
+1 Wonder Woman 
+2 Green Lantern
+3 Spider-Man   
+4 Batman       
+5 Superman     </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Extract the second column for all rows. What is the class of this object? Do you think this is connected to the differences between <code>[</code> and <code>[[</code> for a list? Why or why not?</li>
+<li>What is the class of the second row, third column of this tibble?</li>
+<li>Look up the help file for the <code>pull()</code> function. How could this be useful?</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="negative-positional-subsetting" class="level2">
+<h2 class="anchored" data-anchor-id="negative-positional-subsetting">Negative Positional Subsetting</h2>
+<section id="lists-1" class="level3">
+<h3 class="anchored" data-anchor-id="lists-1">Lists</h3>
+<p>Using the same negative subsetting framework, I’m going to “de-identify” my electronic ID card.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Male
+[1] TRUE
+
+$City
+[1] "Pembroke Pines"
+
+$State
+[1] FL
+50 Levels: AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD ... WY
+
+$CurrZIP
+[1] 33025
+
+$MovedFrom
+[1] "TX"
+
+$Age
+[1] 31
+
+$MaxDegree
+[1] "PhD" "ThD"
+
+$TimeEmpl
+[1] 2.1</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Remove the age and ZIP from your ID vector.</li>
+<li>Can you use the <code>[[</code> function for negative subsetting with a list? Why not? <em>Hint: think back to the <code>class</code> of the objects returned by the <code>[</code> function vs the <code>[[</code> function.</em></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="tibbles-1" class="level3">
+<h3 class="anchored" data-anchor-id="tibbles-1">Tibbles</h3>
+<p>For tibbles, negative subsetting uses the same <strong>row</strong>, <strong>column</strong> notation as it does for positive subsetting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="sc">-</span><span class="dv">1</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 8
+  subject_ID name          alias          city  male  heightCM weightKg firstRun
+  &lt;fct&gt;      &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt; &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 016        Green Lantern Alan Scott     Capi… TRUE      183.     91.2     1940
+2 115        Spider-Man    Peter Parker   New … TRUE      178.     75.7     1962
+3 027        Batman        Bruce Wayne    Goth… TRUE      188      95.3     1939
+4 001        Superman      Clark Kent / … Metr… TRUE      190.    107.      1938</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  name          male  heightCM weightKg firstRun
+  &lt;chr&gt;         &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 Green Lantern TRUE      183.     91.2     1940
+2 Batman        TRUE      188      95.3     1939
+3 Superman      TRUE      190.    107.      1938</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Combine postive and negative subsetting to create a table subset comparing the height of Wonder Woman and Green Lantern. Remove all other rows and columns.</li>
+<li>Combine postive and negative subsetting to create a table subset comparing each hero’s city and first publication date. Create a hypothesis to explain what you see.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="relational-subsetting" class="level1">
+<h1>Relational Subsetting</h1>
+<p>The main idea of <strong>relational</strong> subsetting is to <strong>keep</strong> values from tabular data based on their comparison to another set of values. This are the steps:</p>
+<ol type="1">
+<li>Extract a subset of a tibble using your preferred subsetting rules</li>
+<li>Using the logical comparison operators, reduce the subset you extracted in step 1 to a <strong>logical</strong> atomic vector.</li>
+<li>Subset the full data using this logical atomic vector.</li>
+</ol>
+<section id="boolean-subsetting" class="level2">
+<h2 class="anchored" data-anchor-id="boolean-subsetting">Boolean Subsetting</h2>
+<p>Because relational subsetting is Boolean (logical) subsetting with an additional step, we first discuss how logical subsetting rules work for non-atomic vectors. For lists, these rules work the same for lists in one dimension as they do for atomic vectors in one dimension.</p>
+<p>Tibbles, however, are different. Recall that tibbles have positional subsetting properties through the <code>row, column</code> syntax and also the positional subsetting properties of lists. These properties hold true for logical subsetting.</p>
+<section id="row-and-column-subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="row-and-column-subsetting">Row and Column Subsetting</h3>
+<p>We can create logical atomic vectors of the same lengths as the number of rows and columns of the tibble (as returned by the <code>dim()</code> function).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimension of the tibble:</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(heroes_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical vector to match the rows (keep the lat two):</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical vector to match the columns (keep the last four):</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">each =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the tibble:</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>)), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">each =</span> <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  male  heightCM weightKg firstRun
+  &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 TRUE      188      95.3     1939
+2 TRUE      190.    107.      1938</code></pre>
+</div>
+</div>
+</section>
+<section id="list-subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="list-subsetting">List Subsetting</h3>
+<p>Because tibbles are also lists, we can subset the columns of the tibble using a logical atomic vector with length equal to the number of columns. This code will let us keep every other column starting with the second column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  name          city          heightCM firstRun
+  &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;    &lt;int&gt;
+1 Wonder Woman  Gateway City      184.     1941
+2 Green Lantern Capitol City      183.     1940
+3 Spider-Man    New York City     178.     1962
+4 Batman        Gotham            188      1939
+5 Superman      Metropolis        190.     1938</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Subset the tibble by every other row and column.</p>
+</div>
+</div>
+</section>
+<section id="character-set-membership" class="level3">
+<h3 class="anchored" data-anchor-id="character-set-membership">Character Set Membership</h3>
+<p>For numeric and logical atomic vectors, we can make easy Boolean comparisons. “Is this value <code>TRUE</code>?” “Are these numbers less than 0?” Unfortunately, comparisons for character vectors are not as easy. We need new functions to measure if one character string belongs to a character vector. However, character set membership operators share this with other comparison operators: they <em>must</em> return <strong>logical</strong> values.</p>
+<section id="exact-matching" class="level4">
+<h4 class="anchored" data-anchor-id="exact-matching">Exact Matching</h4>
+<p>If we want to find if one string is an element of a set of strings <em>exactly</em>, we can use the “infix” operator: <code>%in%</code>. This is helpful if you have many possible spellings or abbriviations of the same word or idea:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Georgia"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>This matching is exact: the character string on the left of <code>%in%</code> must match <em>exactly</em> to one of the elements of the character vector on the right. This means the following checks will fail:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida State"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"State of Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="partial-matching" class="level4">
+<h4 class="anchored" data-anchor-id="partial-matching">Partial Matching</h4>
+<p>If we want to find if a string is <em>part of another string</em>, we use the string detection function: <code>str_detect()</code>. This function is from the <code>stringr</code> package, which is part of the <code>tidyverse</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"State of Florida"</span>, <span class="st">"florida"</span>, <span class="st">"Florida"</span>),</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"Florida"</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
+</div>
+</div>
+<p>We know that the labels <code>"State of Florida"</code> and <code>"Florida"</code> match our search, but <code>"florida"</code> does not.</p>
+</section>
+</section>
+</section>
+<section id="relational-subsetting-for-tibbles" class="level2">
+<h2 class="anchored" data-anchor-id="relational-subsetting-for-tibbles">Relational Subsetting for Tibbles</h2>
+<p>The tibble uses both the <strong>row</strong>, <strong>column</strong> and list subsetting rules, which gives it more flexibility than lists alone. Finally, we can use relational subsetting to get at some powerful results.</p>
+<section id="numerical-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-relationships">Numerical Relationships</h3>
+<p>If we would like to see which superheroes were in print prior to the US involvement in WWII, we will use a numeric comparison of the first print run year vs 1941.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the first print year of the superheroes:</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"firstRun"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1941 1940 1962 1939 1938</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: compare these print years to the start of WWII for the US:</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"firstRun"</span>]] <span class="sc">&lt;=</span> <span class="dv">1941</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: subset the tibble to return only the pre-war heroes</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>heroes_df[heroes_df[[<span class="st">"firstRun"</span>]] <span class="sc">&lt;=</span> <span class="dv">1941</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 8
+  subject_ID name          alias          city  male  heightCM weightKg firstRun
+  &lt;fct&gt;      &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt; &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 008        Wonder Woman  Diana Prince   Gate… FALSE     184.     74.8     1941
+2 016        Green Lantern Alan Scott     Capi… TRUE      183.     91.2     1940
+3 027        Batman        Bruce Wayne    Goth… TRUE      188      95.3     1939
+4 001        Superman      Clark Kent / … Metr… TRUE      190.    107.      1938</code></pre>
+</div>
+</div>
+</section>
+<section id="character-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="character-relationships">Character Relationships</h3>
+<p>How many heroes include the name “man” somewhere in their name? (<em>We will learn more about the <code>str_detect()</code> function in the <code>stringr::</code> lesson; for now, note that it returns <code>TRUE</code> or <code>FALSE</code> values.</em>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the names of the superheroes:</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"name"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Wonder Woman"  "Green Lantern" "Spider-Man"    "Batman"       
+[5] "Superman"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: compare these names to the character strings "man":</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> heroes_df[[<span class="st">"name"</span>]], <span class="at">pattern =</span> <span class="st">"man"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: subset the tibble to return only the heroes with "man" in their names</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">str_detect</span>(<span class="at">string =</span> heroes_df[[<span class="st">"name"</span>]], <span class="at">pattern =</span> <span class="st">"man"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  subject_ID name         alias           city  male  heightCM weightKg firstRun
+  &lt;fct&gt;      &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt; &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 008        Wonder Woman Diana Prince    Gate… FALSE     184.     74.8     1941
+2 027        Batman       Bruce Wayne     Goth… TRUE      188      95.3     1939
+3 001        Superman     Clark Kent / K… Metr… TRUE      190.    107.      1938</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>In the example above, why couldn’t we find Spider-Man?</li>
+<li>Find all the heroes who’s home city has the word “City” in it.</li>
+<li>Because the columns of a tibble are usually a 1-D atomic vector, we can subset 1-D atomic vectors using Steps 2 and 3 only. Find who among my siblings are under 25 years old (use the named <code>ages_int</code> vector from last lesson).</li>
+<li>Use compound logic (recall the AND and OR symbols) to find the superheroes with less than average height and greater than average weight.</li>
+<li>Recall that code-writing best practices include that lines should not be longer than 80 characters wide. Your solution for the last question was most likely longer than that. What can you do to make the lines shorter and more easily readable?</li>
+</ol>
+</div>
+</div>
+<!-- heroes_df[(heroes_df$heightCM < mean(heroes_df$heightCM)) & (heroes_df$weightKg > mean(heroes_df$weightKg)), ] -->
+</section>
+</section>
+<section id="lists-2" class="level2">
+<h2 class="anchored" data-anchor-id="lists-2">Lists</h2>
+<p>The rules for 1-dimensional non-atomic vectors are very different. The main difference is that most relational functions, such as <code>str_detect()</code>, <code>%in%</code>, <code>&lt;</code>, and others don’t always work on lists.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Attempt to use logical subsetting to extract the following components of your ID vector:
+<ul>
+<li>Any elements less than 150 (this is a good cutoff for age)</li>
+<li>Your last name using the <code>%in%</code> function</li>
+<li>Your last name using the <code>str_detect</code> function</li>
+<li>Your last name using the <code>==</code> function</li>
+</ul></li>
+<li>For the last three parts of Exercise 1, what were the major differences?</li>
+<li>When you received warning or error messages, can you explain what they mean?</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="named-subsetting" class="level1">
+<h1>Named Subsetting</h1>
+<section id="lists-3" class="level2">
+<h2 class="anchored" data-anchor-id="lists-3">Lists</h2>
+<p>We know that the electronic ID list we made has names, but we can check to be sure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Surname"   "Forename"  "Male"      "City"      "State"     "CurrZIP"  
+ [7] "MovedFrom" "Age"       "MaxDegree" "TimeEmpl" </code></pre>
+</div>
+</div>
+<p>Therefore, we can extract the contents of this list by position name:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="st">"Age"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Age
+[1] 31</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Extract the last name of your ID object with the <code>[</code> function. What is the class of this object?</li>
+<li>Extract the last name of your ID object with the <code>[[</code> function. What is the class of this object?</li>
+<li>If you need to extract your first name, last name, and age, should you use the <code>[</code> or the <code>[[</code> function? Why?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="tibbles-2" class="level2">
+<h2 class="anchored" data-anchor-id="tibbles-2">Tibbles</h2>
+<p>All of the same name-based extraction / subsetting rules that work on the names of list elements work on tibbles, because a tibble is a type of list (<em>check this with the <code>typeof()</code> function</em>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="st">"alias"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  alias              
+  &lt;chr&gt;              
+1 Diana Prince       
+2 Alan Scott         
+3 Peter Parker       
+4 Bruce Wayne        
+5 Clark Kent / Kal-El</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"alias"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Diana Prince"        "Alan Scott"          "Peter Parker"       
+[4] "Bruce Wayne"         "Clark Kent / Kal-El"</code></pre>
+</div>
+</div>
+<p>However, we also get the column-based subsetting options too!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>heroes_df[, <span class="st">"alias"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  alias              
+  &lt;chr&gt;              
+1 Diana Prince       
+2 Alan Scott         
+3 Peter Parker       
+4 Bruce Wayne        
+5 Clark Kent / Kal-El</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Extract the names of the heroes with the <code>[</code> function. What is the class of this object?</li>
+<li>Extract the names of the heroes with the <code>[</code> function using <code>row, column</code> syntax. What is the class of this object?</li>
+<li>Extract the names of the heroes with the <code>[[</code> function. What is the class of this object?</li>
+<li>If you need to extract the heroes’ name, height, and weight, should you use the <code>[</code> or the <code>[[</code> function? Why?</li>
+<li>Using both <code>[</code> and <code>[[</code>, extract from the tibble a column that doesn’t exist, <code>"Publisher"</code> for instance. What happens in these two cases?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="the-operator" class="level2">
+<h2 class="anchored" data-anchor-id="the-operator">The <code>$</code> Operator</h2>
+<p>There is one other subsetting operator that only works for name-based subsetting of non-atomic vectors, the <code>$</code> function. We can subset any object of type <code>list</code> with the <code>$</code> function in the following manner:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From a list</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls<span class="sc">$</span>MaxDegree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PhD" "ThD"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From a tibble</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>heroes_df<span class="sc">$</span>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Wonder Woman"  "Green Lantern" "Spider-Man"    "Batman"       
+[5] "Superman"     </code></pre>
+</div>
+</div>
+<p>What is the class of the object returned by <code>$</code>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(heroes_df<span class="sc">$</span>city)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>In this case, this is similar to the output of the <code>pull()</code> function we saw earlier.</p>
+<section id="symbol-objects" class="level3">
+<h3 class="anchored" data-anchor-id="symbol-objects">Symbol Objects</h3>
+<p>This function is very different. Instead of taking in the name of the element as a character string, it takes in the name as a <strong>symbol</strong>. If you remember our flowchart on objects from last class, recall that there was a small box connecting “Functions” to “Vectors” labelled “Languages”; <em>symbols</em> are <em>language</em> objects: they help R connect functions to vectors. You have technically used symbols since the second day of class. Consider this example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>myIntegers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x =</span> myIntegers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that I did not type <code>myIntegers</code> in quotes (as <code>"myIntegers"</code>). When R sees a reference to something other than all letters, crazy symbols, or <code>TRUE</code> / <code>FALSE</code>, R interprets what you typed as a <em>symbol</em> to be evaluated (think back to our rules for naming objects in lesson 5). R will look in your Global Environment for the object named what you typed. In the example above, R isn’t taking the mean of the letters <code>myIntegers</code>, but rather replacing that symbol with the atomic vector <code>1:10</code>.</p>
+</section>
+<section id="symbol-subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="symbol-subsetting">Symbol Subsetting</h3>
+<p>We have seen this behaviour before, when we created plots with <code>ggplot</code>. The <code>aes()</code> function took in <code>displ</code> and <code>hwy</code> as symbols, and looked for objects with those names in the supplied <code>mpg</code> data set instead of in the Global environment. Because this is a very complex but powerful tool, we will return to it in a few lessons.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Extract the non-existant <code>Publisher</code> column from the <code>heroes_df</code> tibble using the <code>$</code> function. What happens?</li>
+<li>Find all the heroes who’s home city has the word “City” in it using the <code>[</code> or the <code>$</code> functions (instead of the <code>[[</code> function). Remember that <code>$</code> takes in symbols instead of character strings. What is different? Did you expect some of this behaviour based on the list exercises?</li>
+</ol>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
