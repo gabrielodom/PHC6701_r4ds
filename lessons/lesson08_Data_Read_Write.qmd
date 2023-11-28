@@ -32,10 +32,11 @@ What did we learn last class?
 # Overview
 In this lesson, we will cover the following:
 
-0. Find some raw data
-1. Reading in flat text / CSV files
-2. Tibbles and "tidy" data
-3. Writing flat text / CSV files
+1. Find some raw data
+2. Reading in flat text / CSV files
+3. Tibbles and "tidy" data
+4. Writing flat text / CSV files
+5. The pipe (` %>% `) operator
 
 
 ## A Quick Comment to Begin...

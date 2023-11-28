@@ -19,6 +19,7 @@ website:
       - href: lessons/lesson06_atomic_vectors.qmd
       - href: lessons/lesson07_lists_and_tibbles.qmd
       - href: lessons/lesson08_Data_Read_Write.qmd
+      - href: lessons/lesson09_dplyr.qmd
       - about.qmd
 
 format:

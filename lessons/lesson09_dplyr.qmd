@@ -1,0 +1,569 @@
+---
+title: "Lesson 9: Introduction to dplyr"
+author: "Gabriel Odom "
+date: "9/30/2019"
+date-modified: "2023-11-28"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
+```
+
+# Review
+What did we learn last class?
+
+1. Find some raw data
+2. Reading in flat text / CSV files
+3. Tibbles and "tidy" data
+4. Writing flat text / CSV files
+5. The pipe (` %>% `) operator
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Overview
+In this lesson, we will cover the following:
+
+1. Subset Rows with `filter()`
+2. Sort Rows with `arrange()`
+3. Select and Move Columns with `select()`
+4. Create New Columns with `mutate()`
+5. Grouping and Group Summaries with `group_by()` and `summarise()`
+6. Using `*_join()` to Merge Tibbles
+
+
+## Common Functions
+These functions all operate on tidy data frames:
+
+- `filter()`: return rows that match a certain set of conditions
+- `arrange()`: sort rows by a given set of measurements
+- `select()`: select, rename, and / or reorder columns
+- `mutate()`: create new columns (often as functions of your existing columns)
+- `group_by()`: group rows by chosen columns
+- `summarise()`: collapse multiple rows into one (often paired with `group_by()` for group summaries)
+- `*_join()`: match observations from one tibble to observations from another 
+
+All of these functions have very similar syntax: `function(data_df, ...)`. The ellipsis will take in the additional conditions or arguments for the function, and column names are passed unquoted. Because these functions all take in the data as their first argument and return the new data set, these functions are often written with the pipe operator we learned last class as `data_df %>% function(...)`. Additionally, these functions **do not** create new data objects. If you want to keep the transformed data table you've created, you **must** store it as an object.
+
+::: {.callout-important}
+The `dplyr` functions **do not** create new data objects. If you want to keep the transformed data table you've created, you **must** store it as an object.
+:::
+
+These functions are all from the `dplyr` package, which is in the `tidyverse`. Load it now.
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+If you get stuck, the `dplyr` cheat sheet is here: <https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf>
+
+
+## Example Data
+Our example data set has measurements on all flights departing the Greater New York City area in 2013. It has 336,776 unique flights and 19 measurements on those flights. We will use this data set to explore a few of the more commonly-used `dplyr` functions. Load the `nycflights13` package you installed last class:
+```{r head_flights}
+library(nycflights13)
+flights
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Subset Rows with `filter()`
+The filter function takes in the data frame and a logical argument. Rows that return `TRUE` for that logical argument are returned as a subset of the original data frame. For example, we would like to inspect only flights that happened on 1 January, 2013.
+```{r}
+filter(flights, month == 1, day == 1)
+```
+This code selects the 842 rows of the `flights` data frame where the `month` column is equal to the number 1 (for January) and the `day` column is also equal to 1. The equivalent code with the *pipe operator* from last session is almost exactly the same:
+```{r}
+flights %>% filter(month == 1, day == 1)
+```
+As a review, the pipe turns `x %>% f(y)` into `f(x, y)`. Pipes allow us to read code from left-to-right and top-to-bottom, rather than inside out with a giant nest of parentheses.
+
+
+## Examples
+1. Find all the flights on Christmas Eve. We'll use the same code structure as the code for finding all the New Year's Day flights.
+```{r}
+flights %>% filter(month == 12, day == 24)
+```
+
+2. Find all flights during the summer months (June, July, and August).
+```{r}
+flights %>% filter(month %in% c(6, 7, 8))
+```
+3. Find all flights that did *not* depart from Newark Liberty.
+```{r}
+flights %>% filter(origin != "EWR")
+```
+4. Find all JetBlue ("B6") or Southwest ("WN") flights.
+```{r}
+flights %>% filter(carrier == "B6" | carrier == "WN")
+```
+5. Find any flights out of LaGuardia that actually left on time.
+```{r}
+flights %>% filter(origin == "LGA" & dep_delay <= 0)
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Sort Rows with `arrange()`
+The `arrange()` function takes in a data frame and a set of columns to sort on. We can sort the flights by in increasing order by the day of the year: we sort by month, then by day within month.
+```{r}
+flights %>% arrange(year, month, day)
+```
+
+Also, we can sort the flights by departure delay time.
+```{r}
+flights %>% arrange(desc(dep_delay))
+```
+
+Further, we can combine this with the `filter()` commmand to sort the American Airlines flights out of JFK on the day before Thanksgiving by their duration. By the way, see how easy it is to chain rather complicated commands together? You might begin to imagine that we are only scratching the surface of what we can do with `dplyr`...
+```{r}
+flights %>%
+  filter(carrier == "AA") %>% 
+  filter(origin == "JFK") %>% 
+  filter(month == 11) %>% 
+  filter(day == 27) %>%
+  arrange(desc(air_time))
+```
+As an aside, look how clean this code looks because of our pipes! Imagine trying to write this as a set of nested functions. Not pretty.
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Select and Move Columns with `select()`
+While `filter()` and `arrange()` help us select and sort individual observations (rows), the `select()` function helps us select, rename, or reorder the measurements (columns) of a data frame.
+
+
+## Select Columns that Meet Our Criteria
+We first select three columns specifically by their names.
+```{r}
+flights %>% select(year, month, day)
+```
+Notice that we only have the three columns we explicitly requested by name *and no more*. The `select()` function will drop whatever we don't ask for by default, but we can change this behaviour by adding the additional `everything()` argument (we'll come back to this in the "reordering columns" section).
+
+We could have also specified a range of column names to achieve the same effect.
+```{r}
+flights %>% select(year:day)
+```
+
+If you have used regular expressions or performed string manipulation before, you can also use the following modifiers to the `select()` function:
+
+1. Find all the columns with names starting with "dep_".
+```{r}
+flights %>% select(starts_with("dep_"))
+```
+2. Find all the columns with names ending with "ay".
+```{r}
+flights %>% select(ends_with("ay"))
+```
+3. Find all the columns with names that contain "time".
+```{r}
+flights %>% select(contains("time"))
+```
+4. Find all the columns with names that start with exactly three lower case letters followed by "_".
+```{r}
+flights %>% select(matches("^[a-z]{3}\\_"))
+```
+The `matches()` function takes in a *regular expression*. If you have never used regular expressions for string queries before, don't be afraid. You can do most of the things you need without ever touching the `matches()` function. However, if you do find yourself needing some help with string manipulation in `R`, please see the `stringr` package cheat sheet from the [RStudio Cheat Sheets page](https://www.rstudio.com/resources/cheatsheets/) and [the strings chapter](http://r4ds.had.co.nz/strings.html#strings) from *R for Data Science*. You can also practice building expressions on <https://regexr.com/>.
+
+
+## Remove, Reorder, or Rename
+
+### Remove Columns
+We can also use "negative indexing" to select all the columns *except* for the columns we named.
+```{r}
+flights %>% select(-(year:day))
+```
+This is particularly useful when we have filtered out all of one type of observation. We can then remove the redundant column information. For instance, previously we filtered only the flights leaving on 1 January, 2013. However, we still had the `year`, `month`, and `day` columns in this data table, even though this information was superfluous after filtering.
+```{r}
+# Before
+flights %>%
+  filter(month == 1, day == 1)
+
+# After
+flights %>%
+  filter(month == 1, day == 1) %>% 
+  select(-year, -month, -day)
+```
+
+### Reorder Columns
+As we alluded to above, we can also use the `select()` function to change the order of the columns of the data table, *without removing the columns we don't explicitely name*, with the helpof the `everything()` function.
+```{r}
+flights %>% select(time_hour, air_time, everything())
+```
+
+### Rename Columns
+While the `select()` function *can* rename columns, we recommend using the `rename()` function for better readibility of your code instead. This function takes in the data table and an argument that follows the `[new name] = [old name]` syntax. For example, we notice that all of the column names with more than one word are written in `snake_case` except for `tailnum`. We can rename this column to match our naming convention. **However, we *must* save the results of the output of the `rename()` function. Otherwise, the data table with the new column name will print to the screen but never be saved anywhere.** We can use the `names()` function to check that our new name stuck.
+```{r}
+flights <- rename(flights, tail_num = tailnum)
+names(flights)
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Create New Columns with `mutate()`
+Up to this point, we have only teased out observational or measurement information that was already in the data table. But what if we want to create a new measurement as a function of some existing measurements? We can do so with the `mutate()` function. This function's syntax is very similar to the syntax of the `rename()` function: the data frame is first, then `[new column name] = {expression}`.
+
+For example, we will find all the continental US flights with the strongest potential jet stream delay (the West Coast airports). We would like to find the land speed of each of these flights and add it to our smaller data table.
+```{r}
+westCoast <- c(
+  "BUR", "HNL", "LAS", "LAX", "OAK", "PDX", "PHX", "PSP", "RNO", "SAN", "SEA",
+  "SFO", "SJC", "SLC"
+)
+
+jetStreamFlights <- flights %>% 
+  filter(dest %in% westCoast) %>% 
+  select(month, day, dest, ends_with("delay"), distance, air_time)
+
+jetStreamFlights %>% 
+  mutate(speed_mph = distance / (air_time / 60))
+```
+
+If we only care about the speeds themselves, we can select the `speed_mph` column we just created.
+```{r}
+jetStreamFlights %>% 
+  mutate(speed_mph = distance / (air_time / 60)) %>% 
+  select(speed_mph)
+```
+Alternatively, we could use `mutate()`'s "cousin", the `transmute()` function. This function is shorthand for `mutate` then `select`.
+```{r}
+jetStreamFlights %>% 
+  transmute(speed_mph = distance / (air_time / 60))
+```
+
+
+## The `case_when()` Function
+We can use the `mutate()` in conjunction with the `case_when()` function to add a label indicating if the flight has beverage service, meals for sale, or meals included. In order to use the `case_when()` function, we need to map out all of the meal options and the flight durations that trigger them. This will take the form of a giant IF-THEN ladder:
+
+1. **IF** `air_time <= 50` **THEN** no beverage service or snacks
+2. **IF** `50 < air_time` **AND** `air_time <= 2.5 * 60` **THEN** beverage and snacks
+3. **IF** `2.5 * 60 < air_time` **AND** `air_time <= 4 * 60` **THEN** beverage and snacks with meals for sale
+4. **IF** `4 * 60 < air_time` **AND** `air_time <= 7 * 60` **THEN** beverage, snacks, and 1 meal
+5. **IF** `7 * 60 < air_time` **THEN** beverage, snacks, and 2 meals
+
+The syntax to use the `case_when()` function is:
+
+- the **IF** statement is automatically included
+- **AND** and **OR** use R's regular functions: `&`, `|`
+- **THEN** is the tilde symbol, `~`.
+
+Thus, the code to add flight food labels is:
+```{r}
+flights %>%
+  mutate(
+    food = case_when(
+      air_time <= 50 ~
+        "none",
+      50 < air_time & air_time <= 2.5 * 60 ~
+        "drinks + light snacks",
+      2.5 * 60 < air_time & air_time <= 4 * 60 ~
+        "drinks + heavy snacks",
+      4 * 60 < air_time & air_time <= 7 * 60 ~
+        "drinks, snacks, and 1 meal",
+      7 * 60 < air_time ~
+        "drinks, snacks, and 2 meals"
+    )
+  ) %>%  
+  select(air_time, food)
+```
+
+The code pieces on the left and right of the tilde are called *expressions*, and they are used to construct functions. The `mutate()` function can also make use of functions you construct. We will discuss this more in the lesson on control flow and functions.
+
+
+## Examples
+The possible uses of the `mutate()` function are practically endless, but we can look a few examples.
+
+### Basic Arithmetic
+We may not be concerned with the actual distance of a flight, but perhaps its difference from the average flight distance.
+```{r}
+flights %>% 
+  transmute(residual_dist = distance - mean(distance))
+```
+
+Perhaps we want to add an indicator for "long flights" (American Airlines considers a long flight any flight over four-and-a-half hours) and then order these flights by flight time, excluding flights to Honolulu.
+```{r}
+flights %>%
+  mutate(long_flight = air_time >= 270) %>% 
+  filter(dest != "HNL") %>% 
+  select(dest, long_flight, air_time, everything()) %>% 
+  arrange(desc(air_time))
+```
+
+### Time and Modular Arithmetic (*Optional*)
+The departure and arrival times are presented in a readable form of hours as the first two digits and and minutes as the last two (for example, 5:17AM is `517`). However, we can't subtract arrival time from departure time because these times are not proper continuous variables. We can create two new columns which measure the number of minutes after midnight for both departure and arrival (using modular arithmetic). We will then move these columns to the front so we can see them.
+```{r}
+flights %>%
+  mutate(
+    dep_time_min = (dep_time %/% 100) * 60 + dep_time %% 100,
+    arr_time_min = (arr_time %/% 100) * 60 + arr_time %% 100
+  ) %>% 
+  select(starts_with("dep_time"), starts_with("arr_time"), everything())
+```
+
+The `%%` operator is the [*modulo* operator](https://en.wikipedia.org/wiki/Modulo_operation) (sometimes called the "remainder" operator) in `R`. The `a %% b` operation returns the remainder after dividing `a` by `b`. The `%/%` operator is the [*integer division* operator](http://mathworld.wolfram.com/IntegerDivision.html); the `a %/% b` operation returns the quotient of `a` and `b` with any decimal information discarded.
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Grouping and Group Summaries with `group_by()` and `summarise()`
+The `summarise()` function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see [the `summarise()` section](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise) of *R for Data Science*, chapter 5.
+
+The syntax of `summarise()` is similar to the `mutate()` syntax. We can find the average delay of all flights leaving the New York City area in 2013. Because `NA`s are contagious, we remove them from the calculation with `na.rm = TRUE`.
+```{r}
+flights %>% summarise(delay = mean(dep_delay, na.rm = TRUE))
+```
+
+Incidentally, the `NA`s are from cancelled flights. We can remove the cancelled flights and save this data set.
+```{r}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay)) %>% 
+  filter(!is.na(arr_delay))
+```
+
+We can also find the arrival delay by destination with `group_by()`, then check if any cites seem to have less arrival delays (possibly due to changes in wind resistance).
+```{r}
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(delay = mean(arr_delay)) %>% 
+  mutate(resid_delay = delay - mean(delay)) %>% 
+  arrange(resid_delay)
+```
+We can always ungroup our data table with the `ungroup()` function.
+
+
+## Chaining Operations Together
+We have already used the pipe (` %>% `) operator quite a bit. This allows us to chain multiple steps together. For example, we might want to plot the relationship between flight distance and arrival delay (if you don't remember how to use `ggplot()`, take a look at the Review section).
+```{r}
+# Create a "delays" data table
+delays <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  # We don't want any small airports, or Honolulu
+  filter(count > 20, dest != "HNL")
+
+# Plot the delays and add a smoother
+ggplot(data = delays) +
+  aes(x = dist, y = delay) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+
+## Adding and Visualising Counts
+Let's look at the average delay by plane. Based on this graph, there are some planes with an *average* delay of over five hours! But how many flights did that plane make? We need to add a count.
+```{r}
+delays <- not_cancelled %>% 
+  group_by(tail_num) %>% 
+  summarise(
+    delay = mean(arr_delay)
+  )
+
+ggplot(data = delays) + 
+  aes(x = delay) +
+  geom_freqpoly(binwidth = 10)
+```
+
+Now that we add a count and re-plot the average arrival delay, we immediately see the Central Limit Theorem in action. All those planes with massive average delays only had one or two flights.
+```{r}
+delays <- not_cancelled %>% 
+  group_by(tail_num) %>% 
+  summarise(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+
+ggplot(data = delays) + 
+  aes(x = n, y = delay) +
+  geom_point(alpha = 1/10)
+```
+
+We can remove any planes with fewer than 30 flights and re-visualize the relationships between average delay and number of flights and the overall count-delay distribution.
+```{r}
+delays %>% 
+  filter(n >= 30) %>% 
+  ggplot() + 
+    aes(x = n, y = delay) +
+    geom_point(alpha = 1/10)
+
+delays %>% 
+  filter(n >= 30) %>% 
+  ggplot() + 
+    aes(x = delay) +
+    geom_freqpoly(binwidth = 10)
+
+```
+
+
+## Other Useful Summaries
+We know that passengers don't usually complain if their flight is early, but our `dep_delay` has negative values for flights which left early. We can find the average true "delay" by taking the summary of only the positive delay values.
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    avg_delay1 = mean(arr_delay),
+    # the average positive delay
+    avg_delay2 = mean(arr_delay[arr_delay > 0])
+  )
+```
+
+### Examples
+1. We can find the proportion of flights by day that are delayed longer than 1 hour.
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(hour_perc = mean(arr_delay > 60))
+```
+
+2. We can also measure parametric and non-parametric spread or variability.
+```{r}
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(distance_sd = sd(distance)) %>% 
+  arrange(desc(distance_sd))
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    first = min(dep_time),
+    p25 = quantile(dep_time, 0.25),
+    last = max(dep_time)
+  )
+```
+
+3. Because counting by groups is so common, we can use the shorthand `count()` function.
+```{r}
+# Instead of 
+not_cancelled %>%
+  group_by(dest) %>%
+  summarise(n = n())
+# use
+not_cancelled %>% 
+  count(dest)
+```
+
+4. The `count()` function can take in weights as well. We can use this to find the planes that logged the most air miles in 2013.
+```{r}
+not_cancelled %>% 
+  count(tail_num, wt = distance) %>% 
+  arrange(desc(n))
+```
+
+
+## Grouping by Multiple Variables
+We can group on the year, month within year, and day within month. Then, we can "roll up" the data summaries.
+```{r} 
+(
+  per_day <- flights %>% 
+    group_by(year, month, day) %>% 
+    summarise(flights = n())
+)
+
+(
+  per_month <- per_day %>% 
+    summarise(flights = sum(flights))
+)
+
+(
+  per_year <- per_month %>%
+    summarise(flights = sum(flights))
+)
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Using `*_join()` to Merge Tibbles
+If you have two or more tables which share one or more columns, then you can join these tables using the `*_join()` family of functions. For two data tables `A` and `B` with a shared column named `"x"`, these functions are
+
+- `left_join(A, B, by = "x")`: join matching rows from `B` to `A`. Missing rows in `B` will be padded with `NA`.
+- `right_join(A, B, by = "x")`: join matching rows from `A` to `B`. Missing rows in `A` will be padded with `NA`.
+- `inner_join(A, B, by = "x")`: join rows only in both `A` and `B`. There will be no missing rows.
+- `full_join(A, B, by = "x")`: join all rows in `A` and `B`. Missing rows in `A` and `B` will be padded with `NA`.
+- `semi_join(A, B, by = "x")`: retain rows in `A` which have a match in `B`.
+- `anti_join(A, B, by = "x")`: retain rows in `A` which do not have a match in `B`.
+
+
+## Carrier Name Data
+Take a look at the names of the airlines in the `flights` data set (the `unique()` function does what you think it does)
+```{r}
+flights %>% 
+  select(carrier) %>% 
+  unique()
+```
+
+Some of these abbreviations I know, but not all of them. However, in the `nycflights13` package, there is another data set that matches the airline abbreviation with its full company name (I found this data set by looking at the help file for the `flights` object):
+```{r}
+airlines
+```
+
+### Airline with the Fewest Delays
+We want to find the airlines and airports to fly out of NYC on that will get us to our destination on time. 
+```{r}
+mean_arr_delay_df <- 
+  not_cancelled %>% 
+  group_by(carrier, origin) %>% 
+  summarise(mean_arr_delay = mean(arr_delay)) %>% 
+  arrange(mean_arr_delay)
+mean_arr_delay_df
+```
+
+Now, we can join this tibble to the `airlines` tibble. Which join will we use? We want to keep all the rows from this mean arrival delay tibble, and match the rows from the `airlines` tibble to it. We will use the `left_join()` function, with `mean_arr_delay_df` as the left table and `airlines` as the right:
+```{r}
+left_join(mean_arr_delay_df, airlines)
+```
+
+We will spend a bit more time on joins when we are working with the ACS SNAP data (remember that we have one data set with all the ZIP codes for Miami-Dade and Broward and a different data set with all the SNAP recipients for the whole state). However, we still need to learn how to work with data in character strings first, so we will be back to these data after the `stringr::` lesson.
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Find the airports and airlines that have the lowest average arrival delay to Miami.
+:::
+
+<!-- We want to find the airlines to fly out of NYC that will get us home on time.  -->
+<!-- ```{r} -->
+<!-- not_cancelled %>%  -->
+<!--   filter(dest == "MIA") %>%  -->
+<!--   group_by(carrier, origin) %>%  -->
+<!--   summarise(mean_arr_delay = mean(arr_delay)) %>%  -->
+<!--   arrange(mean_arr_delay) -->
+<!-- ``` -->
+
+<!-- Don't fly out of Newark Liberty. LaGuardia is nice on American, but not great for Delta. JFK is good for American or Delta. -->
+
