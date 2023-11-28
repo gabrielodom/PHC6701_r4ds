@@ -608,6 +608,6 @@ We have seen this behaviour before, when we created plots with `ggplot`. The `ae
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
-1. Extract the non-existant `Publisher` column from the `heroes_df` tibble using the `$` function. What happens?
+1. Extract the non-existent `Publisher` column from the `heroes_df` tibble using the `$` function. What happens?
 2. Find all the heroes who's home city has the word "City" in it using the `[` or the `$` functions (instead of the `[[` function). Remember that `$` takes in symbols instead of character strings. What is different? Did you expect some of this behaviour based on the list exercises?
 :::

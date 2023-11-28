@@ -1,17 +1,24 @@
 ---
 title: "Tutorial"
+author: "Catalina Cañizares"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r packages}
+# install.packages("learnr")
+# install.packages("palmerpenguins")
+library(learnr)
 library(palmerpenguins)
 library(tidyverse)
 
 data("penguins")
 ```
+
 
 
 ## Introduction to lab

@@ -1,0 +1,89 @@
+ZIP Code	Classification	City	Population	Timezone	Area Code(s)
+ZIP Code 33004	General	Dania	16,162	Eastern	954
+ZIP Code 33008	P.O. Box	Hallandale	0	Eastern	954/754
+ZIP Code 33009	General	Hallandale	43,301	Eastern	954/754
+ZIP Code 33019	General	Hollywood	15,497	Eastern	954/754
+ZIP Code 33020	General	Hollywood	45,044	Eastern	954/754
+ZIP Code 33021	General	Hollywood	50,091	Eastern	954/754
+ZIP Code 33022	P.O. Box	Hollywood	18	Eastern	954/754
+ZIP Code 33023	General	Hollywood	66,749	Eastern	954/754
+ZIP Code 33024	General	Hollywood	74,843	Eastern	954/754
+ZIP Code 33025	General	Hollywood	75,455	Eastern	954
+ZIP Code 33026	General	Hollywood	30,510	Eastern	954
+ZIP Code 33027	General	Hollywood	63,726	Eastern	954
+ZIP Code 33028	General	Pembroke Pines	28,140	Eastern	954
+ZIP Code 33029	General	Hollywood	46,202	Eastern	954
+ZIP Code 33060	General	Pompano Beach	35,793	Eastern	954/754/561
+ZIP Code 33061	P.O. Box	Pompano Beach	0	Eastern	954/754/561
+ZIP Code 33062	General	Pompano Beach	25,293	Eastern	954/754/561
+ZIP Code 33063	General	Pompano Beach	56,296	Eastern	954/754
+ZIP Code 33064	General	Pompano Beach	62,429	Eastern	954/754/561
+ZIP Code 33065	General	Coral Springs	59,668	Eastern	954/754
+ZIP Code 33066	General	Pompano Beach	16,845	Eastern	954
+ZIP Code 33067	General	Pompano Beach	27,564	Eastern	954/754
+ZIP Code 33068	General	Pompano Beach	53,137	Eastern	954
+ZIP Code 33069	General	Pompano Beach	28,817	Eastern	954/754
+ZIP Code 33071	General	Coral Springs	40,026	Eastern	954/754
+ZIP Code 33072	P.O. Box	Pompano Beach	0	Eastern	954/754/561
+ZIP Code 33073	General	Pompano Beach	32,853	Eastern	954/754/561
+ZIP Code 33074	P.O. Box	Pompano Beach	0	Eastern	954/754/561
+ZIP Code 33075	P.O. Box	Coral Springs	0	Eastern	954
+ZIP Code 33076	General	Pompano Beach	41,826	Eastern	954/754
+ZIP Code 33077	P.O. Box	Pompano Beach	0	Eastern	954/754/561
+ZIP Code 33081	P.O. Box	Hollywood	0	Eastern	954/754
+ZIP Code 33082	P.O. Box	Pembroke Pines	0	Eastern	954/754
+ZIP Code 33083	P.O. Box	Hollywood	0	Eastern	954/754
+ZIP Code 33084	P.O. Box	Hollywood	0	Eastern	954/754
+ZIP Code 33093	P.O. Box	Margate	0	Eastern	954/754/561
+ZIP Code 33097	P.O. Box	Coconut Creek	0	Eastern	954/754/561
+ZIP Code 33301	General	Fort Lauderdale	19,109	Eastern	954/754/305/786
+ZIP Code 33302	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33303	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33304	General	Fort Lauderdale	19,978	Eastern	954/305/786
+ZIP Code 33305	General	Fort Lauderdale	12,044	Eastern	954
+ZIP Code 33306	General	Fort Lauderdale	3,526	Eastern	954
+ZIP Code 33307	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33308	General	Fort Lauderdale	29,519	Eastern	954
+ZIP Code 33309	General	Fort Lauderdale	37,642	Eastern	954
+ZIP Code 33310	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33311	General	Fort Lauderdale	69,413	Eastern	954
+ZIP Code 33312	General	Fort Lauderdale	51,570	Eastern	954
+ZIP Code 33313	General	Fort Lauderdale	63,284	Eastern	954
+ZIP Code 33314	General	Fort Lauderdale	30,248	Eastern	954
+ZIP Code 33315	General	Fort Lauderdale	13,555	Eastern	954
+ZIP Code 33316	General	Fort Lauderdale	12,669	Eastern	954/754
+ZIP Code 33317	General	Fort Lauderdale	37,590	Eastern	954
+ZIP Code 33318	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33319	General	Fort Lauderdale	51,891	Eastern	954
+ZIP Code 33320	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33321	General	Fort Lauderdale	51,011	Eastern	954
+ZIP Code 33322	General	Fort Lauderdale	41,050	Eastern	954
+ZIP Code 33323	General	Fort Lauderdale	23,149	Eastern	954
+ZIP Code 33324	General	Fort Lauderdale	46,766	Eastern	954
+ZIP Code 33325	General	Fort Lauderdale	31,556	Eastern	954
+ZIP Code 33326	General	Fort Lauderdale	33,978	Eastern	954
+ZIP Code 33327	General	Fort Lauderdale	22,174	Eastern	954
+ZIP Code 33328	General	Fort Lauderdale	28,997	Eastern	954
+ZIP Code 33329	P.O. Box	Fort Lauderdale	0	Eastern	954
+ZIP Code 33330	General	Fort Lauderdale	14,738	Eastern	954
+ZIP Code 33331	General	Fort Lauderdale	23,016	Eastern	954
+ZIP Code 33332	General	Fort Lauderdale	10,915	Eastern	954
+ZIP Code 33334	General	Fort Lauderdale	30,138	Eastern	954
+ZIP Code 33335	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33336	Unique	Fort Lauderdale	0	Eastern	954
+ZIP Code 33337	Unique	Fort Lauderdale	0	Eastern	954
+ZIP Code 33338	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33339	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33340	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33345	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33346	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33348	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33349	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33351	General	Fort Lauderdale	36,913	Eastern	954
+ZIP Code 33355	P.O. Box	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33359	P.O. Box	Fort Lauderdale	0	Eastern	954
+ZIP Code 33388	General	Plantation	0	Eastern	954
+ZIP Code 33394	General	Fort Lauderdale	0	Eastern	954/754/305/786
+ZIP Code 33441	General	Deerfield Beach	29,311	Eastern	954/754/561
+ZIP Code 33442	General	Deerfield Beach	32,340	Eastern	954/754/561
+ZIP Code 33443	P.O. Box	Deerfield Beach	0	Eastern	954/754/561
