@@ -47,7 +47,8 @@ The original version of this material was largely from my memory and what Catali
 We will use two data sets as examples in this lesson, one easy and one complex.
 
 - Easy: the `fruit` object from the `stringr` package. This is a simple character vector of names of different fruits. This small data set comes automatically with the Tidyverse.
-- Complex: the `outcomesCTN0094` data frame, with column `usePatternUDS`, from the `CTNote` package. Install this package via (make sure to uncomment the install line the first time you run it)
+- Medium: the `sentences` object from the `stringr` package. This contains the `r length(stringr::sentences)` [Harvard Sentences](https://en.wikipedia.org/wiki/Harvard_sentences) for North American English voice identification. This data set also comes automatically with the Tidyverse.
+- Complex: the `outcomesCTN0094` data frame, with column `usePatternUDS`, from the `CTNote` package. For more information about the character string in this data set, see [Odom et al. (2023)](https://doi.org/10.1371/journal.pone.0291248). Install this package via (make sure to uncomment the install line the first time you run it)
 ```{r packages, message=FALSE}
 # install.packages("CTNote")
 library(CTNote)
@@ -59,6 +60,7 @@ data("outcomesCTN0094")
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. Inspect the vector `fruit`.
+2. Inspect first 20 elements of the vector `sentences`.
 2. Create a smaller version of the `outcomesCTN0094` tibble with the following columns: `who`, `usePatternUDS`, and `ctn0094_relapse_time`. Save it as an object in your Global environment called `outcome_df`.
 :::
 
@@ -87,7 +89,7 @@ rm(outcomesCTN0094)
 - `str_count()`: count number of times a matching pattern appears in a string
 
 
-## Use Cases
+## Finding Matches
 In the `fruit` vector, we may want to find which fruit names have the word "berry" or "berries" in them, then print those names. Because I want to detect both, I have two options.
 
 Option 1: the character intersection of "berry" and "berries":
@@ -108,6 +110,23 @@ str_detect(string = fruit, pattern = "berry|berries")
 fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
 ```
 
+::: {.callout-note title="Exercise"}
+## Exercise
+Find all the fruits with the word "fruit" in the name.
+:::
+
+
+## Counting Matches
+In the `outcome_df` data set each symbol in the column `usePatternUDS` represents the patient status during the routine weekly clinic visit. The `o` symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):
+```{r}
+outcome_df$usePatternUDS[1:20] %>% 
+  str_count(pattern = "o")
+```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Missing 3 clinic visits in a row is often a strong prognostic signal for a negative health outcome. Count the number of times per participant that the pattern "ooo" is seen. Use the first 20 patients only.
+:::
 
 </br>
 
@@ -125,6 +144,66 @@ fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
 - `str_remove()` / `str_remove_all`: remove the first/all matches of a pattern in a string
 - `str_to_lower()` / `str_to_upper()`: convert a string to lower case/UPPER CASE
 
+
+## Replacing one Pattern with Another
+In the `fruit` vector, we could replace all the vowels with upper case letters to help children identify vowels within words. Recall that `str_replace()` only replaces the **first** match in the character string, so we will use `str_replace_all()`. This will give an example of piping multiple string commands together (which is often how we perform string manipulation).
+```{r change-vowel-case}
+fruit %>% 
+  str_replace_all(pattern = "a", replacement = "A") %>% 
+  str_replace_all(pattern = "e", replacement = "E") %>% 
+  str_replace_all(pattern = "i", replacement = "I") %>% 
+  str_replace_all(pattern = "o", replacement = "O") %>% 
+  str_replace_all(pattern = "u", replacement = "U")
+```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+In the use pattern symbol vector the `*` symbol represents a mixture of positive and negative results. Change all `*` symbols to `+`. You will most likely need to [escape the symbols](https://r4ds.had.co.nz/strings.html#basic-matches) with two backslashes.
+:::
+
+
+## Removing Characters that Match a Pattern
+In much of text analysis, sentences are analyzed without the "filler words" (known as [stop words](https://en.wikipedia.org/wiki/Stop_word)), such as "and", "to", "the", "of", "a", "was", "is", etc. We can remove these words from our set of sentences.
+```{r stop-words-1}
+sentences[1:20] %>% 
+  str_remove_all(pattern = "and") %>% 
+  str_remove_all(pattern = "to") %>% 
+  str_remove_all(pattern = "the") %>% 
+  str_remove_all(pattern = "of") %>% 
+  str_remove_all(pattern = "a")
+```
+
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Notice that the results above may not be what you expected. Some problems include:
+    + stop words at the beginning of the sentence were not removed
+    + some words are now misspelled
+
+Brainstorm with your neighbour what you think went wrong and how you could fix it.
+2. Try a few solutions you suggested in Exercise 1.
+3. Some of the words now have extra spaces between them. What could we modify in the code above to address this?
+:::
+
+
+## Changing Case
+In the above example, some of the stop words were not removed because they were at the start of the sentence (and therefore had a capital letter). We can change all the letters in a string to be the same case (which makes pattern matching easier) with the `str_to_lower()` and `str_to_upper()` functions. Notice that we added the `str_to_lower()` call in the pipeline *before* removing the stop words. 
+```{r stop-words-2}
+sentences[1:20] %>% 
+  str_to_lower() %>% 
+  str_remove_all(pattern = "and ") %>% 
+  str_remove_all(pattern = "the ")
+```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Notice that I modified the two stop words slightly. What did that change? Discuss with your neighbor and modify your code from the last exercise if necessary.
+:::
+
+::: {.callout-tip title="tip"}
+## Tip: Order Matters
+When calling string manipulation functions, the order of the function calls in the pipeline matters A LOT. Pay close attention to the orders of the actions you prescribe, and it's usually very wise to run a `stringr::` pipeline line-by-line as you build it.
+:::
+
 </br>
 
 *******************************************************************************
@@ -139,6 +218,48 @@ fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
 
 - `str_sub()`: extracts or replaces the elements at **a single position** in each string
 - `str_extract()` / `str_extract_all()`: extract the first/all matches of a pattern from each string
+
+In my experience, the functions in this section are most useful when dealing with very organized text data. For example, my students and I were working on a dataset that recorded the heights of participants as text. The entries of this data table would have been something like this:
+```{r height-example-data}
+heightsF_char <- c("60in", "68in", "66in", "60in", "65in", "62in", "63in")
+heightsM_char <- c("72in", "68in", "73in", "65in", "71in", "66in", "67in")
+```
+
+
+## Substrings by Position
+If we know that the information we want is always in the **same position**, then we can create a **sub**string using only the "letters" between these positions with `str_sub()`.
+```{r create-substring}
+# Count forward (from the start of the string):
+heightsF_char %>% 
+  str_sub(start = 1, end = 2)
+
+# Count backwards (from the end of the string):
+heightsF_char %>% 
+  str_sub(start = -4, end = -3)
+```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Pretend that you spoke with a clinician about the use patterns in the `outcome_df` data set. She informed you that the first three weeks should be considered an onboarding period for each participant, and therefore should be removed from the data before final analysis. Remove the symbols for the first three weeks.
+:::
+
+
+## Substrings by Pattern
+Instead, if we know that the information we want is always the **same pattern**, then we can **extract** the matching pattern with `str_extract()`.
+```{r}
+heightsF_char %>% 
+  # We want the numeric digits (\\d) that are two characters long ({2})
+  str_extract(pattern = "\\d{2}")
+```
+
+If you are wondering where in the world that `\\d{2}` stuff came from, you're not alone. It's something called a [regular expression](https://en.wikipedia.org/wiki/Regular_expression). I don't expect you all to become experts in this, but it's worth studying the [Posit Regular Expressions](https://rstudio.github.io/cheatsheets/html/strings.html#regular-expressions) guide for how these character matching codes can be used in R.
+
+::: {.callout-note title="Exercises"}
+## Exercises
+1. If you attempt to extract a pattern from a string that doesn't exist, what happens?
+2. If you attempt to extract a range of characters that doesn't exist (for instance, using `start = 2` and `end = 1` to have the end of the range before the start of the range), what happens?
+3. Discuss these two results from the `str_sub()` and `str_extract()` functions with your neighbours. Think about cases where each might be useful.
+:::
 
 </br>
 
@@ -156,6 +277,69 @@ fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
 - `str_trim()`: remove spaces from the start and end of string
 - `str_pad()`: add spaces (or some other "letter") to the start or end of a string until the string is a specified length
 
+Overall, it's often not immediately obvious when these functions would be useful to you, but know that from my experience that they are often unexpected lifesavers. I'm going to give three such examples from when these functions have helped me in the past.
+
+
+## String Lengths
+The `str_length()` functions is useful when dealing with $n$-ary words. These are sets of letters or numbers where each single symbol from a pre-defined set of $n$ possible symbols represents a state in a system. Examples include the use pattern "words" in the `outcome_df` data set; DNA/RNA ("CCCCAACGTGTG" is a string of letters where each single letter represents a one of the four DNA nucleotides bases---Cytosine, Adenine, Thymine, and Guanine); or class attendance ("PPPPPAPP" represents a student's attendance record over eight weeks as "Present" or "Absent").
+```{r}
+# How many nucleotides in the strand?
+str_length("CCCCAACGTGTG")
+
+# How many weeks of attendance data?
+str_length("PPPPPAPP")
+```
+
+
+## Trimming Strings
+This comes up for me most often when dealing with very long labels in `ggplot` figures. Sometimes a factor label is really long, and `ggplot` tries to fit the whole label in the figure, which ends up making the whole figure look weird.
+
+Here's an example. I'm going to create a simple data set with one very long factor label.
+```{r}
+bookPages_df <- tibble(
+  title = c("Germinal", "Frankenstein; or, The Modern Prometheus"),
+  author = c("Emile Zola", "Mary Shelley"),
+  pageCountOriginal = c(591L, 362L),
+  year = c(1885, 1818)
+)
+
+# Original
+ggplot(data = bookPages_df) + 
+  aes(x = year, y = pageCountOriginal, shape = title) + 
+  geom_point()
+```
+
+Now I'm going to truncate the very long title of *Frankenstein*.
+```{r}
+# Truncated text
+bookPages_df %>% 
+  mutate(
+    title = str_trunc(title, width = 15)
+  ) %>% 
+  ggplot() +
+    aes(x = year, y = pageCountOriginal, shape = title) + 
+    geom_point()
+```
+
+
+## Padding Strings
+This comes up when I'm trying to create file names in a computer. Here's the issue:
+```{r}
+1:11 %>% 
+  as.character() %>% 
+  sort()
+```
+
+When the computer turns numbers into characters, the ordering of the numbers gets destroyed. We all know that I *want* 10 and 11 to come last, but the computer doesn't interpret these numbers the way that I do. The solution is to **pad** the numbers on the left with "0" so that the ordering is preserved:
+```{r}
+1:11 %>% 
+  as.character() %>% 
+  # Set the width to 2 digits if 99 is enough, but increase to 3 digits in case
+  #   I need to go past 99 (up to 999)
+  str_pad(width = 3, side = "left", pad = "0") %>% 
+  sort()
+```
+
 </br>
 
 *******************************************************************************
@@ -164,4 +348,53 @@ fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
 
 
 # Modifying Strings in Tibbles
-So far, we have seen how the `stringr` functions can be used on a single character vector. However, many times we have character information stored as a column of a tibble. This requires us to modidy our approach.
+So far, we have seen how the `stringr` functions can be used on a single character vector. However, many times we have character information stored as a column of a tibble. This requires us to modify our approach, and we often combine the `stringr::` functions with calls to the `mutate()` function from `dplyr::`.
+
+
+## Example: Plotting Participant Heights
+Here I show an entire (simplified) workflow to take in the height data and plot it by biological sex.
+```{r}
+###  Create tidy data  ###
+heights_df <- tibble(
+  is_female = c(
+    rep(TRUE, length(heightsF_char)),
+    rep(FALSE, length(heightsM_char))
+  ),
+  heights = c(heightsF_char, heightsM_char)
+)
+
+###  Wrangle the Data  ###
+heightsClean_df <- 
+  heights_df %>% 
+  # Step 1: Split the Units into another column
+  mutate(
+    units = str_sub(heights, start = -2, end = -1)
+  ) %>% 
+  # Step 2: Extract the height values
+  mutate(
+    value = str_extract(heights, pattern = "\\d{2}")
+  ) %>% 
+  # Step 3: change heights from character to numeric
+  mutate(
+    value = as.numeric(value)
+  ) %>% 
+  # Step 4: remove the original column (check your work beforehand)
+  select(-heights) %>% 
+  # Step 5: rename
+  rename(height = value)
+
+###  Plot the Relationship  ###
+ggplot(data = heightsClean_df) + 
+  theme_classic() + 
+  aes(x = is_female, y = height) + 
+  geom_boxplot()
+```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Between this lesson and the `dplyr::` lesson, you now have the skills to join the ACS SNAP data to the Miami-Dade and Broward ZIP code data. Here are some basic steps:
+
+1. Import the data sets.
+2. Use the string manipulation functions to clean up the ZIP code columns until they can match.
+3. Join the data sets so that you have one table with all the ACS SNAP data combined for Miami-Dade and Broward counties.
+:::
