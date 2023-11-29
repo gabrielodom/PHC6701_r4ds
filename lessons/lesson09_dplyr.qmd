@@ -1,5 +1,5 @@
 ---
-title: "Lesson 9: Introduction to dplyr"
+title: "Lesson 9: Data Manipulation with dplyr"
 author: "Gabriel Odom "
 date: "9/30/2019"
 date-modified: "2023-11-28"

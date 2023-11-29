@@ -20,6 +20,7 @@ website:
       - href: lessons/lesson07_lists_and_tibbles.qmd
       - href: lessons/lesson08_Data_Read_Write.qmd
       - href: lessons/lesson09_dplyr.qmd
+      - href: lessons/lesson10_stringr.qmd
       - about.qmd
 
 format:

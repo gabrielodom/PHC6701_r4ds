@@ -1,0 +1,167 @@
+---
+title: "Lesson 10: Wrangling Character Strings with stringr"
+author: "Gabriel Odom, Catalina Cañizares, and Posit Contributors"
+date: "07/07/2022"
+date-modified: "2023-11-28"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
+```
+
+# Review
+What did we learn last class? 
+
+1. Subset Rows with `filter()`
+2. Sort Rows with `arrange()`
+3. Select and Move Columns with `select()`
+4. Create New Columns with `mutate()`
+5. Grouping and Group Summaries with `group_by()` and `summarise()`
+6. Using `*_join()` to Merge Tibbles
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Overview
+In this lesson, we will cover the following:
+
+1. String Matching
+2. Modifying Strings
+3. Substring Extraction
+4. Trim and Pad Strings
+
+
+## More About this Lesson
+The original version of this material was largely from my memory and what Catalina and I needed to solve some problems, but "version 2" was restructured to draw from the training materials here: <https://rstudio.github.io/cheatsheets/html/strings.html>. The cool thing about the `stringr` package is that all of the functions start with `str_`. This means that you can more easily find helpful string functions. Also, as with all of the packages in the `tidyverse`, the `stringr` package comes with a nice cheat sheet: <https://rstudio.github.io/cheatsheets/strings.pdf>.
+
+
+## Example Data
+We will use two data sets as examples in this lesson, one easy and one complex.
+
+- Easy: the `fruit` object from the `stringr` package. This is a simple character vector of names of different fruits. This small data set comes automatically with the Tidyverse.
+- Complex: the `outcomesCTN0094` data frame, with column `usePatternUDS`, from the `CTNote` package. Install this package via (make sure to uncomment the install line the first time you run it)
+```{r packages, message=FALSE}
+# install.packages("CTNote")
+library(CTNote)
+library(tidyverse)
+
+data("outcomesCTN0094")
+```
+
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Inspect the vector `fruit`.
+2. Create a smaller version of the `outcomesCTN0094` tibble with the following columns: `who`, `usePatternUDS`, and `ctn0094_relapse_time`. Save it as an object in your Global environment called `outcome_df`.
+:::
+
+```{r answer-to-exercise}
+#| echo: false
+
+outcome_df <- 
+  outcomesCTN0094 %>% 
+  select(who, usePatternUDS, ctn0094_relapse_time)
+rm(outcomesCTN0094)
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# String Matching
+
+
+## Functions to Know
+
+- `str_detect()`: detect the presence/absence of a matching pattern
+- `str_count()`: count number of times a matching pattern appears in a string
+
+
+## Use Cases
+In the `fruit` vector, we may want to find which fruit names have the word "berry" or "berries" in them, then print those names. Because I want to detect both, I have two options.
+
+Option 1: the character intersection of "berry" and "berries":
+```{r find-berries-1}
+# Create a logical vector to indicate which strings have the matching pattern
+str_detect(string = fruit, pattern = "berr")
+
+# Print the names of the fruits which have the matching pattern
+fruit[ str_detect(string = fruit, pattern = "berr") ]
+```
+
+Option 2: using an "OR" statement (the `|` symbol):
+```{r find-berries-2}
+# Create a logical vector to indicate which strings have the matching pattern
+str_detect(string = fruit, pattern = "berry|berries")
+
+# Print the names of the fruits which have the matching pattern
+fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
+```
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Modifying Strings
+
+
+## Functions to Know
+
+- `str_replace()` / `str_replace_all()`: replace the first/all matches of a pattern in a string with new text
+- `str_remove()` / `str_remove_all`: remove the first/all matches of a pattern in a string
+- `str_to_lower()` / `str_to_upper()`: convert a string to lower case/UPPER CASE
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Substring Extraction
+
+
+## Functions to Know
+
+- `str_sub()`: extracts or replaces the elements at **a single position** in each string
+- `str_extract()` / `str_extract_all()`: extract the first/all matches of a pattern from each string
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Trim and Pad Strings
+
+
+## Functions to Know
+
+- `str_length()`: compute the number of "letters" in a string
+- `str_trim()`: remove spaces from the start and end of string
+- `str_pad()`: add spaces (or some other "letter") to the start or end of a string until the string is a specified length
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Modifying Strings in Tibbles
+So far, we have seen how the `stringr` functions can be used on a single character vector. However, many times we have character information stored as a column of a tibble. This requires us to modidy our approach.

@@ -1,0 +1,294 @@
+---
+title: "Lesson 12: Exploring Data with the Tidyverse"
+author: "Gabriel Odom "
+date: "10/14/2019"
+date-modified: "2023-11-29"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE) # 
+```
+
+# Review
+What have we learned so far this semester? Answer at <https://www.PollEv.com/gabrielodom151>
+
+1. Writing reports with RMarkdown
+2. Plots with `ggplot2`
+3. Vectors
+4. Importing and wrangling data with `readr`, `tibble`, and `dplyr`
+5. Writing and applying functions
+
+
+# Overview
+In this lesson, we will combine all of the skills we have learned so far to explore data with the Tidyverse.
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Importing Data
+We will work through some of the American Community Survey data from the U.S. Census Bureau. If you have not yet done so, download the ACS Supplemental Nutrition Assistance Program (SNAP) benefits data ("FOOD STAMPS/Supplemental Nutrition Assistance Program (SNAP) 2012-2016 American Community Survey 5-Year Estimates") for 2016 (use the steps we worked out in Lesson 08).
+
+## The Raw Data
+*You should have already done all this in lesson 8.* However, if you did not complete that exercise, download the data and metadata from Blackboard. You should have a metadata file called `ACS_16_5YR_S2201_metadata.csv` which explains all the variable names and a data file called `ACS_16_5YR_S2201_with_ann.csv` that contains all the features of interest.
+
+## Read the Data
+Now that you have raw data files, import them into R (you will have to update the path to these data sets based on how you saved these files on your computer).
+```{r}
+FLallZIP_df <- read_csv("../data/ACS_16_5YR_S2201_with_ann.csv")
+FLmetadata_df <- read_csv("../data/ACS_16_5YR_S2201_metadata.csv")
+```
+
+### Inspect Data Sets
+Let's get an idea of what is in these data sets:
+```{r}
+FLallZIP_df
+```
+
+There are 456 columns of information (459 - 3 index columns), and it looks like all of these columns have bizarre codes for their names. Also, many of the columns are numeric and many are character.
+
+Now for the metadata:
+```{r}
+FLmetadata_df
+```
+The first column of this data looks exactly like the crazy column names of the main data set. This information should allow us to find out what the column codes mean.
+
+
+### Updated Summary Function
+Recall our lesson on functions last week. Based on this lesson, we are able to write an updated version of the `summary()` function. Our summary function should print the most common unique values for character information, but call the `summary()` function as normal for anything else:
+```{r}
+mySummary <- function(x){
+  
+  if (is.character(x)){
+    
+    table(x) %>% 
+      sort(decreasing = TRUE) %>%
+      head()
+    
+  } else {
+    summary(x)
+  }
+  
+}
+```
+
+### Apply to the Raw Data
+Now that we have an updated function to take summaries of a tibble across the columns, let's apply it to each column of the data (because this will print almost 500 results, we will subset only the first 50):
+```{r}
+# The first three columns are ZIP codes and geography IDs
+map(FLallZIP_df[, 4:54], mySummary)
+```
+
+It looks like many of these columns (such as `HC04_EST_VC01`) have numeric data stored as character information. Also, the symbols `"-"` and `"**"` are used in some columns. They may mark missing data.
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+# REVIEW: Basic String Functions
+Because the column name look-up table and many of the data columns contain character information, we need to discuss a few basic functions from the `stringr` package (included in the `tidyverse`). 
+
+## Detecting Strings
+From looking at the columns in the metadata table, it would probably be helpful to find if a word or phrase is contained in a character string. This is the function of `str_detect()`.
+```{r}
+FLmetadata_df %>% 
+  pull(Id) %>% 
+  str_detect(pattern = "Hispanic") %>% 
+  head
+```
+
+As we can see, this function returns a logical vector indicating if the string `"Hispanic"` is in the elements of the `Id` column. By itself, this isn't helpful: we don't know what the strings are, and we certainly don't know which rows of the tibble they belong to.
+
+To solve these problems, we combine `str_detect()` with `mutate()` and `filter()`:
+```{r}
+FLmetadata_df %>% 
+  mutate(Hispanic_logi = str_detect(Id, "Hispanic")) %>% 
+  filter(Hispanic_logi) %>% 
+  select(-Hispanic_logi)
+```
+
+This is a very nice result: we used the `mutate()` function to add a column of `TRUE` or `FALSE` values to the data frame to indicate if `"Hispanic"` was present in the column names (in the `Id` column). Then, we selected all of the rows where this indicator was `TRUE`, and then removed the indicator (because we no longer needed it).
+
+> Exercise: try to find "hispanic".
+
+## String Cases
+Because R is case sensitive, the string `"Hispanic"` and `"hispanic"` are not the same. We can use the `str_to_upper()` and `str_to_lower()` functions to convert all of the string data to the same case (so our searches don't fail). In this case, we have to make sure to save the new tibble:
+```{r}
+FLmetadata2_df <- 
+  FLmetadata_df %>% 
+  mutate(Id = str_to_lower(Id))
+
+# Did it work?
+FLmetadata2_df
+```
+
+One tip for working with strings: DO NOT write the new object into the container holding the old object. Strings are incredibly difficult to work with at times, so make sure you can always go back a few steps. This is why I saved the new look-up table with a different name (personally, I usually append a number to the name of the object when I'm working with strings; then, when I'm sure I have done all the string clean-up I need, I save it with a better name).
+
+In the dictionary/look-up table, we have all the information necessary to find the columns we want. However, before we dig into the look-up table, we notice that all of the rows are copied twice: one for estimate, and one for margin of error. For now, we aren't interested in the margins of error, so let's remove these rows:
+```{r}
+FLmetadata3_df <- 
+  FLmetadata2_df %>% 
+  mutate(MOE = str_detect(Id, "margin of error")) %>% 
+  filter(!MOE) %>% 
+  select(-MOE)
+
+# Check
+FLmetadata3_df
+```
+
+> Exercises:
+>
+> 1. Import the ZIP code data for Miami-Dade and Broward counties.
+> 2. Merge these two county tibbles, and clean up the ZIP code column (if you haven't already done this as part of your homework from Lesson 08).
+> 3. Use a `*_join()` function to create a single subset of the 2016 ACS SNAP data set for these two counties.
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Sanity Checks
+Often we have some idea of a pre-existing relationship in the data; e.g, we know that there should be a strong negative relationship between food stamp use and household income within a ZIP code. If our data does not show something we know to be true, then we check that we have the right data and that we are reading the data dictionary correctly.
+
+## Find the "Food Stamps" Metric
+We will use the same process as above (`mutate()` + `str_detect()` + `filter()`) to find all the columns that measure food stamp usage:
+```{r}
+FLmetadata3_df %>% 
+  mutate(FoodStamps_logi = str_detect(Id, "food stamps")) %>% 
+  filter(FoodStamps_logi) %>% 
+  select(-FoodStamps_logi)
+```
+
+While there are 152 options, it looks like we want the second one:
+```{r}
+foodStampsName_char <- 
+  FLmetadata3_df %>%  
+  mutate(FoodStamps_logi = str_detect(Id, "food stamps")) %>% 
+  filter(FoodStamps_logi) %>% 
+  slice(2) %>%
+  pull(Id)
+
+# Check
+foodStampsName_char
+```
+
+Now we can find the matching GeoID:
+```{r}
+foodStampsID_char <- 
+  FLmetadata3_df %>% 
+  filter(Id == foodStampsName_char) %>% 
+  pull(GEO.id)
+
+# Check
+foodStampsID_char
+```
+
+## Find the "Income" Metric
+Just like we found the column name of the food stamps metric we needed, we can find the column name for income:
+```{r}
+FLmetadata3_df %>%  
+  mutate(Income_logi = str_detect(Id, "income")) %>% 
+  filter(Income_logi) %>% 
+  select(-Income_logi)
+```
+
+These labels are too long, so we need to "pull" them out of the data frame:
+```{r}
+FLmetadata3_df %>%  
+  mutate(Income_logi = str_detect(Id, "income")) %>% 
+  filter(Income_logi) %>% 
+  select(-Income_logi) %>% 
+  pull(Id)
+```
+
+Because our sanity check is "ZIP codes with higher income should have lower percentages of food stamp recipients", we want the most basic income measurement (the first one).
+```{r}
+incomeName_char <- 
+  FLmetadata3_df %>%  
+  mutate(Income_logi = str_detect(Id, "income")) %>% 
+  filter(Income_logi) %>% 
+  slice(1) %>%
+  pull(Id)
+
+# Check
+incomeName_char
+```
+
+Now we can find the matching GeoID:
+```{r}
+incomeID_char <- 
+  FLmetadata3_df %>% 
+  filter(Id == incomeName_char) %>% 
+  pull(GEO.id)
+
+# Check
+incomeID_char
+```
+
+## Subset and Mutate the Data
+Now that we have the column names for the data we need, we can extract and inspect those two columns:
+```{r}
+FLallZIP_df %>% 
+  select(incomeID_char, foodStampsID_char) 
+```
+
+It looks like have  numeric information stored in character columns. For atomic data, we can follow the type conversion rules to demote this character information to numeric:
+```{r}
+# Save the results
+incomeSNAP_df <- 
+  FLallZIP_df %>% 
+  # Select and rename the columns we want
+  select(income = incomeID_char, foodStamps = foodStampsID_char) %>% 
+  # drop character to numeric
+  mutate(income = as.numeric(income), foodStamps = as.numeric(foodStamps))
+```
+
+Notice that the `"-"` symbols were replaced by `NA` values. (*If you have other features to control for or to add to the plot, make sure you include them here.*)
+
+## Plotting the Relationship
+Finally, we have data we can plot! 
+```{r, warning=FALSE}
+ggplot(data = incomeSNAP_df) +
+  aes(x = income, y = foodStamps) +
+  geom_point()
+```
+
+This clearly shows a negative relationship between income and proportion of residents on food stamps. However, the x-axis shows a strong tail, so let's try to clean this up with a log transformation (also, the relationship looks non-linear, so I've added a LOESS estimate in blue):
+```{r, warning=FALSE, message=FALSE}
+ggplot(data = incomeSNAP_df) +
+  aes(x = log10(income), y = foodStamps) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(se = FALSE)
+```
+
+In practice, at this point we would thoroughly inspect all of the features of interest, *and* plot their relationships with the outcomes of interest. However, we don't have time to do this in class.
+
+> Exercise: re-plot this relationship for Miami-Dade and Broward counties (make sure to use the same scales for proper comparison). Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+# Generating Hypotheses
+Based on the above graph, there is a strong relationship between income and the proportion of food stamp recipients in a ZIP code, but it isn't perfect. There are clearly some other factors. This is where generating hypotheses comes in.
+
+> Exercises:
+> 
+> 1. Work in groups of 4 to generate 8-10 hypotheses to explain the excess variability in the relationship between income and percentage of food stamp recipients within a ZIP code. Include at least 2 multiple-predictor hypotheses (y depends on x within/interacting with z).
+> 2. Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 4-5 hypotheses left (if you don't, go back to exercise 1).
+> 3. Graphically test the remaining hypotheses.
+> 4. Write a report outlining the hypotheses that you wanted to try but could not (because of lack of data), the hypotheses you tried, the corresponding graphs, and your explinations of each.
+
