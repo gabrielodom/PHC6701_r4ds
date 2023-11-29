@@ -1,0 +1,311 @@
+---
+title: "Lesson 9 Supplement: Compare dplyr and base R Subsetting"
+author: "Gabriel Odom"
+date: "10/2/2019"
+date-modified: "2023-11-29"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Overview
+We will discuss/review
+
+1. The data sets
+2. Row subsetting
+3. Column subsetting
+4. Relational subsetting
+
+This lesson will not compare merging two data sets using basic R, because the dplyr version is superior in almost every way. 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Data Sets
+In this class, we have used a few different data sets. The table below gives the names of the data sets and their sources.
+
+| Data Set                    | Source                                        |
+|-----------------------------|-----------------------------------------------|
+| `heroes_tbldf`              | In class: code below                          |
+| `framingham_tbldf`          | `LocalControl` with modifications shown below |
+| `gapminder_tbldf`           | `dslabs` with modifications shown below       |
+
+::: {.callout-tip title="tip"}
+## Tip: What's in a Name?
+Up to this point in the semester, I have used the object name ending `_df` exclusively to mean a "tibble" (or modern data frame). In this lesson, I will use `_tbldf` to mean "tibble" instead of `_df`, and I will mark data in the traditional "data frame" class with `_dataframe`. After this lesson is over, I will go back to using `_df` to mean "tibble", and we will probably never speak of "old" data frames again.
+:::
+
+
+## The `heroes_tbldf` Data
+```{r}
+heroes_tbldf <- tibble(
+  subject_ID = factor(c("008", "016", "115", "027", "001")),
+  name = c("Wonder Woman", "Green Lantern", "Spider-Man", "Batman", "Superman"),
+  alias = c(
+    "Diana Prince", "Alan Scott", "Peter Parker", "Bruce Wayne",
+    "Clark Kent / Kal-El"
+  ),
+  city = c(
+    "Gateway City", "Capitol City", "New York City", "Gotham", "Metropolis"
+  ),
+  male = c(FALSE, TRUE, TRUE, TRUE, TRUE),
+  heightCM = c(183.5, 182.9, 177.8, 188.0, 190.5),
+  weightKg = c(74.8, 91.2, 75.7, 95.3, 106.6),
+  firstRun = c(1941L, 1940L, 1962L, 1939L, 1938L)
+)
+```
+
+
+## Framingham Data
+For the examples in this comparison document, we will use the first 20 records of the Framingham data only. Notice that the only difference between `framingham_df` and `framingham_tbldf` is that we forced the `_tbldf` version to be a tibble (modern data frame). 
+```{r}
+# install.packages("LocalControl")
+library(LocalControl)
+
+# Base R data frame
+framingham_dataframe <- 
+  framingham %>% 
+  mutate(sex = ifelse(female == 1, yes = "Female", no = "Male")) %>% 
+  mutate(curSmoke = cursmoke == 1) %>% 
+  mutate(highBP = outcome == 1) %>% 
+  mutate(death = outcome == 2) %>% 
+  select(-female, -cursmoke, -outcome) %>% 
+  slice(1:20)
+
+# Tibble
+framingham_tbldf <- as_tibble(framingham_dataframe)
+```
+
+
+## Gapminder Data
+```{r}
+# install.packages("dslabs")
+library(dslabs)
+
+# Base R data frame
+gapminder_dataframe <-
+  gapminder %>% 
+  mutate(gdpPerCap = gdp / population)
+
+# Tibble
+gapminder_tbldf <- as_tibble(gapminder_dataframe)
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Row Subsetting
+
+## base
+To select the first row of a tibble using basic R subsetting rules, use the `[` function. This follows `row, column` syntax.
+```{r}
+framingham_dataframe[1, ]
+```
+
+This returns a 1-row data frame.
+
+## dplyr
+To select the first row of a tibble using dplyr subsetting rules, use the `slice()` function. This uses row position only.
+```{r}
+framingham_tbldf %>% 
+  slice(1)
+framingham_tbldf[1, ]
+```
+
+These both return the same 1-row tibble.
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Column Subsetting
+
+## base R
+To select the first column of a tibble using basic R subsetting rules, again use the `[` function. This follows `row, column` syntax, so move the `1` on the other side of the comma.
+```{r}
+framingham_dataframe[, 1]
+```
+
+This returns an atomic vector of length `r nrow(framingham_dataframe)`.
+
+Because tibbles are also lists, we can use the list subsetting rules for columns as well. To subset by column position, we can use the `[` or the `[[` functions (for *single*-level or *double*-level subsetting). Note that `[[` can only take in a single scalar argument, rather than a vector of positions.
+```{r}
+framingham_dataframe[1]
+```
+
+This returns a 1-column data frame.
+
+```{r}
+framingham_dataframe[[1]]
+```
+
+This returns an atomic vector of length `r nrow(framingham_dataframe)` with the contents of the first column.
+
+Note that these functions also work when we supply the name of a column as a character string:
+```{r}
+framingham_dataframe[, "totchol"] # atomic vector
+framingham_dataframe["totchol"]   # 1-column data frame
+framingham_dataframe[["totchol"]] # atomic vector
+```
+
+Infuriatingly, the `[` function changes behaviour if you request two or more columns using `[row, c(col1, col2, ...)]` syntax:
+```{r}
+framingham_dataframe[, c("totchol", "death")] # now a data frame
+```
+
+One of the main differences between `[` and `[[` is that the single-subset operator can take in multiple column names, while `[[` cannot. For example:
+```{r error=TRUE}
+framingham_dataframe[[c("totchol", "death")]]
+```
+
+Finally, we can use the `$` function to extract the contents of a *single column* by name *as a symbol* (not using quotes):
+```{r}
+framingham_dataframe$totchol
+```
+
+This returns an atomic vector of length `r nrow(framingham_dataframe)` with the contents of the first column.
+
+
+## dplyr
+To select the first column of a tibble using dplyr subsetting rules, use the `select()` function. This uses column position only.
+```{r}
+framingham_tbldf %>% 
+  select(1)
+framingham_tbldf[, 1]
+framingham_tbldf[1]
+```
+
+These all return the same 1-column tibble.
+
+To access a column by name, we have two options: do we want the *contents* of the column or do we want the *column itself*.
+
+### Column Itself
+We can use the `select()` function in addition to the `[` function to extract one or more columns. However, for the `select()` function, we are not required to supply the name in quotes, but rather we can use column names as a symbol object. 
+```{r}
+framingham_tbldf %>% 
+  select(totchol)
+framingham_tbldf[, "totchol"]
+framingham_tbldf["totchol"]
+```
+
+As with subsetting by position, these all return the same 1-column tibble. What's more, is that---unlike a base R data frame---selecting more than one column does not change the behaviour of the function. Tibbles stay tibbles.
+```{r}
+framingham_tbldf %>% 
+  select(totchol, death)
+framingham_tbldf[, c("totchol", "death")]
+framingham_tbldf[c("totchol", "death")]
+```
+
+### Column Contents
+The `pull()` function works almost exactly like the `$` function: it takes in the name of a *single* column as a *symbol* object rather than a character string, and it returns the contents of the column as a vector.
+```{r}
+framingham_tbldf %>% 
+  pull(totchol)
+framingham_tbldf$totchol
+framingham_tbldf[[1]]
+framingham_tbldf[["totchol"]]
+```
+
+These all return the same atomic vector of length `r nrow(framingham_dataframe)` with the contents of the first column.
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Relational Subsetting
+Finally, we can subset the rows of a data set by the relationships between the values a column and a specified value or by the relationships between one column and another. **For the remainder of this lesson, we will use the "tibble" versions of the data only.**
+
+
+## Example 1: Framingham Young Women
+For example, we want to find all the females in the Framingham data set younger than the 75th percentile for the ages of these recorded females. (Remember that this lesson uses a subset of the Framingham data, not the full data set. Your results will look different.)
+
+### Using base
+```{r}
+# Subset the women
+framinghamWomen_tbldf <- 
+  framingham_tbldf[framingham_tbldf$sex == "Female", ]
+
+# Find the age threshold for P75
+womenP75_num <- quantile(framinghamWomen_tbldf$age, 0.75)
+framinghamWomenYoung_tbldf <- 
+  framinghamWomen_tbldf[framinghamWomen_tbldf$age < womenP75_num, ]
+
+# Remove intermediary pieces from memory
+rm(framinghamWomen_tbldf, womenP75_num)
+
+# Inspect
+framinghamWomenYoung_tbldf
+```
+
+### Using dplyr
+```{r}
+framingham_tbldf %>%
+  filter(sex == "Female") %>%
+  filter(age < quantile(age, 0.75))
+```
+
+
+## Example 2: Countries with Highest Infant Mortality
+As another example, we want to find the 25 countries in the Gapminder data set which had the largest infant mortality rate in 2010.
+
+### Using base
+```{r}
+# Save a subset of the Gapminder data only for the year 2010
+gapminder2010_tbldf <- 
+  gapminder_tbldf[gapminder_tbldf[["year"]] == 2010, ]
+
+# Find the order of the rows by worst infant mortality to best
+worstInfMort_idx <- order(
+  gapminder2010_tbldf[["infant_mortality"]],
+  decreasing = TRUE
+)
+
+# Subset the 2010 data by the first 25 indices in the "worst" vector
+gapminderInfMort2010_tbldf <-
+  gapminder2010_tbldf[worstInfMort_idx[1:25], ]
+
+# Inspect
+gapminderInfMort2010_tbldf
+```
+
+### Using dplyr
+```{r}
+gapminder_tbldf %>% 
+  filter(year == 2010) %>% 
+  arrange(desc(infant_mortality)) %>% 
+  slice(1:25)
+```
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Concluding Remarks
+This lesson I usually only assign if we have quite a few students who had learned some version of R in the past. Many of my students "learned R" by copying and pasting their professor's code, Googling the errors, and making changes until the problems went away. This isn't learning. This is beating your code into submission. It's not healthy for long-term research success. 
+
+If you learned this way, I apologize, but you will most likely have to "unlearn" what you learned first, then re-learn R as a modern computing language for data science and statistical learning. This lesson is to give you a comparison to some of the variants of data management in R that you may have learned in other classes. Hopefully, this helps you compare the two schools of thought. Some of you will still prefer your "old way" of doing things, and I suppose that I can't fault you for wanting to stay in your comfort zone. It's comfortable there, after all. But, you have a chance to learn some more sophisticated data management techniques, and I suggest you take it.
+
+
