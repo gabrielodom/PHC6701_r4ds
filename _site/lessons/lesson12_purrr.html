@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2023-04-10">
+
+<title>PHC 6701: R for Data Science - Lesson 12: Functional Iteration with purrr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 12: Functional Iteration with purrr</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link active">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#applying-functions-to-vectors" id="toc-applying-functions-to-vectors" class="nav-link" data-scroll-target="#applying-functions-to-vectors">Applying Functions to Vectors</a>
+  <ul class="collapse">
+  <li><a href="#example-the-convergence-of-the-sample-mean" id="toc-example-the-convergence-of-the-sample-mean" class="nav-link" data-scroll-target="#example-the-convergence-of-the-sample-mean">Example: The Convergence of the Sample Mean</a></li>
+  <li><a href="#mapping-a-defined-function-to-values" id="toc-mapping-a-defined-function-to-values" class="nav-link" data-scroll-target="#mapping-a-defined-function-to-values">Mapping a Defined Function to Values</a></li>
+  <li><a href="#map-syntax" id="toc-map-syntax" class="nav-link" data-scroll-target="#map-syntax"><code>map()</code> Syntax</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 12: Functional Iteration with purrr</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 10, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Control Flow in R</li>
+<li>Creating Functions</li>
+<li>Best Practices</li>
+<li>Function Scoping</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>In this lesson, we will cover the following:</p>
+<p>… 5. Applying Functions to Vectors</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="applying-functions-to-vectors" class="level1">
+<h1>Applying Functions to Vectors</h1>
+<p>Now that we understand functions, how they work, and the best practices for writing them, we can start <em>applying</em> our functions to our data. Recall that most objects in R are either functions or vectors. We saw that the FOR loop controller was capable of evaluating a function with each element of a vector (for instance, adding up all the values of a vector using a FOR loop). We also saw that, for most cases, R’s vectorised nature makes using FOR loops unnecessary.</p>
+<p>For this section, we will need the <code>tidyverse</code> again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="example-the-convergence-of-the-sample-mean" class="level2">
+<h2 class="anchored" data-anchor-id="example-the-convergence-of-the-sample-mean">Example: The Convergence of the Sample Mean</h2>
+<p>During this, my 10th lesson in statistical computing, we will finally do a little bit of “traditional” statistics. Here is the general premise: the sample mean is an “unbiased” estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean goes to 0. To test this, we will first generate a medium-sized population from a random normal distribution (the <code>set.seed()</code> function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for reproducibility:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># if you change this number, you will get a different sample</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is the population mean (<span class="math inline">\(\mu\)</span>)?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(population)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2451972</code></pre>
+</div>
+</div>
+<section id="list-of-samples" class="level3">
+<h3 class="anchored" data-anchor-id="list-of-samples">List of Samples</h3>
+<p>Now, we want to take samples from the population, where each sample is bigger than the last (think of a snowball sampling design where the longer the study goes, the more people you can recruit). That is, we will start with a small batch of subjects (values from <code>population</code>), calculate the sample mean (<span class="math inline">\(\bar{x}\)</span>), add a few more subjects, calculate the sample mean again, and repeat this until we reach the magical <span class="math inline">\(n &gt; 30\)</span>. Because each sample will be bigger than the last, we must use a <em>list</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>samples_ls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0819 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0826 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0902 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>],</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0909 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0916 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>],</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0923 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-for-loop" class="level3">
+<h3 class="anchored" data-anchor-id="the-for-loop">The FOR Loop</h3>
+<p>Now that we have our samples, we need to find the mean of each. Will simply taking the mean work?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mean.default(samples_ls): argument is not numeric or logical:
+returning NA</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Unfortunately no. Based on what we learned previously about FOR loops, we can use one of those:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>nSamples <span class="ot">&lt;-</span> <span class="fu">length</span>(samples_ls)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sampleMeans <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, nSamples)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nSamples) {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  sampleMeans[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(samples_ls[[i]])</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These are the mean values we calculated:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sampleMeans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.267616361 -0.132944147  0.034129007  0.076516809 -0.001177287
+[6]  0.078807010</code></pre>
+</div>
+</div>
+<p>How far are these from the true population mean? We set this loop up to fill values into a numeric vector, so we can use R’s vector power again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(mu <span class="sc">-</span> sampleMeans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02241916 0.37814134 0.21106819 0.16868039 0.24637448 0.16639019</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="mapping-a-defined-function-to-values" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-a-defined-function-to-values">Mapping a Defined Function to Values</h2>
+<p>This code was quite cumbersome. We had to measure how long the list was, create an empty atomic vector to hold our results, and then write the FOR loop to iterate over each position in the list of samples. On top of all of this, we’ve added this useless <code>i</code> object to the Global Environment, and the FOR loop lost the names of the samples! There is a better way: the <code>map()</code> function from the <code>purrr</code> package (included in the <code>tidyverse</code>, so remember to load that package):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(samples_ls, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$sample_0819
+[1] 0.2676164
+
+$sample_0826
+[1] -0.1329441
+
+$sample_0902
+[1] 0.03412901
+
+$sample_0909
+[1] 0.07651681
+
+$sample_0916
+[1] -0.001177287
+
+$sample_0923
+[1] 0.07880701</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>This function does return the values we want, but it does so as a list. We would like an atomic vector. Check the help files for this function to find out what to change.</li>
+<li>While you are in the help file for <code>map()</code>, find out how to pass in a second argument to the <code>mean()</code> function. Set <code>na.rm = TRUE</code> and test it.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="map-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="map-syntax"><code>map()</code> Syntax</h2>
+<p>In order to use the <code>map()</code> function and its friends, follow the following syntax: <code>map(VECTOR, FUNCTION)</code>. That’s it. For example, to find the summary of each column in the <code>mpg</code> data set, type:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(mpg, summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$manufacturer
+   Length     Class      Mode 
+      234 character character 
+
+$model
+   Length     Class      Mode 
+      234 character character 
+
+$displ
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.600   2.400   3.300   3.472   4.600   7.000 
+
+$year
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1999    1999    2004    2004    2008    2008 
+
+$cyl
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.000   4.000   6.000   5.889   8.000   8.000 
+
+$trans
+   Length     Class      Mode 
+      234 character character 
+
+$drv
+   Length     Class      Mode 
+      234 character character 
+
+$cty
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   14.00   17.00   16.86   19.00   35.00 
+
+$hwy
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.00   18.00   24.00   23.44   27.00   44.00 
+
+$fl
+   Length     Class      Mode 
+      234 character character 
+
+$class
+   Length     Class      Mode 
+      234 character character </code></pre>
+</div>
+</div>
+<p>This example shows that the <code>summary()</code> function isn’t very helpful for character information. We are immediately motivated us to ask, “Can I write my own function for <code>map()</code> to use?” The answer is YES!</p>
+<section id="sample-means-with-map" class="level3">
+<h3 class="anchored" data-anchor-id="sample-means-with-map">Sample Means with <code>map()</code></h3>
+<p>Back to our first example, we still want to find out how close the sample mean gets to the population mean as we increase the sample size. For this, we write our own function to pass to <code>map()</code>. Recall the function constructor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the function</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>absMean <span class="ot">&lt;-</span> <span class="cf">function</span>(xBar_num, mu_num){</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abs</span>(<span class="fu">mean</span>(xBar_num) <span class="sc">-</span> mu_num)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Map it</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall that the help file says that additional arguments to the function</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   and their values are added after the function name.</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(sampleMeans, absMean, <span class="at">mu_num =</span> mu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02241916 0.37814134 0.21106819 0.16868039 0.24637448 0.16639019</code></pre>
+</div>
+</div>
+<p>For better or for worse, this matches the output of what we calculated using the FOR loop exactly.</p>
+</section>
+<section id="an-improved-summary" class="level3">
+<h3 class="anchored" data-anchor-id="an-improved-summary">An Improved <code>summary()</code></h3>
+<p>We saw that when we applied <code>summary()</code> to each column of a tibble, the character columns didn’t give us much information. We can then write our own summary function that prints the most common unique values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mySummary <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.character</span>(x)){</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">table</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(x)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can apply it to the <code>mpg</code> data set:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(mpg, mySummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$manufacturer
+x
+     dodge     toyota volkswagen       ford  chevrolet       audi 
+        37         34         27         25         19         18 
+
+$model
+x
+        caravan 2wd ram 1500 pickup 4wd               civic   dakota pickup 4wd 
+                 11                  10                   9                   9 
+              jetta             mustang 
+                  9                   9 
+
+$displ
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.600   2.400   3.300   3.472   4.600   7.000 
+
+$year
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1999    1999    2004    2004    2008    2008 
+
+$cyl
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.000   4.000   6.000   5.889   8.000   8.000 
+
+$trans
+x
+  auto(l4) manual(m5)   auto(l5) manual(m6)   auto(s6)   auto(l6) 
+        83         58         39         19         16          6 
+
+$drv
+x
+  f   4   r 
+106 103  25 
+
+$cty
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   14.00   17.00   16.86   19.00   35.00 
+
+$hwy
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.00   18.00   24.00   23.44   27.00   44.00 
+
+$fl
+x
+  r   p   e   d   c 
+168  52   8   5   1 
+
+$class
+x
+       suv    compact    midsize subcompact     pickup    minivan 
+        62         47         41         35         33         11 </code></pre>
+</div>
+</div>
+<p>It’s not terribly pretty (I am <em>not</em> a fan of the <code>table()</code> function), but it gives us a reasonable idea of what is going on in these columns.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Create a sequence of sample sizes from 5 to 100 by 5. Save this vector of sample sizes. <em>Hint: look up the help files for <code>sequence()</code>. You will find the function you need mentioned therein.</em></li>
+<li>Use the <code>map()</code> function combined with the sequence you just created to make a list of samples with increasing sizes from the <code>population</code> vector. Store it as another list of samples. This should make typing that list by hand obsolete.</li>
+<li>Use the <code>map_dbl()</code> function combined with the <code>absMean()</code> function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better? Should we always use the <span class="math inline">\(n &gt; 30\)</span> rule for the sample mean?</li>
+<li>Repeat the above process with the following modification: chain these operations together with pipes (<code>%&gt;%</code>).</li>
+</ol>
+</div>
+</div>
+<!-- You can also chain everything together, and then pass it it `ggplot`: -->
+<!-- ```{r} -->
+<!-- # Create a sequence of sample sizes -->
+<!-- seq(5, 100, by = 5) %>%  -->
+<!--   # Create a list of larger and larger samples from the population -->
+<!--   map(function(i) {population[1:i]}) %>% -->
+<!--   # Take the absolute deviation from the population mean -->
+<!--   map_dbl(absMean, mu_num = mu) %>% -->
+<!--   # Make it a tibble (required for ggplot) -->
+<!--   # The "." means "put the input from the pipe here" -->
+<!--   tibble(means = .) %>% -->
+<!--   # Add on a column for the index of the samples -->
+<!--   mutate(index = 1:nrow(.)) %>% -->
+<!--   # pass this new tibble with two columns to ggplot() -->
+<!--   ggplot() + -->
+<!--     aes(x = index, y = means) + -->
+<!--     geom_path() -->
+<!-- ``` -->
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

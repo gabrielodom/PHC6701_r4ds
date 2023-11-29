@@ -22,6 +22,8 @@ website:
       - href: lessons/lesson09_dplyr.qmd
       - href: lessons/lesson09s_dplyr_v_base.qmd
       - href: lessons/lesson10_stringr.qmd
+      - href: lessons/lesson11_functions.qmd
+      - href: lessons/lesson12_purrr.qmd
       - about.qmd
 
 format:

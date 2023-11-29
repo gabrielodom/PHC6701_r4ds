@@ -1,0 +1,200 @@
+---
+title: "Lesson 12: Functional Iteration with purrr"
+author: "Gabriel Odom "
+date: "04/10/2023"
+date-modified: "2023-11-30"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
+```
+
+# Review
+What did we learn last class? 
+
+1. Control Flow in R
+2. Creating Functions
+3. Best Practices
+4. Function Scoping
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Overview
+In this lesson, we will cover the following:
+
+...
+5. Applying Functions to Vectors
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Applying Functions to Vectors
+Now that we understand functions, how they work, and the best practices for writing them, we can start *applying* our functions to our data. Recall that most objects in R are either functions or vectors. We saw that the FOR loop controller was capable of evaluating a function with each element of a vector (for instance, adding up all the values of a vector using a FOR loop). We also saw that, for most cases, R's vectorised nature makes using FOR loops unnecessary. 
+
+For this section, we will need the `tidyverse` again:
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+
+## Example: The Convergence of the Sample Mean
+During this, my 10th lesson in statistical computing, we will finally do a little bit of "traditional" statistics. Here is the general premise: the sample mean is an "unbiased" estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean goes to 0. To test this, we will first generate a medium-sized population from a random normal distribution (the `set.seed()` function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):
+```{r}
+# for reproducibility:
+set.seed(12345) # if you change this number, you will get a different sample
+
+population <- rnorm(100)
+```
+
+What is the population mean ($\mu$)?
+```{r}
+mu <- mean(population)
+mu
+```
+
+### List of Samples
+Now, we want to take samples from the population, where each sample is bigger than the last (think of a snowball sampling design where the longer the study goes, the more people you can recruit). That is, we will start with a small batch of subjects (values from `population`), calculate the sample mean ($\bar{x}$), add a few more subjects, calculate the sample mean again, and repeat this until we reach the magical $n > 30$. Because each sample will be bigger than the last, we must use a *list*.
+```{r}
+samples_ls <- list(
+  sample_0819 = population[1:5],
+  sample_0826 = population[1:10],
+  sample_0902 = population[1:15],
+  sample_0909 = population[1:20],
+  sample_0916 = population[1:25],
+  sample_0923 = population[1:30]
+)
+```
+
+### The FOR Loop
+Now that we have our samples, we need to find the mean of each. Will simply taking the mean work?
+```{r}
+mean(samples_ls)
+```
+
+Unfortunately no. Based on what we learned previously about FOR loops, we can use one of those:
+```{r}
+# Initialize
+nSamples <- length(samples_ls)
+sampleMeans <- rep(NA_real_, nSamples)
+
+# Loop
+for (i in 1:nSamples) {
+  sampleMeans[i] <- mean(samples_ls[[i]])
+}
+```
+
+These are the mean values we calculated:
+```{r}
+sampleMeans
+```
+
+
+How far are these from the true population mean? We set this loop up to fill values into a numeric vector, so we can use R's vector power again:
+```{r}
+abs(mu - sampleMeans)
+```
+
+
+## Mapping a Defined Function to Values
+This code was quite cumbersome. We had to measure how long the list was, create an empty atomic vector to hold our results, and then write the FOR loop to iterate over each position in the list of samples. On top of all of this, we've added this useless `i` object to the Global Environment, and the FOR loop lost the names of the samples! There is a better way: the `map()` function from the `purrr` package (included in the `tidyverse`, so remember to load that package):
+```{r}
+map(samples_ls, mean)
+```
+
+::: {.callout-note title="Exercises"}
+## Exercises
+1. This function does return the values we want, but it does so as a list. We would like an atomic vector. Check the help files for this function to find out what to change.
+2. While you are in the help file for `map()`, find out how to pass in a second argument to the `mean()` function. Set `na.rm = TRUE` and test it.
+:::
+
+
+## `map()` Syntax
+In order to use the `map()` function and its friends, follow the following syntax: `map(VECTOR, FUNCTION)`. That's it. For example, to find the summary of each column in the `mpg` data set, type:
+```{r}
+map(mpg, summary)
+```
+
+This example shows that the `summary()` function isn't very helpful for character information. We are immediately motivated us to ask, "Can I write my own function for `map()` to use?" The answer is YES!
+
+### Sample Means with `map()`
+Back to our first example, we still want to find out how close the sample mean gets to the population mean as we increase the sample size. For this, we write our own function to pass to `map()`. Recall the function constructor:
+```{r}
+# Create the function
+absMean <- function(xBar_num, mu_num){
+  abs(mean(xBar_num) - mu_num)
+}
+
+# Map it
+# Recall that the help file says that additional arguments to the function
+#   and their values are added after the function name.
+map_dbl(sampleMeans, absMean, mu_num = mu)
+```
+
+For better or for worse, this matches the output of what we calculated using the FOR loop exactly.
+
+### An Improved `summary()`
+We saw that when we applied `summary()` to each column of a tibble, the character columns didn't give us much information. We can then write our own summary function that prints the most common unique values:
+```{r}
+mySummary <- function(x){
+  
+  if (is.character(x)){
+    
+    table(x) %>% 
+      sort(decreasing = TRUE) %>%
+      head()
+    
+  } else {
+    summary(x)
+  }
+  
+}
+```
+
+Now we can apply it to the `mpg` data set:
+```{r}
+map(mpg, mySummary)
+```
+
+It's not terribly pretty (I am *not* a fan of the `table()` function), but it gives us a reasonable idea of what is going on in these columns.
+
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Create a sequence of sample sizes from 5 to 100 by 5. Save this vector of sample sizes. *Hint: look up the help files for `sequence()`. You will find the function you need mentioned therein.*
+2. Use the `map()` function combined with the sequence you just created to make a list of samples with increasing sizes from the `population` vector. Store it as another list of samples. This should make typing that list by hand obsolete.
+3. Use the `map_dbl()` function combined with the `absMean()` function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better? Should we always use the $n > 30$ rule for the sample mean?
+4. Repeat the above process with the following modification: chain these operations together with pipes (`%>%`).
+:::
+
+
+<!-- You can also chain everything together, and then pass it it `ggplot`: -->
+<!-- ```{r} -->
+<!-- # Create a sequence of sample sizes -->
+<!-- seq(5, 100, by = 5) %>%  -->
+<!--   # Create a list of larger and larger samples from the population -->
+<!--   map(function(i) {population[1:i]}) %>% -->
+<!--   # Take the absolute deviation from the population mean -->
+<!--   map_dbl(absMean, mu_num = mu) %>% -->
+<!--   # Make it a tibble (required for ggplot) -->
+<!--   # The "." means "put the input from the pipe here" -->
+<!--   tibble(means = .) %>% -->
+<!--   # Add on a column for the index of the samples -->
+<!--   mutate(index = 1:nrow(.)) %>% -->
+<!--   # pass this new tibble with two columns to ggplot() -->
+<!--   ggplot() + -->
+<!--     aes(x = index, y = means) + -->
+<!--     geom_path() -->
+<!-- ``` -->
+
