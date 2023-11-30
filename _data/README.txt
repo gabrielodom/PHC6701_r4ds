@@ -19,3 +19,8 @@ ZIP Codes Miami-Dade:
 - file = miamidade_ZIP_codes.txt
 - source = https://www.zip-codes.com/county/fl-miami-dade.asp
 - name = NULL
+
+Tornados:
+- file = purrr_example_data/*_torn.csv (for 2008 - 2018)
+- source = https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA
+- name = "intro_to_purrr_shared_files.zip"; subdirectory "data/"

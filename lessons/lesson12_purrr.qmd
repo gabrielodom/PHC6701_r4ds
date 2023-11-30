@@ -31,8 +31,112 @@ What did we learn last class?
 # Overview
 In this lesson, we will cover the following:
 
-...
-5. Applying Functions to Vectors
+1. Review vectors
+2. Review functions
+3. What are "Functionals"?
+4. Applying Functions to Vectors
+5. Split-Apply-Combine
+
+
+## Learning Resources
+This lesson borrows data from some material from Washington State University's [Department of Statistics](https://cougrstats.wordpress.com/2020/02/19/an-introduction-to-working-with-lists-using-purrr/). The link to the zipped data (1.7Mb unzipped) is <https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA>.
+
+For this lesson, we will use a simple subset of the Gapminder data. Also, we will need the `tidyverse` again:
+```{r packages, message=FALSE}
+# install.packages("gapminder")
+library(gapminder)
+library(tidyverse)
+```
+
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Download the compressed file from the link above; unzip it on your desktop.
+2. Rename the `data/` subdirectory in the folder above to `purrr_example_data/`; move it to your data folder for this class.
+3. Delete the compressed and unzipped folders from your desktop.
+:::
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Review: Vectors
+
+```{r}
+###  Vectors  ###
+# Vectors are collection of objects (often stored within an object)
+x <- c(1, 3, 5)  # atomic vector
+# non-atomic vector (list)
+me_ls <- list(
+  forname = "Gabriel",
+  surname = "Odom",
+  age = 35
+)
+head(gapminder)
+
+
+###  Vector Elements  ###
+x[2]
+me_ls$forname
+```
+
+
+```{r}
+# Review: how to import a single data set with readr::
+tornados08_df <- read_csv(file = "../_data/purrr_example_data/2008_torn.csv")
+
+# Create a VECTOR of the names / paths to the data sets
+dataPaths_char <- list.files(
+  path = "../_data/purrr_example_data/", 
+  full.names = TRUE
+)
+```
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Review: Functions
+
+Functions have 3 main components:
+
+- Name: object in the environment (Global Environment for example) that "holds" the code we write
+- Arguments: inputs of the function; what does the user need to provide in order for the function to work
+- Body: what the function does; that is, the code that we write
+
+```{r}
+MySummaryFun <- function(x_num) {
+  c(
+    Min = min(x_num),
+    Q1 = quantile(x_num, 0.25),
+    Median = median(x_num),
+    Mean = mean(x_num),
+    Q3 = quantile(x_num, 0.75),
+    Max = max(x_num),
+    StdDev = sd(x_num),
+    IQR = IQR(x_num)
+  )
+}
+
+# Test
+MySummaryFun(0:10)
+```
+
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Functionals
 
 </br>
 
@@ -44,14 +148,13 @@ In this lesson, we will cover the following:
 # Applying Functions to Vectors
 Now that we understand functions, how they work, and the best practices for writing them, we can start *applying* our functions to our data. Recall that most objects in R are either functions or vectors. We saw that the FOR loop controller was capable of evaluating a function with each element of a vector (for instance, adding up all the values of a vector using a FOR loop). We also saw that, for most cases, R's vectorised nature makes using FOR loops unnecessary. 
 
-For this section, we will need the `tidyverse` again:
-```{r, message=FALSE}
-library(tidyverse)
-```
+::: {.callout-important}
+**Our task: APPLY (*functional*) a FUNCTION to EACH ELEMENT of a VECTOR**.
+:::
 
 
 ## Example: The Convergence of the Sample Mean
-During this, my 10th lesson in statistical computing, we will finally do a little bit of "traditional" statistics. Here is the general premise: the sample mean is an "unbiased" estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean goes to 0. To test this, we will first generate a medium-sized population from a random normal distribution (the `set.seed()` function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):
+During this, my 12th lesson in statistical computing, we will finally do a little bit of "traditional" statistics. Here is the general premise: the sample mean is an "unbiased" estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean goes to 0. To test this, we will first generate a medium-sized population from a random normal distribution (the `set.seed()` function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):
 ```{r}
 # for reproducibility:
 set.seed(12345) # if you change this number, you will get a different sample
@@ -178,7 +281,6 @@ It's not terribly pretty (I am *not* a fan of the `table()` function), but it gi
 4. Repeat the above process with the following modification: chain these operations together with pipes (`%>%`).
 :::
 
-
 <!-- You can also chain everything together, and then pass it it `ggplot`: -->
 <!-- ```{r} -->
 <!-- # Create a sequence of sample sizes -->
@@ -197,4 +299,78 @@ It's not terribly pretty (I am *not* a fan of the `table()` function), but it gi
 <!--     aes(x = index, y = means) + -->
 <!--     geom_path() -->
 <!-- ``` -->
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# The Split-Apply-Combine Strategy
+
+```{r}
+countries_ls <- split(
+  x = gapminder,
+  f = ~ country
+)
+countries_ls$Cameroon
+nrow(countries_ls$Cameroon)
+ncol(countries_ls$Cameroon)
+dim(countries_ls$Cameroon)
+
+
+###  Easy Example  ###
+# Remember to load the Tidyverse (for the purrr package)
+map(
+  .x = countries_ls,
+  .f = dim
+)
+
+###  Medium Example  ###
+map(
+  .x = countries_ls,
+  .f = "lifeExp"
+)
+
+###  A More Challenging Example  ###
+map(
+  .x = countries_ls,
+  .f = "lifeExp"
+) %>%
+  map(.f = MySummaryFun)
+
+```
+
+
+
+## Example: Back to Tornados
+
+```{r}
+tornadoData_ls <- map(
+  .x = dataPaths_char,
+  .f = read_csv
+)
+
+# Name this list
+names(tornadoData_ls) <- dataPaths_char
+
+# Extract the states where tornadoes occurred in each year:
+map(
+  .x = tornadoData_ls,
+  .f = "st"
+)
+
+# Extract the *unique* states where tornadoes occured in each year
+map(
+  .x = tornadoData_ls,
+  # .f = function(x) {
+  .f = ~ {
+    # unique(.x[["st"]])
+    .x %>%
+      pull("st") %>%
+      unique()
+  }
+)
+```
 
