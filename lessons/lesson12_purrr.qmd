@@ -421,35 +421,75 @@ We wrote the function `MySummaryFun()` to be able to take the summary of any col
 
 
 ## Combine the Results
-We have a list of the numeric summaries of life expectancy for each of the `r length(countries_ls)` countries. Let's combine these results.
+We have a list of the numeric summaries of life expectancy for each of the `r length(countries_ls)` countries. Let's combine these results. First, we check the class of the individual list elements:
+```{r}
+class(lifeExpSummary_ls[[1]])
+```
+
+The elements of the vector are numeric. If we want to end up with a tibble that has one row for each country, then the elements should first be transformed to be a one-row tibble. Unfortunately, there is not a standard `as_*()` function that will turn a named numeric vector into a one-row tibble. However, (very confusingly) the `bind_rows()` function will turn a named atomic vector into a one-row tibble. Let's test it out:
+```{r}
+# Original named atomic vector
+lifeExpSummary_ls$Afghanistan
+
+# Tibble with one row
+bind_rows(lifeExpSummary_ls$Afghanistan)
+```
+
+Now that we know this will work for one country, we can add it into a pipeline for all the countries. Then, calling the `bind_rows()` function as we would expect, we will end up with a tibble with a row for each country and `r length(lifeExpSummary_ls$Afghanistan)` columns:
+```{r}
+lifeExpSummary_df <- 
+  lifeExpSummary_ls %>% 
+  map(bind_rows) %>% 
+  bind_rows(.id = "country")
+
+lifeExpSummary_df
+```
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-In the last exercise, we found the summaries of all the features for each country. Can these results be combined into a single tibble? Why or why not?
+1. In the last exercise, we found the summaries of *all* the features for each country (not just the numeric ones). Can these results be combined into a single tibble? Why or why not?
+2. Read the help file for the `bind_rows()` function. What does the `.id` argument do? Is this a default behaviour?
+3. Take the summary of life expectancy table above, and join it back to `gapminder_df` to add a column for the continent to our results. Plot a boxplot of the 75th percentile of life expectancy by continent.
 :::
 
 
 ## Example: Back to Tornados
-Finally, one of the most valuable applications of this technique is to import and analyze multiple data files all at once.
+Finally, one of the most valuable applications of this technique is to import and analyze multiple data files all at once. As long as our computer is well organized, we can set a `map()` call to import all of the data files in a particular sub-directory. In the code below, you'll need to change the file path to meet your own directory structure.
 ```{r}
-
 # Review: how to import a single data set with readr::
 tornados08_df <- read_csv(file = "../_data/purrr_example_data/2008_torn.csv")
 
-# Create a VECTOR of the names / paths to the data sets
+# Create a VECTOR of the names AND paths to the data sets
 dataPaths_char <- list.files(
   path = "../_data/purrr_example_data/", 
   full.names = TRUE
 )
+names(dataPaths_char) <- list.files(
+  path = "../_data/purrr_example_data/", 
+  full.names = FALSE
+)
+```
 
-# set message: false here
+Now that we have a vector of the file paths to the tornadoes data, we can write a `map()` call that imports each data file as an element of a list of tibbles.
+```{r}
+#| message: false
+
 tornadoData_ls <- map(
   .x = dataPaths_char,
   .f = read_csv
 )
+```
 
-# Name this list
-names(tornadoData_ls) <- dataPaths_char
+::: {.callout-note title="Exercise"}
+## Exercise
+1. For each year, find the set of states where a tornado was recorded (the state abbreviations are in the column `st`).
+2. Is the output you got in the last question "professional"? (Probably not). Modify your code to:
+    + Create a table of the number of tornados by state for each year
+    + Create a vector of the state abbreviations where a tornado occured for each year
+:::
+
+```{r}
+#| include: false
 
 # Extract the states where tornadoes occurred in each year:
 map(
