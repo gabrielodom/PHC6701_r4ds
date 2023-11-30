@@ -37,6 +37,8 @@ In this lesson, we will cover the following:
 4. Applying Functions to Vectors
 5. Split-Apply-Combine
 
+Because the point of this lesson is to meaningfully connect functions and vectors, we will review both concepts before adding new material.
+
 
 ## Learning Resources
 This lesson borrows data from some material from Washington State University's [Department of Statistics](https://cougrstats.wordpress.com/2020/02/19/an-introduction-to-working-with-lists-using-purrr/). The link to the zipped data (1.7Mb unzipped) is <https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA>.
@@ -46,6 +48,8 @@ For this lesson, we will use a simple subset of the Gapminder data. Also, we wil
 # install.packages("gapminder")
 library(gapminder)
 library(tidyverse)
+
+gapminder_df <- as_tibble(gapminder)
 ```
 
 ::: {.callout-note title="Exercises"}
@@ -63,37 +67,36 @@ library(tidyverse)
 
 
 # Review: Vectors
+Recall that most of the data you see in R is a vector (either atomic or non-atomic) in some way. In math, vectors have a precise definition, but they are much more loosely defined in R: vectors are simply an ordered collection of objects, themselves in an object.
 
+We have atomic vectors:
 ```{r}
-###  Vectors  ###
-# Vectors are collection of objects (often stored within an object)
-x <- c(1, 3, 5)  # atomic vector
-# non-atomic vector (list)
+x <- c(1, 3, 5)
+```
+
+We have non-atomic vectors, including lists:
+```{r}
 me_ls <- list(
   forname = "Gabriel",
   surname = "Odom",
   age = 35
 )
-head(gapminder)
 
-
-###  Vector Elements  ###
-x[2]
-me_ls$forname
+me_ls
 ```
 
-
+and tibbles:
 ```{r}
-# Review: how to import a single data set with readr::
-tornados08_df <- read_csv(file = "../_data/purrr_example_data/2008_torn.csv")
-
-# Create a VECTOR of the names / paths to the data sets
-dataPaths_char <- list.files(
-  path = "../_data/purrr_example_data/", 
-  full.names = TRUE
-)
+gapminder_df
 ```
 
+All the elements of any vector can be accessed by their **position**:
+```{r}
+me_ls[[1]]
+gapminder_df[1, c(1, 3, 4)]
+```
+
+This idea of using position to access the elements of a vector is important for this lesson, and we will bring it up again shortly.
 
 </br>
 
@@ -104,14 +107,15 @@ dataPaths_char <- list.files(
 
 # Review: Functions
 
-Functions have 3 main components:
+Last lesson we learned functions, how they work, and the best practices for writing them. Recall that functions have 3 main components:
 
 - Name: object in the environment (Global Environment for example) that "holds" the code we write
 - Arguments: inputs of the function; what does the user need to provide in order for the function to work
 - Body: what the function does; that is, the code that we write
 
+We have written a few versions of a "data summary" function in the past. Here is one version, specifically designed for numeric data:
 ```{r}
-MySummaryFun <- function(x_num) {
+MyNumericSummaryFun <- function(x_num) {
   c(
     Min = min(x_num),
     Q1 = quantile(x_num, 0.25),
@@ -125,9 +129,15 @@ MySummaryFun <- function(x_num) {
 }
 
 # Test
-MySummaryFun(0:10)
+MyNumericSummaryFun(0:10)
 ```
 
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Identify the name, arguments, and body of the function above.
+2. If we need to remove missing values from the `x_num` vector, how could we modify the function above?
+3. Sketch out the documentation for this function.
+:::
 
 </br>
 
@@ -137,6 +147,46 @@ MySummaryFun(0:10)
 
 
 # Functionals
+So far, we our interactions with functions have usually been to call them directly; that is, 
+```{r}
+#| eval: false
+
+output <- a_function(input1, input2, ...)
+```
+
+Functionals give us the ability to abstract this relationship between inputs, outputs, and the work done in between. Functionals are specific *helper functions* which take in another function as one of its arguments. So, our interaction with functionals looks more like one of these:
+```{r}
+#| eval: false
+
+# A Functional form
+output <- DO(THIS = a_function, TO = c(input1, input2, ...), WITH = {options})
+
+# Another  Functional form
+output <- DO(TO = c(input1, input2, ...), THIS = a_function, WITH = {options})
+```
+
+In the two sets of code above, the object `output` would probably contain the same information, but it might be in a different "form" (think about the `class()` function). Also, the ordering of the `THIS` (the function) and the `TO` (the function arguments) may be reversed, and sometimes the `WITH` options are mixed in with the function arguments (i.e., there isn't a separation between the `TO` and `WITH` parts of the functional).
+
+
+## An Example
+Thankfully, before we get completely lost, we have actually seen something similar to a functional already. Let's use the Gapminder data and find the 10 countries with the smallest maximum life expectancy:
+```{r}
+gapminder_df %>% 
+  group_by(country) %>% 
+  summarise(best_life_expectancy = max(lifeExp, na.rm = TRUE)) %>% 
+  slice_min(order_by = best_life_expectancy, n = 10)
+```
+
+Here, the `summarize()` function is like a functional. It says "find the life expectancy column, and take the maximum of it"; that is, it is similar to 
+```{r}
+#| eval: false
+
+DO(TO = lifeExp, THIS = max(), WITH = {na.rm = TRUE})
+```
+
+::: {.callout-important}
+**Functionals are functions which take in another function as one of its arguments.**.
+:::
 
 </br>
 
@@ -146,7 +196,7 @@ MySummaryFun(0:10)
 
 
 # Applying Functions to Vectors
-Now that we understand functions, how they work, and the best practices for writing them, we can start *applying* our functions to our data. Recall that most objects in R are either functions or vectors. We saw that the FOR loop controller was capable of evaluating a function with each element of a vector (for instance, adding up all the values of a vector using a FOR loop). We also saw that, for most cases, R's vectorised nature makes using FOR loops unnecessary. 
+Now that we have reviewed vectors, functions, and learned some basics of functionals, we can start *applying* our functions to our data. Recall that most objects in R are either functions or vectors. We saw that the FOR loop controller was capable of evaluating a function with each element of a vector (for instance, adding up all the values of a vector using a FOR loop). We also saw that, for most cases, R's vectorised nature makes using FOR loops unnecessary. 
 
 ::: {.callout-important}
 **Our task: APPLY (*functional*) a FUNCTION to EACH ELEMENT of a VECTOR**.
@@ -159,7 +209,7 @@ During this, my 12th lesson in statistical computing, we will finally do a littl
 # for reproducibility:
 set.seed(12345) # if you change this number, you will get a different sample
 
-population <- rnorm(100)
+population <- rnorm(1000, mean = 1)
 ```
 
 What is the population mean ($\mu$)?
@@ -169,7 +219,7 @@ mu
 ```
 
 ### List of Samples
-Now, we want to take samples from the population, where each sample is bigger than the last (think of a snowball sampling design where the longer the study goes, the more people you can recruit). That is, we will start with a small batch of subjects (values from `population`), calculate the sample mean ($\bar{x}$), add a few more subjects, calculate the sample mean again, and repeat this until we reach the magical $n > 30$. Because each sample will be bigger than the last, we must use a *list*.
+Now, we want to take samples from the population, where each sample is bigger than the last (think of a snowball sampling design where the longer the study goes, the more people you can recruit). That is, we will start with a small batch of subjects (values from `population`), calculate the sample mean ($\bar{x}$), add a few more subjects, calculate the sample mean again, and repeat this until our sample estimate of the mean gets close to the true (population) mean. Because each sample will be bigger than the last, we must use a *list*.
 ```{r}
 samples_ls <- list(
   sample_0819 = population[1:5],
@@ -177,7 +227,19 @@ samples_ls <- list(
   sample_0902 = population[1:15],
   sample_0909 = population[1:20],
   sample_0916 = population[1:25],
-  sample_0923 = population[1:30]
+  sample_0923 = population[1:30],
+  sample_0930 = population[1:40],
+  sample_1007 = population[1:50],
+  sample_1014 = population[1:75],
+  sample_1021 = population[1:100],
+  sample_1028 = population[1:125],
+  sample_1104 = population[1:150],
+  sample_1111 = population[1:175],
+  sample_1118 = population[1:200],
+  sample_1125 = population[1:250],
+  sample_1202 = population[1:300],
+  sample_1209 = population[1:400],
+  sample_1216 = population[1:500]
 )
 ```
 
@@ -199,15 +261,15 @@ for (i in 1:nSamples) {
 }
 ```
 
-These are the mean values we calculated:
+Notice that we are using the **position** of the elements of the vector. These are the mean values we calculated:
 ```{r}
 sampleMeans
 ```
 
-
 How far are these from the true population mean? We set this loop up to fill values into a numeric vector, so we can use R's vector power again:
 ```{r}
 abs(mu - sampleMeans)
+plot(x = lengths(samples_ls), y = abs(mu - sampleMeans), ylim = c(0, 0.3))
 ```
 
 
@@ -225,7 +287,7 @@ map(samples_ls, mean)
 
 
 ## `map()` Syntax
-In order to use the `map()` function and its friends, follow the following syntax: `map(VECTOR, FUNCTION)`. That's it. For example, to find the summary of each column in the `mpg` data set, type:
+In order to use the `map()` function and its friends, follow the following syntax: `map(.x = VECTOR, .f = FUNCTION)`. That's it. For example, to find the summary of each column in the `mpg` data set, type:
 ```{r}
 map(mpg, summary)
 ```
@@ -251,7 +313,7 @@ For better or for worse, this matches the output of what we calculated using the
 ### An Improved `summary()`
 We saw that when we applied `summary()` to each column of a tibble, the character columns didn't give us much information. We can then write our own summary function that prints the most common unique values:
 ```{r}
-mySummary <- function(x){
+MySummaryFun <- function(x){
   
   if (is.character(x)){
     
@@ -260,7 +322,7 @@ mySummary <- function(x){
       head()
     
   } else {
-    summary(x)
+    MyNumericSummaryFun(x)
   }
   
 }
@@ -268,17 +330,18 @@ mySummary <- function(x){
 
 Now we can apply it to the `mpg` data set:
 ```{r}
-map(mpg, mySummary)
+map(mpg, MySummaryFun)
 ```
 
 It's not terribly pretty (I am *not* a fan of the `table()` function), but it gives us a reasonable idea of what is going on in these columns.
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
-1. Create a sequence of sample sizes from 5 to 100 by 5. Save this vector of sample sizes. *Hint: look up the help files for `sequence()`. You will find the function you need mentioned therein.*
+1. Create a sequence of sample sizes from 5 to 500 by 5. Save this vector of sample sizes. *Hint: look up the help files for `sequence()`. You will find the function you need mentioned therein.*
 2. Use the `map()` function combined with the sequence you just created to make a list of samples with increasing sizes from the `population` vector. Store it as another list of samples. This should make typing that list by hand obsolete.
-3. Use the `map_dbl()` function combined with the `absMean()` function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better? Should we always use the $n > 30$ rule for the sample mean?
-4. Repeat the above process with the following modification: chain these operations together with pipes (`%>%`).
+3. Use the `map_dbl()` function combined with the `absMean()` function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better?
+4. Find one of the statistics / biostatistics students and contrast this process with the idea of "repeated sampling". What is different here? Why doesn't the traditional $n = 30$ heuristic apply?
+5. Repeat the above process with the following modification: chain these operations together with pipes (`%>%`).
 :::
 
 <!-- You can also chain everything together, and then pass it it `ggplot`: -->
@@ -308,45 +371,78 @@ It's not terribly pretty (I am *not* a fan of the `table()` function), but it gi
 
 
 # The Split-Apply-Combine Strategy
+Now that we have an understanding of how to **map** functions to the values of a vector, we will discuss a powerful technique in data science. Many times we have to deal with either 1) very large datasets (and our computers don't have the memory to hold all the data at once), or 2) datasets with distinct sub-populations (and its not appropriate to estimate population statistics without taking these groupings into account). In these cases, we often employ the following steps:
 
+1. Split the data into subgroups. If there are sub-populations, then use these natural splits. If we simply have too much data, then use random splits.
+2. Apply a statistical or machine learning method to each of the smaller data sets and save the results.
+3. Combine the saved results from each sub-analysis and report.
+
+We will walk through an example using the Gapminder data.
+
+
+## Split the Gapminder Data by Country
+The `split()` function is from base R. It takes in a tibble and breaks it into a *list* of tibbles by the elements of the column you specify (in this case, the column will be `country`).
 ```{r}
 countries_ls <- split(
   x = gapminder,
   f = ~ country
 )
+```
+
+We are familiar with this data set, but let's take a look at our split data anyway.
+```{r}
+# First 3 countries
+countries_ls[1:3]
+
+# Operations on a specific country
 countries_ls$Cameroon
-nrow(countries_ls$Cameroon)
-ncol(countries_ls$Cameroon)
-dim(countries_ls$Cameroon)
-
-
-###  Easy Example  ###
-# Remember to load the Tidyverse (for the purrr package)
-map(
-  .x = countries_ls,
-  .f = dim
-)
-
-###  Medium Example  ###
-map(
-  .x = countries_ls,
-  .f = "lifeExp"
-)
-
-###  A More Challenging Example  ###
-map(
-  .x = countries_ls,
-  .f = "lifeExp"
-) %>%
-  map(.f = MySummaryFun)
-
+max(countries_ls$Cameroon$lifeExp)
 ```
 
 
+## Apply a Method to Each Country's Data
+Now, if we wanted to find country-specific summaries of life expectancy, we can:
+```{r}
+lifeExpSummary_ls <- 
+  map(
+    # Only show the first 5 for the example
+    .x = countries_ls,
+    .f = "lifeExp"
+  ) %>% 
+  map(MyNumericSummaryFun)
+
+lifeExpSummary_ls[1:5]
+```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+We wrote the function `MySummaryFun()` to be able to take the summary of any column, numeric or otherwise. Modify the code above so that we can find the summaries of ALL the columns within the data set specific to each country. Make sure your code works for just the first 5 countries.
+:::
+
+
+## Combine the Results
+We have a list of the numeric summaries of life expectancy for each of the `r length(countries_ls)` countries. Let's combine these results.
+
+::: {.callout-note title="Exercise"}
+## Exercise
+In the last exercise, we found the summaries of all the features for each country. Can these results be combined into a single tibble? Why or why not?
+:::
+
 
 ## Example: Back to Tornados
-
+Finally, one of the most valuable applications of this technique is to import and analyze multiple data files all at once.
 ```{r}
+
+# Review: how to import a single data set with readr::
+tornados08_df <- read_csv(file = "../_data/purrr_example_data/2008_torn.csv")
+
+# Create a VECTOR of the names / paths to the data sets
+dataPaths_char <- list.files(
+  path = "../_data/purrr_example_data/", 
+  full.names = TRUE
+)
+
+# set message: false here
 tornadoData_ls <- map(
   .x = dataPaths_char,
   .f = read_csv
@@ -360,8 +456,9 @@ map(
   .x = tornadoData_ls,
   .f = "st"
 )
+# NOTE: have them do this as an exercise, so that the lesson doesn't explode
 
-# Extract the *unique* states where tornadoes occured in each year
+# Extract the *unique* states where tornadoes occurred in each year
 map(
   .x = tornadoData_ls,
   # .f = function(x) {
