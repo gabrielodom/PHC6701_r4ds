@@ -265,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#data-visualization-and-presentation" id="toc-data-visualization-and-presentation" class="nav-link" data-scroll-target="#data-visualization-and-presentation">Data Visualization and Presentation</a></li>
   <li><a href="#science-about-data-science" id="toc-science-about-data-science" class="nav-link" data-scroll-target="#science-about-data-science">Science about Data Science</a></li>
   </ul></li>
-  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a>
+  <li><a href="#reproducibility-and-replicability" id="toc-reproducibility-and-replicability" class="nav-link" data-scroll-target="#reproducibility-and-replicability">Reproducibility and Replicability</a>
   <ul class="collapse">
   <li><a href="#the-reproducibility-crisis" id="toc-the-reproducibility-crisis" class="nav-link" data-scroll-target="#the-reproducibility-crisis">The Reproducibility Crisis</a></li>
   <li><a href="#the-ioannidis-crusade" id="toc-the-ioannidis-crusade" class="nav-link" data-scroll-target="#the-ioannidis-crusade">The Ioannidis crusade</a></li>
@@ -328,8 +328,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="the-fear-factor" class="level1">
 <h1>The Fear Factor</h1>
-<p>Recall the old television show, <em>Fear Factor</em>: <a href="https://youtu.be/zc6_UCgd4KU" class="uri">https://youtu.be/zc6_UCgd4KU</a></p>
-<p><strong>WARNING</strong>: the above video may make some of you uncomfortable.</p>
+<p>In my experience, most people struggle to learn computing because they are afraid of failure and wasting their time. Also, it doesn’t help that, over many years, the computer programming community has developed a reputation for being “hostile” or dismissive to newcomers.</p>
+<p>In previous semesters, I’ve shown this (very gross) clip from the old television show, <em>Fear Factor</em>: <a href="https://youtu.be/zc6_UCgd4KU" class="uri">https://youtu.be/zc6_UCgd4KU</a> (<strong>WARNING</strong>: the above video has bugs in it, and may make some of you uncomfortable). Unlike the perfectly natural reaction to be afraid to eat spiders, I don’t want you to be afraid of this class, afraid of failure, or afraid to ask “dumb” questions. I do believe that there are actually some questions that are dumb (I used to say “there’s no such thing as a dumb question”, but I was wrong); however, I don’t want you to be afraid to ask the question, even if it is dumb.</p>
 <p><br></p>
 <hr>
 <p><br></p>
@@ -337,8 +337,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="the-syllabus" class="level1">
 <h1>The Syllabus</h1>
 <p><em>Please see the course syllabus on Canvas.</em></p>
-<p>Also, see what we’re <em>not</em> learning to do in this class:<br>
-<a href="https://www.youtube.com/watch?v=8F1Q6yETpfk" class="uri">https://www.youtube.com/watch?v=8F1Q6yETpfk</a></p>
+<p>Here is what we are <em>not</em> learning to do in this class:<br>
+<a href="https://www.youtube.com/watch?v=8F1Q6yETpfk" class="uri">https://www.youtube.com/watch?v=8F1Q6yETpfk</a>. What we will learn is how to interact with your computer to help you do research. Computers are slaves to literal interpretation. Computers give you exactly what you ask for, but rarely what you actually want. We will hopefully learn how to write better requests of our computer so that we can get close to what we want.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Computers give you what you ask for, not what you want</strong>.</p>
+</div>
+</div>
 <p><br></p>
 <hr>
 <p><br></p>
@@ -346,9 +359,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="what-is-data-science" class="level1">
 <h1>What is Data Science?</h1>
 <blockquote class="blockquote">
-<p>The practice of synthesizing statistical, computational, and domain-specific expertise to extract intelligence from data in varied forms.</p>
+<p>“Data science combines statistical methods, computational algorithms, and domain science information to extract knowledge and insights from big data, and to solve complex real-world problems.” - <a href="https://hdsr.mitpress.mit.edu/pub/kpn45eyx/release/3">Wang, 2022</a></p>
 </blockquote>
-<p>First of all, <strong>this is not an introductory course on data science</strong>; Instead, this is <em>Introduction to the Introduction to Data Science</em>. However, we will still outline data science as a scientific discipline. There are six divisions of “Greater” Data Science (<a href="https://doi.org/10.1080/10618600.2017.1384734">Donaho, 2017</a>).</p>
+<p>First of all, <strong>this is not an introductory course on data science</strong>; Instead, this is more akin to an <em>Introduction to the Introduction to Data Science</em>. However, we will still outline data science as a scientific discipline. There are six divisions of “Greater” Data Science (<a href="https://doi.org/10.1080/10618600.2017.1384734">Donaho, 2017</a>).</p>
 <section id="data-preparation-and-exploration" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation-and-exploration">Data Preparation and Exploration</h2>
 <p>This is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.</p>
@@ -358,14 +371,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="data-representation-and-transformation" class="level2">
 <h2 class="anchored" data-anchor-id="data-representation-and-transformation">Data Representation and Transformation</h2>
-<p>This deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.</p>
+<p>This deals with retrieving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.</p>
 <blockquote class="blockquote">
-<p>Examples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together).</p>
+<p>Examples: extracting subject data from REDCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together).</p>
 </blockquote>
 </section>
 <section id="computing-with-data" class="level2">
 <h2 class="anchored" data-anchor-id="computing-with-data">Computing with Data</h2>
-<p>This part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.</p>
+<p>This part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SQL, YAML, Markdown, and LaTeX.</p>
 <blockquote class="blockquote">
 <p>Examples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create “packages” of computer code to repeat the same types of analyses on new data sets.</p>
 </blockquote>
@@ -376,26 +389,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="data-visualization-and-presentation" class="level2">
 <h2 class="anchored" data-anchor-id="data-visualization-and-presentation">Data Visualization and Presentation</h2>
-<p>This portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be <em>reproducible</em>. Furthermore, the presentation of data in order to further an argument or claim is part of <em>visual rhetoric</em>, and is subject to questions of <em>ethics</em>. In traditional statistics departments, some of these tools are used, but rarely taught.</p>
+<p>This portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualization itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be <em>reproducible</em>. Furthermore, the presentation of data in order to further an argument or claim is part of <em>visual rhetoric</em>, and is subject to questions of <em>ethics</em>. In traditional statistics departments, some of these tools are used, but rarely taught.</p>
 <blockquote class="blockquote">
 <p>Examples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.</p>
 </blockquote>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>“A picture is worth a thousand words. Make sure your picture says the right thousand words.”</p>
+</div>
+</div>
 </section>
 <section id="science-about-data-science" class="level2">
 <h2 class="anchored" data-anchor-id="science-about-data-science">Science about Data Science</h2>
-<p>This portion of data science involves research <em>meta-analysis</em> about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with <em>philosophy</em> and <em>ethics</em>, it has hardly anything to do with academic statistics.</p>
+<p>This portion of data science involves research <em>meta-analysis</em> about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with <em>philosophy</em> and <em>ethics</em>, it has hardly anything to do with academic statistics as the discipline has traditionally been taught.</p>
 <blockquote class="blockquote">
-<p>Examples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns.</p>
+<p>Examples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or by political dissenters that had been seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns.</p>
 </blockquote>
 <p><br></p>
 <hr>
 <p><br></p>
 </section>
 </section>
-<section id="reproducibility" class="level1">
-<h1>Reproducibility</h1>
-<p><strong>Reproducibility: if we repeat a study, the repetition should agree with the original results, or—at minimum—not refute the study’s conclusions.</strong></p>
+<section id="reproducibility-and-replicability" class="level1">
+<h1>Reproducibility and Replicability</h1>
+<p>Two key definitions: &gt; “Replicability: if we repeat a study with new data, the repetition should agree with the original results, or—at minimum—not refute the original study’s conclusions.”</p>
+<blockquote class="blockquote">
+<p>“Reproducibility: if we repeat the same analysis with the same data, we should be able to reproduce the same published results.”</p>
+</blockquote>
+<p>These definitions are still the subject to <a href="https://www.ncbi.nlm.nih.gov/books/NBK547546/#sec_ch3_2">some considerable discussion</a>, but these are the definitions we will use for this class.</p>
 <section id="the-reproducibility-crisis" class="level2">
 <h2 class="anchored" data-anchor-id="the-reproducibility-crisis">The Reproducibility Crisis</h2>
 <p>Published bio-science is largely not reproducible:</p>
@@ -407,7 +436,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="the-ioannidis-crusade" class="level2">
 <h2 class="anchored" data-anchor-id="the-ioannidis-crusade">The Ioannidis crusade</h2>
-<p><a href="https://www.medscape.com/viewarticle/898405">John Ioannidis</a>, physician scientist at Stanford, speaks harshly against the lack of replicability in science:</p>
+<p><a href="https://www.medscape.com/viewarticle/898405">John Ioannidis</a>, physician scientist at Stanford, speaks harshly against the lack of reproducibility and replicability in science:</p>
 <ul>
 <li><a href="https://doi.org/10.1038/ng749">“Replication validity of genetic association studies”</a> (2001)</li>
 <li><a href="https://doi.org/10.1001/jama.294.2.218">“Contradicted and Initially Stronger Effects in Highly Cited Clinical Research”</a> (2005)</li>
@@ -418,8 +447,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="reproducible-data-science" class="level2">
 <h2 class="anchored" data-anchor-id="reproducible-data-science">Reproducible Data Science</h2>
 <p><em>Before reproducibility must come preproducibility.</em></p>
-<p>“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that <strong>enough information is provided to allow a dedicated reader to repeat the calculations</strong> in the paper for herself.”</p>
-<p>– <a href="https://www.nature.com/articles/d41586-018-05256-0">Philip B. Stark, Professor of Statistics, UC Berkeley</a></p>
+<blockquote class="blockquote">
+<p>“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that <strong>enough information is provided to allow a dedicated reader to repeat the calculations</strong> in the paper for herself.” - <a href="https://www.nature.com/articles/d41586-018-05256-0">Philip B. Stark, Professor of Statistics, UC Berkeley</a></p>
+</blockquote>
 </section>
 <section id="use-code" class="level2">
 <h2 class="anchored" data-anchor-id="use-code">Use Code!</h2>
