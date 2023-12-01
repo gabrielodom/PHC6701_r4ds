@@ -3,7 +3,7 @@ title: "PHC 6701: R for Data Science // Advanced R"
 ---
 
 # About
-These are the written lecture materials for the class PHC 6701 (commonly known as "Advanced R") at Florida International University's Stempel College of Public Health.
+These are the written lecture materials for the class PHC 6701 (commonly known as "Advanced R") at Florida International University's Stempel College of Public Health. The source code and data sets for this book are available here: <https://github.com/gabrielodom/PHC6701_r4ds>.
 
 
 
@@ -16,3 +16,4 @@ These are the written lecture materials for the class PHC 6701 (commonly known a
     + Mac: <https://derailment.netlify.app/2019-11-16-installing-r-rstudio-on-a-mac/>
 - Setting up R/RStudio: <https://derailment.netlify.app/2019-12-22-configuring-rstudio/>
 - If you want help, there is a great community of R programmers on Slack: <https://rfordatasci.com/>.
+- Sign up for GitHub **using your student email address**: <https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github>

@@ -2,8 +2,9 @@
 title: "About"
 ---
 
-About this site
+Hi folks!
+I'm [Gabriel Odom](https://gabriel.quarto.pub/), and I hope that this material was helpful to you.
 
-```{r}
-1 + 1
-```
+**History of this material:** I started writing the very first versions of these lessons back in spring of 2018 when I was a postdoc at the Sylvester Comprehensive Cancer Center. The Biostats/Bioinformatics group had weekly "research clinics" for the other postdocs and junior faculty to learn about various computational topics that could be helpful in their work. This material started off as four lessons (I can't remember exactly what the topics were, but I think it was intro to R, `ggplot`, organizing work into scripts, and `dplyr`). The lessons were well received. That fall, I ended up teaching 9 weeks on R as part of "Survey of Statistical Computing" for the grad students in the school of medicine, and I also joined [The Carpentries](https://carpentries.org/index.html) group at the University of Miami. After I joined Florida International University, I spent some time building out these lessons semester after semester (and with help and feedback from some awesome graduate students), and I taught this class every year. Now, I'm finally organizing and restructuring most of the lessons and scripts that I've worked on and taught from these past few years into a website to help my students have easy access to the material even after they finish class.
+
+**Motivation:** My experiences teaching with The Carpentries, to medical school students, and to public health students gave me a lot of one-on-one time with high-performing people who did not come from math / computer science backgrounds. I want to present the material in a logical way to people with hardly any computing background, but who still want to learn the basics for their research. As my friend [Prof. Raymond Balise](https://github.com/RaymondBalise) points out, we should assume students "can both point and click with a mouse", and that's about it. In that vein, if you come across parts of these lessons where I assume you know more than you do, please [leave an issue ticket](https://github.com/gabrielodom/PHC6701_r4ds/issues) on the GitHub repository for this book (if you don't know how to create a new issue, here's a guide: <https://www.techrepublic.com/article/how-to-create-github-issue/>). I hope that this material is accessible to everyone.
