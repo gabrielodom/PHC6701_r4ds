@@ -1,5 +1,6 @@
 ---
 title: "PHC 6701: R for Data Science // Advanced R"
+author: "Gabriel J. Odom, PhD, ThD"
 ---
 
 # About
@@ -8,12 +9,14 @@ These are the written lecture materials for the class PHC 6701 (commonly known a
 
 
 # Getting Started
-- Setting up your computer:
+Complete all of the steps below **before** the first day of class (I'll be available via Zoom if you get stuck on any of these steps):
+
+1. Set up your computer:
     + Windows: <https://derailment.netlify.app/2019-11-01-configure-a-windows-pc-for-data-science/> (ignore the stuff about LaTeX)
     + Mac: <https://derailment.netlify.app/2019-10-29-configure-a-mac-for-data-science/> (ignore the stuff about LaTeX)
-- Installing R/Rstudio:
+2. Install R/Rstudio:
     + Windows: <https://derailment.netlify.app/2019-12-10-installing-r-rstudio-on-windows/>
     + Mac: <https://derailment.netlify.app/2019-11-16-installing-r-rstudio-on-a-mac/>
-- Setting up R/RStudio: <https://derailment.netlify.app/2019-12-22-configuring-rstudio/>
-- If you want help, there is a great community of R programmers on Slack: <https://rfordatasci.com/>.
-- Sign up for GitHub **using your student email address**: <https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github>
+3. Configure RStudio: <https://derailment.netlify.app/2019-12-22-configuring-rstudio/>
+4. (OPTIONAL) Join the community of R programmers on Slack: <https://rfordatasci.com/>.
+5. Sign up for GitHub **using your student email address**: <https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github>

@@ -30,9 +30,9 @@ We will cover the following:
 
 
 # The Fear Factor
-Recall the old television show, *Fear Factor*: <https://youtu.be/zc6_UCgd4KU>
+In my experience, most people struggle to learn computing because they are afraid of failure and wasting their time. Also, it doesn't help that, over many years, the computer programming community has developed a reputation for being "hostile" or dismissive to newcomers.
 
-**WARNING**: the above video may make some of you uncomfortable.
+In previous semesters, I've shown this (very gross) clip from the old television show, *Fear Factor*: <https://youtu.be/zc6_UCgd4KU> (**WARNING**: the above video has bugs in it, and may make some of you uncomfortable). Unlike the perfectly natural reaction to be afraid to eat spiders, I don't want you to be afraid of this class, afraid of failure, or afraid to ask "dumb" questions. I do believe that there are actually some questions that are dumb (I used to say "there's no such thing as a dumb question", but I was wrong); however, I don't want you to be afraid to ask the question, even if it is dumb.
 
 </br>
 
@@ -45,8 +45,12 @@ Recall the old television show, *Fear Factor*: <https://youtu.be/zc6_UCgd4KU>
 
 *Please see the course syllabus on Canvas.*
 
-Also, see what we're *not* learning to do in this class:  
-<https://www.youtube.com/watch?v=8F1Q6yETpfk>
+Here is what we are *not* learning to do in this class:  
+<https://www.youtube.com/watch?v=8F1Q6yETpfk>. What we will learn is how to interact with your computer to help you do research. Computers are slaves to literal interpretation. Computers give you exactly what you ask for, but rarely what you actually want. We will hopefully learn how to write better requests of our computer so that we can get close to what we want.
+
+::: {.callout-important}
+**Computers give you what you ask for, not what you want**.
+:::
 
 </br>
 
@@ -56,9 +60,9 @@ Also, see what we're *not* learning to do in this class:
 
 
 # What is Data Science?
-> The practice of synthesizing statistical, computational, and domain-specific expertise to extract intelligence from data in varied forms.
+> "Data science combines statistical methods, computational algorithms, and domain science information to extract knowledge and insights from big data, and to solve complex real-world problems." - [Wang, 2022](https://hdsr.mitpress.mit.edu/pub/kpn45eyx/release/3)
 
-First of all, **this is not an introductory course on data science**; Instead, this is *Introduction to the Introduction to Data Science*. However, we will still outline data science as a scientific discipline. There are six divisions of "Greater" Data Science ([Donaho, 2017](https://doi.org/10.1080/10618600.2017.1384734)).
+First of all, **this is not an introductory course on data science**; Instead, this is more akin to an *Introduction to the Introduction to Data Science*. However, we will still outline data science as a scientific discipline. There are six divisions of "Greater" Data Science ([Donaho, 2017](https://doi.org/10.1080/10618600.2017.1384734)).
 
 
 ## Data Preparation and Exploration
@@ -68,13 +72,13 @@ This is the portion of data science that deals with structuring your data approp
 
 
 ## Data Representation and Transformation
-This deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.
+This deals with retrieving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.
 
-> Examples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text ("florida", "Florida", "fl", and "FL" together).
+> Examples: extracting subject data from REDCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text ("florida", "Florida", "fl", and "FL" together).
 
 
 ## Computing with Data
-This part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.
+This part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SQL, YAML, Markdown, and LaTeX.
 
 > Examples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create "packages" of computer code to repeat the same types of analyses on new data sets.
 
@@ -84,17 +88,19 @@ This part of data science is the most well-known portion. It is what most lay-pe
 
 
 ## Data Visualization and Presentation
-This portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be *reproducible*. Furthermore, the presentation of data in order to further an argument or claim is part of *visual rhetoric*, and is subject to questions of *ethics*. In traditional statistics departments, some of these tools are used, but rarely taught.
+This portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualization itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be *reproducible*. Furthermore, the presentation of data in order to further an argument or claim is part of *visual rhetoric*, and is subject to questions of *ethics*. In traditional statistics departments, some of these tools are used, but rarely taught.
 
 > Examples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.
 
+::: {.callout-tip}
 "A picture is worth a thousand words. Make sure your picture says the right thousand words."
+:::
 
 
 ## Science about Data Science
-This portion of data science involves research *meta-analysis* about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with *philosophy* and *ethics*, it has hardly anything to do with academic statistics.
+This portion of data science involves research *meta-analysis* about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with *philosophy* and *ethics*, it has hardly anything to do with academic statistics as the discipline has traditionally been taught.
 
-> Examples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns.
+> Examples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or by political dissenters that had been seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns.
 
 </br>
 
@@ -103,8 +109,13 @@ This portion of data science involves research *meta-analysis* about the utility
 
 
 
-# Reproducibility
-**Reproducibility: if we repeat a study, the repetition should agree with the original results, or---at minimum---not refute the study's conclusions.**
+# Reproducibility and Replicability
+Two key definitions:
+> "Replicability: if we repeat a study with new data, the repetition should agree with the original results, or---at minimum---not refute the original study's conclusions."
+
+> "Reproducibility: if we repeat the same analysis with the same data, we should be able to reproduce the same published results."
+
+These definitions are still the subject to [some considerable discussion](https://www.ncbi.nlm.nih.gov/books/NBK547546/#sec_ch3_2), but these are the definitions we will use for this class.
 
 
 ## The Reproducibility Crisis
@@ -116,7 +127,7 @@ Published bio-science is largely not reproducible:
 
 
 ## The Ioannidis crusade
-[John Ioannidis](https://www.medscape.com/viewarticle/898405), physician scientist at Stanford, speaks harshly against the lack of replicability in science:
+[John Ioannidis](https://www.medscape.com/viewarticle/898405), physician scientist at Stanford, speaks harshly against the lack of reproducibility and replicability in science:
 
 - ["Replication validity of genetic association studies"](https://doi.org/10.1038/ng749) (2001)
 - ["Contradicted and Initially Stronger Effects in Highly Cited Clinical Research"](https://doi.org/10.1001/jama.294.2.218) (2005)
@@ -127,9 +138,7 @@ Published bio-science is largely not reproducible:
 ## Reproducible Data Science
 *Before reproducibility must come preproducibility.*
 
-"Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments ... In computational science, ‘reproducible’ often means that **enough information is provided to allow a dedicated reader to repeat the calculations** in the paper for herself." 
-
--- [Philip B. Stark, Professor of Statistics, UC Berkeley](https://www.nature.com/articles/d41586-018-05256-0)
+> "Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments ... In computational science, ‘reproducible’ often means that **enough information is provided to allow a dedicated reader to repeat the calculations** in the paper for herself." - [Philip B. Stark, Professor of Statistics, UC Berkeley](https://www.nature.com/articles/d41586-018-05256-0)
 
 
 ## Use Code!
