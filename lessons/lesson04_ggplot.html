@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-09-04">
+
+<title>PHC 6701: R for Data Science - Lesson 4: ggplot and the Layered Grammar of Graphics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 4: ggplot and the Layered Grammar of Graphics</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link active">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#layered-grammar-of-graphics" id="toc-layered-grammar-of-graphics" class="nav-link" data-scroll-target="#layered-grammar-of-graphics">Layered Grammar of Graphics</a>
+  <ul class="collapse">
+  <li><a href="#unpacking-the-title" id="toc-unpacking-the-title" class="nav-link" data-scroll-target="#unpacking-the-title">Unpacking the Title</a></li>
+  </ul></li>
+  <li><a href="#loading-an-r-package" id="toc-loading-an-r-package" class="nav-link" data-scroll-target="#loading-an-r-package">Loading an R Package</a>
+  <ul class="collapse">
+  <li><a href="#the-tidyverse" id="toc-the-tidyverse" class="nav-link" data-scroll-target="#the-tidyverse">The Tidyverse</a></li>
+  </ul></li>
+  <li><a href="#my-first-ggplot" id="toc-my-first-ggplot" class="nav-link" data-scroll-target="#my-first-ggplot">My First ggplot</a>
+  <ul class="collapse">
+  <li><a href="#the-variables" id="toc-the-variables" class="nav-link" data-scroll-target="#the-variables">The Variables</a></li>
+  <li><a href="#engine-size-by-fuel-economy" id="toc-engine-size-by-fuel-economy" class="nav-link" data-scroll-target="#engine-size-by-fuel-economy">Engine Size by Fuel Economy</a></li>
+  </ul></li>
+  <li><a href="#aesthetics-and-mapping" id="toc-aesthetics-and-mapping" class="nav-link" data-scroll-target="#aesthetics-and-mapping">Aesthetics and Mapping</a>
+  <ul class="collapse">
+  <li><a href="#common-aesthetics" id="toc-common-aesthetics" class="nav-link" data-scroll-target="#common-aesthetics">Common Aesthetics</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul></li>
+  <li><a href="#geometric-objects" id="toc-geometric-objects" class="nav-link" data-scroll-target="#geometric-objects">Geometric Objects</a></li>
+  <li><a href="#labelling-your-graphs" id="toc-labelling-your-graphs" class="nav-link" data-scroll-target="#labelling-your-graphs">Labelling your Graphs</a></li>
+  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets">Facets</a></li>
+  <li><a href="#online-examples" id="toc-online-examples" class="nav-link" data-scroll-target="#online-examples">Online examples:</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 4: ggplot and the Layered Grammar of Graphics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 4, 2019</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Benefits of reproducible reports</li>
+<li>R packages and how to install them</li>
+<li>The components of a basic RMarkdown report</li>
+<li>Markdown customisation options</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>We will cover the following:</p>
+<ol type="1">
+<li>The Layered Grammar of Graphics</li>
+<li>Loading a Package</li>
+<li>My First ggplot</li>
+<li>Mapping Aesthetics</li>
+<li>Geometric Objects</li>
+<li>Labels</li>
+<li>Facets</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="layered-grammar-of-graphics" class="level1">
+<h1>Layered Grammar of Graphics</h1>
+<p>This section header is quite a lot to unpack, simply considering the English words themselves, even before we discuss the implications in data science. Let’s dive in.</p>
+<section id="unpacking-the-title" class="level2">
+<h2 class="anchored" data-anchor-id="unpacking-the-title">Unpacking the Title</h2>
+<p>We will start with “graphics”, because most people are most familar with graphs. Then we will work backwards.</p>
+<section id="graphics" class="level3">
+<h3 class="anchored" data-anchor-id="graphics">Graphics</h3>
+<p>In computational parlance, a <em>graphic</em> is a visual representation of organized information, displayed to the screen or stored in a file. Consider this picture:</p>
+<p><img src="https://www.researchgate.net/profile/Ali_Rushdi2/publication/328926846/figure/fig1/AS:692724244156416@1542169738473/Fig-6-Encrypted-text-for-Example-1.jpg" class="img-fluid"></p>
+<p>This is a visual representation of information, but it isn’t useful. It isn’t <em>organized</em>, and we cannot draw any meaning from it. The most basic graphic of our data is a screenshot of it, but that usually doesn’t help anyone!</p>
+</section>
+<section id="grammar-of-graphics" class="level3">
+<h3 class="anchored" data-anchor-id="grammar-of-graphics">Grammar of Graphics</h3>
+<p>As we see in the figure above, we need our graphics to follow a set of rules. A <em>grammar</em> is a set of the fundamental principles and rules of a discipline, so the <em>grammar of graphics</em> is the set of fundamental rules for displaying organised information (<a href="http://vita.had.co.nz/papers/layered-grammar.pdf">Wickham, 2010</a>).</p>
+<blockquote class="blockquote">
+<p><em>A grammar provides a strong foundation for understanding a diverse range of graphics. A grammar may also help guide us on what a well-formed or correct graphic looks like, but there will still be many grammatically correct but nonsensical graphics. This is easy to see by analogy to the English language: good grammar is just the first step in creating a good sentence.</em> - Hadley Wickham</p>
+</blockquote>
+</section>
+<section id="layering" class="level3">
+<h3 class="anchored" data-anchor-id="layering">Layering</h3>
+<p>If grammar helps us construct a sentence in the proper way, <em>layering</em> helps us combine multiple sentences into a paragraph. We use layers to “stack” different levels of results and statistics. Let’s walk through Wickham’s original example (<em>ibid.</em>, p.&nbsp;4).</p>
+<section id="example-data" class="level4">
+<h4 class="anchored" data-anchor-id="example-data">Example Data</h4>
+<p>Consider the following toy data:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>a</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>a</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>5</td>
+<td>15</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>80</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<p>A simple research question we may have is, does changing C affect A, and is this effect mitigated by D? To answer this, we would probably build a scatterplot of C and A, with point size, shape, or colour set by D. That is, we assign C to take values on the horizontal axis, A to take values on the vertical axis, and D to take values on some other axis (shape, for instance). The resulting data set looks like this:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>4</td>
+<td>a</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>a</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>15</td>
+<td>b</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>80</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<p>Now, we are making some progress, but we still haven’t told the computer what to do with this information. Recall that one of the major goals of this class is to help you tell the computer what you want. Your computer needs to translate these points and shape labels into actual pixels on the screen.</p>
+</section>
+<section id="example-data-mapped" class="level4">
+<h4 class="anchored" data-anchor-id="example-data-mapped">Example Data Mapped</h4>
+<p>Let’s pretend that we give a 200 x 300 window to R to plot these points. The resulting pixel locations and shapes will look like this:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>x</th>
+<th>y</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25</td>
+<td>11</td>
+<td>circle</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>circle</td>
+</tr>
+<tr class="odd">
+<td>75</td>
+<td>53</td>
+<td>square</td>
+</tr>
+<tr class="even">
+<td>200</td>
+<td>300</td>
+<td>square</td>
+</tr>
+</tbody>
+</table>
+<p>This yields one layer with the overall shape and behaviour of the data:</p>
+<p><img src="../_figures/ggplot_layers_ex_geom_layer.png" class="img-fluid"></p>
+<p>Notice however, that we don’t have any scales for these values. The values R supplied to the computer are in shapes and pixel locations, but we humans can’t interpret what this means. We need another layer for the axes.</p>
+<p><img src="../_figures/ggplot_layers_ex_axes_layer.png" class="img-fluid"></p>
+<p>Finally, we need a layer for the labels. When we stack these layers (axes, labels, then data), we see the following composed graph:</p>
+<p><img src="../_figures/ggplot_layers_ex_final.png" class="img-fluid"></p>
+<p>When we construct figures, we often take for granted the complexity inherent in the task. For our work, we will be constructing figures layer by layer, so it is important to understand these mechanics.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+</section>
+<section id="loading-an-r-package" class="level1">
+<h1>Loading an R Package</h1>
+<p>In order to make use of the “layered grammar of graphics” in R, we need R to have some additional functionality. As we learned last class, we can make new functionality available for R to use by <em>installing a package</em> to our package <em>library</em>. However, in order to use these packages directly, we need to “check out” these packages from our library.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>One of your exercises from last class was to install the <code>tidyverse</code> package. Search through the help file of the <code>install.packages()</code> function you used last class for mention of a package library.</li>
+<li>Use the function you find to “check out” (also known as “load”) the <code>tidyverse</code> package from your package library.</li>
+</ol>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<section id="the-tidyverse" class="level2">
+<h2 class="anchored" data-anchor-id="the-tidyverse">The Tidyverse</h2>
+<p>The Tidyverse is a suite of inter-related packages that make data science in R easier. The components of the Tidyverse are:</p>
+<ul>
+<li><code>ggplot2</code>: make graphs</li>
+<li><code>tibble</code>: create very nice “tidy” data tables from scratch</li>
+<li><code>tidyr</code>: clean “messy” data into “tidy” data</li>
+<li><code>readr</code>: import raw data</li>
+<li><code>purrr</code>: help you create and apply functions to your data</li>
+<li><code>dplyr</code>: manipulate “tidy” data tables</li>
+<li><code>stringr</code>: operate on character strings</li>
+<li><code>forcats</code>: recode and modify catagorical variables in R, also known as <em>factors</em> (“forcats” is an abbreviation of <strong>for cat</strong>egorical variable<strong>s</strong>, and also an anagram of “factors”)</li>
+</ul>
+<p>To be completely honest, we could spend the entire semester on these eight packages. However, we will not be able to do that at this juncture. We are not going to cover the <code>forcats</code> package, and we will use some of the time in this semester diving deeper into the “inner workings” of R (we will use the <a href="https://adv-r.hadley.nz/">Advanced R</a> textbook for that).</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="my-first-ggplot" class="level1">
+<h1>My First ggplot</h1>
+<p>Now that you have an understanding of how the layered grammar of graphics works (in theory), we can build our own plot. Within the <code>tidyverse</code>, there is an example data set on car manufacturing specifics stored in the object <code>mpg</code> (because it is in the package, you won’t see it in the “Environment” pane).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 234 × 11
+   manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 audi         a4           1.8  1999     4 auto… f        18    29 p     comp…
+ 2 audi         a4           1.8  1999     4 manu… f        21    29 p     comp…
+ 3 audi         a4           2    2008     4 manu… f        20    31 p     comp…
+ 4 audi         a4           2    2008     4 auto… f        21    30 p     comp…
+ 5 audi         a4           2.8  1999     6 auto… f        16    26 p     comp…
+ 6 audi         a4           2.8  1999     6 manu… f        18    26 p     comp…
+ 7 audi         a4           3.1  2008     6 auto… f        18    27 p     comp…
+ 8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
+ 9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
+10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
+# ℹ 224 more rows</code></pre>
+</div>
+</div>
+<p>Don’t worry about what this all means for now. Just think of this object as R’s version of an Excel spreadsheet. Observations are in the rows, measurements / variables are in the columns, each column has a name, and each column stores one <em>class</em> / <em>type</em> of data.</p>
+<section id="the-variables" class="level2">
+<h2 class="anchored" data-anchor-id="the-variables">The Variables</h2>
+<p>There are a few variables in this data set, including</p>
+<ul>
+<li><code>displ</code>: the engine displacement in litres, and</li>
+<li><code>hwy</code>: the highway fuel efficiency in miles per gallon.</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Check the definitions and explanations of the other variables in the <strong>help file</strong> on the <code>mpg</code> object.</p>
+</div>
+</div>
+<p>Recalling that <em>data science</em> is an intersection of statistics, computing, and domain knowledge, we think about what domain knowledge we have concerning automobiles to create an hypothesis. Some of this domain knowledge comes from our previous courses in physics: we think that engines that are heavier probably aren’t as fuel efficient. We will now test this hypothesis graphically.</p>
+</section>
+<section id="engine-size-by-fuel-economy" class="level2">
+<h2 class="anchored" data-anchor-id="engine-size-by-fuel-economy">Engine Size by Fuel Economy</h2>
+<p>We are going to construct a graph first. I will give you the code and the figure, then we will deconstruct it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/displ_x_hwy-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Well, at first glance, it certainly seems that larger engines are less fuel efficient.</p>
+<p>Within the code itself, the components in this code are organized in a logical manner and with a corresponding set of rules—that is, a <em>grammar</em>. That’s what the <code>gg</code> part stands for—the <em>grammar</em> of <em>graphics</em>.</p>
+<section id="the-layer-glue" class="level3">
+<h3 class="anchored" data-anchor-id="the-layer-glue"><code>+</code>: The Layer Glue</h3>
+<p>Notice that each of the lines above are connected by the plus sign, “+”. In this context, <strong>the <code>+</code> symbol operates to “add” layers together</strong>, but you can still use it to add numbers too. If you are more familiar with <code>R</code>, but not familiar with the <code>tidyverse</code>, then the idea of “adding” one function to another seems absurd. However, as you’ll see soon, we can “add” more and more layers to a single graph with this <code>+</code> operator.</p>
+</section>
+<section id="the-data-layer" class="level3">
+<h3 class="anchored" data-anchor-id="the-data-layer">The <code>data</code> Layer</h3>
+<p>The first line in the code, <code>ggplot(data = mpg)</code>, provides the base layer of the graphic. Recall the function syntax we have learned previously:</p>
+<ul>
+<li>The function is named <code>ggplot</code></li>
+<li>The first argument of the function is called <code>data</code></li>
+<li>We supply the data set <code>mpg</code> as the value to this <code>data</code> argument</li>
+</ul>
+<p>Think of this as a blank canvas that you will paint on. In this case, the data set <code>mpg</code> provides the material from which to create the canvas.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Run <code>ggplot(data = mpg)</code>. What does this look like?</p>
+</div>
+</div>
+<p>The <code>ggplot()</code> function takes data tables only in a certain form. Recall the exercise from Lesson 1 on finding help? We first read about the <code>str</code> function then.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Use the <code>str()</code> function to confirm that the <code>mpg</code> object has <code>data.frame</code> as one of its <em>classes</em>.</p>
+</div>
+</div>
+<p>If you ever have trouble with <code>ggplot()</code>, make sure your data frame is tidy! Later this semester, we will discuss some things to do if your data table is not tidy (using the <code>tidyr</code>, <code>tibble</code>, and <code>readr</code> packages in the <code>tidyverse</code>).</p>
+</section>
+<section id="the-aesthetic-mapping-layer" class="level3">
+<h3 class="anchored" data-anchor-id="the-aesthetic-mapping-layer">The Aesthetic Mapping Layer</h3>
+<p>Now that we have created a canvas to paint on, we need to choose our proverbial “colour palette” and plan where our “paintbrush” will go. That is, we need to specify which measurements contained in the <code>mpg</code> data set we are going to use, and how they will influence the blank canvas. Now, consider the second line of code: <code>aes(x = displ, y = hwy)</code>. Following what we know about function syntax, we can deconstruct this line as follows:</p>
+<ul>
+<li>The function is named <code>aes</code></li>
+<li>The first argument of the function is named <code>x</code></li>
+<li>We supply the value of the object <code>displ</code> as to the argument <code>x</code></li>
+<li>The second argument of the function is named <code>y</code></li>
+<li>We supply the value of the object <code>hwy</code> as to the argument <code>y</code></li>
+</ul>
+<p>Now, if you have been paying attention, you’ll notice that we don’t have any objects named <code>displ</code> or <code>hwy</code> in the “Environment” pane.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Run <code>displ</code> and <code>hwy</code> in the “Console”. What happens?</li>
+<li>Run</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>How is this different from the first layer alone? <strong>Remember to use the “+” symbol to add one layer to another.</strong><br>
+</li>
+<li>Where did R find the values for <code>displ</code> and <code>hwy</code>? What would you do if you needed to add different values to the aesthetic layer?</li>
+<li>Add 3 and 5 together. Is there anything else different with the <code>+</code> function?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="the-geometric-object-layer" class="level3">
+<h3 class="anchored" data-anchor-id="the-geometric-object-layer">The Geometric Object Layer</h3>
+<p>We now have a canvas to plot our points, and a system of axes to know where the points belong. Now we need to tell <code>ggplot()</code> <em>how</em> to plot <code>x</code> and <code>y</code>. This is where the the <code>geom_*()</code> functions come into play: we wanted a scatterplot, so we picked <code>geom_point()</code>. This is simply a call to the function <code>geom_point</code> with no arguments. “Geom” is short for “geometric object”, and there are quite a few geometric shapes we can bend our data into (more on this later).</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Run the original code (copied below) and compare it to the previous figure. What did the geometric layer add to the plot?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Look up the help manual for the <code>geom_point</code> function. Recall our conversation on functions in Lesson 1. What are some of the arguments for the <code>geom_point</code> function? Where do you think the values of the arguments for this function came from?</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="aesthetics-and-mapping" class="level1">
+<h1>Aesthetics and Mapping</h1>
+<p>The <code>ggplot()</code> function allows us to add variables to a graphic by mapping these variables to <em>aesthetics</em>. In our previous graph, we have already seen two aesthetics: the <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> axes of the scatterplot. We can add a third or fourth variable to a two-dimensional scatterplot using other aesthetics, such as colour or line thickness. The x-axis and y-axis were aesthetics passed through the <code>aes()</code> function on to the <code>ggplot()</code> or <code>geom_point()</code> functions.</p>
+<section id="common-aesthetics" class="level2">
+<h2 class="anchored" data-anchor-id="common-aesthetics">Common Aesthetics</h2>
+<p>There are quite a few aesthetics to choose from to modify our scatterplot:</p>
+<ul>
+<li><code>colour</code>: What color to make our points? Good for continuous and discrete features.</li>
+<li><code>size</code>: How big should the points be? Better for continuous features.</li>
+<li><code>alpha</code>: How opaque / transparent should the points be? Values range from <span class="math inline">\([0,1]\)</span>, with <span class="math inline">\(1\)</span> being completely opaque. Better for continuous features.</li>
+<li><code>shape</code>: What shape should the points have? Better for discrete features. Options are shown below <img src="http://r4ds.had.co.nz/visualize_files/figure-html/shapes-1.png" class="img-fluid"></li>
+<li><code>fill</code>: For the shapes filled with red, what color should you put instead? Better for discrete features, but is limited when plotting points. The <code>fill</code> aesthetic truly shines with geoms other than <code>point</code>, but more on that later.</li>
+</ul>
+<p>For most of these aesthetics, the behavior of the graph will change depending on if you map a discrete or continuous feature to it. For example, if you map a continuous feature to the <code>colour</code> aesthetic, the points will be given a continuous color gradient (by default, from dark blue to light blue). However, if you map character information to the <code>colour</code> aesthetic, the points will be distinctly different (discrete) in color.</p>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/displ_x_hwy2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Look back to the figure. You might notice that there is a group of five points on the top right that stick out: these cars have large engines but higher MPG than other vehicles with large engines. We could ask a few questions to try to explain this disparity:</p>
+<ul>
+<li>Are these vehicles hybrids?</li>
+<li>Do these vehicles use diesel?</li>
+<li>Are these vehicles newer?</li>
+</ul>
+<p>Each question is a hypothesis, and we will attempt to “test” these hypotheses visually.</p>
+<section id="hypothesis-1-outlier-cars-are-hybrids" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-1-outlier-cars-are-hybrids">Hypothesis 1: Outlier Cars are Hybrids</h3>
+<p>Check the help documentation for the <code>mpg</code> data set to find out which column measures the type of the car. We probably won’t see “hybrid”” in this list, because we know that very few hybrid cars were in production in both 1998 and 2008. These cars would have all been classified as “compact” or “sub-compact”. <strong>Note: this is where “domain knowledge” is critical for proper data science.</strong></p>
+<p>Now what type of feature is <code>class</code>? The column header of the <code>mpg</code> data table informs us that this feature is a <code>character</code> feature (<code>chr</code>), and therefore discrete. Therefore, we can add it to the graph with the <code>colour</code> or <code>shape</code> aesthetics.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/Hwympg_x_displ_classcolour-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It appears that our hypothesis was incorrect. These vehicles are not small, hybrid cars at all, but sports cars or midsize cars.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Write the code necessary to create the above graph.</p>
+</div>
+</div>
+</section>
+<section id="hypothesis-2-outlier-cars-take-diesel" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-2-outlier-cars-take-diesel">Hypothesis 2: Outlier Cars take Diesel</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/Hwympg_x_displ_fuelshape-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Our hypothesis is incorrect. It appears that all five of our outlier vehicles take premium fuel (“p”), not diesel (“d”). This graph, when paired with the previous graph on car class, gives us a better understanding of factors that could influence the relationship between engine size and fuel economy.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Using the help manual for the <code>mpg</code> data set, find which feature of the data measures fuel type.</li>
+<li>Write the code necessary to create the above graph. <em>Hint: the shape of the points is controlled by the <code>shape</code> argument to the <code>aes()</code> function.</em></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="hypothesis-3-outlier-cars-are-newer" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-3-outlier-cars-are-newer">Hypothesis 3: Outlier Cars are Newer</h3>
+<p>We know that vehicle year can be either 1998 or 2008. Because the manufacture year is a time, we should add it to the graph with the <code>colour</code>, <code>size</code>, <code>fill</code>, or <code>alpha</code> aesthetics.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/Hwympg_x_displ_yearalpha-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The manufacture year doesn’t help explain the five outlier points very well. They are rather evenly split between 2000 and 2008.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Write the code necessary to create the above graph. <em>Hint: the shape is not dependent on the data, so it is not an aesthetic. Think about where you should put the shape argument if you can’t put it in the <code>aes()</code> function.</em></p>
+</div>
+</div>
+</section>
+<section id="updated-hypothesis-outlier-cars-are-sportscars" class="level3">
+<h3 class="anchored" data-anchor-id="updated-hypothesis-outlier-cars-are-sportscars">Updated Hypothesis: Outlier Cars are Sportscars</h3>
+<p>We can add more than 3 features to a plot. Let’s create an engine size by MPG plot with fuel type <em>and</em> car class added.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/Hwympg_x_displ_fuelANDclass-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This looks promising: it appears that all five outliers take premium fuel, and four of the five outliers are 2-seater coupes. This means that our outliers are probably sports / performance cars: larger engines but lighter bodies.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Write the code necessary to create the above graph.</p>
+</div>
+</div>
+<p>If you’re thinking to yourself, “I wish there was a way to clean this graph up, to only show the premium fuel and two-seater cars”, then you are thinking what I’m thinking. However, we need some functions from the <code>dplyr</code> package first, which we will cover in a few weeks. The <code>ggplot</code> package also gives us a way to break graphs into mutually-exclusive pieces, called <em>facets</em>, which we will discuss shortly.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="geometric-objects" class="level1">
+<h1>Geometric Objects</h1>
+<p>As we mentioned above, there are many geometric objects we can use to plot our data. All of the geometric object functions in the <code>ggplot</code> package start with <code>geom_</code>. Let’s compare two: <code>geom_point()</code> and <code>geom_smooth()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/smooth_v_point-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/smooth_v_point-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Recall from our basic <code>ggplot</code> graph that these two graphs are exactly the same, until the <code>geom_</code> is added. These two graphs have different purposes, and they tell different messages, but their underlying layers are identical. The only difference is <em>how</em> the displacement and highway fuel efficiency are displayed.</p>
+<p>We can also layer geoms on top of each other. Because each layer is doing something different, we can insert code comments in between the lines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cyl)) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Default smoother is LOESS</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/layer_geoms-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice that we are comparing the relationship between engine size and highway fuel economy while accounting for the number of cylinders effect, and overlaying the output from a linear model (red) and a LOESS smoother (blue).</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Add comments to the code chunk used to make this graph. Explain what layer each line is adding to the graph, and how they change the output. <em>Hint: you may need to build this graph line-by-line and without function arguments, like we did the first <code>ggplot</code> graph, in order to see all of the changes.</em></p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="labelling-your-graphs" class="level1">
+<h1>Labelling your Graphs</h1>
+<p>The last figure was quite complex! It would be nice if we could add another layer to the graph to explain all of the components. Well, with the labels layer (controlled by the <code>labs()</code> function), we can. Most of the labels match the aesthetics that you have supplied either through the <code>aes()</code> function or the <code>geom_*()</code> functions directly. Therefore, some of the arguments to the <code>labs()</code> function are:</p>
+<ul>
+<li><code>title</code>, <code>subtitle</code>: the graphic title and subtitle (above the graphic)</li>
+<li><code>caption</code>: a caption below the graphic</li>
+<li><code>x</code>: label for the <span class="math inline">\(X\)</span> axis</li>
+<li><code>y</code>: label for the <span class="math inline">\(Y\)</span> axis</li>
+<li><code>colour</code>, <code>size</code>, <code>alpha</code>, <code>shape</code>, <code>fill</code>, etc.: labels for the other aesthetics</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Rebuild the complicated graph above, adding a layer for the title of the graph.</li>
+<li>Make the labels for the <code>x</code>, <code>y</code>, and <code>colour</code> aesthetics more professional and presentable</li>
+<li>Add a caption that explains the overall relationships visible in the figure.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="facets" class="level1">
+<h1>Facets</h1>
+<p>Facets allow us to split our graphs over a categorical variable. Let’s repeat one of the previous graphs, but split over fuel type (don’t worry about the crazy <code>~</code> thing for now).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">colour =</span> class) <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> fl, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/Hwympg_x_displ_x_class_fuelfacet-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We see a much stronger negative linear relationship between engine size and fuel economy for vehicles using regular petrol instead of premium. Once again, our <code>dplyr</code> lessons later this semester will cover how to exclude the fuel types other than regular and premium.</p>
+<p>Now what if we wanted facet on two features? Let’s inspect how the number of cylinders in the engine, as well as the drive train, affect the relationship between engine size and city fuel economy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> cty, <span class="at">colour =</span> class) <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson04_ggplot_files/figure-html/Citympg_x_displ_facetCyl_x_Year-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Discuss the above figure with your neighbours. What information can you draw from this figure? What can be done to improve it?</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="online-examples" class="level1">
+<h1>Online examples:</h1>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf</a></li>
+<li><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html" class="uri">http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html</a></li>
+<li>The #TidyTuesday hashtag on Twitter: <a href="https://twitter.com/hashtag/tidytuesday?lang=en" class="uri">https://twitter.com/hashtag/tidytuesday?lang=en</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

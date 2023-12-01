@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom and Catalina Cañizares">
+<meta name="dcterms.date" content="2023-01-17">
+
+<title>PHC 6701: R for Data Science - Lesson 3: Quarto for Reproducible Reports</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 3: Quarto for Reproducible Reports</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link active">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#reproducible-reports" id="toc-reproducible-reports" class="nav-link" data-scroll-target="#reproducible-reports">Reproducible Reports</a></li>
+  <li><a href="#intalling-packages" id="toc-intalling-packages" class="nav-link" data-scroll-target="#intalling-packages">Intalling Packages</a></li>
+  <li><a href="#a-basic-quarto-report" id="toc-a-basic-quarto-report" class="nav-link" data-scroll-target="#a-basic-quarto-report">A Basic Quarto Report</a>
+  <ul class="collapse">
+  <li><a href="#setting-up-a-basic-qurto-file" id="toc-setting-up-a-basic-qurto-file" class="nav-link" data-scroll-target="#setting-up-a-basic-qurto-file">Setting up a Basic Qurto File</a></li>
+  <li><a href="#inspecting-your-quarto-file" id="toc-inspecting-your-quarto-file" class="nav-link" data-scroll-target="#inspecting-your-quarto-file">Inspecting your Quarto File</a></li>
+  <li><a href="#render-your-report" id="toc-render-your-report" class="nav-link" data-scroll-target="#render-your-report">Render your Report</a></li>
+  <li><a href="#inspect-the-final-product" id="toc-inspect-the-final-product" class="nav-link" data-scroll-target="#inspect-the-final-product">Inspect the Final Product</a></li>
+  </ul></li>
+  <li><a href="#building-your-own-report" id="toc-building-your-own-report" class="nav-link" data-scroll-target="#building-your-own-report">Building your Own Report</a>
+  <ul class="collapse">
+  <li><a href="#the-quarto-guide" id="toc-the-quarto-guide" class="nav-link" data-scroll-target="#the-quarto-guide">The Quarto Guide</a></li>
+  <li><a href="#including-code-chunks" id="toc-including-code-chunks" class="nav-link" data-scroll-target="#including-code-chunks">Including Code Chunks</a></li>
+  <li><a href="#annotating-your-work" id="toc-annotating-your-work" class="nav-link" data-scroll-target="#annotating-your-work">Annotating your Work</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 3: Quarto for Reproducible Reports</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom and Catalina Cañizares </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 17, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Everything in R is an Object. Objects are baskets that are labelled and hold values. We learned about objects that contain character, numeric, or logical information, among other things.</li>
+<li>Create new objects with <code>containerName &lt;- value</code> syntax.</li>
+<li>R is a <strong>vectorised</strong> language: it treats single values as part of a larger set.</li>
+<li>Use functions with <code>functionName(argumentName = argumentValue)</code> syntax.</li>
+<li>Get help with <code>?</code> or Google.</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>We will cover the following:</p>
+<ol type="1">
+<li>Why we need reproducible reporting</li>
+<li>Installing Packages</li>
+<li>A Basic Quarto Document</li>
+<li>Code Chunks and Output</li>
+<li>Annotating your Work</li>
+<li>Formatting you Annotations</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="reproducible-reports" class="level1">
+<h1>Reproducible Reports</h1>
+<p>We previously saw how we can use R scripts to save our code and code comments. However, these scripts do not actually save or show the results. You still have to run the code. This isn’t particularly helpful to most people. We need a way to include</p>
+<ol type="1">
+<li>The background for the project</li>
+<li>A description of the model we used, and theoretical justification (if necessary)</li>
+<li>The code to run the model</li>
+<li>The output of the model</li>
+<li>Our explination and discussion of the output.</li>
+</ol>
+<p>Of these needs, the only thing that R scripts do very well is to hold the code of the model. Through code comments, we could sketch out some of the other components, but never at the level of detail necessary for a technical report. This is far more complex than a simple R script can handle!</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="intalling-packages" class="level1">
+<h1>Intalling Packages</h1>
+<p>Before we move on to creating our first reports with R, we need to understand a critical component of the R language: packages. Packages are self-contained pieces of software that can be “added-on” to R, increasing the functionality available to you. If you have used MS Word or Excel, have probably heard about “Add-Ins”: additional pieces of the software that you can download to help you with a specific task. R packages are similar to this idea.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Google “r package for writing report”. Look through some of the links, and you should see something called <code>knitr</code> (pronounced “nitter” or “nit R”) mentioned a few times.</p>
+</div>
+</div>
+<p>Now we know what package we want to use for reports, but how do we download it for R (or us) to use?</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Do you remember the syntax we used to find help files? Look for help related to the word “install”. When you type <code>install</code> in the console, RStudio should give you a few predicted function options. One of those options will be what you need. Read the help files for these functions to be sure.</li>
+<li>Once you have discovered the function to install packages for R, read about the first argument of this function (in the “Arguments” section of the help file). What R syntax do you use to make something a <em>character vector</em>? Use this function to install the <code>knitr</code> package.</li>
+</ol>
+</div>
+</div>
+<p>After we have installed the <code>knitr</code> package. It is available for R to use. However, if we want to use the package directly, we need to take one more step, called <em>loading the library</em>. We will cover this in the next lesson. For what we need to do today, simply having the package installed is enough.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="a-basic-quarto-report" class="level1">
+<h1>A Basic Quarto Report</h1>
+<p>Thankfully, we can build a report that meets all of our needs, a Quarto report. RStudio includes a basic template of one for us to work with.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>If at any point RStudio prompts you to download a package, do it.</strong></p>
+</div>
+</div>
+<section id="setting-up-a-basic-qurto-file" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-a-basic-qurto-file">Setting up a Basic Qurto File</h2>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Go to “File” &gt; “New File” &gt; “Quarto Document…”.</p>
+</div>
+</div>
+<p>This window appears, giving us some options:</p>
+<p><img src="../_figures/qmd_new_quarto_options.png" class="img-fluid"></p>
+<p>This window gives us a few options:</p>
+<ul>
+<li>Type of document:
+<ul>
+<li>Document (plain manuscript style)</li>
+<li>Presentation (slide deck)</li>
+<li>Shiny (interactive website)</li>
+<li>From Template (download a template from a journal or major conference, and write your manuscript to their formatting specifications)</li>
+</ul></li>
+<li>Title and Author(s): if you are working in a group, this is where you add the names of your co-authors</li>
+<li>Output Format:
+<ul>
+<li>HTML (the default). This is the recommended starting place for any document. I will show you how to change this output type for a document that you have already written. We will use this option now, as it is the easiest to learn.</li>
+<li>PDF (advanced). This output style requires that you have additional advanced software installed, such as Windows MiKTeX or MacOS MacTeX. If you plan to use LaTeX to write your PhD dissertation, then you should learn how to use these tools; otherwise, avoid this option. Most people don’t need it.</li>
+<li>WORD (intermediate). This output style requires you to have MS Word installed on your computer (most people do). We will use this option for our reports later in the semester.</li>
+</ul></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Customise your title and author fields. Once you have finished your customization, click “OK”.</p>
+</div>
+</div>
+</section>
+<section id="inspecting-your-quarto-file" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-your-quarto-file">Inspecting your Quarto File</h2>
+<p>We should all see this basic Quarto template:</p>
+<p><img src="../_figures/qmd_new_quarto.png" class="img-fluid"></p>
+<p>Let’s dive in to the structure and syntax of this document.</p>
+<section id="the-meta-data-header" class="level3">
+<h3 class="anchored" data-anchor-id="the-meta-data-header">The Meta-Data Header</h3>
+<p>The first few lines of the document are the document header. These lines tell R crucial information about how to build your report. The entire header, and all of the document options in it, are bounded by the three horizontal dashes (<code>---</code>) above and below.</p>
+<p>Currently our header is quite basic. It includes:</p>
+<ol type="1">
+<li>The title of the document; <code>title: "My First Quarto"</code></li>
+<li>Who wrote it: <code>author: "Gabriel Odom"</code></li>
+<li>Today’s date: <code>date: "format(Sys.time(), '%b %d, %Y')"</code> (<em>this looks crazy, but don’t worry about it now; we will learn what this means later if we need to</em>)</li>
+<li>The output type: <code>format: html</code></li>
+</ol>
+<p>Notice that each one of these options (other than the date) are directly filled by your choices in the previous window.</p>
+</section>
+<section id="code-chunks" class="level3">
+<h3 class="anchored" data-anchor-id="code-chunks">Code Chunks</h3>
+<p>The next thing we see is a code chunk. Code chunks look like this:</p>
+<p><img src="../_figures/qmd_chunk.png" class="img-fluid"></p>
+<p>The components are:</p>
+<ul>
+<li>Computing language: Quarto documents can compile more than just R code, but we specify the language R here (with <code>r</code>).</li>
+<li>Chunk name: this part is not required, but it can be helpful if you have errors in your code to know where they come from.</li>
+<li>Chunk options: there are a few common options, which we will discuss later. This <code>echo=false</code> option means that this code chunk will not be included in the report output.</li>
+<li>Chunk delimiters: all code chunks start and end with three backticks (```). If you want code that will run in a certain language (which most of the time, we do), add <code>{}</code> after the opening set of backtick delimiters, and put the language in first. For example, a basic code chunk could look like</li>
+</ul>
+<p><img src="../_figures/qmd_basic_code_chunk.png" class="img-fluid"></p>
+<ul>
+<li>Chunk body: this is where you put the actual R code that you want to compute.</li>
+</ul>
+<p>Notice two more things: 1) code chunks are on a grey background so they are easier to spot in the document, and 2) you can test the code in the chunk by clicking the green “Run Current Chunk” button on the top right.</p>
+</section>
+<section id="markup-text" class="level3">
+<h3 class="anchored" data-anchor-id="markup-text">Markup Text</h3>
+<p>Now that you have a report with a header and some code, you need to explain what your code is doing and why. This is where the plain text comes in. Outside of a code chunk, type anything you want. You can even include pictures and tables. We will discuss these options, and the text formatting options, later.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Save the report. <strong>Mac Users:</strong> make sure you add <code>.qmd</code> to the end of the file name.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="render-your-report" class="level2">
+<h2 class="anchored" data-anchor-id="render-your-report">Render your Report</h2>
+<p>Now that you have saved the Quarto file, you can “Render” your report.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Render your report. This may require you to install some packages, so click “OK” on the installation popup.</p>
+</div>
+</div>
+<p><img src="../_figures/qmd_render.png" class="img-fluid"></p>
+<p>While your report is building, notice that the “Console” pane has a new tab called “Background Jobs”. If this tab isn’t already open, click on it. You should see the following (I’ve annotated some of the important components in blue):</p>
+<p><img src="../_figures/qmd_build_report.png" class="img-fluid"></p>
+<p>Note that the names of the code chunks appear in this build report, as well as their options. Any text that doesn’t include R code to evaluate is labelled as “ordinary text without R code”. We can also see the progress in percent on the right side of the report.</p>
+</section>
+<section id="inspect-the-final-product" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-the-final-product">Inspect the Final Product</h2>
+<p>Finally, we have a rendered report!</p>
+<p><img src="../_figures/qmd_first_knit_report.png" class="img-fluid"></p>
+<p>We can see how each of the components of the original <code>.qmd</code> file control the look of the report itself. We can see that the meta-data set the title, author, and date of the report. We can see how the typed text is formatted in the final report.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Compare the three code chunks and their options with what R code appears in the report. Can you explain what the code chunk options are doing?</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="building-your-own-report" class="level1">
+<h1>Building your Own Report</h1>
+<p>Now that we have seen the basic report, we can modify it to our needs. Remember, this is how you will turn in homework and projects for the remainder of the R portion of this course.</p>
+<section id="the-quarto-guide" class="level2">
+<h2 class="anchored" data-anchor-id="the-quarto-guide">The Quarto Guide</h2>
+<p>So that you don’t have to try to remember all of what we just covered in excruciating detail, there is a very handy website with all of the major points of today’s lesson: <a href="https://quarto.org/" class="uri">https://quarto.org/</a>.</p>
+</section>
+<section id="including-code-chunks" class="level2">
+<h2 class="anchored" data-anchor-id="including-code-chunks">Including Code Chunks</h2>
+<p>To construct your own report, you will need to create your own code chunks. The keyboard shortcut for this is <code>CTRL</code> + <code>Alt</code> + <code>I</code> on Windows, <code>CMD</code> + <code>Alt</code> + <code>I</code> on Mac. This will insert a basic code chunk with the R language selected. From there, you can name your chunk, add chunk options, and include code for R to execute. For chunk options, see Section 5 of the cheat sheet.</p>
+</section>
+<section id="annotating-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="annotating-your-work">Annotating your Work</h2>
+<p>Good code has good explanations. Whenever you write code, you should include explanations for why you are doing what you are doing. Good code should be readable, in the sense that someone who knows the language can look at the code and see <em>what</em> you are doing. However, no one but you knows exactly <em>why</em> you chose to do what you did in the way that you did it.</p>
+<p>As will most textual explanation, we often need to organize it, format it, and add supplemental figures and tables to explain it. Here are the rules for formatting your report:</p>
+<p><img src="../_figures/rmd_text_formatting_options.png" class="img-fluid"></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Make a Quarto report to include some of your notes from the past few lectures. Include:
+<ul>
+<li>code examples</li>
+<li>annotations for what you learned about the code you had to write</li>
+<li>an image of a meme that you find funny (look at the cheat sheet for how to include images) as a hyperlink</li>
+</ul></li>
+<li>Render your report as an <code>.html</code> document first, and check to see that your formatting is appropriate.</li>
+<li>Also render your report as a Word document. Note the slight changes in formatting.</li>
+</ol>
+</div>
+</div>
+<p>Congratulations! You are now well on your way to writing powerful and flexible scientific reports with Quarto.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Final Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Install the <code>tidyverse</code> package the same way you installed the <code>knitr</code> package above. (We need it for next class.)</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

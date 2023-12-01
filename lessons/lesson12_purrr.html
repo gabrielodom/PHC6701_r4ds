@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2023-04-10">
+
+<title>PHC 6701: R for Data Science - Lesson 12: Functional Iteration with purrr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 12: Functional Iteration with purrr</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link active">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#learning-resources" id="toc-learning-resources" class="nav-link" data-scroll-target="#learning-resources">Learning Resources</a></li>
+  </ul></li>
+  <li><a href="#review-vectors" id="toc-review-vectors" class="nav-link" data-scroll-target="#review-vectors">Review: Vectors</a></li>
+  <li><a href="#review-functions" id="toc-review-functions" class="nav-link" data-scroll-target="#review-functions">Review: Functions</a></li>
+  <li><a href="#functionals" id="toc-functionals" class="nav-link" data-scroll-target="#functionals">Functionals</a>
+  <ul class="collapse">
+  <li><a href="#an-example" id="toc-an-example" class="nav-link" data-scroll-target="#an-example">An Example</a></li>
+  </ul></li>
+  <li><a href="#applying-functions-to-vectors" id="toc-applying-functions-to-vectors" class="nav-link" data-scroll-target="#applying-functions-to-vectors">Applying Functions to Vectors</a>
+  <ul class="collapse">
+  <li><a href="#example-the-convergence-of-the-sample-mean" id="toc-example-the-convergence-of-the-sample-mean" class="nav-link" data-scroll-target="#example-the-convergence-of-the-sample-mean">Example: The Convergence of the Sample Mean</a></li>
+  <li><a href="#mapping-a-defined-function-to-values" id="toc-mapping-a-defined-function-to-values" class="nav-link" data-scroll-target="#mapping-a-defined-function-to-values">Mapping a Defined Function to Values</a></li>
+  <li><a href="#map-syntax" id="toc-map-syntax" class="nav-link" data-scroll-target="#map-syntax"><code>map()</code> Syntax</a></li>
+  </ul></li>
+  <li><a href="#the-split-apply-combine-strategy" id="toc-the-split-apply-combine-strategy" class="nav-link" data-scroll-target="#the-split-apply-combine-strategy">The Split-Apply-Combine Strategy</a>
+  <ul class="collapse">
+  <li><a href="#split-the-gapminder-data-by-country" id="toc-split-the-gapminder-data-by-country" class="nav-link" data-scroll-target="#split-the-gapminder-data-by-country">Split the Gapminder Data by Country</a></li>
+  <li><a href="#apply-a-method-to-each-countrys-data" id="toc-apply-a-method-to-each-countrys-data" class="nav-link" data-scroll-target="#apply-a-method-to-each-countrys-data">Apply a Method to Each Country’s Data</a></li>
+  <li><a href="#combine-the-results" id="toc-combine-the-results" class="nav-link" data-scroll-target="#combine-the-results">Combine the Results</a></li>
+  <li><a href="#example-back-to-tornados" id="toc-example-back-to-tornados" class="nav-link" data-scroll-target="#example-back-to-tornados">Example: Back to Tornados</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 12: Functional Iteration with purrr</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 10, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Control Flow in R</li>
+<li>Creating Functions</li>
+<li>Best Practices</li>
+<li>Function Scoping</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>In this lesson, we will cover the following:</p>
+<ol type="1">
+<li>Review vectors</li>
+<li>Review functions</li>
+<li>What are “Functionals”?</li>
+<li>Applying Functions to Vectors</li>
+<li>Split-Apply-Combine</li>
+</ol>
+<p>Because the point of this lesson is to meaningfully connect functions and vectors, we will review both concepts before adding new material.</p>
+<section id="learning-resources" class="level2">
+<h2 class="anchored" data-anchor-id="learning-resources">Learning Resources</h2>
+<p>This lesson borrows data from some material from Washington State University’s <a href="https://cougrstats.wordpress.com/2020/02/19/an-introduction-to-working-with-lists-using-purrr/">Department of Statistics</a>. The link to the zipped data (1.7Mb unzipped) is <a href="https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA" class="uri">https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA</a>.</p>
+<p>For this lesson, we will use a simple subset of the Gapminder data. Also, we will need the <code>tidyverse</code> again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("gapminder")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Download the compressed file from the link above; unzip it on your desktop.</li>
+<li>Rename the <code>data/</code> subdirectory in the folder above to <code>purrr_example_data/</code>; move it to your data folder for this class.</li>
+<li>Delete the compressed and unzipped folders from your desktop.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="review-vectors" class="level1">
+<h1>Review: Vectors</h1>
+<p>Recall that most of the data you see in R is a vector (either atomic or non-atomic) in some way. In math, vectors have a precise definition, but they are much more loosely defined in R: vectors are simply an ordered collection of objects, themselves in an object.</p>
+<p>We have atomic vectors:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have non-atomic vectors, including lists:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>me_ls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">forname =</span> <span class="st">"Gabriel"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">surname =</span> <span class="st">"Odom"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">35</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>me_ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$forname
+[1] "Gabriel"
+
+$surname
+[1] "Odom"
+
+$age
+[1] 35</code></pre>
+</div>
+</div>
+<p>and tibbles:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gapminder_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ℹ 1,694 more rows</code></pre>
+</div>
+</div>
+<p>All the elements of any vector can be accessed by their <strong>position</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>me_ls[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Gabriel"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gapminder_df[<span class="dv">1</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  country      year lifeExp
+  &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
+1 Afghanistan  1952    28.8</code></pre>
+</div>
+</div>
+<p>This idea of using position to access the elements of a vector is important for this lesson, and we will bring it up again shortly.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="review-functions" class="level1">
+<h1>Review: Functions</h1>
+<p>Last lesson we learned functions, how they work, and the best practices for writing them. Recall that functions have 3 main components:</p>
+<ul>
+<li>Name: object in the environment (Global Environment for example) that “holds” the code we write</li>
+<li>Arguments: inputs of the function; what does the user need to provide in order for the function to work</li>
+<li>Body: what the function does; that is, the code that we write</li>
+</ul>
+<p>We have written a few versions of a “data summary” function in the past. Here is one version, specifically designed for numeric data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MyNumericSummaryFun <span class="ot">&lt;-</span> <span class="cf">function</span>(x_num) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="fu">min</span>(x_num),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(x_num, <span class="fl">0.25</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(x_num),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(x_num),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(x_num, <span class="fl">0.75</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="fu">max</span>(x_num),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">StdDev =</span> <span class="fu">sd</span>(x_num),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(x_num)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Test</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">MyNumericSummaryFun</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+ 0.000000  2.500000  5.000000  5.000000  7.500000 10.000000  3.316625  5.000000 </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Identify the name, arguments, and body of the function above.</li>
+<li>If we need to remove missing values from the <code>x_num</code> vector, how could we modify the function above?</li>
+<li>Sketch out the documentation for this function.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="functionals" class="level1">
+<h1>Functionals</h1>
+<p>So far, we our interactions with functions have usually been to call them directly; that is,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">a_function</span>(input1, input2, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Functionals give us the ability to abstract this relationship between inputs, outputs, and the work done in between. Functionals are specific <em>helper functions</em> which take in another function as one of its arguments. So, our interaction with functionals looks more like one of these:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A Functional form</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">DO</span>(<span class="at">THIS =</span> a_function, <span class="at">TO =</span> <span class="fu">c</span>(input1, input2, ...), <span class="at">WITH =</span> {options})</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Another  Functional form</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">DO</span>(<span class="at">TO =</span> <span class="fu">c</span>(input1, input2, ...), <span class="at">THIS =</span> a_function, <span class="at">WITH =</span> {options})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the two sets of code above, the object <code>output</code> would probably contain the same information, but it might be in a different “form” (think about the <code>class()</code> function). Also, the ordering of the <code>THIS</code> (the function) and the <code>TO</code> (the function arguments) may be reversed, and sometimes the <code>WITH</code> options are mixed in with the function arguments (i.e., there isn’t a separation between the <code>TO</code> and <code>WITH</code> parts of the functional).</p>
+<section id="an-example" class="level2">
+<h2 class="anchored" data-anchor-id="an-example">An Example</h2>
+<p>Thankfully, before we get completely lost, we have actually seen something similar to a functional already. Let’s use the Gapminder data and find the 10 countries with the smallest maximum life expectancy:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gapminder_df <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">best_life_expectancy =</span> <span class="fu">max</span>(lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> best_life_expectancy, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   country          best_life_expectancy
+   &lt;fct&gt;                           &lt;dbl&gt;
+ 1 Sierra Leone                     42.6
+ 2 Angola                           42.7
+ 3 Afghanistan                      43.8
+ 4 Liberia                          46.0
+ 5 Rwanda                           46.2
+ 6 Mozambique                       46.3
+ 7 Guinea-Bissau                    46.4
+ 8 Nigeria                          47.5
+ 9 Congo, Dem. Rep.                 47.8
+10 Somalia                          48.2</code></pre>
+</div>
+</div>
+<p>Here, the <code>summarize()</code> function is like a functional. It says “find the life expectancy column, and take the maximum of it”; that is, it is similar to</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DO</span>(<span class="at">TO =</span> lifeExp, <span class="at">THIS =</span> <span class="fu">max</span>(), <span class="at">WITH =</span> {na.rm <span class="ot">=</span> <span class="cn">TRUE</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Functionals are functions which take in another function as one of its arguments.</strong>.</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="applying-functions-to-vectors" class="level1">
+<h1>Applying Functions to Vectors</h1>
+<p>Now that we have reviewed vectors, functions, and learned some basics of functionals, we can start <em>applying</em> our functions to our data. Recall that most objects in R are either functions or vectors. We saw that the FOR loop controller was capable of evaluating a function with each element of a vector (for instance, adding up all the values of a vector using a FOR loop). We also saw that, for most cases, R’s vectorised nature makes using FOR loops unnecessary.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Our task: APPLY (<em>functional</em>) a FUNCTION to EACH ELEMENT of a VECTOR</strong>.</p>
+</div>
+</div>
+<section id="example-the-convergence-of-the-sample-mean" class="level2">
+<h2 class="anchored" data-anchor-id="example-the-convergence-of-the-sample-mean">Example: The Convergence of the Sample Mean</h2>
+<p>During this, my 12th lesson in statistical computing, we will finally do a little bit of “traditional” statistics. Here is the general premise: the sample mean is an “unbiased” estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean goes to 0. To test this, we will first generate a medium-sized population from a random normal distribution (the <code>set.seed()</code> function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for reproducibility:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># if you change this number, you will get a different sample</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is the population mean (<span class="math inline">\(\mu\)</span>)?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(population)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.046198</code></pre>
+</div>
+</div>
+<section id="list-of-samples" class="level3">
+<h3 class="anchored" data-anchor-id="list-of-samples">List of Samples</h3>
+<p>Now, we want to take samples from the population, where each sample is bigger than the last (think of a snowball sampling design where the longer the study goes, the more people you can recruit). That is, we will start with a small batch of subjects (values from <code>population</code>), calculate the sample mean (<span class="math inline">\(\bar{x}\)</span>), add a few more subjects, calculate the sample mean again, and repeat this until our sample estimate of the mean gets close to the true (population) mean. Because each sample will be bigger than the last, we must use a <em>list</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>samples_ls <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0819 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0826 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0902 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>],</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0909 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0916 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>],</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0923 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>],</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_0930 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>],</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1007 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>],</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1014 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">75</span>],</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1021 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>],</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1028 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">125</span>],</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1104 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>],</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1111 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">175</span>],</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1118 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>],</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1125 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">250</span>],</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1202 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">300</span>],</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1209 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">400</span>],</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_1216 =</span> population[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>]</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-for-loop" class="level3">
+<h3 class="anchored" data-anchor-id="the-for-loop">The FOR Loop</h3>
+<p>Now that we have our samples, we need to find the mean of each. Will simply taking the mean work?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mean.default(samples_ls): argument is not numeric or logical:
+returning NA</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Unfortunately no. Based on what we learned previously about FOR loops, we can use one of those:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>nSamples <span class="ot">&lt;-</span> <span class="fu">length</span>(samples_ls)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sampleMeans <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, nSamples)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nSamples) {</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  sampleMeans[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(samples_ls[[i]])</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that we are using the <strong>position</strong> of the elements of the vector. These are the mean values we calculated:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sampleMeans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1.2676164 0.8670559 1.0341290 1.0765168 0.9988227 1.0788070 1.2401853
+ [8] 1.1795663 1.1853153 1.2451972 1.2386719 1.1591299 1.1271903 1.1452152
+[15] 1.1273959 1.0814062 1.1148737 1.0824608</code></pre>
+</div>
+</div>
+<p>How far are these from the true population mean? We set this loop up to fill values into a numeric vector, so we can use R’s vector power again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(mu <span class="sc">-</span> sampleMeans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.22141820 0.17914231 0.01206915 0.03031865 0.04737545 0.03260885
+ [7] 0.19398711 0.13336810 0.13911715 0.19899904 0.19247376 0.11293171
+[13] 0.08099210 0.09901700 0.08119775 0.03520808 0.06867550 0.03626262</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">lengths</span>(samples_ls), <span class="at">y =</span> <span class="fu">abs</span>(mu <span class="sc">-</span> sampleMeans), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson12_purrr_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="mapping-a-defined-function-to-values" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-a-defined-function-to-values">Mapping a Defined Function to Values</h2>
+<p>This code was quite cumbersome. We had to measure how long the list was, create an empty atomic vector to hold our results, and then write the FOR loop to iterate over each position in the list of samples. On top of all of this, we’ve added this useless <code>i</code> object to the Global Environment, and the FOR loop lost the names of the samples! There is a better way: the <code>map()</code> function from the <code>purrr</code> package (included in the <code>tidyverse</code>, so remember to load that package):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(samples_ls, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$sample_0819
+[1] 1.267616
+
+$sample_0826
+[1] 0.8670559
+
+$sample_0902
+[1] 1.034129
+
+$sample_0909
+[1] 1.076517
+
+$sample_0916
+[1] 0.9988227
+
+$sample_0923
+[1] 1.078807
+
+$sample_0930
+[1] 1.240185
+
+$sample_1007
+[1] 1.179566
+
+$sample_1014
+[1] 1.185315
+
+$sample_1021
+[1] 1.245197
+
+$sample_1028
+[1] 1.238672
+
+$sample_1104
+[1] 1.15913
+
+$sample_1111
+[1] 1.12719
+
+$sample_1118
+[1] 1.145215
+
+$sample_1125
+[1] 1.127396
+
+$sample_1202
+[1] 1.081406
+
+$sample_1209
+[1] 1.114874
+
+$sample_1216
+[1] 1.082461</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>This function does return the values we want, but it does so as a list. We would like an atomic vector. Check the help files for this function to find out what to change.</li>
+<li>While you are in the help file for <code>map()</code>, find out how to pass in a second argument to the <code>mean()</code> function. Set <code>na.rm = TRUE</code> and test it.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="map-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="map-syntax"><code>map()</code> Syntax</h2>
+<p>In order to use the <code>map()</code> function and its friends, follow the following syntax: <code>map(.x = VECTOR, .f = FUNCTION)</code>. That’s it. For example, to find the summary of each column in the <code>mpg</code> data set, type:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(mpg, summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$manufacturer
+   Length     Class      Mode 
+      234 character character 
+
+$model
+   Length     Class      Mode 
+      234 character character 
+
+$displ
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.600   2.400   3.300   3.472   4.600   7.000 
+
+$year
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1999    1999    2004    2004    2008    2008 
+
+$cyl
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.000   4.000   6.000   5.889   8.000   8.000 
+
+$trans
+   Length     Class      Mode 
+      234 character character 
+
+$drv
+   Length     Class      Mode 
+      234 character character 
+
+$cty
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   14.00   17.00   16.86   19.00   35.00 
+
+$hwy
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.00   18.00   24.00   23.44   27.00   44.00 
+
+$fl
+   Length     Class      Mode 
+      234 character character 
+
+$class
+   Length     Class      Mode 
+      234 character character </code></pre>
+</div>
+</div>
+<p>This example shows that the <code>summary()</code> function isn’t very helpful for character information. We are immediately motivated us to ask, “Can I write my own function for <code>map()</code> to use?” The answer is YES!</p>
+<section id="sample-means-with-map" class="level3">
+<h3 class="anchored" data-anchor-id="sample-means-with-map">Sample Means with <code>map()</code></h3>
+<p>Back to our first example, we still want to find out how close the sample mean gets to the population mean as we increase the sample size. For this, we write our own function to pass to <code>map()</code>. Recall the function constructor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the function</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>absMean <span class="ot">&lt;-</span> <span class="cf">function</span>(xBar_num, mu_num){</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abs</span>(<span class="fu">mean</span>(xBar_num) <span class="sc">-</span> mu_num)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Map it</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall that the help file says that additional arguments to the function</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   and their values are added after the function name.</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(sampleMeans, absMean, <span class="at">mu_num =</span> mu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.22141820 0.17914231 0.01206915 0.03031865 0.04737545 0.03260885
+ [7] 0.19398711 0.13336810 0.13911715 0.19899904 0.19247376 0.11293171
+[13] 0.08099210 0.09901700 0.08119775 0.03520808 0.06867550 0.03626262</code></pre>
+</div>
+</div>
+<p>For better or for worse, this matches the output of what we calculated using the FOR loop exactly.</p>
+</section>
+<section id="an-improved-summary" class="level3">
+<h3 class="anchored" data-anchor-id="an-improved-summary">An Improved <code>summary()</code></h3>
+<p>We saw that when we applied <code>summary()</code> to each column of a tibble, the character columns didn’t give us much information. We can then write our own summary function that prints the most common unique values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>MySummaryFun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.character</span>(x)){</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">table</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>()</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MyNumericSummaryFun</span>(x)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can apply it to the <code>mpg</code> data set:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(mpg, MySummaryFun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$manufacturer
+x
+     dodge     toyota volkswagen       ford  chevrolet       audi 
+        37         34         27         25         19         18 
+
+$model
+x
+        caravan 2wd ram 1500 pickup 4wd               civic   dakota pickup 4wd 
+                 11                  10                   9                   9 
+              jetta             mustang 
+                  9                   9 
+
+$displ
+     Min   Q1.25%   Median     Mean   Q3.75%      Max   StdDev      IQR 
+1.600000 2.400000 3.300000 3.471795 4.600000 7.000000 1.291959 2.200000 
+
+$year
+        Min      Q1.25%      Median        Mean      Q3.75%         Max 
+1999.000000 1999.000000 2003.500000 2003.500000 2008.000000 2008.000000 
+     StdDev         IQR 
+   4.509646    9.000000 
+
+$cyl
+     Min   Q1.25%   Median     Mean   Q3.75%      Max   StdDev      IQR 
+4.000000 4.000000 6.000000 5.888889 8.000000 8.000000 1.611534 4.000000 
+
+$trans
+x
+  auto(l4) manual(m5)   auto(l5) manual(m6)   auto(s6)   auto(l6) 
+        83         58         39         19         16          6 
+
+$drv
+x
+  f   4   r 
+106 103  25 
+
+$cty
+      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+ 9.000000 14.000000 17.000000 16.858974 19.000000 35.000000  4.255946  5.000000 
+
+$hwy
+      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+12.000000 18.000000 24.000000 23.440171 27.000000 44.000000  5.954643  9.000000 
+
+$fl
+x
+  r   p   e   d   c 
+168  52   8   5   1 
+
+$class
+x
+       suv    compact    midsize subcompact     pickup    minivan 
+        62         47         41         35         33         11 </code></pre>
+</div>
+</div>
+<p>It’s not terribly pretty (I am <em>not</em> a fan of the <code>table()</code> function), but it gives us a reasonable idea of what is going on in these columns.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Create a sequence of sample sizes from 5 to 500 by 5. Save this vector of sample sizes. <em>Hint: look up the help files for <code>sequence()</code>. You will find the function you need mentioned therein.</em></li>
+<li>Use the <code>map()</code> function combined with the sequence you just created to make a list of samples with increasing sizes from the <code>population</code> vector. Store it as another list of samples. This should make typing that list by hand obsolete.</li>
+<li>Use the <code>map_dbl()</code> function combined with the <code>absMean()</code> function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better?</li>
+<li>Find one of the statistics / biostatistics students and contrast this process with the idea of “repeated sampling”. What is different here? Why doesn’t the traditional <span class="math inline">\(n = 30\)</span> heuristic apply?</li>
+<li>Repeat the above process with the following modification: chain these operations together with pipes (<code>%&gt;%</code>).</li>
+</ol>
+</div>
+</div>
+<!-- You can also chain everything together, and then pass it it `ggplot`: -->
+<!-- ```{r} -->
+<!-- # Create a sequence of sample sizes -->
+<!-- seq(5, 100, by = 5) %>%  -->
+<!--   # Create a list of larger and larger samples from the population -->
+<!--   map(function(i) {population[1:i]}) %>% -->
+<!--   # Take the absolute deviation from the population mean -->
+<!--   map_dbl(absMean, mu_num = mu) %>% -->
+<!--   # Make it a tibble (required for ggplot) -->
+<!--   # The "." means "put the input from the pipe here" -->
+<!--   tibble(means = .) %>% -->
+<!--   # Add on a column for the index of the samples -->
+<!--   mutate(index = 1:nrow(.)) %>% -->
+<!--   # pass this new tibble with two columns to ggplot() -->
+<!--   ggplot() + -->
+<!--     aes(x = index, y = means) + -->
+<!--     geom_path() -->
+<!-- ``` -->
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="the-split-apply-combine-strategy" class="level1">
+<h1>The Split-Apply-Combine Strategy</h1>
+<p>Now that we have an understanding of how to <strong>map</strong> functions to the values of a vector, we will discuss a powerful technique in data science. Many times we have to deal with either 1) very large datasets (and our computers don’t have the memory to hold all the data at once), or 2) datasets with distinct sub-populations (and its not appropriate to estimate population statistics without taking these groupings into account). In these cases, we often employ the following steps:</p>
+<ol type="1">
+<li>Split the data into subgroups. If there are sub-populations, then use these natural splits. If we simply have too much data, then use random splits.</li>
+<li>Apply a statistical or machine learning method to each of the smaller data sets and save the results.</li>
+<li>Combine the saved results from each sub-analysis and report.</li>
+</ol>
+<p>We will walk through an example using the Gapminder data.</p>
+<section id="split-the-gapminder-data-by-country" class="level2">
+<h2 class="anchored" data-anchor-id="split-the-gapminder-data-by-country">Split the Gapminder Data by Country</h2>
+<p>The <code>split()</code> function is from base R. It takes in a tibble and breaks it into a <em>list</em> of tibbles by the elements of the column you specify (in this case, the column will be <code>country</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>countries_ls <span class="ot">&lt;-</span> <span class="fu">split</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> gapminder,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">f =</span> <span class="sc">~</span> country</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We are familiar with this data set, but let’s take a look at our split data anyway.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First 3 countries</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>countries_ls[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Afghanistan
+# A tibble: 12 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+11 Afghanistan Asia       2002    42.1 25268405      727.
+12 Afghanistan Asia       2007    43.8 31889923      975.
+
+$Albania
+# A tibble: 12 × 6
+   country continent  year lifeExp     pop gdpPercap
+   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+ 1 Albania Europe     1952    55.2 1282697     1601.
+ 2 Albania Europe     1957    59.3 1476505     1942.
+ 3 Albania Europe     1962    64.8 1728137     2313.
+ 4 Albania Europe     1967    66.2 1984060     2760.
+ 5 Albania Europe     1972    67.7 2263554     3313.
+ 6 Albania Europe     1977    68.9 2509048     3533.
+ 7 Albania Europe     1982    70.4 2780097     3631.
+ 8 Albania Europe     1987    72   3075321     3739.
+ 9 Albania Europe     1992    71.6 3326498     2497.
+10 Albania Europe     1997    73.0 3428038     3193.
+11 Albania Europe     2002    75.7 3508512     4604.
+12 Albania Europe     2007    76.4 3600523     5937.
+
+$Algeria
+# A tibble: 12 × 6
+   country continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Algeria Africa     1952    43.1  9279525     2449.
+ 2 Algeria Africa     1957    45.7 10270856     3014.
+ 3 Algeria Africa     1962    48.3 11000948     2551.
+ 4 Algeria Africa     1967    51.4 12760499     3247.
+ 5 Algeria Africa     1972    54.5 14760787     4183.
+ 6 Algeria Africa     1977    58.0 17152804     4910.
+ 7 Algeria Africa     1982    61.4 20033753     5745.
+ 8 Algeria Africa     1987    65.8 23254956     5681.
+ 9 Algeria Africa     1992    67.7 26298373     5023.
+10 Algeria Africa     1997    69.2 29072015     4797.
+11 Algeria Africa     2002    71.0 31287142     5288.
+12 Algeria Africa     2007    72.3 33333216     6223.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Operations on a specific country</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>countries_ls<span class="sc">$</span>Cameroon</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 6
+   country  continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;    &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Cameroon Africa     1952    38.5  5009067     1173.
+ 2 Cameroon Africa     1957    40.4  5359923     1313.
+ 3 Cameroon Africa     1962    42.6  5793633     1400.
+ 4 Cameroon Africa     1967    44.8  6335506     1508.
+ 5 Cameroon Africa     1972    47.0  7021028     1684.
+ 6 Cameroon Africa     1977    49.4  7959865     1783.
+ 7 Cameroon Africa     1982    53.0  9250831     2368.
+ 8 Cameroon Africa     1987    55.0 10780667     2603.
+ 9 Cameroon Africa     1992    54.3 12467171     1793.
+10 Cameroon Africa     1997    52.2 14195809     1694.
+11 Cameroon Africa     2002    49.9 15929988     1934.
+12 Cameroon Africa     2007    50.4 17696293     2042.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(countries_ls<span class="sc">$</span>Cameroon<span class="sc">$</span>lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 54.985</code></pre>
+</div>
+</div>
+</section>
+<section id="apply-a-method-to-each-countrys-data" class="level2">
+<h2 class="anchored" data-anchor-id="apply-a-method-to-each-countrys-data">Apply a Method to Each Country’s Data</h2>
+<p>Now, if we wanted to find country-specific summaries of life expectancy, we can:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>lifeExpSummary_ls <span class="ot">&lt;-</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Only show the first 5 for the example</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.x =</span> countries_ls,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.f =</span> <span class="st">"lifeExp"</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(MyNumericSummaryFun)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>lifeExpSummary_ls[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Afghanistan
+      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+28.801000 33.514250 39.146000 37.478833 41.696250 43.828000  5.098646  8.182000 
+
+$Albania
+      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+55.230000 65.870000 69.675000 68.432917 72.237500 76.423000  6.322911  6.367500 
+
+$Algeria
+     Min   Q1.25%   Median     Mean   Q3.75%      Max   StdDev      IQR 
+43.07700 50.63100 59.69100 59.03017 68.09600 72.30100 10.34007 17.46500 
+
+$Angola
+      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+30.015000 35.488750 39.694500 37.883500 40.726000 42.731000  4.005276  5.237250 
+
+$Argentina
+     Min   Q1.25%   Median     Mean   Q3.75%      Max   StdDev      IQR 
+62.48500 65.51100 69.21150 69.06042 72.21975 75.32000  4.18647  6.70875 </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>We wrote the function <code>MySummaryFun()</code> to be able to take the summary of any column, numeric or otherwise. Modify the code above so that we can find the summaries of ALL the columns within the data set specific to each country. Make sure your code works for just the first 5 countries.</p>
+</div>
+</div>
+</section>
+<section id="combine-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="combine-the-results">Combine the Results</h2>
+<p>We have a list of the numeric summaries of life expectancy for each of the 142 countries. Let’s combine these results. First, we check the class of the individual list elements:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(lifeExpSummary_ls[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>The elements of the vector are numeric. If we want to end up with a tibble that has one row for each country, then the elements should first be transformed to be a one-row tibble. Unfortunately, there is not a standard <code>as_*()</code> function that will turn a named numeric vector into a one-row tibble. However, (very confusingly) the <code>bind_rows()</code> function will turn a named atomic vector into a one-row tibble. Let’s test it out:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original named atomic vector</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>lifeExpSummary_ls<span class="sc">$</span>Afghanistan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Min    Q1.25%    Median      Mean    Q3.75%       Max    StdDev       IQR 
+28.801000 33.514250 39.146000 37.478833 41.696250 43.828000  5.098646  8.182000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibble with one row</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(lifeExpSummary_ls<span class="sc">$</span>Afghanistan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+    Min `Q1.25%` Median  Mean `Q3.75%`   Max StdDev   IQR
+  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1  28.8     33.5   39.1  37.5     41.7  43.8   5.10  8.18</code></pre>
+</div>
+</div>
+<p>Now that we know this will work for one country, we can add it into a pipeline for all the countries. Then, calling the <code>bind_rows()</code> function as we would expect, we will end up with a tibble with a row for each country and 8 columns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>lifeExpSummary_df <span class="ot">&lt;-</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  lifeExpSummary_ls <span class="sc">%&gt;%</span> </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(bind_rows) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="at">.id =</span> <span class="st">"country"</span>)</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>lifeExpSummary_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 9
+   country       Min `Q1.25%` Median  Mean `Q3.75%`   Max StdDev   IQR
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghanistan  28.8     33.5   39.1  37.5     41.7  43.8   5.10  8.18
+ 2 Albania      55.2     65.9   69.7  68.4     72.2  76.4   6.32  6.37
+ 3 Algeria      43.1     50.6   59.7  59.0     68.1  72.3  10.3  17.5 
+ 4 Angola       30.0     35.5   39.7  37.9     40.7  42.7   4.01  5.24
+ 5 Argentina    62.5     65.5   69.2  69.1     72.2  75.3   4.19  6.71
+ 6 Australia    69.1     71.1   74.1  74.7     77.9  81.2   4.15  6.82
+ 7 Austria      66.8     70.0   72.7  73.1     76.4  79.8   4.38  6.42
+ 8 Bahrain      50.9     59.2   67.3  65.6     72.9  75.6   8.57 13.8 
+ 9 Bangladesh   37.5     42.9   48.5  49.8     56.9  64.1   9.03 14.0 
+10 Belgium      68       70.8   73.4  73.6     76.7  79.4   3.78  5.96
+# ℹ 132 more rows</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<ol type="1">
+<li>In the last exercise, we found the summaries of <em>all</em> the features for each country (not just the numeric ones). Can these results be combined into a single tibble? Why or why not?</li>
+<li>Read the help file for the <code>bind_rows()</code> function. What does the <code>.id</code> argument do? Is this a default behaviour?</li>
+<li>Take the summary of life expectancy table above, and join it back to <code>gapminder_df</code> to add a column for the continent to our results. Plot a boxplot of the 75th percentile of life expectancy by continent.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="example-back-to-tornados" class="level2">
+<h2 class="anchored" data-anchor-id="example-back-to-tornados">Example: Back to Tornados</h2>
+<p>Finally, one of the most valuable applications of this technique is to import and analyze multiple data files all at once. As long as our computer is well organized, we can set a <code>map()</code> call to import all of the data files in a particular sub-directory. In the code below, you’ll need to change the file path to meet your own directory structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Review: how to import a single data set with readr::</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>tornados08_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"../_data/purrr_example_data/2008_torn.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1738 Columns: 29
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (1): st
+dbl  (26): om, yr, mo, dy, tz, stf, stn, mag, inj, fat, loss, closs, slat, s...
+date  (1): date
+time  (1): time
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a VECTOR of the names AND paths to the data sets</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>dataPaths_char <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"../_data/purrr_example_data/"</span>, </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dataPaths_char) <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"../_data/purrr_example_data/"</span>, </span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have a vector of the file paths to the tornadoes data, we can write a <code>map()</code> call that imports each data file as an element of a list of tibbles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>tornadoData_ls <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.x =</span> dataPaths_char,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f =</span> read_csv</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<ol type="1">
+<li>For each year, find the set of states where a tornado was recorded (the state abbreviations are in the column <code>st</code>).</li>
+<li>Is the output you got in the last question “professional”? (Probably not). Modify your code to:
+<ul>
+<li>Create a table of the number of tornados by state for each year</li>
+<li>Create a vector of the state abbreviations where a tornado occured for each year</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

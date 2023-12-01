@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-09-25">
+
+<title>PHC 6701: R for Data Science - Lesson 8: Importing Tidy Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 8: Importing Tidy Data</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link active">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#a-quick-comment-to-begin" id="toc-a-quick-comment-to-begin" class="nav-link" data-scroll-target="#a-quick-comment-to-begin">A Quick Comment to Begin…</a></li>
+  <li><a href="#example-data-food-stamp-usage-by-zip-code" id="toc-example-data-food-stamp-usage-by-zip-code" class="nav-link" data-scroll-target="#example-data-food-stamp-usage-by-zip-code">Example Data: Food Stamp Usage by ZIP Code</a></li>
+  </ul></li>
+  <li><a href="#reading-in-flat-csv-data" id="toc-reading-in-flat-csv-data" class="nav-link" data-scroll-target="#reading-in-flat-csv-data">Reading in Flat / CSV Data</a>
+  <ul class="collapse">
+  <li><a href="#the-readr-package" id="toc-the-readr-package" class="nav-link" data-scroll-target="#the-readr-package">The <code>readr</code> Package</a></li>
+  <li><a href="#read-a-.csv-file-with-read_csv" id="toc-read-a-.csv-file-with-read_csv" class="nav-link" data-scroll-target="#read-a-.csv-file-with-read_csv">Read a <code>.csv</code> File with <code>read_csv</code></a></li>
+  <li><a href="#read-a-tab-delimited-.txt-file-with-read_tsv" id="toc-read-a-tab-delimited-.txt-file-with-read_tsv" class="nav-link" data-scroll-target="#read-a-tab-delimited-.txt-file-with-read_tsv">Read a Tab-Delimited <code>.txt</code> File with <code>read_tsv</code></a></li>
+  </ul></li>
+  <li><a href="#tibbles-and-tidy-data" id="toc-tibbles-and-tidy-data" class="nav-link" data-scroll-target="#tibbles-and-tidy-data">Tibbles and Tidy Data</a>
+  <ul class="collapse">
+  <li><a href="#data-format-example-tuberculosis-cases" id="toc-data-format-example-tuberculosis-cases" class="nav-link" data-scroll-target="#data-format-example-tuberculosis-cases">Data Format Example: Tuberculosis Cases</a></li>
+  <li><a href="#what-is-tidy-data" id="toc-what-is-tidy-data" class="nav-link" data-scroll-target="#what-is-tidy-data">What is Tidy Data?</a></li>
+  <li><a href="#why-tidy-data" id="toc-why-tidy-data" class="nav-link" data-scroll-target="#why-tidy-data">Why Tidy Data</a></li>
+  </ul></li>
+  <li><a href="#writing-tibbles-to-flat-csv-data-files" id="toc-writing-tibbles-to-flat-csv-data-files" class="nav-link" data-scroll-target="#writing-tibbles-to-flat-csv-data-files">Writing Tibbles to Flat / CSV Data Files</a></li>
+  <li><a href="#aside-the-pipe-operator" id="toc-aside-the-pipe-operator" class="nav-link" data-scroll-target="#aside-the-pipe-operator">Aside: The Pipe Operator</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 8: Importing Tidy Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 25, 2019</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Lists</li>
+<li>Tibbles and Data Frames</li>
+<li>Positional Subsetting</li>
+<li>Relational Subsetting</li>
+<li>Named Subsetting</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>In this lesson, we will cover the following:</p>
+<ol type="1">
+<li>Find some raw data</li>
+<li>Reading in flat text / CSV files</li>
+<li>Tibbles and “tidy” data</li>
+<li>Writing flat text / CSV files</li>
+<li>The pipe (<code>%&gt;%</code>) operator</li>
+</ol>
+<section id="a-quick-comment-to-begin" class="level2">
+<h2 class="anchored" data-anchor-id="a-quick-comment-to-begin">A Quick Comment to Begin…</h2>
+<p>When you use the RStudio IDE, you have access to a point-and-click data import guide for data files in many different forms. Such forms include tab-seperated, fixed-width, .csv, Stata, SAS, SPSS, Excel, and many others. A word of caution: you should practice importing the your data with the <code>read_fwf()</code>, <code>read_delim</code>, or <code>read_csv</code> functions (from the <code>readr</code> package) using the point-and-click RStudio interface. At each import, copy the code you build in the interactive window into a script so that you can see how the functions work. Once you are familiar with how these functions treat your data, then you can start writing the <code>readr</code> functions directly within a script instead of using the point-and-click RStudio IDE importing steps.</p>
+<p>If you have never imported data before, this can be one of the most challenging tasks in data science. Also, read <a href="https://r4ds.had.co.nz/data-import.html">R4DS Chapter 11</a>, which covers importing data from a variety of sources. I have seen many problems in code because a tiny little piece of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don’t let this happen to you.</p>
+</section>
+<section id="example-data-food-stamp-usage-by-zip-code" class="level2">
+<h2 class="anchored" data-anchor-id="example-data-food-stamp-usage-by-zip-code">Example Data: Food Stamp Usage by ZIP Code</h2>
+<p>In order to plot food stamp usage by ZIP code, we first need data.</p>
+<section id="miami-dade-and-broward-county-zip-codes" class="level3">
+<h3 class="anchored" data-anchor-id="miami-dade-and-broward-county-zip-codes">Miami-Dade and Broward County ZIP Codes</h3>
+<p>All of the ZIP codes in Broward and Miami Data counties and are online: <a href="https://www.zip-codes.com/county/fl-broward.asp" class="uri">https://www.zip-codes.com/county/fl-broward.asp</a> and <a href="https://www.zip-codes.com/county/fl-miami-dade.asp" class="uri">https://www.zip-codes.com/county/fl-miami-dade.asp</a>, respectively. They are stored in tables that look like this: <img src="../_figures/r4ds_miamidade_ZIP_website_raw.PNG" class="img-fluid"></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>For Miami-Dade and Broward counties, go to the websites above, highlight all the data in the table, copy it, paste it into a basic text editor (like Notepad or TextEdit), and save it into your directory for this class in your “data” folder (or whatever you named the folder for your data).</p>
+</div>
+</div>
+<p>You will end up with a <code>.txt</code> file that should look like this: <img src="../_figures/r4ds_miamidade_ZIP_text_raw.PNG" class="img-fluid"></p>
+</section>
+<section id="food-stamps-by-zip-code" class="level3">
+<h3 class="anchored" data-anchor-id="food-stamps-by-zip-code">Food Stamps by ZIP Code</h3>
+<p>For data on households receiving Supplemental Nutrition Assistance Program (SNAP) benefits, we check with the US Census Bureau: <a href="https://data.census.gov/table" class="uri">https://data.census.gov/table</a></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise: Download SNAP Data by ZIP
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Download the ACS data on food stamp benefits by ZIP code (<strong>you may need to disable your pop-up blocker first</strong>):</p>
+<ol type="1">
+<li>Under the “Geography” Filter heading, choose the option labelled “ZIP Code Tabulation Area”. Select the state of Florida, then check the box “All 5-digit ZIP Code Tabulation Areas fully/partially within Florida”.</li>
+<li>Under the “Topics” Filter heading, choose the option labelled “Income and Poverty”. Click the “Income and Earnings” section of the menu, and check the box for “SNAP/Food Stamps”.</li>
+<li>You should see about 2 dozen resulting data table names. One of them (hopefully near the top) will be called “S2201FOOD STAMPS/SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM (SNAP)”. Click this table. The data preview pane will probably say “Table is too large to display”.</li>
+<li>Click “DOWNLOAD TABLE”, select the most recent year in the “Table Vintages” pop-up, and click “DOWNLOAD .CSV”. This will download a zipped file called <code>ACSST5Y2021.S2201_&lt;your current date and time&gt;.zip</code>.</li>
+<li>Unzip the folder, and rename it to <code>ACSST5Y2021_S2201/</code>. There are three files in this folder:
+<ul>
+<li><code>ACSST5Y2021.S2201-Column-Metadata.csv</code></li>
+<li><code>ACSST5Y2021.S2201-Data.csv</code></li>
+<li><code>ACSST5Y2021.S2201-Table-Notes.txt</code></li>
+</ul></li>
+<li>Save it into your directory for this class in your <code>data/</code> folder (or whatever you named the folder for your data).</li>
+</ol>
+</div>
+</div>
+<p>The first few rows and columns of the data file should look like this:<br>
+<img src="../_figures/r4ds_ACS_survey_header_2023.png" class="img-fluid"></p>
+<p>Notice that the <code>NAME</code> column contains the ZIP codes.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="reading-in-flat-csv-data" class="level1">
+<h1>Reading in Flat / CSV Data</h1>
+<p>We finally have some raw data files on our data directory: two <code>.txt</code> files and one <code>.csv</code> file. While there are purely command-driven importing tools in R, we will discuss importing data with the RStudio (integrated development environment) IDE (graphical user interface) GUI first. In the top-right pane of the IDE, there is a menu of buttons to import different types of data.</p>
+<p><img src="../_figures/r4ds_import_data_menu.PNG" class="img-fluid"></p>
+<p>Notice that we can import Excel, SAS, Stata, or SPSS data files, or we can import any text-based file with the <code>From Text (readr)...</code> button.</p>
+<section id="the-readr-package" class="level2">
+<h2 class="anchored" data-anchor-id="the-readr-package">The <code>readr</code> Package</h2>
+<p>The <code>readr</code> package (<a href="https://cran.r-project.org/web/packages/readr/README.html" class="uri">https://cran.r-project.org/web/packages/readr/README.html</a> is the data import package of the <code>tidyverse</code>. If you want a good overview of how to use this package, read Chapter 11 of R4DS. We’ll load the <code>tidyverse</code> package suite now.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="package-goals" class="level3">
+<h3 class="anchored" data-anchor-id="package-goals">Package Goals</h3>
+<p>The <code>readr</code> package has three main goals:</p>
+<ol type="1">
+<li>Be faster than the <code>base::</code> package reading functions (<code>read.csv</code>, <code>read.delim</code>, <code>read.fwf</code>, etc.).</li>
+<li>Import data as a tibble, so that we don’t get hung up on character / factor conversion and we don’t mess up row and column names. For more on the tibble object, read their vignette: <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a></li>
+<li>Operate similarly on all operating systems.</li>
+</ol>
+</section>
+<section id="the-main-functions" class="level3">
+<h3 class="anchored" data-anchor-id="the-main-functions">The Main Function(s)</h3>
+<p>There is one main file-reading function in the <code>readr</code> package, and two extensions of this function for commonly-occuring data formats (there are obviously more functions than just these three, but knowing how two of these three work will help you import the majority of data files you will see in practice).</p>
+<ol type="1">
+<li><code>read_delim</code>: read any text-based delimited file into <code>R</code> as a tibble.</li>
+<li><code>read_csv</code>: an extension of <code>read_delim</code> designed to make reading <code>.csv</code> files easy.</li>
+<li><code>read_tsv</code>: an extension of <code>read_delim</code> designed to make reading tab-delimited <code>.txt</code> files easy.</li>
+</ol>
+<p>Because these functions import data as a tibble (“table” + “data frame”), you should try to store data files such that each entry of a column is of the same atomic type (all character, numeric, logical, etc.).</p>
+</section>
+</section>
+<section id="read-a-.csv-file-with-read_csv" class="level2">
+<h2 class="anchored" data-anchor-id="read-a-.csv-file-with-read_csv">Read a <code>.csv</code> File with <code>read_csv</code></h2>
+<p>In the “Import Dataset” drop-down menu, select <code>From Text (readr)...</code>. In the “Import Text Data” pop-up window, click “Browse” to find and open your data. If you are using an RStudio project, then the “Browse” file finder should open directly to your directory for this class, and the data directory where you saved all three data files should be visible. Select the ACS data <code>.csv</code> file and click “Open”. You should see this window:</p>
+<p><img src="../_figures/r4ds_import_ACS_survey_2023.png" class="img-fluid"></p>
+<p>There is a lot of stuff going on in this window! Let’s unpack all of our options:</p>
+<ul>
+<li><p>The “Data Preview” pane shows you an Excel-style view of the first few rows and columns of your data:</p>
+<ul>
+<li>The column names were imported correctly.</li>
+<li>The <code>readr</code> package identifies the data type for each column by looking at the first 1000 rows.</li>
+<li>The down-arrow next to the column name lets you manually override <code>readr</code>’s best guess for the column data type, as well as include, skip, or include only the column:</li>
+</ul>
+<p><img src="../_figures/r4ds_import_column_options.PNG" class="img-fluid"></p></li>
+<li><p>The “Import Options” pane allows you more direct control over <em>how</em> the data file is imported:</p>
+<ul>
+<li>“Name” — what name do you want to give the data tibble in the working directory? Often, the file itself has a long name, so it’s better to name the tibble saved in your <code>R</code> environment a shorthand version.</li>
+<li>“Skip” — skip reading the first rows of the file. This is helpful if you have metadata in the first few rows of the file, and the data itself doesn’t start until later. <strong>NOTE: we will have to set <code>skip = 1</code> for this data.</strong></li>
+<li>Check Box Options — these do what they say they do.</li>
+<li>“Delimiter: Comma” — this drop-down menu allows you to switch among commas, tabs, semicolons, white space, or other delimiters. The <code>readr</code> package correctly identified that our <code>.csv</code> file was comma-delimited.</li>
+<li>“NA” — how are missing values coded in your data? The drop-down menu has only a few options, but have more flexibility by interacting with the code itself (more on that in the next lesson).</li>
+</ul></li>
+<li><p>The “Code Preview” pane shows you the results of all of the options you specified. Here is what the “Import Options” and “Code Preview” panes look like for the ACS SNAP <code>.csv</code> data:</p></li>
+</ul>
+<p><img src="../_figures/r4ds_import_options_ACS_2023.png" class="img-fluid"> <img src="../_figures/r4ds_import_codepreview_ACS_2023.png" class="img-fluid"></p>
+<p>The “Code Preview” pane shows what code will be ran automatically when I click the “Import” button in that window. Specifically, I’ve named the incoming data object <code>FL_allZIPs</code>, and I’ve turned off the automatic <code>View()</code> command. Also, notice that because <code>readr</code> identified that the data file was a <code>.csv</code> file, the <code>read_csv()</code> function was selected automatically. We click “Import” and this code runs for us:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>FL_allZIPs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../_data/ACSST5Y2021_S2201/ACSST5Y2021.S2201-Data.csv"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+Rows: 1013 Columns: 459
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: "," chr
+(236): Geography, Geographic Area Name, Estimate!!Total!!Households!!HOU... dbl
+(222): Estimate!!Total!!Households, Margin of Error!!Total!!Households, ... lgl
+(1): ...459
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+• `` -&gt; `...459`</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Import the SNAP data into R.</p>
+</div>
+</div>
+</section>
+<section id="read-a-tab-delimited-.txt-file-with-read_tsv" class="level2">
+<h2 class="anchored" data-anchor-id="read-a-tab-delimited-.txt-file-with-read_tsv">Read a Tab-Delimited <code>.txt</code> File with <code>read_tsv</code></h2>
+<p>Now that we have a decent idea of how the <code>read_csv</code> function works, we can easily read in the Miami-Dade and Broward ZIP code files with the <code>read_tsv</code> function—it has the same syntax! <em>Note: you will have to change the file path to match where your data is stored; mine is stored in a subfolder called <code>_data/</code>.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>miamidade_ZIPs <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../_data/miamidade_ZIP_codes.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 127 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (5): ZIP Code, Classification, City, Timezone, Area Code(s)
+num (1): Population
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>broward_ZIPs <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../_data/broward_ZIP_codes.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 88 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (5): ZIP Code, Classification, City, Timezone, Area Code(s)
+num (1): Population
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Notice the messages <code>readr</code> gives us when importing data: all the columns (except for population) were imported as character columns.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Import the Miami-Dade and Broward county ZIP code data into R.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Looking ahead…
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Looking ahead">
+<p>Notice that the ZIP code column in the Miami-Dade and Broward data sets do not exactly match the ZIP code column in the ACS SNAP data. In order to match these data sets, we will need tools that help us deal with tibbles (coming up in the <code>dplyr</code> lesson) and tools that help us deal with character strings (coming up in the <code>stringr</code> lesson). We will see these data sets again.</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="tibbles-and-tidy-data" class="level1">
+<h1>Tibbles and Tidy Data</h1>
+<p>So far this semester, we have seen and used data in a tidy form (recall the <code>mpg</code> dataset), but we have had very little discussion of <em>what</em> this form entails and <em>why</em> it is important. We draw our information from <em>R for Data Science</em>, chapter 12.</p>
+<section id="data-format-example-tuberculosis-cases" class="level2">
+<h2 class="anchored" data-anchor-id="data-format-example-tuberculosis-cases">Data Format Example: Tuberculosis Cases</h2>
+<p>Consider data with counts of tuberculosis (TB) cases for three countries measured over a single 10-year interval. What could our data look like?</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>Year</th>
+<th>Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Afghanistan”</td>
+<td>1999</td>
+<td>“745/19987071”</td>
+</tr>
+<tr class="even">
+<td>“Afghanistan”</td>
+<td>2000</td>
+<td>“2666/20595360”</td>
+</tr>
+<tr class="odd">
+<td>“Brazil”</td>
+<td>1999</td>
+<td>“37737/172006362”</td>
+</tr>
+<tr class="even">
+<td>“Brazil”</td>
+<td>2000</td>
+<td>“80488/174504898”</td>
+</tr>
+<tr class="odd">
+<td>“China”</td>
+<td>1999</td>
+<td>“212258/1272915272”</td>
+</tr>
+<tr class="even">
+<td>“China”</td>
+<td>2000</td>
+<td>“213766/1280428583”</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that this table has all the information we need: the name of the country, the year of the demograpic measurement, the number of TB cases in that year for each country, and the total population in the country at that time. The data is in a good format for humans. However, the information in this data is not immediately accesible by the <em>computer</em>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Discuss with your neighbour about why this data may not be useful to us in R.</li>
+<li>Why are the rate values in quotes?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="what-is-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-tidy-data">What is Tidy Data?</h2>
+<p>Before we try to “tidy up” the data set above, we need a grammar for data. Specifically, mathematical convention holds that (if you would like the justification for these rules, please see <a href="https://www.doi.org/10.18637/jss.v059.i10">Wickham (2014)</a>):</p>
+<ul>
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ul>
+<p>Visually, tidy data has this form:</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" class="img-fluid"></p>
+<section id="tidy-the-tb-data" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-the-tb-data">Tidy the TB Data</h3>
+<p>Now that we have some rules, we can tidy up the TB data. Honestly, it was already pretty close; we simply need to split the “Rate” column into its numerator and denominator (this allows us to remove the quotes):</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>Year</th>
+<th>Cases</th>
+<th>Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Afghanistan”</td>
+<td>1999</td>
+<td>745</td>
+<td>19987071</td>
+</tr>
+<tr class="even">
+<td>“Afghanistan”</td>
+<td>2000</td>
+<td>2666</td>
+<td>20595360</td>
+</tr>
+<tr class="odd">
+<td>“Brazil”</td>
+<td>1999</td>
+<td>37737</td>
+<td>172006362</td>
+</tr>
+<tr class="even">
+<td>“Brazil”</td>
+<td>2000</td>
+<td>80488</td>
+<td>174504898</td>
+</tr>
+<tr class="odd">
+<td>“China”</td>
+<td>1999</td>
+<td>212258</td>
+<td>1272915272</td>
+</tr>
+<tr class="even">
+<td>“China”</td>
+<td>2000</td>
+<td>213766</td>
+<td>1280428583</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="why-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="why-tidy-data">Why Tidy Data</h2>
+<p>Most of my work as a data scientist is extracting or cleaning data. As such, here are the reasons I use the tidy data format:</p>
+<ol type="1">
+<li>It is mathematically consistent. When we perform calculations with statistics, the notation of matrix algebra and calculus assume that the observations are in the rows of a matrix while the measurements are in its columns.</li>
+<li>Keeping the same structure for all raw data means I don’t waste time re-writing code to work with data in different formats. If I write code that works for one data set, it will usually work for another data set with only slight modifications.</li>
+<li>Storing measurements in columns of a tibble means that R treats the data set as a vector of atomic vectors (recall that a tibble is actually a list, and as such it is a non-atomic vector of other vectors). Because of this, we get to take advantages of R’s strength as a vectorised language.</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="writing-tibbles-to-flat-csv-data-files" class="level1">
+<h1>Writing Tibbles to Flat / CSV Data Files</h1>
+<p>While the county ZIP code data sets are both in flat text files, we may want to save them as CSV files for future use. If the function <code>read_csv()</code> <strong>reads</strong> in (or <em>imports</em>) a <code>.csv</code> file as a tibble object, then <code>write_csv()</code> should <strong>write</strong> a tibble object to a <code>.csv</code> file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> miamidade_ZIPs, <span class="at">file =</span> <span class="st">"../_data/miamidade_ZIP_codes.csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> broward_ZIPs, <span class="at">file =</span> <span class="st">"../_data/broward_ZIP_codes.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Check the directory for the files that you wrote. Did these CSV files write correctly?</li>
+<li>Inspect the help file for <code>write_csv()</code> and <code>write_delim()</code>. What are some of the other file formats you can save your data in?</li>
+<li>Can you think of a situation where using comma as the delimiter would not be a good idea?</li>
+<li>For next class, install the <code>nycflights13</code> package.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="aside-the-pipe-operator" class="level1">
+<h1>Aside: The Pipe Operator</h1>
+<p>When writing scripts, I strongly recommend the use of the <code>%&gt;%</code> (pipe) operator (from the <a href="https://magrittr.tidyverse.org/articles/magrittr.html">magrittr</a> package—included in <code>dplyr</code> and the <code>tidyverse</code>). Pipe operators turn</p>
+<p><span class="math display">\[
+f(g(h(j(k(y, e), d), c), b), a)
+\]</span></p>
+<p>into</p>
+<p><span class="math display">\[
+y \mapsto k(.,e) \mapsto j(.,d) \mapsto h(.,c) \mapsto g(.,b) \mapsto f(.,a),
+\]</span></p>
+<p>which turns into the following code:</p>
+<pre><code>y %&gt;% k(e) %&gt;% j(d) %&gt;% h(c) %&gt;% g(b) %&gt;% f(a).</code></pre>
+<p>You get the pipe operator any time you load the <code>tidyverse</code> package suite. Insert a pipe in your code with the keyboard <code>Ctrl</code> + <code>Shift</code> + <code>M</code> (Windows) or <code>Cmd</code> + <code>Shift</code> + <code>M</code> (Mac).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># These two commands are identical:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">1</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> <span class="fu">t.test</span>(<span class="at">mu =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The operations are then considerably easier to follow. Consider the following code (from a nice <a href="https://uc-r.github.io/pipe">University of Cincinnati article</a>), before and after the use of the pipe operator:</p>
+<pre><code># Before
+sum(select(filter(babynames,sex=="M",name=="Taylor"),n))
+
+# After
+babynames %&gt;%
+  filter(sex == "M", name == "Taylor") %&gt;%
+  select(n) %&gt;%
+  sum()</code></pre>
+<p>The pipe operator makes chained or nested code much easier to read. However, this clarity comes with a drawback: the pipe operator uses <a href="http://adv-r.had.co.nz/Computing-on-the-language.html">non-standard evaluation</a>, which means that <em>development</em> with the pipe operator <a href="https://bookdown.org/rdpeng/RProgDA/non-standard-evaluation.html">can be more challenging</a>. However, do not let this discourage you from using the pipe operator in your scripts.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<p>Install and load the <code>nycflights13</code> package. Re-write the following code with the pipe operator (<em>we will learn what this code actually does next lesson, so don’t worry about it for now</em>):</p>
+<pre><code>arrange(mutate(summarise(group_by(flights, dest), delay = mean(arr_delay, na.rm = TRUE)), resid_delay = delay - mean(delay, na.rm = TRUE)), resid_delay)</code></pre>
+<p>Confirm that the results before and after are the same.</p>
+</div>
+</div>
+<!-- > 2. Re-compose the following functions by removing the pipe operator: -->
+<!-- ``` -->
+<!-- flights %>% -->
+<!--   filter(month == 1, day == 1) %>%  -->
+<!--   select(-year, -month, -day) -->
+<!-- ``` -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

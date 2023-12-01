@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom, Catalina Cañizares, and Posit Contributors">
+<meta name="dcterms.date" content="2022-07-07">
+
+<title>PHC 6701: R for Data Science - Lesson 10: Wrangling Character Strings with stringr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 10: Wrangling Character Strings with stringr</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link active">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#more-about-this-lesson" id="toc-more-about-this-lesson" class="nav-link" data-scroll-target="#more-about-this-lesson">More About this Lesson</a></li>
+  <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data">Example Data</a></li>
+  </ul></li>
+  <li><a href="#string-matching" id="toc-string-matching" class="nav-link" data-scroll-target="#string-matching">String Matching</a>
+  <ul class="collapse">
+  <li><a href="#functions-to-know" id="toc-functions-to-know" class="nav-link" data-scroll-target="#functions-to-know">Functions to Know</a></li>
+  <li><a href="#finding-matches" id="toc-finding-matches" class="nav-link" data-scroll-target="#finding-matches">Finding Matches</a></li>
+  <li><a href="#counting-matches" id="toc-counting-matches" class="nav-link" data-scroll-target="#counting-matches">Counting Matches</a></li>
+  </ul></li>
+  <li><a href="#modifying-strings" id="toc-modifying-strings" class="nav-link" data-scroll-target="#modifying-strings">Modifying Strings</a>
+  <ul class="collapse">
+  <li><a href="#functions-to-know-1" id="toc-functions-to-know-1" class="nav-link" data-scroll-target="#functions-to-know-1">Functions to Know</a></li>
+  <li><a href="#replacing-one-pattern-with-another" id="toc-replacing-one-pattern-with-another" class="nav-link" data-scroll-target="#replacing-one-pattern-with-another">Replacing one Pattern with Another</a></li>
+  <li><a href="#removing-characters-that-match-a-pattern" id="toc-removing-characters-that-match-a-pattern" class="nav-link" data-scroll-target="#removing-characters-that-match-a-pattern">Removing Characters that Match a Pattern</a></li>
+  <li><a href="#changing-case" id="toc-changing-case" class="nav-link" data-scroll-target="#changing-case">Changing Case</a></li>
+  </ul></li>
+  <li><a href="#substring-extraction" id="toc-substring-extraction" class="nav-link" data-scroll-target="#substring-extraction">Substring Extraction</a>
+  <ul class="collapse">
+  <li><a href="#functions-to-know-2" id="toc-functions-to-know-2" class="nav-link" data-scroll-target="#functions-to-know-2">Functions to Know</a></li>
+  <li><a href="#substrings-by-position" id="toc-substrings-by-position" class="nav-link" data-scroll-target="#substrings-by-position">Substrings by Position</a></li>
+  <li><a href="#substrings-by-pattern" id="toc-substrings-by-pattern" class="nav-link" data-scroll-target="#substrings-by-pattern">Substrings by Pattern</a></li>
+  </ul></li>
+  <li><a href="#trim-and-pad-strings" id="toc-trim-and-pad-strings" class="nav-link" data-scroll-target="#trim-and-pad-strings">Trim and Pad Strings</a>
+  <ul class="collapse">
+  <li><a href="#functions-to-know-3" id="toc-functions-to-know-3" class="nav-link" data-scroll-target="#functions-to-know-3">Functions to Know</a></li>
+  <li><a href="#string-lengths" id="toc-string-lengths" class="nav-link" data-scroll-target="#string-lengths">String Lengths</a></li>
+  <li><a href="#trimming-strings" id="toc-trimming-strings" class="nav-link" data-scroll-target="#trimming-strings">Trimming Strings</a></li>
+  <li><a href="#padding-strings" id="toc-padding-strings" class="nav-link" data-scroll-target="#padding-strings">Padding Strings</a></li>
+  </ul></li>
+  <li><a href="#modifying-strings-in-tibbles" id="toc-modifying-strings-in-tibbles" class="nav-link" data-scroll-target="#modifying-strings-in-tibbles">Modifying Strings in Tibbles</a>
+  <ul class="collapse">
+  <li><a href="#example-plotting-participant-heights" id="toc-example-plotting-participant-heights" class="nav-link" data-scroll-target="#example-plotting-participant-heights">Example: Plotting Participant Heights</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 10: Wrangling Character Strings with stringr</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom, Catalina Cañizares, and Posit Contributors </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 7, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>Subset Rows with <code>filter()</code></li>
+<li>Sort Rows with <code>arrange()</code></li>
+<li>Select and Move Columns with <code>select()</code></li>
+<li>Create New Columns with <code>mutate()</code></li>
+<li>Grouping and Group Summaries with <code>group_by()</code> and <code>summarise()</code></li>
+<li>Using <code>*_join()</code> to Merge Tibbles</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>In this lesson, we will cover the following:</p>
+<ol type="1">
+<li>String Matching</li>
+<li>Modifying Strings</li>
+<li>Substring Extraction</li>
+<li>Trim and Pad Strings</li>
+</ol>
+<section id="more-about-this-lesson" class="level2">
+<h2 class="anchored" data-anchor-id="more-about-this-lesson">More About this Lesson</h2>
+<p>The original version of this material was largely from my memory and what Catalina and I needed to solve some problems, but “version 2” was restructured to draw from the training materials here: <a href="https://rstudio.github.io/cheatsheets/html/strings.html" class="uri">https://rstudio.github.io/cheatsheets/html/strings.html</a>. The cool thing about the <code>stringr</code> package is that all of the functions start with <code>str_</code>. This means that you can more easily find helpful string functions. Also, as with all of the packages in the <code>tidyverse</code>, the <code>stringr</code> package comes with a nice cheat sheet: <a href="https://rstudio.github.io/cheatsheets/strings.pdf" class="uri">https://rstudio.github.io/cheatsheets/strings.pdf</a>.</p>
+</section>
+<section id="example-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-data">Example Data</h2>
+<p>We will use two data sets as examples in this lesson, one easy and one complex.</p>
+<ul>
+<li>Easy: the <code>fruit</code> object from the <code>stringr</code> package. This is a simple character vector of names of different fruits. This small data set comes automatically with the Tidyverse.</li>
+<li>Medium: the <code>sentences</code> object from the <code>stringr</code> package. This contains the 720 <a href="https://en.wikipedia.org/wiki/Harvard_sentences">Harvard Sentences</a> for North American English voice identification. This data set also comes automatically with the Tidyverse.</li>
+<li>Complex: the <code>outcomesCTN0094</code> data frame, with column <code>usePatternUDS</code>, from the <code>CTNote</code> package. For more information about the character string in this data set, see <a href="https://doi.org/10.1371/journal.pone.0291248">Odom et al.&nbsp;(2023)</a>. Install this package via (make sure to uncomment the install line the first time you run it)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("CTNote")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CTNote)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"outcomesCTN0094"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Inspect the vector <code>fruit</code>.</li>
+<li>Inspect first 20 elements of the vector <code>sentences</code>.</li>
+<li>Create a smaller version of the <code>outcomesCTN0094</code> tibble with the following columns: <code>who</code>, <code>usePatternUDS</code>, and <code>ctn0094_relapse_time</code>. Save it as an object in your Global environment called <code>outcome_df</code>.</li>
+</ol>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="string-matching" class="level1">
+<h1>String Matching</h1>
+<section id="functions-to-know" class="level2">
+<h2 class="anchored" data-anchor-id="functions-to-know">Functions to Know</h2>
+<ul>
+<li><code>str_detect()</code>: detect the presence/absence of a matching pattern</li>
+<li><code>str_count()</code>: count number of times a matching pattern appears in a string</li>
+</ul>
+</section>
+<section id="finding-matches" class="level2">
+<h2 class="anchored" data-anchor-id="finding-matches">Finding Matches</h2>
+<p>In the <code>fruit</code> vector, we may want to find which fruit names have the word “berry” or “berries” in them, then print those names. Because I want to detect both, I have two options.</p>
+<p>Option 1: the character intersection of “berry” and “berries”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical vector to indicate which strings have the matching pattern</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+[37] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+[73]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the names of the fruits which have the matching pattern</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fruit[ <span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berr"</span>) ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
+ [6] "cranberry"   "elderberry"  "goji berry"  "gooseberry"  "huckleberry"
+[11] "mulberry"    "raspberry"   "salal berry" "strawberry" </code></pre>
+</div>
+</div>
+<p>Option 2: using an “OR” statement (the <code>|</code> symbol):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical vector to indicate which strings have the matching pattern</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berry|berries"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+[37] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+[73]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the names of the fruits which have the matching pattern</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fruit[ <span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berry|berries"</span>) ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
+ [6] "cranberry"   "elderberry"  "goji berry"  "gooseberry"  "huckleberry"
+[11] "mulberry"    "raspberry"   "salal berry" "strawberry" </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Find all the fruits with the word “fruit” in the name.</p>
+</div>
+</div>
+</section>
+<section id="counting-matches" class="level2">
+<h2 class="anchored" data-anchor-id="counting-matches">Counting Matches</h2>
+<p>In the <code>outcome_df</code> data set each symbol in the column <code>usePatternUDS</code> represents the patient status during the routine weekly clinic visit. The <code>o</code> symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>outcome_df<span class="sc">$</span>usePatternUDS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_count</span>(<span class="at">pattern =</span> <span class="st">"o"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 15  7 21  3 15 14 20 25 22  3  6  6 11 19 25  6  0 25  7 25</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Missing 3 clinic visits in a row is often a strong prognostic signal for a negative health outcome. Count the number of times per participant that the pattern “ooo” is seen. Use the first 20 patients only.</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="modifying-strings" class="level1">
+<h1>Modifying Strings</h1>
+<section id="functions-to-know-1" class="level2">
+<h2 class="anchored" data-anchor-id="functions-to-know-1">Functions to Know</h2>
+<ul>
+<li><code>str_replace()</code> / <code>str_replace_all()</code>: replace the first/all matches of a pattern in a string with new text</li>
+<li><code>str_remove()</code> / <code>str_remove_all</code>: remove the first/all matches of a pattern in a string</li>
+<li><code>str_to_lower()</code> / <code>str_to_upper()</code>: convert a string to lower case/UPPER CASE</li>
+</ul>
+</section>
+<section id="replacing-one-pattern-with-another" class="level2">
+<h2 class="anchored" data-anchor-id="replacing-one-pattern-with-another">Replacing one Pattern with Another</h2>
+<p>In the <code>fruit</code> vector, we could replace all the vowels with upper case letters to help children identify vowels within words. Recall that <code>str_replace()</code> only replaces the <strong>first</strong> match in the character string, so we will use <code>str_replace_all()</code>. This will give an example of piping multiple string commands together (which is often how we perform string manipulation).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">"a"</span>, <span class="at">replacement =</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">"e"</span>, <span class="at">replacement =</span> <span class="st">"E"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">"i"</span>, <span class="at">replacement =</span> <span class="st">"I"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">"o"</span>, <span class="at">replacement =</span> <span class="st">"O"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">"u"</span>, <span class="at">replacement =</span> <span class="st">"U"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ApplE"             "AprIcOt"           "AvOcAdO"          
+ [4] "bAnAnA"            "bEll pEppEr"       "bIlbErry"         
+ [7] "blAckbErry"        "blAckcUrrAnt"      "blOOd OrAngE"     
+[10] "blUEbErry"         "bOysEnbErry"       "brEAdfrUIt"       
+[13] "cAnAry mElOn"      "cAntAlOUpE"        "chErImOyA"        
+[16] "chErry"            "chIlI pEppEr"      "clEmEntInE"       
+[19] "clOUdbErry"        "cOcOnUt"           "crAnbErry"        
+[22] "cUcUmbEr"          "cUrrAnt"           "dAmsOn"           
+[25] "dAtE"              "drAgOnfrUIt"       "dUrIAn"           
+[28] "EggplAnt"          "EldErbErry"        "fEIjOA"           
+[31] "fIg"               "gOjI bErry"        "gOOsEbErry"       
+[34] "grApE"             "grApEfrUIt"        "gUAvA"            
+[37] "hOnEydEw"          "hUcklEbErry"       "jAckfrUIt"        
+[40] "jAmbUl"            "jUjUbE"            "kIwI frUIt"       
+[43] "kUmqUAt"           "lEmOn"             "lImE"             
+[46] "lOqUAt"            "lychEE"            "mAndArInE"        
+[49] "mAngO"             "mUlbErry"          "nEctArInE"        
+[52] "nUt"               "OlIvE"             "OrAngE"           
+[55] "pAmElO"            "pApAyA"            "pAssIOnfrUIt"     
+[58] "pEAch"             "pEAr"              "pErsImmOn"        
+[61] "physAlIs"          "pInEApplE"         "plUm"             
+[64] "pOmEgrAnAtE"       "pOmElO"            "pUrplE mAngOstEEn"
+[67] "qUIncE"            "rAIsIn"            "rAmbUtAn"         
+[70] "rAspbErry"         "rEdcUrrAnt"        "rOck mElOn"       
+[73] "sAlAl bErry"       "sAtsUmA"           "stAr frUIt"       
+[76] "strAwbErry"        "tAmArIllO"         "tAngErInE"        
+[79] "UglI frUIt"        "wAtErmElOn"       </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>In the use pattern symbol vector the <code>*</code> symbol represents a mixture of positive and negative results. Change all <code>*</code> symbols to <code>+</code>. You will most likely need to <a href="https://r4ds.had.co.nz/strings.html#basic-matches">escape the symbols</a> with two backslashes.</p>
+</div>
+</div>
+</section>
+<section id="removing-characters-that-match-a-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="removing-characters-that-match-a-pattern">Removing Characters that Match a Pattern</h2>
+<p>In much of text analysis, sentences are analyzed without the “filler words” (known as <a href="https://en.wikipedia.org/wiki/Stop_word">stop words</a>), such as “and”, “to”, “the”, “of”, “a”, “was”, “is”, etc. We can remove these words from our set of sentences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sentences[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"and"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"to"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"the"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"of"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "The birch cnoe slid on  smooth plnks."   
+ [2] "Glue  sheet   drk blue bckground."       
+ [3] "It's esy  tell  depth   well."           
+ [4] "These dys  chicken leg is  rre dish."    
+ [5] "Rice is ten served in round bowls."      
+ [6] "The juice  lemons mkes fine punch."      
+ [7] "The box ws thrown beside  prked truck."  
+ [8] "The hogs were fed chopped corn  grbge."  
+ [9] "Four hours  stedy work fced us."         
+[10] "A lrge size in sckings is hrd  sell."    
+[11] "The boy ws re when  sun rose."           
+[12] "A rod is used  ctch pink slmon."         
+[13] "The source   huge river is  cler spring."
+[14] "Kick  bll stright  follow through."      
+[15] "Help  womn get bck  her feet."           
+[16] "A pot  te helps  pss  evening."          
+[17] "Smoky fires lck flme  het."              
+[18] "The st cushion broke  mn's fll."         
+[19] "The slt breeze cme cross from  se."      
+[20] "The girl t  booth sold fifty bonds."     </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Notice that the results above may not be what you expected. Some problems include:
+<ul>
+<li>stop words at the beginning of the sentence were not removed</li>
+<li>some words are now misspelled</li>
+</ul></li>
+</ol>
+<p>Brainstorm with your neighbour what you think went wrong and how you could fix it. 2. Try a few solutions you suggested in Exercise 1. 3. Some of the words now have extra spaces between them. What could we modify in the code above to address this?</p>
+</div>
+</div>
+</section>
+<section id="changing-case" class="level2">
+<h2 class="anchored" data-anchor-id="changing-case">Changing Case</h2>
+<p>In the above example, some of the stop words were not removed because they were at the start of the sentence (and therefore had a capital letter). We can change all the letters in a string to be the same case (which makes pattern matching easier) with the <code>str_to_lower()</code> and <code>str_to_upper()</code> functions. Notice that we added the <code>str_to_lower()</code> call in the pipeline <em>before</em> removing the stop words.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sentences[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"and "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove_all</span>(<span class="at">pattern =</span> <span class="st">"the "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "birch canoe slid on smooth planks."        
+ [2] "glue sheet to dark blue background."       
+ [3] "it's easy to tell depth of a well."        
+ [4] "these days a chicken leg is a rare dish."  
+ [5] "rice is often served in round bowls."      
+ [6] "juice of lemons makes fine punch."         
+ [7] "box was thrown beside parked truck."       
+ [8] "hogs were fed chopped corn garbage."       
+ [9] "four hours of steady work faced us."       
+[10] "a large size in stockings is hard to sell."
+[11] "boy was there when sun rose."              
+[12] "a rod is used to catch pink salmon."       
+[13] "source of huge river is clear spring."     
+[14] "kick ball straight follow through."        
+[15] "help woman get back to her feet."          
+[16] "a pot of tea helps to pass evening."       
+[17] "smoky fires lack flame heat."              
+[18] "soft cushion broke man's fall."            
+[19] "salt breeze came across from sea."         
+[20] "girl at booth sold fifty bonds."           </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Notice that I modified the two stop words slightly. What did that change? Discuss with your neighbor and modify your code from the last exercise if necessary.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip: Order Matters
+</div>
+</div>
+<div class="callout-body-container callout-body" title="tip">
+<p>When calling string manipulation functions, the order of the function calls in the pipeline matters A LOT. Pay close attention to the orders of the actions you prescribe, and it’s usually very wise to run a <code>stringr::</code> pipeline line-by-line as you build it.</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="substring-extraction" class="level1">
+<h1>Substring Extraction</h1>
+<section id="functions-to-know-2" class="level2">
+<h2 class="anchored" data-anchor-id="functions-to-know-2">Functions to Know</h2>
+<ul>
+<li><code>str_sub()</code>: extracts or replaces the elements at <strong>a single position</strong> in each string</li>
+<li><code>str_extract()</code> / <code>str_extract_all()</code>: extract the first/all matches of a pattern from each string</li>
+</ul>
+<p>In my experience, the functions in this section are most useful when dealing with very organized text data. For example, my students and I were working on a dataset that recorded the heights of participants as text. The entries of this data table would have been something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>heightsF_char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"60in"</span>, <span class="st">"68in"</span>, <span class="st">"66in"</span>, <span class="st">"60in"</span>, <span class="st">"65in"</span>, <span class="st">"62in"</span>, <span class="st">"63in"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>heightsM_char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"72in"</span>, <span class="st">"68in"</span>, <span class="st">"73in"</span>, <span class="st">"65in"</span>, <span class="st">"71in"</span>, <span class="st">"66in"</span>, <span class="st">"67in"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="substrings-by-position" class="level2">
+<h2 class="anchored" data-anchor-id="substrings-by-position">Substrings by Position</h2>
+<p>If we know that the information we want is always in the <strong>same position</strong>, then we can create a <strong>sub</strong>string using only the “letters” between these positions with <code>str_sub()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count forward (from the start of the string):</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>heightsF_char <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_sub</span>(<span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "60" "68" "66" "60" "65" "62" "63"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count backwards (from the end of the string):</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>heightsF_char <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_sub</span>(<span class="at">start =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "60" "68" "66" "60" "65" "62" "63"</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Pretend that you spoke with a clinician about the use patterns in the <code>outcome_df</code> data set. She informed you that the first three weeks should be considered an onboarding period for each participant, and therefore should be removed from the data before final analysis. Remove the symbols for the first three weeks.</p>
+</div>
+</div>
+</section>
+<section id="substrings-by-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="substrings-by-pattern">Substrings by Pattern</h2>
+<p>Instead, if we know that the information we want is always the <strong>same pattern</strong>, then we can <strong>extract</strong> the matching pattern with <code>str_extract()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>heightsF_char <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We want the numeric digits (\\d) that are two characters long ({2})</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_extract</span>(<span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d{2}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "60" "68" "66" "60" "65" "62" "63"</code></pre>
+</div>
+</div>
+<p>If you are wondering where in the world that <code>\\d{2}</code> stuff came from, you’re not alone. It’s something called a <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression</a>. I don’t expect you all to become experts in this, but it’s worth studying the <a href="https://rstudio.github.io/cheatsheets/html/strings.html#regular-expressions">Posit Regular Expressions</a> guide for how these character matching codes can be used in R.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>If you attempt to extract a pattern from a string that doesn’t exist, what happens?</li>
+<li>If you attempt to extract a range of characters that doesn’t exist (for instance, using <code>start = 2</code> and <code>end = 1</code> to have the end of the range before the start of the range), what happens?</li>
+<li>Discuss these two results from the <code>str_sub()</code> and <code>str_extract()</code> functions with your neighbours. Think about cases where each might be useful.</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="trim-and-pad-strings" class="level1">
+<h1>Trim and Pad Strings</h1>
+<section id="functions-to-know-3" class="level2">
+<h2 class="anchored" data-anchor-id="functions-to-know-3">Functions to Know</h2>
+<ul>
+<li><code>str_length()</code>: compute the number of “letters” in a string</li>
+<li><code>str_trim()</code>: remove spaces from the start and end of string</li>
+<li><code>str_pad()</code>: add spaces (or some other “letter”) to the start or end of a string until the string is a specified length</li>
+</ul>
+<p>Overall, it’s often not immediately obvious when these functions would be useful to you, but know that from my experience that they are often unexpected lifesavers. I’m going to give three such examples from when these functions have helped me in the past.</p>
+</section>
+<section id="string-lengths" class="level2">
+<h2 class="anchored" data-anchor-id="string-lengths">String Lengths</h2>
+<p>The <code>str_length()</code> functions is useful when dealing with <span class="math inline">\(n\)</span>-ary words. These are sets of letters or numbers where each single symbol from a pre-defined set of <span class="math inline">\(n\)</span> possible symbols represents a state in a system. Examples include the use pattern “words” in the <code>outcome_df</code> data set; DNA/RNA (“CCCCAACGTGTG” is a string of letters where each single letter represents a one of the four DNA nucleotides bases—Cytosine, Adenine, Thymine, and Guanine); or class attendance (“PPPPPAPP” represents a student’s attendance record over eight weeks as “Present” or “Absent”).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many nucleotides in the strand?</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(<span class="st">"CCCCAACGTGTG"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many weeks of attendance data?</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(<span class="st">"PPPPPAPP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+</section>
+<section id="trimming-strings" class="level2">
+<h2 class="anchored" data-anchor-id="trimming-strings">Trimming Strings</h2>
+<p>This comes up for me most often when dealing with very long labels in <code>ggplot</code> figures. Sometimes a factor label is really long, and <code>ggplot</code> tries to fit the whole label in the figure, which ends up making the whole figure look weird.</p>
+<p>Here’s an example. I’m going to create a simple data set with one very long factor label.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bookPages_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="fu">c</span>(<span class="st">"Germinal"</span>, <span class="st">"Frankenstein; or, The Modern Prometheus"</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">author =</span> <span class="fu">c</span>(<span class="st">"Emile Zola"</span>, <span class="st">"Mary Shelley"</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pageCountOriginal =</span> <span class="fu">c</span>(591L, 362L),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">1885</span>, <span class="dv">1818</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Original</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> bookPages_df) <span class="sc">+</span> </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pageCountOriginal, <span class="at">shape =</span> title) <span class="sc">+</span> </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson10_stringr_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now I’m going to truncate the very long title of <em>Frankenstein</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Truncated text</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bookPages_df <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">str_trunc</span>(title, <span class="at">width =</span> <span class="dv">15</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pageCountOriginal, <span class="at">shape =</span> title) <span class="sc">+</span> </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson10_stringr_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="padding-strings" class="level2">
+<h2 class="anchored" data-anchor-id="padding-strings">Padding Strings</h2>
+<p>This comes up when I’m trying to create file names in a computer. Here’s the issue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "1"  "10" "11" "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9" </code></pre>
+</div>
+</div>
+<p>When the computer turns numbers into characters, the ordering of the numbers gets destroyed. We all know that I <em>want</em> 10 and 11 to come last, but the computer doesn’t interpret these numbers the way that I do. The solution is to <strong>pad</strong> the numbers on the left with “0” so that the ordering is preserved:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set the width to 2 digits if 99 is enough, but increase to 3 digits in case</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   I need to go past 99 (up to 999)</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_pad</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="at">side =</span> <span class="st">"left"</span>, <span class="at">pad =</span> <span class="st">"0"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "001" "002" "003" "004" "005" "006" "007" "008" "009" "010" "011"</code></pre>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="modifying-strings-in-tibbles" class="level1">
+<h1>Modifying Strings in Tibbles</h1>
+<p>So far, we have seen how the <code>stringr</code> functions can be used on a single character vector. However, many times we have character information stored as a column of a tibble. This requires us to modify our approach, and we often combine the <code>stringr::</code> functions with calls to the <code>mutate()</code> function from <code>dplyr::</code>.</p>
+<section id="example-plotting-participant-heights" class="level2">
+<h2 class="anchored" data-anchor-id="example-plotting-participant-heights">Example: Plotting Participant Heights</h2>
+<p>Here I show an entire (simplified) workflow to take in the height data and plot it by biological sex.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">###  Create tidy data  </span><span class="al">###</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>heights_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">is_female =</span> <span class="fu">c</span>(</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="fu">length</span>(heightsF_char)),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="fu">length</span>(heightsM_char))</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>(heightsF_char, heightsM_char)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="do">###  Wrangle the Data  </span><span class="al">###</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>heightsClean_df <span class="ot">&lt;-</span> </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  heights_df <span class="sc">%&gt;%</span> </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1: Split the Units into another column</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">units =</span> <span class="fu">str_sub</span>(heights, <span class="at">start =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2: Extract the height values</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">str_extract</span>(heights, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d{2}"</span>)</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 3: change heights from character to numeric</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">as.numeric</span>(value)</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 4: remove the original column (check your work beforehand)</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>heights) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 5: rename</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">height =</span> value)</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="do">###  Plot the Relationship  </span><span class="al">###</span></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heightsClean_df) <span class="sc">+</span> </span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> is_female, <span class="at">y =</span> height) <span class="sc">+</span> </span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="lesson10_stringr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Between this lesson and the <code>dplyr::</code> lesson, you now have the skills to join the ACS SNAP data to the Miami-Dade and Broward ZIP code data. Here are some basic steps:</p>
+<ol type="1">
+<li>Import the data sets.</li>
+<li>Use the string manipulation functions to clean up the ZIP code columns until they can match.</li>
+<li>Join the data sets so that you have one table with all the ACS SNAP data combined for Miami-Dade and Broward counties.</li>
+</ol>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

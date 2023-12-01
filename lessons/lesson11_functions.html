@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-10-07">
+
+<title>PHC 6701: R for Data Science - Lesson 11: Functions and Control Flow in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 11: Functions and Control Flow in R</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link active">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#preliminary-comments" id="toc-preliminary-comments" class="nav-link" data-scroll-target="#preliminary-comments">Preliminary Comments</a></li>
+  <li><a href="#expressions" id="toc-expressions" class="nav-link" data-scroll-target="#expressions">Expressions</a></li>
+  </ul></li>
+  <li><a href="#control-flow-in-r" id="toc-control-flow-in-r" class="nav-link" data-scroll-target="#control-flow-in-r">Control Flow in R</a>
+  <ul class="collapse">
+  <li><a href="#if-then-else-then" id="toc-if-then-else-then" class="nav-link" data-scroll-target="#if-then-else-then"><strong>IF</strong> then <strong>ELSE</strong> then</a></li>
+  <li><a href="#for" id="toc-for" class="nav-link" data-scroll-target="#for"><strong>FOR</strong></a></li>
+  <li><a href="#while-and-break" id="toc-while-and-break" class="nav-link" data-scroll-target="#while-and-break"><strong>WHILE</strong> and <strong>BREAK</strong></a></li>
+  </ul></li>
+  <li><a href="#creating-functions" id="toc-creating-functions" class="nav-link" data-scroll-target="#creating-functions">Creating Functions</a>
+  <ul class="collapse">
+  <li><a href="#function-arguments" id="toc-function-arguments" class="nav-link" data-scroll-target="#function-arguments">Function Arguments</a></li>
+  <li><a href="#overview-of-function-syntax" id="toc-overview-of-function-syntax" class="nav-link" data-scroll-target="#overview-of-function-syntax">Overview of Function Syntax</a></li>
+  </ul></li>
+  <li><a href="#function-best-practices" id="toc-function-best-practices" class="nav-link" data-scroll-target="#function-best-practices">Function Best Practices</a></li>
+  <li><a href="#function-scoping" id="toc-function-scoping" class="nav-link" data-scroll-target="#function-scoping">Function Scoping</a>
+  <ul class="collapse">
+  <li><a href="#environments" id="toc-environments" class="nav-link" data-scroll-target="#environments">Environments</a></li>
+  <li><a href="#function-environments-and-scoping" id="toc-function-environments-and-scoping" class="nav-link" data-scroll-target="#function-environments-and-scoping">Function Environments and Scoping</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 11: Functions and Control Flow in R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 7, 2019</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>What did we learn last class?</p>
+<ol type="1">
+<li>String Matching</li>
+<li>Modifying Strings</li>
+<li>Substring Extraction</li>
+<li>Trim and Pad Strings</li>
+<li>Manipulate Strings within Tibbles</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>In this lesson, we will cover the following:</p>
+<ol type="1">
+<li>Control Flow in R</li>
+<li>Creating Functions</li>
+<li>Best Practices</li>
+<li>Function Scoping</li>
+</ol>
+<section id="preliminary-comments" class="level2">
+<h2 class="anchored" data-anchor-id="preliminary-comments">Preliminary Comments</h2>
+<p>Functions are what gives R its power and flexibility, but it is also what gives R its incredibly steep learning curve. All of the material in this lesson is considerably more challenging than what you’ve done in this class so far. However, if you can understand functions and how to apply them to the vectors you have already created, you can do almost anything you will ever need to do.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body" title="warning">
+<p>This lesson on functions and the next lesson on <code>purrr</code> are high-difficulty, high-reward.</p>
+</div>
+</div>
+</section>
+<section id="expressions" class="level2">
+<h2 class="anchored" data-anchor-id="expressions">Expressions</h2>
+<p>All of these sections make use of <em>expressions</em>. An expression in R is a line of code or multiple lines of code that accomplish one or more tasks when executed. In this sense, we have been using expressions since day 1. For this lesson, when we say <em>expression</em>, think “some code that will do something without errors”. Some expressions are simple, like <code>"Hello, world!"</code>, while others are far more complicated (like the chains of <code>dplyr</code> functions).</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="control-flow-in-r" class="level1">
+<h1>Control Flow in R</h1>
+<p>In modern computer languages, we have access to primitive statements that “control” the “flow” of how we solve problems. They are the building blocks upon which the rest of the language is constructed. These building blocks themselves aren’t always as easy to use or easy to understand, but they are worth a look.</p>
+<section id="if-then-else-then" class="level2">
+<h2 class="anchored" data-anchor-id="if-then-else-then"><strong>IF</strong> then <strong>ELSE</strong> then</h2>
+<p>The IF/ELSE router controls a set of expressions and evaluates them based on a <strong>single logical condition</strong> (that is, a logical atomic vector with length 1). We saw a variant of this when we used the <code>case_when()</code> function in the <code>dplyr::</code> lesson. Here is an example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a single random number from the normal distribution</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>xRand <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If the value is negative, say so</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (xRand <span class="sc">&lt;</span> <span class="dv">0</span>) { <span class="st">"This value is negative."</span> }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s unpack this example. The <code>if</code> function is a special function that does not use the normal <code>functionName(arg1 = val1)</code> syntax. The syntax is <code>if (CONDITION is TRUE) {DO TASK}</code>. If the single atomic logical value in the parentheses is <code>TRUE</code>, then execute the expression in the curly braces. That is, if <code>xRand &lt; 0</code> evaluates to <code>TRUE</code>, then print <code>"This value is negative."</code></p>
+<p>What about if the value is positive? We <em>could</em> add another <code>if () {}</code> control, or we could use the <code>else</code> function. Like the <code>if</code> function, it also has a special syntax that can only be used with an <code>if</code> function. That syntax is <code>if (CONDITION is TRUE) {DO TASK} else {DO OTHER TASK}</code>. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>xRand <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (xRand <span class="sc">&lt;</span> <span class="dv">0</span>) { <span class="st">"This value is negative."</span> } <span class="cf">else</span> { <span class="st">"You're a winner!"</span> }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "You're a winner!"</code></pre>
+</div>
+</div>
+<p>Because these expressions can often span multiple lines, we often write IF/ ELSE controls like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xRand <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (xRand <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"This value is negative."</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're a winner!"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "You're a winner!"</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Use an IF/ELSE chain to replicate the functionality of the absolute value function (<code>abs()</code>).</p>
+</div>
+</div>
+</section>
+<section id="for" class="level2">
+<h2 class="anchored" data-anchor-id="for"><strong>FOR</strong></h2>
+<p>The FOR controller allows us to repeat a task for some pre-defined number of times. Unlike the IF/ELSE control, the FOR control only makes sense to use with vectors with length greater than 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) { <span class="fu">print</span>(j <span class="sc">+</span> <span class="dv">1</span>) }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11</code></pre>
+</div>
+</div>
+<p>Let’s unpack the FOR loop. The FOR loop has the following syntax: <code>for (INDEX in VECTOR) {EVALUATE f(INDEX)}</code>, where <code>f(INDEX)</code> is some expression or function using the value of the index (though in some FOR loops the value of the index isn’t used at all).</p>
+<p>Now, it is important to understand the following: <strong>FOR loops are rarely useful for us to write directly in R, because R is a vectorised language</strong>. We could have done the exact same computation much simpler if we make use of R’s natural processing of vectors:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
+</div>
+</div>
+<p>Because R is a vectorized language, the FOR loops are written for you already and hidden deep in the computer (if you want to know more, see this excellent post on <a href="https://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/">vectorization in R</a>). However, FOR loops in R are critical when we need to create a function whose values at one position depend on the values before it; these constraints occur when simulating or analyzing observations over time, where the value of the vector at position <code>i</code> depends on the value at <code>i - 1</code>. As a more complicated example, we will create the Fibonacci Sequence:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create empty vector of length 50</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fiboRes_int <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_integer_</span>, <span class="dv">50</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>fiboRes_int[<span class="dv">1</span>] <span class="ot">&lt;-</span> 1L</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>fiboRes_int[<span class="dv">2</span>] <span class="ot">&lt;-</span> 1L</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">50</span>) {</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  fiboRes_int[i] <span class="ot">&lt;-</span> fiboRes_int[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> fiboRes_int[i <span class="sc">-</span> <span class="dv">2</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in fiboRes_int[i - 1] + fiboRes_int[i - 2]: NAs produced by integer
+overflow</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fiboRes_int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]          1          1          2          3          5          8
+ [7]         13         21         34         55         89        144
+[13]        233        377        610        987       1597       2584
+[19]       4181       6765      10946      17711      28657      46368
+[25]      75025     121393     196418     317811     514229     832040
+[31]    1346269    2178309    3524578    5702887    9227465   14930352
+[37]   24157817   39088169   63245986  102334155  165580141  267914296
+[43]  433494437  701408733 1134903170 1836311903         NA         NA
+[49]         NA         NA</code></pre>
+</div>
+</div>
+<p>The warning we see, and the missing values in the results vector, should serve as a warning that FOR loops are indeed powerful, but must be used with great care.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Remove the <code>print()</code> call within the expression for the first FOR loop. What happens? Can you infer anything special about what happens inside the <code>{</code> <code>}</code>?</p>
+</div>
+</div>
+</section>
+<section id="while-and-break" class="level2">
+<h2 class="anchored" data-anchor-id="while-and-break"><strong>WHILE</strong> and <strong>BREAK</strong></h2>
+<p>The WHILE controller allows us to repeat a task for an undefined number of times. Unlike the FOR control, the WHILE control can continue to run indefinitely. <strong>USE WITH EXTREME CAUTION.</strong></p>
+<p>WHILE loops are the foundation controller for most iterative mathematical algorithms. Because they can continue to compute indefinitely, they are also used to model scenarios where unknown or random forces act on objects. For example, pretend that we have a social game where an individual will continue to play until they reach a condition; e.g.&nbsp;speed dating, where a person (say “Todd, a software developer”) will continue to move from table to table until they find “the one”, upon which they exit the game.</p>
+<p>Because WHILE loops can execute until the heat death of the universe, we recommend that you add a print statement that counts how many loops have been made. For example, let’s find out how many dates Todd goes on during the speed dating event:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>hasDate <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>attempts <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (hasDate <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make a condition that only happens with 2.5% chance</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  hasDate <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  attempts <span class="ot">&lt;-</span> attempts <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(attempts)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12
+[1] 13</code></pre>
+</div>
+</div>
+<p>Now, as I played this example on my computer, I had one time where the WHILE loop repeated 60 times before the success condition was reached. In these cases, it would be nice to have a stopping condition. In our example, we can assume that there are only 30 potential date candidates for Todd to meet at the event, so we <em>break</em> the loop if we reach 30 attempts. This “exit” strategy uses the BREAK controller:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>hasDate <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>attempts <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (hasDate <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make a condition that only happens with 2.5% chance</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  hasDate <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  attempts <span class="ot">&lt;-</span> attempts <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(attempts <span class="sc">&gt;</span> 30L){</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"No date found."</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(attempts)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12
+[1] 13
+[1] 14
+[1] 15
+[1] 16
+[1] 17
+[1] 18
+[1] 19
+[1] 20
+[1] 21
+[1] 22
+[1] 23
+[1] 24
+[1] 25
+[1] 26
+[1] 27
+[1] 28
+[1] 29
+[1] 30
+[1] "No date found."</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>If you have accidentally written a WHILE loop that runs for eternity, how do you stop it without closing RStudio entirely?</li>
+<li>Read the lessons under the “Decision and Loop” section of DataMentor’s <em>R Programming</em> page: <a href="https://www.datamentor.io/r-programming/#tutorial" class="uri">https://www.datamentor.io/r-programming/#tutorial</a></li>
+</ol>
+</div>
+</div>
+<p>Did you notice that <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, and <code>break</code> all changed colour when you typed them? That is R telling you that these objects—<strong>remember that everything in R is an object</strong>—are <em>reserved</em>. That means that we cannot assign values to them or use them for any reason other than their designed purpose.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="creating-functions" class="level1">
+<h1>Creating Functions</h1>
+<p>One of the other <em>reserved</em> objects in R is <code>function</code>. This is the reserved function object used to create all other non-reserved functions. Here is an example; we will create a function that says “hi” to us:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>greetMe <span class="ot">&lt;-</span> <span class="cf">function</span>(){ <span class="st">"Hello, Dr. Gabriel!"</span> }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This function is just like any other function you have used before. Call it by typing its name followed by <code>()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">greetMe</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hello, Dr. Gabriel!"</code></pre>
+</div>
+</div>
+<section id="function-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="function-arguments">Function Arguments</h2>
+<p>Most functions we have used take in arguments; that is, they change their behaviour based on the values supplied to them. For example, we can create a function that finds the geometric mean of two numbers. In mathematics, this is</p>
+<p><span class="math display">\[
+f(x_1, x_2) := \sqrt{x_1 \cdot x_2},
+\]</span></p>
+<p>where the dot between the numbers is for multiplication. In code, this would be:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>geomMean <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){ <span class="fu">sqrt</span>( a <span class="sc">*</span> b ) }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once again, any time we create a function, we test it using values we know. For example, we know that the product of 5 and 20 is 100, and that the square root of 100 is 10. Thus, the geometric mean of 5 and 20 calculated by our function should be 10:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geomMean</span>(<span class="dv">5</span>, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</section>
+<section id="overview-of-function-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-function-syntax">Overview of Function Syntax</h2>
+<p>Just like the control flow functions, the <code>function</code> operator has very special syntax: <code>funName &lt;- function(ARGUMENTS){ EXPRESSION USING ARGUMENTS }</code>. Moreover, because the expression inside the <code>{</code> <code>}</code> can be quite long and complex, the function returns whatever happens on the <strong>last line</strong>. Up to this point, both of our functions have only had one line, so that was the last line by default.</p>
+<p>For example, we can write a version of the <code>abs()</code> function by nesting an an IF statement within a function. If we ever need to have our function stop execution and return a value early, we can use the <strong>RETURN</strong> controller:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>absoluteValue <span class="ot">&lt;-</span> <span class="cf">function</span>(num){</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> num</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(num <span class="sc">&lt;</span> <span class="dv">0</span>){</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="sc">-</span>out)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When we test this function, we need to try it with both a positive and a negative number for <code>num</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">absoluteValue</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">absoluteValue</span>(<span class="sc">-</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Create a function that finds out if Todd gets a date. The argument of the function is the number of pairs at the event. Replace the <code>30L</code> in the WHILE loop above with this argument.</li>
+<li>Go back an read the section on functions in HOPR Chapter 1.</li>
+</ol>
+</div>
+</div>
+<!-- ```{r} -->
+<!-- hasDate <- function(numPairs){ -->
+<!--   hasDate <- 0 -->
+<!--   attempts <- 1 -->
+<!--   while (hasDate != 1) { -->
+<!--     # Make a condition that only happens with 2.5% chance -->
+<!--     hasDate <- rnorm(1) < -1.96 -->
+<!--     attempts <- attempts + 1 -->
+<!--     if(attempts > numPairs){ -->
+<!--       return("No date found.") -->
+<!--     } -->
+<!--   } -->
+<!--   paste("After", attempts, "tries, Todd found a date.") -->
+<!-- } -->
+<!-- # Test -->
+<!-- hasDate(numPairs = 50) -->
+<!-- ``` -->
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="function-best-practices" class="level1">
+<h1>Function Best Practices</h1>
+<p>Because R is a functional language, the functions you write should be the most important pieces of your code. Functions in R, through their inherent vectorized efficiency, turn this</p>
+<pre><code>lsum &lt;- 0
+for (i in 1:length(x)) {
+  lsum &lt;- lsum + log(x[i])
+}</code></pre>
+<p>into this</p>
+<pre><code>lsum &lt;- sum(log(x))</code></pre>
+<p>(This and other mortal R sins are covered in <a href="http://www.burns-stat.com/documents/books/the-r-inferno/">The R Inferno</a>.) R is a <em>functional</em> programming language, so you must <em>learn to use functions</em> in your code. Furthermore, while this isn’t required, you should probably think about collecting the functions you write into a package. Here are some guidelines on writing functions:</p>
+<ol type="1">
+<li><strong>Functions should do one major thing, only that thing, and that thing well.</strong> A function that does a million things is easy to break and horribly difficult to test. Keep your functions simple, and you will not regret it.</li>
+<li><strong>Major functions should be saved with their documentation in their own script files.</strong> Overall, this encourages your project code to be compartmentalized, organized, and well-documented. I <em>strongly</em> recommend you do not store all of your functions in one file. If you have a ton of functions to source all at once, create a package. Even if you never plan to release the code to anyone outside your group, <em>create a package anyway</em>.</li>
+<li><strong>Utility functions can be collected into one file.</strong> Because you probably do not need extensive documentation of utility functions, you can store all related utility functions together.</li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="function-scoping" class="level1">
+<h1>Function Scoping</h1>
+<p>Recall the <code>absoluteValue()</code> function we wrote. Inside this function, we created an object called <code>out</code>. Is this object in your global environment?</p>
+<p>While you have your guesses for where the <code>out</code> object went, let’s create an <code>out</code> object in the global environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="st">"This is a character string, and clearly not a number."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What happens to our <code>absoluteValue()</code> function now?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">absoluteValue</span>(<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Discuss the above questions. We get the same behaviour we saw before. Why doesn’t our function return this <code>out</code> object we created?</p>
+</div>
+</div>
+<section id="environments" class="level2">
+<h2 class="anchored" data-anchor-id="environments">Environments</h2>
+<p>When we executed the function above, R created a brand new <em>environment</em> for the function to work in. Think back to our first lesson on vectors. We saw this image:</p>
+<p><img src="../_figures/vectors_object_review.png" class="img-fluid"> An <em>environment</em> is a special type of object that makes it possible to create other objects. <strong>Environments connect, or <em>bind</em>, object names to their values.</strong> Technically speaking, the figure above is wrong, because it puts all objects inside an environment, when an environment itself is an object. Remember that <strong>everything in R is an object</strong>. However, this figure is a useful abstraction to help us understand the connections between functions and vectors.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body" title="tip">
+<p><strong>Environments connect, or <em>bind</em>, object names to their values.</strong></p>
+</div>
+</div>
+<p>On the second day of class, when we first used the assignment operator (<code>&lt;-</code>), we used it to create an object named <code>x</code> that held the value <code>2</code>. However, we now understand that <code>x &lt;- 2</code> <strong>binds</strong> the value <code>2</code> to the name <code>x</code> within our current <em>environment</em> (in our case, the Global Environment). Think about an environment like a sandbox that we can sit in to play with all of our objects.</p>
+</section>
+<section id="function-environments-and-scoping" class="level2">
+<h2 class="anchored" data-anchor-id="function-environments-and-scoping">Function Environments and Scoping</h2>
+<p>When we called the function <code>absoluteValue(num = 5)</code>, R created a brand new environment with one object binding: the name <code>num</code> was bound to the object <code>5</code>. (This is the primary use of the <code>=</code> operator; it creates objects to be used within a function environment.) Note that we could not see this environment, but it was there. Our <code>absoluteValue()</code> function did its work, returned the absolute value of 5, and then <em>R destroyed the environment it created</em>. When we called the function a second time, R created a brand new environment that had <em>no memory that the first environment ever existed</em> and repeated the same process.</p>
+<section id="inspecting-the-function-expression" class="level3">
+<h3 class="anchored" data-anchor-id="inspecting-the-function-expression">Inspecting the Function Expression</h3>
+<p>Let’s take a look at the arguments and expression of the function:</p>
+<pre><code>(num){
+  
+  out &lt;- num
+  
+  if(num &lt; 0){
+    return(-out)
+  }
+  
+  out
+  
+}</code></pre>
+<p>When we execute this function by running the code <code>absoluteValue(5)</code>, R first creates a brand-new, completely empty environment, and then performs the assignment <code>num = 5</code> in it. This action is also known as binding, so we could also say that <em>R binds 5 to the name “num” in the function environment</em>.</p>
+<p>Then, R executes the code in our expression, line by line, until the last line. So,</p>
+<ol type="1">
+<li>R creates an object called <code>out</code> in this new environment and stores the number 5 in it. Then,</li>
+<li>R checks to see if the original value of <code>num</code> is negative; if so,
+<ul>
+<li>R RETURNs the value of <code>out</code> multiplied by negative 1.</li>
+<li>If this check was not <code>TRUE</code>, then R reaches the last line of the function.</li>
+</ul></li>
+<li>Finally, if R reaches the last line, it sees the expression <code>out</code>. If you type the name of an object in your “Console” and hit “Enter”, R will print the contents of that object. Because the function has reached its last line, we don’t need to explicitly type a RETURN control—it’s called automatically. Thus, the last line of this expression is to print to the “Console” the contents of the object <code>out</code> contained in the function environment.</li>
+</ol>
+</section>
+<section id="looking-up" class="level3">
+<h3 class="anchored" data-anchor-id="looking-up">Looking “Up”</h3>
+<p>When a function can’t find an object you reference in one environment, it “looks up” to the “next” environment. This action of “looking up” through environments is called <em>scoping</em>. The “next” environment up from your current environment is called the <em>parent</em> environment.</p>
+<p>Now, let’s create a new function that RETURNs the object <code>out</code> without defining it in the function environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>badTestFun <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">badTestFun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "This is a character string, and clearly not a number."</code></pre>
+</div>
+</div>
+<p>Now, let’s try it on an object we know doesn’t exist in any environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>badTestFun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  object_that_I_know_doesnt_exist_because_this_name_is_long_and_dumb</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">badTestFun2</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in badTestFun2(): object 'object_that_I_know_doesnt_exist_because_this_name_is_long_and_dumb' not found</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercises
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercises">
+<ol type="1">
+<li>Discuss what you think just happened. Why did <code>badTestFun()</code> return something while <code>badTestFun2()</code> triggered an error?</li>
+<li>Execute the <code>search()</code> function. What do you think this function returns?</li>
+</ol>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

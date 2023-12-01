@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriel Odom">
+<meta name="dcterms.date" content="2019-08-16">
+
+<title>PHC 6701: R for Data Science - Lesson 1: Overview of Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Lesson 1: Overview of Data Science</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">PHC 6701: R for Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link active">Lesson 1: Overview of Data Science</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#the-fear-factor" id="toc-the-fear-factor" class="nav-link" data-scroll-target="#the-fear-factor">The Fear Factor</a></li>
+  <li><a href="#the-syllabus" id="toc-the-syllabus" class="nav-link" data-scroll-target="#the-syllabus">The Syllabus</a></li>
+  <li><a href="#what-is-data-science" id="toc-what-is-data-science" class="nav-link" data-scroll-target="#what-is-data-science">What is Data Science?</a>
+  <ul class="collapse">
+  <li><a href="#data-preparation-and-exploration" id="toc-data-preparation-and-exploration" class="nav-link" data-scroll-target="#data-preparation-and-exploration">Data Preparation and Exploration</a></li>
+  <li><a href="#data-representation-and-transformation" id="toc-data-representation-and-transformation" class="nav-link" data-scroll-target="#data-representation-and-transformation">Data Representation and Transformation</a></li>
+  <li><a href="#computing-with-data" id="toc-computing-with-data" class="nav-link" data-scroll-target="#computing-with-data">Computing with Data</a></li>
+  <li><a href="#data-modeling" id="toc-data-modeling" class="nav-link" data-scroll-target="#data-modeling">Data Modeling</a></li>
+  <li><a href="#data-visualization-and-presentation" id="toc-data-visualization-and-presentation" class="nav-link" data-scroll-target="#data-visualization-and-presentation">Data Visualization and Presentation</a></li>
+  <li><a href="#science-about-data-science" id="toc-science-about-data-science" class="nav-link" data-scroll-target="#science-about-data-science">Science about Data Science</a></li>
+  </ul></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a>
+  <ul class="collapse">
+  <li><a href="#the-reproducibility-crisis" id="toc-the-reproducibility-crisis" class="nav-link" data-scroll-target="#the-reproducibility-crisis">The Reproducibility Crisis</a></li>
+  <li><a href="#the-ioannidis-crusade" id="toc-the-ioannidis-crusade" class="nav-link" data-scroll-target="#the-ioannidis-crusade">The Ioannidis crusade</a></li>
+  <li><a href="#reproducible-data-science" id="toc-reproducible-data-science" class="nav-link" data-scroll-target="#reproducible-data-science">Reproducible Data Science</a></li>
+  <li><a href="#use-code" id="toc-use-code" class="nav-link" data-scroll-target="#use-code">Use Code!</a></li>
+  </ul></li>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link" data-scroll-target="#hello-world"><code>"Hello, World"</code></a>
+  <ul class="collapse">
+  <li><a href="#downloading-and-installing-r" id="toc-downloading-and-installing-r" class="nav-link" data-scroll-target="#downloading-and-installing-r">Downloading and Installing R</a></li>
+  <li><a href="#download-and-install-rstudio" id="toc-download-and-install-rstudio" class="nav-link" data-scroll-target="#download-and-install-rstudio">Download and Install RStudio</a></li>
+  <li><a href="#check-the-install" id="toc-check-the-install" class="nav-link" data-scroll-target="#check-the-install">Check the Install</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Lesson 1: Overview of Data Science</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel Odom </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 16, 2019</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>We will cover the following:</p>
+<ol start="0" type="1">
+<li>The Fear Factor</li>
+<li>The Syllabus</li>
+<li>What is Data Science?</li>
+<li>What is Reproducibility?</li>
+<li><code>"Hello, World"</code></li>
+</ol>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="the-fear-factor" class="level1">
+<h1>The Fear Factor</h1>
+<p>Recall the old television show, <em>Fear Factor</em>: <a href="https://youtu.be/zc6_UCgd4KU" class="uri">https://youtu.be/zc6_UCgd4KU</a></p>
+<p><strong>WARNING</strong>: the above video may make some of you uncomfortable.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="the-syllabus" class="level1">
+<h1>The Syllabus</h1>
+<p><em>Please see the course syllabus on Canvas.</em></p>
+<p>Also, see what we’re <em>not</em> learning to do in this class:<br>
+<a href="https://www.youtube.com/watch?v=8F1Q6yETpfk" class="uri">https://www.youtube.com/watch?v=8F1Q6yETpfk</a></p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="what-is-data-science" class="level1">
+<h1>What is Data Science?</h1>
+<blockquote class="blockquote">
+<p>The practice of synthesizing statistical, computational, and domain-specific expertise to extract intelligence from data in varied forms.</p>
+</blockquote>
+<p>First of all, <strong>this is not an introductory course on data science</strong>; Instead, this is <em>Introduction to the Introduction to Data Science</em>. However, we will still outline data science as a scientific discipline. There are six divisions of “Greater” Data Science (<a href="https://doi.org/10.1080/10618600.2017.1384734">Donaho, 2017</a>).</p>
+<section id="data-preparation-and-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation-and-exploration">Data Preparation and Exploration</h2>
+<p>This is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.</p>
+<blockquote class="blockquote">
+<p>Examples: designing the questions on a patient survey, creating a database to hold clinical trials data, finding the most common answers to a question, finding the largest or smallest values of a measurement, reporting the proportion of missing answers to a battery of questions between three cohorts.</p>
+</blockquote>
+</section>
+<section id="data-representation-and-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="data-representation-and-transformation">Data Representation and Transformation</h2>
+<p>This deals with retreving data from databases or online repositories, changing and organizing the format of the data files, and using mathematical or logical transformations on recorded values. For this portion of data science, traditional statistics departments only discuss mathematical transformations and their validity.</p>
+<blockquote class="blockquote">
+<p>Examples: extracting subject data from RedCap, building EMR reports, organizing hundreds or thousands of case report forms into a few data files, transforming age in months or weeks to age in years, grouping free-form text (“florida”, “Florida”, “fl”, and “FL” together).</p>
+</blockquote>
+</section>
+<section id="computing-with-data" class="level2">
+<h2 class="anchored" data-anchor-id="computing-with-data">Computing with Data</h2>
+<p>This part of data science concerns creating new programming languages, developing algorithms, using programming languages to automate data preparation, representation, and exploration, and packaging code for easier use. Of these, traditional statistics departments have only cared about algorithms (and sometimes not even that). However, many statisticians are starting to change their focus where this area is concerned. In this class you will learn parts of a few different computing and reporting languages, such as R, SAS, SQL, markdown and LaTeX.</p>
+<blockquote class="blockquote">
+<p>Examples: the R language was created to give statisticians and data scientists more control over their research, algorithms to fit statistical and mathematical models are created all the time, and we can create “packages” of computer code to repeat the same types of analyses on new data sets.</p>
+</blockquote>
+</section>
+<section id="data-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="data-modeling">Data Modeling</h2>
+<p>This part of data science is the most well-known portion. It is what most lay-people consider “data science”: statistical modelling and machine learning. This is where simple techniques like <em>t</em>-tests, linear regression, or ANOVA come in, but it also includes highly complex models and routines such as deep neural networks, random coefficient mixed models, support vector machines, or discriminant analysis. Traditional statistics departments have historically taught or developed most of these techniques, although some interesting modern research has come from computer science and econometrics.</p>
+</section>
+<section id="data-visualization-and-presentation" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualization-and-presentation">Data Visualization and Presentation</h2>
+<p>This portion of data science includes all sorts of visualizations, from plots to interactive websites and applets. Data visualisation itself is nice, but using computer code to generate these visualizations is of paramount importance. Without the data and code to create the visualization, it can not be <em>reproducible</em>. Furthermore, the presentation of data in order to further an argument or claim is part of <em>visual rhetoric</em>, and is subject to questions of <em>ethics</em>. In traditional statistics departments, some of these tools are used, but rarely taught.</p>
+<blockquote class="blockquote">
+<p>Examples: making a scatterplot comparing SAT scores at different levels of household income, making a map shading counties in Florida by their ovarian cancer rates, designing a website to plot demographic information based on user selections.</p>
+</blockquote>
+<p>“A picture is worth a thousand words. Make sure your picture says the right thousand words.”</p>
+</section>
+<section id="science-about-data-science" class="level2">
+<h2 class="anchored" data-anchor-id="science-about-data-science">Science about Data Science</h2>
+<p>This portion of data science involves research <em>meta-analysis</em> about the utility of statistical and computational tools across entire disciplines, including applying data science concepts in disciplines untouched by data science. Currently, this is an area of active research in data science itself. This portion of the discipline identifies the boundaries of the discipline itself, the proper and ethical uses for data science, and experiments with the best ways to teach data science concepts. As this section of data science deals with <em>philosophy</em> and <em>ethics</em>, it has hardly anything to do with academic statistics.</p>
+<blockquote class="blockquote">
+<p>Examples: apply machine learning to analyze the provenance of art owned by Jews that had been seized by the Nazis or property owned by political dissenters seized by the Soviets, creating online courses to teach the basics of data science and reproducible research to non-scientists, writing commentary on the ethics of misleading graphs and figures in political campaigns.</p>
+</blockquote>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="reproducibility" class="level1">
+<h1>Reproducibility</h1>
+<p><strong>Reproducibility: if we repeat a study, the repetition should agree with the original results, or—at minimum—not refute the study’s conclusions.</strong></p>
+<section id="the-reproducibility-crisis" class="level2">
+<h2 class="anchored" data-anchor-id="the-reproducibility-crisis">The Reproducibility Crisis</h2>
+<p>Published bio-science is largely not reproducible:</p>
+<ul>
+<li>Oncology: 53 published articles tested, six successes (<strong>11%</strong>) (<a href="https://www.nature.com/articles/483531a">Nature, 2012</a>)</li>
+<li>Psychology: 100 published articles, <strong>39</strong> successes (<a href="https://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433">Nature News, 2015</a>); 71 published articles tested, 92 replication attempts, 35 successes (<strong>38%</strong>; the <a href="http://www.psychfiledrawer.org/view_article_list.php">PsychFileDrawer</a> project is ongoing).</li>
+<li>Pharmacology: 67 published models tested, 14 successes (<strong>21%</strong>) (<a href="https://www.nature.com/articles/nrd3439-c1">Nature Reviews, 2011</a>)</li>
+</ul>
+</section>
+<section id="the-ioannidis-crusade" class="level2">
+<h2 class="anchored" data-anchor-id="the-ioannidis-crusade">The Ioannidis crusade</h2>
+<p><a href="https://www.medscape.com/viewarticle/898405">John Ioannidis</a>, physician scientist at Stanford, speaks harshly against the lack of replicability in science:</p>
+<ul>
+<li><a href="https://doi.org/10.1038/ng749">“Replication validity of genetic association studies”</a> (2001)</li>
+<li><a href="https://doi.org/10.1001/jama.294.2.218">“Contradicted and Initially Stronger Effects in Highly Cited Clinical Research”</a> (2005)</li>
+<li><a href="https://doi.org/10.1371/journal.pmed.0020124">“Why Most Published Research Findings Are False”</a> (2005)</li>
+<li><a href="https://doi.org/10.1371/journal.pmed.1002049">“Why Most Clinical Research Is Not Useful”</a> (2016)</li>
+</ul>
+</section>
+<section id="reproducible-data-science" class="level2">
+<h2 class="anchored" data-anchor-id="reproducible-data-science">Reproducible Data Science</h2>
+<p><em>Before reproducibility must come preproducibility.</em></p>
+<p>“Instead of arguing about whether results hold up, let’s push to provide enough information for others to repeat the experiments … In computational science, ‘reproducible’ often means that <strong>enough information is provided to allow a dedicated reader to repeat the calculations</strong> in the paper for herself.”</p>
+<p>– <a href="https://www.nature.com/articles/d41586-018-05256-0">Philip B. Stark, Professor of Statistics, UC Berkeley</a></p>
+</section>
+<section id="use-code" class="level2">
+<h2 class="anchored" data-anchor-id="use-code">Use Code!</h2>
+<p>If you want your analyses and figures to be reproducible, then you must <strong>use computer code</strong> to do this. Point-and-click software does not (usually) give you a record of your steps or allow you to repeat them. Building your data management, data modelling, and visualizations steps in a programming language means that you always have the tools necessary to repeat your work. In this class, you will learn how to write computer code to clean and transform your data, perform your analyses, and build the figures and tables for your papers. If you do this properly, this will ensure that anyone can recreate your analysis results, figures, and tables relatively quickly and painlessly.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="hello-world" class="level1">
+<h1><code>"Hello, World"</code></h1>
+<p>Before we wrap up for the day, we need to write our first line of code in R. Here are the instructions to download and install R and RStudio, from the <a href="https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/">EdX help pages</a>:</p>
+<section id="downloading-and-installing-r" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-and-installing-r">Downloading and Installing R</h2>
+<section id="for-windows" class="level3">
+<h3 class="anchored" data-anchor-id="for-windows">For Windows</h3>
+<ol type="1">
+<li>Open an internet browser and go to <a href="https://www.r-project.org" class="uri">https://www.r-project.org</a>.</li>
+<li>Click the “download R” link in the middle of the page under “Getting Started.”</li>
+<li>Select a CRAN location (a mirror site) and click the corresponding link.<br>
+</li>
+<li>Click on the “Download R for Windows” link at the top of the page.<br>
+</li>
+<li>Click on the “install R for the first time” link at the top of the page.</li>
+<li>Click “Download R for Windows” and save the executable file somewhere on your computer (your desktop is fine, because you will delete this file later).</li>
+<li>Double-click on the <code>.exe</code> file to “run” it and follow the installation instructions (click “Next” or “Allow” a bunch of times).</li>
+</ol>
+</section>
+<section id="for-mac" class="level3">
+<h3 class="anchored" data-anchor-id="for-mac">For Mac</h3>
+<ol type="1">
+<li>Open an internet browser and go to <a href="https://www.r-project.org" class="uri">https://www.r-project.org</a>.</li>
+<li>Click the “download R” link in the middle of the page under “Getting Started.”</li>
+<li>Select a CRAN location (a mirror site) and click the corresponding link.</li>
+<li>Click on the “Download R for (Mac) OS X” link at the top of the page.</li>
+<li>Click on the file containing the latest version of R under “Files.”</li>
+<li>Save the .pkg file (to your desktop; you will delete it at the end)</li>
+<li>Double-click the <code>.pkg</code> file to open, and follow the installation instructions (click “Next” or “Allow” a bunch).</li>
+</ol>
+<p>Now that R is installed, you need to download and install RStudio.</p>
+</section>
+</section>
+<section id="download-and-install-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="download-and-install-rstudio">Download and Install RStudio</h2>
+<section id="for-windows-1" class="level3">
+<h3 class="anchored" data-anchor-id="for-windows-1">For Windows</h3>
+<ol type="1">
+<li>Go to <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a> and click on the “Download RStudio” button.</li>
+<li>Click on “Download RStudio Desktop.”</li>
+<li>Click on the version recommended for your system, or the latest Windows version, and save the executable file (probably to your desktop, because we’re just going to delete it afterwards).</li>
+<li>Double-click on the <code>.exe</code> file and follow the installation instructions (click “Next” or “Allow” a bunch of times).</li>
+</ol>
+</section>
+<section id="for-mac-1" class="level3">
+<h3 class="anchored" data-anchor-id="for-mac-1">For Mac</h3>
+<ol type="1">
+<li>Go to <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a> and click on the “Download RStudio” button.</li>
+<li>Click on “Download RStudio Desktop.”</li>
+<li>Click on the version recommended for your system, or the latest Mac version, and save the <code>.dmg</code> (disk image) file on your computer (probably to your desktop, because we are just going to delete it later)</li>
+<li>Double-click the <code>.dmg</code> file to open it, and then drag and drop it to your applications folder.</li>
+</ol>
+</section>
+</section>
+<section id="check-the-install" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-install">Check the Install</h2>
+<p>Whether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).</p>
+<p>Find RStudio on your computer and open it. You should see a window that looks like this:</p>
+<p><img src="../_figures/RStudio_first_open.png" class="img-fluid"></p>
+<p>This application window is broken into three panes: the console pane, the environment pane, and the file pane.</p>
+<section id="our-very-first-r-code" class="level3">
+<h3 class="anchored" data-anchor-id="our-very-first-r-code">Our Very First R Code</h3>
+<p>In the console pane, move your cursor to the prompt (the <code>&gt;</code> symbol). Type (you don’t have to type the <code>&gt;</code> symbol; it’s just there for reference)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="st">"Hello, world!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: <em>to learn</em>.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
