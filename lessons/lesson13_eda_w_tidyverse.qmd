@@ -31,7 +31,7 @@ What have we learned so far this semester?
 
 
 # Overview
-In this lesson, we will combine all of the skills we have learned so far to explore data with the Tidyverse.
+In this lesson, we will combine all of the skills we have learned so far to explore data with the Tidyverse. In terms of "new" content, this lesson is shorter, but that is to leave plenty of time to work on the homework at the end of this lesson.
 ```{r, message=FALSE}
 library(tidyverse)
 ```
@@ -323,16 +323,14 @@ ggplot(data = incomeSNAP_df) +
 
 In practice, at this point we would thoroughly inspect all of the features of interest, *and* plot their relationships with the outcomes of interest. However, we don't have time to do this in class.
 
-
-
-> Exercises:
->
-> 0. Why did I turn off the error bands for the LOESS smoother? Discuss with one of the statistics / biostatistics students (*HINT: think about the assumptions of regression*).
-> 1. Import the ZIP code data for Miami-Dade and Broward counties.
-> 2. Merge these two county tibbles, and clean up the ZIP code column (if you haven't already done this as part of your homework from Lesson 08).
-> 3. Use a `*_join()` function to create a single subset of the 2016 ACS SNAP data set for these two counties.
-
-> Exercise: re-plot this relationship for Miami-Dade and Broward counties (make sure to use the same scales for proper comparison). Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Why did I turn off the error bands for the LOESS smoother? Discuss with one of the statistics / biostatistics students (*HINT: think about the assumptions of regression*).
+2. Import the ZIP code data for Miami-Dade and Broward counties.
+3. Merge these two county tibbles, and clean up the ZIP code column (if you haven't already done this as part of your homework from Lessons 8 and 10).
+4. Use a `*_join()` function to create a single subset of the 2021 ACS SNAP data set with a column that indicates if the ZIP code belongs to one of these two counties.
+5. Re-build your plot of this relationship, adding a color to indicate the ZIP codes in Miami-Dade and Broward counties. Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?
+:::
 
 </br>
 
@@ -344,10 +342,15 @@ In practice, at this point we would thoroughly inspect all of the features of in
 # Generating Hypotheses
 Based on the above graph, there is a strong relationship between income and the proportion of food stamp recipients in a ZIP code, but it isn't perfect. There are clearly some other factors. This is where generating hypotheses comes in.
 
-> Exercises:
-> 
-> 1. Work in groups of 4 to generate 8-10 hypotheses to explain the excess variability in the relationship between income and percentage of food stamp recipients within a ZIP code. Include at least 2 multiple-predictor hypotheses (y depends on x within/interacting with z).
-> 2. Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 4-5 hypotheses left (if you don't, go back to exercise 1).
-> 3. Graphically test the remaining hypotheses.
-> 4. Write a report outlining the hypotheses that you wanted to try but could not (because of lack of data), the hypotheses you tried, the corresponding graphs, and your explinations of each.
-
+::: {.callout-note title="Exercises"}
+## Exercises
+1. Work in groups of 3-4 to generate 8-10 hypotheses to explain the excess variability in the relationship between income and percentage of food stamp recipients within a ZIP code. Include at least 2 multiple-predictor hypotheses (y depends on x within/interacting with z).
+2. Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 4-5 hypotheses left (if you don't, go back to exercise 1).
+3. Graphically test the remaining hypotheses.
+4. Write a short report outlining following:
+    + the hypotheses that you wanted to try but could not (because of lack of data),
+    + comment on if such data could be found at the ZIP code level,
+    + state the hypotheses you could try based on available data,
+    + build the corresponding graphs, and
+    + (briefly) write your explanations of each.
+:::
