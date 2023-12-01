@@ -10,7 +10,7 @@ format:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE) # 
+knitr::opts_chunk$set(echo = TRUE) # 
 ```
 
 # Review
@@ -206,98 +206,100 @@ Often we have some idea of a pre-existing relationship in the data; e.g, we know
 
 
 ## Find the "Food Stamps" Metric
-We will use the same process as above (`mutate()` + `str_detect()` + `filter()`) to find all the columns that measure food stamp usage:
+We will use the same process as above (`mutate()` + `str_detect()` + `filter()`) to find all the columns that measure food stamp usage as a percentage:
 ```{r}
 FLmetadata3_df %>% 
-  mutate(FoodStamps_logi = str_detect(Id, "food stamps")) %>% 
-  filter(FoodStamps_logi) %>% 
-  select(-FoodStamps_logi)
+  mutate(foodStamps_logi = str_detect(Label, "food stamps")) %>% 
+  mutate(percent_logi = str_detect(Label, "percent")) %>% 
+  filter(foodStamps_logi & percent_logi) %>% 
+  select(-foodStamps_logi, -percent_logi)
 ```
 
-While there are 152 options, it looks like we want the second one:
+While there are 76 options, it looks like we want the one labelled `S2201_C04_001E`, but the tibble print options cut off the full label. Let's use `pull()` to extract the label and confirm it's what we want, but note that we have to surround column names with spaces with backticks:
 ```{r}
-foodStampsName_char <- 
-  FLmetadata3_df %>%  
-  mutate(FoodStamps_logi = str_detect(Id, "food stamps")) %>% 
-  filter(FoodStamps_logi) %>% 
-  slice(2) %>%
-  pull(Id)
-
-# Check
-foodStampsName_char
+FLmetadata3_df %>% 
+  filter(`Column Name` == "S2201_C04_001E") %>% 
+  pull(Label)
 ```
 
-Now we can find the matching GeoID:
-```{r}
-foodStampsID_char <- 
-  FLmetadata3_df %>% 
-  filter(Id == foodStampsName_char) %>% 
-  pull(GEO.id)
 
-# Check
-foodStampsID_char
+That label is correct, and it matches to the feature `"estimate!!percent households receiving food stamps/snap!!households"`. Let's save this column ID.
+```{r}
+foodStampsColID_char <- "S2201_C04_001E"
 ```
 
 
 ## Find the "Income" Metric
-Just like we found the column name of the food stamps metric we needed, we can find the column name for income:
+Just like we found the column name of the food stamps metric we needed, we can find the column name for income (I recommend using the `View()` function interactively to make sure you can read the labels):
 ```{r}
 FLmetadata3_df %>%  
-  mutate(Income_logi = str_detect(Id, "income")) %>% 
-  filter(Income_logi) %>% 
-  select(-Income_logi)
+  mutate(income_logi = str_detect(Label, "income")) %>% 
+  filter(income_logi) %>% 
+  select(-income_logi)
 ```
 
 These labels are too long, so we need to "pull" them out of the data frame:
 ```{r}
 FLmetadata3_df %>%  
-  mutate(Income_logi = str_detect(Id, "income")) %>% 
-  filter(Income_logi) %>% 
-  select(-Income_logi) %>% 
-  pull(Id)
+  mutate(income_logi = str_detect(Label, "income")) %>% 
+  filter(income_logi) %>% 
+  select(-income_logi) %>% 
+  pull(Label)
 ```
 
-Because our sanity check is "ZIP codes with higher income should have lower percentages of food stamp recipients", we want the most basic income measurement (the first one).
+Because our sanity check is "ZIP codes with higher income should have lower percentages of food stamp recipients", we want the most basic income measurement (the first one). Let's pull the column ID for that first match:
 ```{r}
-incomeName_char <- 
+incomeColID_char <- 
   FLmetadata3_df %>%  
-  mutate(Income_logi = str_detect(Id, "income")) %>% 
-  filter(Income_logi) %>% 
+  mutate(income_logi = str_detect(Label, "income")) %>% 
+  filter(income_logi) %>% 
   slice(1) %>%
-  pull(Id)
+  pull(`Column Name`)
 
 # Check
-incomeName_char
+FLmetadata3_df %>% 
+  filter(`Column Name` == incomeColID_char) %>% 
+  pull(Label)
 ```
 
-Now we can find the matching GeoID:
+Now that we have the two columns we care about, we can subset the SNAP values data to include only the following columns: ZIP code (technically the [ZCTA](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html)), proportion of households receiving food stamps in that area, and the median household income for that area. 
 ```{r}
-incomeID_char <- 
-  FLmetadata3_df %>% 
-  filter(Id == incomeName_char) %>% 
-  pull(GEO.id)
+FLallZIP_df %>% 
+  select(
+    zcta = NAME,
+    # # OLD version:
+    # food_stamp_prop = foodStampsColID_char,
+    # median_household_income = incomeColID_char
+    # # New version:
+    food_stamp_prop = all_of(foodStampsColID_char),
+    median_household_income = all_of(incomeColID_char)
+  ) 
 
-# Check
-incomeID_char
+# NOTE: after I wrote this lesson, the tidyverse developers modified how the
+#   select() function works. We should now use the all_of() helper functions.
+#   I included the original way (which causes warnings), but commented it out.
 ```
 
 
 ## Subset and Mutate the Data
-Now that we have the column names for the data we need, we can extract and inspect those two columns:
+Notice that the atomic class of the `median_household_income` column is character. We see that some of the values are missing. Subsequently, it looks like have numeric information stored in character columns because a letter or symbol was used instead of `NA`. For atomic data, we can follow the type conversion rules to demote this character information to numeric (which triggers a warning):
 ```{r}
-FLallZIP_df %>% 
-  select(incomeID_char, foodStampsID_char) 
-```
+#| warning: true
 
-It looks like have  numeric information stored in character columns. For atomic data, we can follow the type conversion rules to demote this character information to numeric:
-```{r}
-# Save the results
 incomeSNAP_df <- 
   FLallZIP_df %>% 
-  # Select and rename the columns we want
-  select(income = incomeID_char, foodStamps = foodStampsID_char) %>% 
+  select(
+    zcta = NAME,
+    food_stamp_prop = all_of(foodStampsColID_char),
+    median_household_income = all_of(incomeColID_char)
+  )  %>% 
   # drop character to numeric
-  mutate(income = as.numeric(income), foodStamps = as.numeric(foodStamps))
+  mutate(
+    food_stamp_prop = as.numeric(food_stamp_prop),
+    median_household_income = as.numeric(median_household_income)
+  )
+
+incomeSNAP_df
 ```
 
 Notice that the `"-"` symbols were replaced by `NA` values. (*If you have other features to control for or to add to the plot, make sure you include them here.*)
@@ -307,14 +309,14 @@ Notice that the `"-"` symbols were replaced by `NA` values. (*If you have other 
 Finally, we have data we can plot! 
 ```{r, warning=FALSE}
 ggplot(data = incomeSNAP_df) +
-  aes(x = income, y = foodStamps) +
+  aes(x = median_household_income, y = food_stamp_prop) +
   geom_point()
 ```
 
 This clearly shows a negative relationship between income and proportion of residents on food stamps. However, the x-axis shows a strong tail, so let's try to clean this up with a log transformation (also, the relationship looks non-linear, so I've added a LOESS estimate in blue):
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data = incomeSNAP_df) +
-  aes(x = log10(income), y = foodStamps) +
+  aes(x = log10(median_household_income), y = food_stamp_prop) +
   geom_point(alpha = 0.3) +
   geom_smooth(se = FALSE)
 ```
@@ -325,6 +327,7 @@ In practice, at this point we would thoroughly inspect all of the features of in
 
 > Exercises:
 >
+> 0. Why did I turn off the error bands for the LOESS smoother? Discuss with one of the statistics / biostatistics students (*HINT: think about the assumptions of regression*).
 > 1. Import the ZIP code data for Miami-Dade and Broward counties.
 > 2. Merge these two county tibbles, and clean up the ZIP code column (if you haven't already done this as part of your homework from Lesson 08).
 > 3. Use a `*_join()` function to create a single subset of the 2016 ACS SNAP data set for these two counties.
