@@ -383,7 +383,7 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>Instruct R to greet your neighbour, but using single quotes instead of double quotes. What changed?</p>
+<p>Instruct R to greet your neighbour, but using single quotes instead of double quotes. What (if anything) changed?</p>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -396,7 +396,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You can use the “up arrow” key to recall the last command you typed.</p>
+<p>You can use the <code>up</code> arrow key to recall the last command you typed.</p>
 </div>
 </div>
 </section>
@@ -424,12 +424,24 @@ Exercise
 <p>Type your age, then the plus sign (<code>+</code>), then hit <code>Enter</code>. What happens to the prompt? Can you type other commands, like a <code>"Hello, world!"</code>? What do you think you should do to get the original prompt back?</p>
 </div>
 </div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Note that from here on out, I will be assuming that you will type code at the proper <code>&gt;</code> prompt, so I won’t include that anymore.</p>
-<p><strong>Why “scalar” arithmetic?</strong> Did you notice the “[1]” next to your answers? In mathematics, a scalar is a quantity represented in one dimension, or—as most commonly refer to them—numbers. We will return to this concept, and why it is important in R, shortly.</p>
+</div>
+</div>
+<p><strong>Why “scalar” arithmetic?</strong> Did you notice the “[1]” next to your answers? In mathematics, a scalar is a numeric quantity represented in one dimension, or—as most people commonly refer to them—numbers. We will return to this concept, and why it is important in R, shortly.</p>
 </section>
 <section id="logic" class="level2">
 <h2 class="anchored" data-anchor-id="logic">Logic</h2>
-<p>We can use R’s logic system to compare values. A simple comparison is, “is 5 less than 3”? In R, this is</p>
+<p>We can use R’s logic system to compare values. A simple comparison is, “is 5 less than 3”? In R, this <em>expression</em> is</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -479,6 +491,19 @@ Exercise
 </tr>
 </tbody>
 </table>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An <em>expression</em> in the R language is what we call a small line of code. All of the examples we have written so far have been “expressions”. If you want to learn more, here is a <a href="https://adv-r.hadley.nz/expressions.html">very advanced chapter</a> on the topic. But, in the most basic sence, “expressions” are the code you type.</p>
+</div>
+</div>
 </section>
 <section id="the-code-comment" class="level2">
 <h2 class="anchored" data-anchor-id="the-code-comment">The Code Comment</h2>
@@ -542,9 +567,9 @@ Important
 </div>
 <p>Now look at the “Environment” pane on the top right. You should see this:</p>
 <p><img src="../_figures/intro_global_environment_with_x.png" class="img-fluid"></p>
-<p>What happened? Consider this analogy: you have a meal container, you put the number 2 in it, and you label the container as <code>x</code>.</p>
+<p>What happened? Consider this analogy: you have a small container, you put the number 2 in it, and you label the container as <code>x</code>.</p>
 <p><img src="../_figures/intro_scalar_atomic_object.png" class="img-fluid"></p>
-<p>So far, you have used “containers” without labelling them. When you executed <code>24 * 7</code>, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate <code>24 * 7</code> from scratch.</p>
+<p>An example in the real world is a container of food in the office refrigerator: it should have a <em>label</em> to identify what it is and who owns it, and it should <em>contain</em> some food or drink. So far, you have used “containers” without labelling them. When you executed <code>24 * 7</code>, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate <code>24 * 7</code> from scratch.</p>
 <p>We can perform calculations with objects just like we could with anything contained in that object. For instance, if you wanted 10 to the power of 2, we see that the following are equivalent:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">^</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -630,7 +655,7 @@ Exercises
 </div>
 <div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
-<li>Create a sequence from 70 to 100. How does the display of this vector differ from the display of the object <code>keypad</code>?</li>
+<li>Create a sequence from 1 to 100. How does the display of this vector differ from the display of the object <code>keypad</code>?</li>
 <li>Create a vector called <code>revKeypad</code> with the integers from 9 to 0.</li>
 <li>All of the values we combined with the <code>keypad</code> vector were scalars. Multiply two vectors together: <code>revKeypad * keypad</code>. What happened? Is this what you expected?</li>
 <li>Create a new vector of integers from -1 to 1. Multiply this new vector by <code>keypad</code>. What happened? Is this what you expected?</li>
@@ -644,7 +669,7 @@ Exercises
 </section>
 <section id="calling-functions-in-r" class="level1">
 <h1>Calling Functions in R</h1>
-<p>You are probably thinking about now, “but what if I want to make a vector with something other than just sequential integers?” That’s a great question. To create some of the more complicated vectors, we need <em>functions</em>.</p>
+<p>You are probably thinking about now, “but what if I want to make a vector with something other than just sequential integers?” That’s a great question. To create some of the more complicated vectors, we need to explicitly call some <em>functions</em>.</p>
 <section id="the-concatenate-function" class="level2">
 <h2 class="anchored" data-anchor-id="the-concatenate-function">The “Concatenate” Function</h2>
 <p>One of the most important functions you will learn is the function to create simple vectors:</p>
@@ -654,7 +679,7 @@ Exercises
 <pre><code>[1]  1  3  6 12</code></pre>
 </div>
 </div>
-<p>The <code>c()</code> function will put almost anything you want into a single vector, provided that they are all similar things. For instance</p>
+<p>The <code>c()</code> function will put almost anything you want into a single vector, provided that they are all similar things. For instance, I can make a vector of my full name and terminal degrees:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Prof."</span>, <span class="st">"Gabriel"</span>, <span class="st">"J."</span>, <span class="st">"Odom"</span>, <span class="st">"PhD"</span>, <span class="st">"ThD"</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>me</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -674,10 +699,11 @@ Exercises
 </div>
 <p>We unpack this as follows:</p>
 <ul>
-<li>The function is named “mean”.</li>
-<li>The mean function has an argument named “x”.</li>
-<li>We supply the vector of integers from 1 to 6 as the value to the argument “x”.</li>
+<li>The function is named <code>mean</code>.</li>
+<li>The mean function has an argument named <code>x</code>.</li>
+<li>We supply the vector of integers from 1 to 6 as the value to the argument <code>x</code>.</li>
 </ul>
+<p>Notice that the name of the argument to the <code>mean()</code> function is “x”. Most functions have named arguments, but the <code>c()</code> function does not. It allows you to choose your own names.</p>
 <p>We can even put functions inside of other functions:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -685,7 +711,6 @@ Exercises
 <pre><code>[1] 2.302585 4.605170 6.907755</code></pre>
 </div>
 </div>
-<p>Notice that the name of the argument to the <code>mean()</code> function is “x”. Most functions have named arguments, but the <code>c()</code> function does not. It allows you to choose your own names.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -709,8 +734,7 @@ Exercises
 </section>
 <section id="getting-help" class="level1">
 <h1>Getting Help</h1>
-<p>Sometimes, you need to get some help with R code: <a href="https://www.youtube.com/watch?v=OzRuuFA6oUs" class="uri">https://www.youtube.com/watch?v=OzRuuFA6oUs</a>.</p>
-<p>To get help on any function you know the name of, type <code>?</code> then the name (with no spaces). For example, to find the help file for the <code>round()</code> function, type</p>
+<p>Sometimes, you need to <a href="https://www.youtube.com/watch?v=OzRuuFA6oUs">get some help</a> with R code. To get help on any function you know the name of, type <code>?</code> then the name (with no spaces). For example, to find the help file for the <code>round()</code> function, type</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>?round</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
