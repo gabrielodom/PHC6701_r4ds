@@ -330,13 +330,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>The Fear Factor</h1>
 <p>In my experience, most people struggle to learn computing because they are afraid of failure and wasting their time. Also, it doesn’t help that, over many years, the computer programming community has developed a reputation for being “hostile” or dismissive to newcomers.</p>
 <p>In previous semesters, I’ve shown this (very gross) clip from the old television show, <em>Fear Factor</em>: <a href="https://youtu.be/zc6_UCgd4KU" class="uri">https://youtu.be/zc6_UCgd4KU</a> (<strong>WARNING</strong>: the above video has bugs in it, and may make some of you uncomfortable). Unlike the perfectly natural reaction to be afraid to eat spiders, I don’t want you to be afraid of this class, afraid of failure, or afraid to ask “dumb” questions. I do believe that there are actually some questions that are dumb (I used to say “there’s no such thing as a dumb question”, but I was wrong); however, I don’t want you to be afraid to ask the question, even if it is dumb.</p>
-<p><br></p>
-<hr>
-<p><br></p>
-</section>
-<section id="the-syllabus" class="level1">
-<h1>The Syllabus</h1>
-<p><em>Please see the course syllabus on Canvas.</em></p>
 <p>Here is what we are <em>not</em> learning to do in this class:<br>
 <a href="https://www.youtube.com/watch?v=8F1Q6yETpfk" class="uri">https://www.youtube.com/watch?v=8F1Q6yETpfk</a>. What we will learn is how to interact with your computer to help you do research. Computers are slaves to literal interpretation. Computers give you exactly what you ask for, but rarely what you actually want. We will hopefully learn how to write better requests of our computer so that we can get close to what we want.</p>
 <div class="callout-important callout callout-style-default callout-captioned">
@@ -356,12 +349,19 @@ Important
 <hr>
 <p><br></p>
 </section>
+<section id="the-syllabus" class="level1">
+<h1>The Syllabus</h1>
+<p><em>Please see the course syllabus on Canvas.</em></p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
 <section id="what-is-data-science" class="level1">
 <h1>What is Data Science?</h1>
 <blockquote class="blockquote">
 <p>“Data science combines statistical methods, computational algorithms, and domain science information to extract knowledge and insights from big data, and to solve complex real-world problems.” - <a href="https://hdsr.mitpress.mit.edu/pub/kpn45eyx/release/3">Wang, 2022</a></p>
 </blockquote>
-<p>First of all, <strong>this is not an introductory course on data science</strong>; Instead, this is more akin to an <em>Introduction to the Introduction to Data Science</em>. However, we will still outline data science as a scientific discipline. There are six divisions of “Greater” Data Science (<a href="https://doi.org/10.1080/10618600.2017.1384734">Donaho, 2017</a>).</p>
+<p>First of all, <em>this is not an introductory course on data science</em>; Instead, this is more akin to an <em>Introduction to the Introduction to Data Science</em>. However, we will still outline data science as a scientific discipline. There are six divisions of “Greater” Data Science (<a href="https://doi.org/10.1080/10618600.2017.1384734">Donaho, 2017</a>).</p>
 <section id="data-preparation-and-exploration" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation-and-exploration">Data Preparation and Exploration</h2>
 <p>This is the portion of data science that deals with structuring your data appropriately (more on this later), exploratory data analysis, and data cleaning and preprocessing. For this part of data science, traditional statistics departments discuss only exploratory data analysis.</p>
@@ -420,7 +420,10 @@ Tip
 </section>
 <section id="reproducibility-and-replicability" class="level1">
 <h1>Reproducibility and Replicability</h1>
-<p>Two key definitions: &gt; “Replicability: if we repeat a study with new data, the repetition should agree with the original results, or—at minimum—not refute the original study’s conclusions.”</p>
+<p>Two key definitions:</p>
+<blockquote class="blockquote">
+<p>“Replicability: if we repeat a study with new data, the repetition should agree with the original results, or—at minimum—not refute the original study’s conclusions.”</p>
+</blockquote>
 <blockquote class="blockquote">
 <p>“Reproducibility: if we repeat the same analysis with the same data, we should be able to reproduce the same published results.”</p>
 </blockquote>
@@ -464,6 +467,7 @@ Tip
 <p>Before we wrap up for the day, we need to write our first line of code in R. Here are the instructions to download and install R and RStudio, from the <a href="https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/">EdX help pages</a>:</p>
 <section id="downloading-and-installing-r" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-and-installing-r">Downloading and Installing R</h2>
+<p>You should have completed these steps before getting to this lesson, but here they are again regardless.</p>
 <section id="for-windows" class="level3">
 <h3 class="anchored" data-anchor-id="for-windows">For Windows</h3>
 <ol type="1">
@@ -518,10 +522,10 @@ Tip
 <p>Whether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).</p>
 <p>Find RStudio on your computer and open it. You should see a window that looks like this:</p>
 <p><img src="../_figures/RStudio_first_open.png" class="img-fluid"></p>
-<p>This application window is broken into three panes: the console pane, the environment pane, and the file pane.</p>
+<p>This application window is broken into three panes: the console pane (left half), the environment pane (top right quarter), and the file pane (bottom right quarter).</p>
 <section id="our-very-first-r-code" class="level3">
 <h3 class="anchored" data-anchor-id="our-very-first-r-code">Our Very First R Code</h3>
-<p>In the console pane, move your cursor to the prompt (the <code>&gt;</code> symbol). Type (you don’t have to type the <code>&gt;</code> symbol; it’s just there for reference)</p>
+<p>In the console pane (on the left side of the screen), move your cursor to the prompt (the <code>&gt;</code> symbol). Type (you don’t have to type the <code>&gt;</code> symbol; it’s just there for reference)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="st">"Hello, world!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

@@ -277,7 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#geometric-objects" id="toc-geometric-objects" class="nav-link" data-scroll-target="#geometric-objects">Geometric Objects</a></li>
   <li><a href="#labelling-your-graphs" id="toc-labelling-your-graphs" class="nav-link" data-scroll-target="#labelling-your-graphs">Labelling your Graphs</a></li>
   <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets">Facets</a></li>
-  <li><a href="#online-examples" id="toc-online-examples" class="nav-link" data-scroll-target="#online-examples">Online examples:</a></li>
+  <li><a href="#organizing-ggplot-code" id="toc-organizing-ggplot-code" class="nav-link" data-scroll-target="#organizing-ggplot-code">Organizing ggplot Code</a></li>
+  <li><a href="#further-reading-and-online-examples" id="toc-further-reading-and-online-examples" class="nav-link" data-scroll-target="#further-reading-and-online-examples">Further Reading and Online Examples:</a></li>
   </ul>
 </nav>
     </div>
@@ -318,8 +319,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol type="1">
 <li>Benefits of reproducible reports</li>
 <li>R packages and how to install them</li>
-<li>The components of a basic RMarkdown report</li>
-<li>Markdown customisation options</li>
+<li>The components of a basic Quarto report</li>
+<li>Markdown customization options</li>
 </ol>
 <p><br></p>
 <hr>
@@ -336,6 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Geometric Objects</li>
 <li>Labels</li>
 <li>Facets</li>
+<li>Organizing ggplot Code</li>
 </ol>
 <p><br></p>
 <hr>
@@ -343,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="layered-grammar-of-graphics" class="level1">
 <h1>Layered Grammar of Graphics</h1>
-<p>This section header is quite a lot to unpack, simply considering the English words themselves, even before we discuss the implications in data science. Let’s dive in.</p>
+<p>This section header is quite a lot to unpack (simply considering the English words themselves) even before we discuss the implications in data science. Let’s dive in.</p>
 <section id="unpacking-the-title" class="level2">
 <h2 class="anchored" data-anchor-id="unpacking-the-title">Unpacking the Title</h2>
 <p>We will start with “graphics”, because most people are most familar with graphs. Then we will work backwards.</p>
@@ -514,12 +516,12 @@ Exercises
 <li><code>tibble</code>: create very nice “tidy” data tables from scratch</li>
 <li><code>tidyr</code>: clean “messy” data into “tidy” data</li>
 <li><code>readr</code>: import raw data</li>
-<li><code>purrr</code>: help you create and apply functions to your data</li>
+<li><code>purrr</code>: help you modify functions and apply them to your data</li>
 <li><code>dplyr</code>: manipulate “tidy” data tables</li>
 <li><code>stringr</code>: operate on character strings</li>
 <li><code>forcats</code>: recode and modify catagorical variables in R, also known as <em>factors</em> (“forcats” is an abbreviation of <strong>for cat</strong>egorical variable<strong>s</strong>, and also an anagram of “factors”)</li>
 </ul>
-<p>To be completely honest, we could spend the entire semester on these eight packages. However, we will not be able to do that at this juncture. We are not going to cover the <code>forcats</code> package, and we will use some of the time in this semester diving deeper into the “inner workings” of R (we will use the <a href="https://adv-r.hadley.nz/">Advanced R</a> textbook for that).</p>
+<p>To be completely honest, we could spend the entire semester on these eight packages. However, we will not be able to do that at this juncture. We are not going to cover the <code>forcats</code> package, we will only briefly mention a function or two from the <code>tidyr</code> package, and we will use some of the time in this semester diving deeper into the “inner workings” of R instead (we will use the <a href="https://adv-r.hadley.nz/">Advanced R</a> textbook for that).</p>
 <p><br></p>
 <hr>
 <p><br></p>
@@ -527,7 +529,7 @@ Exercises
 </section>
 <section id="my-first-ggplot" class="level1">
 <h1>My First ggplot</h1>
-<p>Now that you have an understanding of how the layered grammar of graphics works (in theory), we can build our own plot. Within the <code>tidyverse</code>, there is an example data set on car manufacturing specifics stored in the object <code>mpg</code> (because it is in the package, you won’t see it in the “Environment” pane).</p>
+<p>Now that you have an understanding of how the layered grammar of graphics works (in theory), we can build our own plot. Within the <code>tidyverse</code>, there is an example data set on car manufacturing specifics stored in the object <code>mpg</code> (because it is in a package, you won’t see it in the “Environment” pane).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -547,7 +549,20 @@ Exercises
 # ℹ 224 more rows</code></pre>
 </div>
 </div>
-<p>Don’t worry about what this all means for now. Just think of this object as R’s version of an Excel spreadsheet. Observations are in the rows, measurements / variables are in the columns, each column has a name, and each column stores one <em>class</em> / <em>type</em> of data.</p>
+<p>Don’t worry about what this all means for now. Just think of the <code>mpg</code> object as an example of R’s version of an Excel spreadsheet. Observations are in the rows, measurements / variables are in the columns, each column has a name, and each column stores one <em>class</em> / <em>type</em> of data.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want to learn more about ggplot, here is a very thorough article: <a href="http://www.sthda.com/english/wiki/be-awesome-in-ggplot2-a-practical-guide-to-be-highly-effective-r-software-and-data-visualization" class="uri">http://www.sthda.com/english/wiki/be-awesome-in-ggplot2-a-practical-guide-to-be-highly-effective-r-software-and-data-visualization</a>.</p>
+</div>
+</div>
 <section id="the-variables" class="level2">
 <h2 class="anchored" data-anchor-id="the-variables">The Variables</h2>
 <p>There are a few variables in this data set, including</p>
@@ -581,7 +596,7 @@ Exercise
 <p><img src="lesson04_ggplot_files/figure-html/displ_x_hwy-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Well, at first glance, it certainly seems that larger engines are less fuel efficient.</p>
+<p>The engine size is on the horizontal axis, the highway fuel efficiency is on the vertical axis, and—at first glance—it certainly seems that larger engines are less fuel efficient.</p>
 <p>Within the code itself, the components in this code are organized in a logical manner and with a corresponding set of rules—that is, a <em>grammar</em>. That’s what the <code>gg</code> part stands for—the <em>grammar</em> of <em>graphics</em>.</p>
 <section id="the-layer-glue" class="level3">
 <h3 class="anchored" data-anchor-id="the-layer-glue"><code>+</code>: The Layer Glue</h3>
@@ -606,10 +621,10 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>Run <code>ggplot(data = mpg)</code>. What does this look like?</p>
+<p>Run <code>ggplot(data = mpg)</code>. What does this plot look like?</p>
 </div>
 </div>
-<p>The <code>ggplot()</code> function takes data tables only in a certain form. Recall the exercise from Lesson 1 on finding help? We first read about the <code>str</code> function then.</p>
+<p>The <code>ggplot()</code> function takes data tables only in a certain form; they must have <em>class</em> <code>data.frame</code>. It’s not important for use to understand what this means right now.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -620,20 +635,20 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>Use the <code>str()</code> function to confirm that the <code>mpg</code> object has <code>data.frame</code> as one of its <em>classes</em>.</p>
+<p>Recall the exercise from Lesson 1 on finding help? We first read about the <code>str</code> function then. Use the <code>str()</code> function to confirm that the <code>mpg</code> object has <code>data.frame</code> as one of its <em>classes</em>.</p>
 </div>
 </div>
 <p>If you ever have trouble with <code>ggplot()</code>, make sure your data frame is tidy! Later this semester, we will discuss some things to do if your data table is not tidy (using the <code>tidyr</code>, <code>tibble</code>, and <code>readr</code> packages in the <code>tidyverse</code>).</p>
 </section>
 <section id="the-aesthetic-mapping-layer" class="level3">
 <h3 class="anchored" data-anchor-id="the-aesthetic-mapping-layer">The Aesthetic Mapping Layer</h3>
-<p>Now that we have created a canvas to paint on, we need to choose our proverbial “colour palette” and plan where our “paintbrush” will go. That is, we need to specify which measurements contained in the <code>mpg</code> data set we are going to use, and how they will influence the blank canvas. Now, consider the second line of code: <code>aes(x = displ, y = hwy)</code>. Following what we know about function syntax, we can deconstruct this line as follows:</p>
+<p>Now that we have created a canvas to paint on, we need to choose our proverbial “colour palette” and plan where our “paint brush” will go. That is, we need to specify which measurements contained in the <code>mpg</code> data set we are going to use, and how they will influence the blank canvas. Now, consider the second line of code: <code>aes(x = displ, y = hwy)</code>. Following what we know about function syntax, we can deconstruct this line as follows:</p>
 <ul>
 <li>The function is named <code>aes</code></li>
 <li>The first argument of the function is named <code>x</code></li>
-<li>We supply the value of the object <code>displ</code> as to the argument <code>x</code></li>
+<li>We supply the value of the object <code>displ</code> to the argument <code>x</code></li>
 <li>The second argument of the function is named <code>y</code></li>
-<li>We supply the value of the object <code>hwy</code> as to the argument <code>y</code></li>
+<li>We supply the value of the object <code>hwy</code> to the argument <code>y</code></li>
 </ul>
 <p>Now, if you have been paying attention, you’ll notice that we don’t have any objects named <code>displ</code> or <code>hwy</code> in the “Environment” pane.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -658,14 +673,14 @@ Exercises
 <li>How is this different from the first layer alone? <strong>Remember to use the “+” symbol to add one layer to another.</strong><br>
 </li>
 <li>Where did R find the values for <code>displ</code> and <code>hwy</code>? What would you do if you needed to add different values to the aesthetic layer?</li>
-<li>Add 3 and 5 together. Is there anything else different with the <code>+</code> function?</li>
+<li>Add 3 and 5 together. Does it still return the number 8 even though 3 and 5 aren’t pieces of a <code>ggplot</code> graph? Discuss with your neighbours.</li>
 </ol>
 </div>
 </div>
 </section>
 <section id="the-geometric-object-layer" class="level3">
 <h3 class="anchored" data-anchor-id="the-geometric-object-layer">The Geometric Object Layer</h3>
-<p>We now have a canvas to plot our points, and a system of axes to know where the points belong. Now we need to tell <code>ggplot()</code> <em>how</em> to plot <code>x</code> and <code>y</code>. This is where the the <code>geom_*()</code> functions come into play: we wanted a scatterplot, so we picked <code>geom_point()</code>. This is simply a call to the function <code>geom_point</code> with no arguments. “Geom” is short for “geometric object”, and there are quite a few geometric shapes we can bend our data into (more on this later).</p>
+<p>We now have a canvas to plot our points, and a system of axes to know where the points belong. Now we need to tell <code>ggplot()</code> <em>how</em> to plot <code>x</code> and <code>y</code>. This is where the the <code>geom_*()</code> functions come into play: we wanted a scatterplot, so we picked <code>geom_point()</code>. This is simply a call to the function <code>geom_point</code> with no arguments. “Geom” is short for “geometric object”, and there are quite a few geometric shapes we can bend our data into (please see Wickham’s <a href="https://ggplot2-book.org/">ggplot2 book</a> for more information).</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -706,7 +721,7 @@ Exercises
 <li><code>size</code>: How big should the points be? Better for continuous features.</li>
 <li><code>alpha</code>: How opaque / transparent should the points be? Values range from <span class="math inline">\([0,1]\)</span>, with <span class="math inline">\(1\)</span> being completely opaque. Better for continuous features.</li>
 <li><code>shape</code>: What shape should the points have? Better for discrete features. Options are shown below <img src="http://r4ds.had.co.nz/visualize_files/figure-html/shapes-1.png" class="img-fluid"></li>
-<li><code>fill</code>: For the shapes filled with red, what color should you put instead? Better for discrete features, but is limited when plotting points. The <code>fill</code> aesthetic truly shines with geoms other than <code>point</code>, but more on that later.</li>
+<li><code>fill</code>: For the shapes filled with red, what color should you put instead? Better for discrete features, but is limited when plotting points. The <code>fill</code> aesthetic truly shines with geoms other than <code>point</code>, but that is a bit beyond the scope of this lesson.</li>
 </ul>
 <p>For most of these aesthetics, the behavior of the graph will change depending on if you map a discrete or continuous feature to it. For example, if you map a continuous feature to the <code>colour</code> aesthetic, the points will be given a continuous color gradient (by default, from dark blue to light blue). However, if you map character information to the <code>colour</code> aesthetic, the points will be distinctly different (discrete) in color.</p>
 </section>
@@ -727,13 +742,13 @@ Exercises
 <section id="hypothesis-1-outlier-cars-are-hybrids" class="level3">
 <h3 class="anchored" data-anchor-id="hypothesis-1-outlier-cars-are-hybrids">Hypothesis 1: Outlier Cars are Hybrids</h3>
 <p>Check the help documentation for the <code>mpg</code> data set to find out which column measures the type of the car. We probably won’t see “hybrid”” in this list, because we know that very few hybrid cars were in production in both 1998 and 2008. These cars would have all been classified as “compact” or “sub-compact”. <strong>Note: this is where “domain knowledge” is critical for proper data science.</strong></p>
-<p>Now what type of feature is <code>class</code>? The column header of the <code>mpg</code> data table informs us that this feature is a <code>character</code> feature (<code>chr</code>), and therefore discrete. Therefore, we can add it to the graph with the <code>colour</code> or <code>shape</code> aesthetics.</p>
+<p>Now what type of feature is <code>class</code>? The column header of the <code>mpg</code> data table informs us that this feature is a <code>character</code> feature (<code>chr</code>), and therefore discrete. Thus, we can add it to the graph with the <code>colour</code> or <code>shape</code> aesthetics.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="lesson04_ggplot_files/figure-html/Hwympg_x_displ_classcolour-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It appears that our hypothesis was incorrect. These vehicles are not small, hybrid cars at all, but sports cars or midsize cars.</p>
+<p>It appears that our hypothesis was incorrect. These vehicles are not small, hybrid cars at all, but “2 seater” cars or midsize cars.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -792,7 +807,7 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>Write the code necessary to create the above graph. <em>Hint: the shape is not dependent on the data, so it is not an aesthetic. Think about where you should put the shape argument if you can’t put it in the <code>aes()</code> function.</em></p>
+<p>Write the code necessary to create the above graph. <em>Hint: in this version of the figure, the shape is not dependent on the data, so it is not an aesthetic. Think about where you should put the shape argument if you can’t put it in the <code>aes()</code> function.</em></p>
 </div>
 </div>
 </section>
@@ -937,15 +952,47 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>Discuss the above figure with your neighbours. What information can you draw from this figure? What can be done to improve it?</p>
+<p>Discuss the above figure with your neighbours. What information can you draw from this figure? What can be done to improve it? Is this figure useful?</p>
 </div>
 </div>
 <p><br></p>
 <hr>
 <p><br></p>
 </section>
-<section id="online-examples" class="level1">
-<h1>Online examples:</h1>
+<section id="organizing-ggplot-code" class="level1">
+<h1>Organizing ggplot Code</h1>
+<p>Up to this point, we have shown you how to create new layers and add them step-by-step to the “canvas”. In this short section, I want to drive home some best practices for how to order these layers. After all, a nice figure made by poorly-organized code may be more trouble than it’s worth in the long run. Here are the recommended groups for ggplot components.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use these layer organization rules to make sure that a later layer doesn’t overwrite something important in an earlier layer. This is one of the most significant pain points for new ggplot users. Keep your layers organized!</p>
+</div>
+</div>
+<ol type="1">
+<li>The data: keep parts of the code that modify the data itself at the top or near the top. Usually, I will put code to make minor modifications to data sets directly in the <code>ggplot()</code> call.</li>
+<li>Aesthetics: any code that controls the overall appearance of the figure (but not what the figure is) should go with aesthetics. This includes:
+<ul>
+<li><code>theme_*()</code> functions (usually at the very top, right after the data layer calls),</li>
+<li><code>aes()</code> mapping, then</li>
+<li>limits with <code>*lim()</code>, scales with <code>scale_*()</code>, and labels with <code>labs()</code></li>
+</ul></li>
+<li>Geometric and Statistical objects: calls to <code>geom_*()</code> or <code>stat_*()</code> go here, as well as modifications to how those geoms are displayed that are independent of the data (such as changes to point transparency or size made simply so the graph is easier to understand)</li>
+<li>Facets: facets “multiply” the number of figures you display, so it makes sense to make sure the rest of the figure is set how you like it <em>before</em> you make multiple copies.</li>
+</ol>
+<p>These rules may seem arbitrary, but they will help you in the long run. After all, it’s very challenging to paint “a mountain in the background” <em>after</em> you’ve finished the rest of the painting.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+<section id="further-reading-and-online-examples" class="level1">
+<h1>Further Reading and Online Examples:</h1>
 <ul>
 <li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf</a></li>
 <li><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html" class="uri">http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html</a></li>

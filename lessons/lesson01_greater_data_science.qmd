@@ -34,17 +34,6 @@ In my experience, most people struggle to learn computing because they are afrai
 
 In previous semesters, I've shown this (very gross) clip from the old television show, *Fear Factor*: <https://youtu.be/zc6_UCgd4KU> (**WARNING**: the above video has bugs in it, and may make some of you uncomfortable). Unlike the perfectly natural reaction to be afraid to eat spiders, I don't want you to be afraid of this class, afraid of failure, or afraid to ask "dumb" questions. I do believe that there are actually some questions that are dumb (I used to say "there's no such thing as a dumb question", but I was wrong); however, I don't want you to be afraid to ask the question, even if it is dumb.
 
-</br>
-
-*******************************************************************************
-</br>
-
-
-
-# The Syllabus
-
-*Please see the course syllabus on Canvas.*
-
 Here is what we are *not* learning to do in this class:  
 <https://www.youtube.com/watch?v=8F1Q6yETpfk>. What we will learn is how to interact with your computer to help you do research. Computers are slaves to literal interpretation. Computers give you exactly what you ask for, but rarely what you actually want. We will hopefully learn how to write better requests of our computer so that we can get close to what we want.
 
@@ -59,10 +48,21 @@ Here is what we are *not* learning to do in this class:
 
 
 
+# The Syllabus
+
+*Please see the course syllabus on Canvas.*
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
 # What is Data Science?
 > "Data science combines statistical methods, computational algorithms, and domain science information to extract knowledge and insights from big data, and to solve complex real-world problems." - [Wang, 2022](https://hdsr.mitpress.mit.edu/pub/kpn45eyx/release/3)
 
-First of all, **this is not an introductory course on data science**; Instead, this is more akin to an *Introduction to the Introduction to Data Science*. However, we will still outline data science as a scientific discipline. There are six divisions of "Greater" Data Science ([Donaho, 2017](https://doi.org/10.1080/10618600.2017.1384734)).
+First of all, *this is not an introductory course on data science*; Instead, this is more akin to an *Introduction to the Introduction to Data Science*. However, we will still outline data science as a scientific discipline. There are six divisions of "Greater" Data Science ([Donaho, 2017](https://doi.org/10.1080/10618600.2017.1384734)).
 
 
 ## Data Preparation and Exploration
@@ -111,6 +111,7 @@ This portion of data science involves research *meta-analysis* about the utility
 
 # Reproducibility and Replicability
 Two key definitions:
+
 > "Replicability: if we repeat a study with new data, the repetition should agree with the original results, or---at minimum---not refute the original study's conclusions."
 
 > "Reproducibility: if we repeat the same analysis with the same data, we should be able to reproduce the same published results."
@@ -156,6 +157,7 @@ Before we wrap up for the day, we need to write our first line of code in R. Her
 
 
 ## Downloading and Installing R
+You should have completed these steps before getting to this lesson, but here they are again regardless.
 
 ### For Windows
 
@@ -204,10 +206,10 @@ Find RStudio on your computer and open it. You should see a window that looks li
 
 ![](../_figures/RStudio_first_open.png)
 
-This application window is broken into three panes: the console pane, the environment pane, and the file pane.
+This application window is broken into three panes: the console pane (left half), the environment pane (top right quarter), and the file pane (bottom right quarter).
 
 ### Our Very First R Code
-In the console pane, move your cursor to the prompt (the `>` symbol). Type (you don't have to type the `>` symbol; it's just there for reference)
+In the console pane (on the left side of the screen), move your cursor to the prompt (the `>` symbol). Type (you don't have to type the `>` symbol; it's just there for reference)
 ```{r, eval=FALSE}
 > "Hello, world!"
 ```

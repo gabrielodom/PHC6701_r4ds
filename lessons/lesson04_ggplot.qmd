@@ -18,8 +18,8 @@ What did we learn last class?
 
 1. Benefits of reproducible reports
 2. R packages and how to install them
-3. The components of a basic RMarkdown report
-4. Markdown customisation options
+3. The components of a basic Quarto report
+4. Markdown customization options
 
 </br>
 
@@ -38,6 +38,7 @@ We will cover the following:
 5. Geometric Objects
 6. Labels
 7. Facets
+8. Organizing ggplot Code
 
 </br>
 
@@ -47,7 +48,7 @@ We will cover the following:
 
 
 # Layered Grammar of Graphics
-This section header is quite a lot to unpack, simply considering the English words themselves, even before we discuss the implications in data science. Let's dive in.
+This section header is quite a lot to unpack (simply considering the English words themselves) even before we discuss the implications in data science. Let's dive in.
 
 
 ## Unpacking the Title
@@ -141,12 +142,12 @@ The Tidyverse is a suite of inter-related packages that make data science in R e
 - `tibble`: create very nice "tidy" data tables from scratch
 - `tidyr`: clean "messy" data into "tidy" data
 - `readr`: import raw data
-- `purrr`: help you create and apply functions to your data
+- `purrr`: help you modify functions and apply them to your data
 - `dplyr`: manipulate "tidy" data tables
 - `stringr`: operate on character strings
 - `forcats`: recode and modify catagorical variables in R, also known as *factors* ("forcats" is an abbreviation of **for cat**egorical variable**s**, and also an anagram of "factors")
 
-To be completely honest, we could spend the entire semester on these eight packages. However, we will not be able to do that at this juncture. We are not going to cover the `forcats` package, and we will use some of the time in this semester diving deeper into the "inner workings" of R (we will use the [Advanced R](https://adv-r.hadley.nz/) textbook for that).
+To be completely honest, we could spend the entire semester on these eight packages. However, we will not be able to do that at this juncture. We are not going to cover the `forcats` package, we will only briefly mention a function or two from the `tidyr` package, and we will use some of the time in this semester diving deeper into the "inner workings" of R instead (we will use the [Advanced R](https://adv-r.hadley.nz/) textbook for that).
 
 </br>
 
@@ -156,12 +157,16 @@ To be completely honest, we could spend the entire semester on these eight packa
 
 
 # My First ggplot
-Now that you have an understanding of how the layered grammar of graphics works (in theory), we can build our own plot. Within the `tidyverse`, there is an example data set on car manufacturing specifics stored in the object `mpg` (because it is in the package, you won't see it in the "Environment" pane).
+Now that you have an understanding of how the layered grammar of graphics works (in theory), we can build our own plot. Within the `tidyverse`, there is an example data set on car manufacturing specifics stored in the object `mpg` (because it is in a package, you won't see it in the "Environment" pane).
 ```{r mpg_data}
 mpg
 ```
 
-Don't worry about what this all means for now. Just think of this object as R's version of an Excel spreadsheet. Observations are in the rows, measurements / variables are in the columns, each column has a name, and each column stores one *class* / *type* of data.
+Don't worry about what this all means for now. Just think of the `mpg` object as an example of R's version of an Excel spreadsheet. Observations are in the rows, measurements / variables are in the columns, each column has a name, and each column stores one *class* / *type* of data.
+
+::: {.callout-tip}
+If you want to learn more about ggplot, here is a very thorough article: <http://www.sthda.com/english/wiki/be-awesome-in-ggplot2-a-practical-guide-to-be-highly-effective-r-software-and-data-visualization>.
+:::
 
 
 ## The Variables
@@ -186,11 +191,11 @@ ggplot(data = mpg) +
   geom_point()
 ```
 
-Well, at first glance, it certainly seems that larger engines are less fuel efficient.
+The engine size is on the horizontal axis, the highway fuel efficiency is on the vertical axis, and---at first glance---it certainly seems that larger engines are less fuel efficient.
 
 Within the code itself, the components in this code are organized in a logical manner and with a corresponding set of rules---that is, a *grammar*. That's what the `gg` part stands for---the *grammar* of *graphics*.
 
-###  `+`: The Layer Glue
+### `+`: The Layer Glue
 Notice that each of the lines above are connected by the plus sign, "+". In this context, **the `+` symbol operates to "add" layers together**, but you can still use it to add numbers too. If you are more familiar with `R`, but not familiar with the `tidyverse`, then the idea of "adding" one function to another seems absurd. However, as you'll see soon, we can "add" more and more layers to a single graph with this `+` operator.
 
 ### The `data` Layer
@@ -204,26 +209,26 @@ Think of this as a blank canvas that you will paint on. In this case, the data s
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Run `ggplot(data = mpg)`. What does this look like?
+Run `ggplot(data = mpg)`. What does this plot look like?
 :::
 
-The `ggplot()` function takes data tables only in a certain form. Recall the exercise from Lesson 1 on finding help? We first read about the `str` function then.
+The `ggplot()` function takes data tables only in a certain form; they must have *class* `data.frame`. It's not important for use to understand what this means right now. 
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Use the `str()` function to confirm that the `mpg` object has `data.frame` as one of its *classes*.
+Recall the exercise from Lesson 1 on finding help? We first read about the `str` function then. Use the `str()` function to confirm that the `mpg` object has `data.frame` as one of its *classes*.
 :::
 
 If you ever have trouble with `ggplot()`, make sure your data frame is tidy! Later this semester, we will discuss some things to do if your data table is not tidy (using the `tidyr`, `tibble`, and `readr` packages in the `tidyverse`).
 
 ### The Aesthetic Mapping Layer
-Now that we have created a canvas to paint on, we need to choose our proverbial "colour palette" and plan where our "paintbrush" will go. That is, we need to specify which measurements contained in the `mpg` data set we are going to use, and how they will influence the blank canvas. Now, consider the second line of code: `aes(x = displ, y = hwy)`. Following what we know about function syntax, we can deconstruct this line as follows:
+Now that we have created a canvas to paint on, we need to choose our proverbial "colour palette" and plan where our "paint brush" will go. That is, we need to specify which measurements contained in the `mpg` data set we are going to use, and how they will influence the blank canvas. Now, consider the second line of code: `aes(x = displ, y = hwy)`. Following what we know about function syntax, we can deconstruct this line as follows:
 
 - The function is named `aes`
 - The first argument of the function is named `x`
-- We supply the value of the object `displ` as to the argument `x`
+- We supply the value of the object `displ` to the argument `x`
 - The second argument of the function is named `y`
-- We supply the value of the object `hwy` as to the argument `y`
+- We supply the value of the object `hwy` to the argument `y`
 
 Now, if you have been paying attention, you'll notice that we don't have any objects named `displ` or `hwy` in the "Environment" pane.
 
@@ -237,11 +242,11 @@ ggplot(data = mpg) +
 ```
 3. How is this different from the first layer alone? **Remember to use the "+" symbol to add one layer to another.**  
 4. Where did R find the values for `displ` and `hwy`? What would you do if you needed to add different values to the aesthetic layer?
-5. Add 3 and 5 together. Is there anything else different with the `+` function?
+5. Add 3 and 5 together. Does it still return the number 8 even though 3 and 5 aren't pieces of a `ggplot` graph? Discuss with your neighbours.
 :::
 
 ### The Geometric Object Layer
-We now have a canvas to plot our points, and a system of axes to know where the points belong. Now we need to tell `ggplot()` *how* to plot `x` and `y`. This is where the the `geom_*()` functions come into play: we wanted a scatterplot, so we picked `geom_point()`. This is simply a call to the function `geom_point` with no arguments. "Geom" is short for "geometric object", and there are quite a few geometric shapes we can bend our data into (more on this later).
+We now have a canvas to plot our points, and a system of axes to know where the points belong. Now we need to tell `ggplot()` *how* to plot `x` and `y`. This is where the the `geom_*()` functions come into play: we wanted a scatterplot, so we picked `geom_point()`. This is simply a call to the function `geom_point` with no arguments. "Geom" is short for "geometric object", and there are quite a few geometric shapes we can bend our data into (please see Wickham's [ggplot2 book](https://ggplot2-book.org/) for more information).
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
@@ -273,7 +278,7 @@ There are quite a few aesthetics to choose from to modify our scatterplot:
  - `alpha`: How opaque / transparent should the points be? Values range from $[0,1]$, with $1$ being completely opaque. Better for continuous features.
  - `shape`: What shape should the points have? Better for discrete features. Options are shown below
  ![](http://r4ds.had.co.nz/visualize_files/figure-html/shapes-1.png)
- - `fill`: For the shapes filled with red, what color should you put instead? Better for discrete features, but is limited when plotting points. The `fill` aesthetic truly shines with geoms other than `point`, but more on that later.
+ - `fill`: For the shapes filled with red, what color should you put instead? Better for discrete features, but is limited when plotting points. The `fill` aesthetic truly shines with geoms other than `point`, but that is a bit beyond the scope of this lesson.
  
 For most of these aesthetics, the behavior of the graph will change depending on if you map a discrete or continuous feature to it. For example, if you map a continuous feature to the `colour` aesthetic, the points will be given a continuous color gradient (by default, from dark blue to light blue). However, if you map character information to the `colour` aesthetic, the points will be distinctly different (discrete) in color.
 
@@ -297,14 +302,14 @@ Each question is a hypothesis, and we will attempt to "test" these hypotheses vi
 ### Hypothesis 1: Outlier Cars are Hybrids
 Check the help documentation for the `mpg` data set to find out which column measures the type of the car. We probably won't see "hybrid"" in this list, because we know that very few hybrid cars were in production in both 1998 and 2008. These cars would have all been classified as "compact" or "sub-compact". **Note: this is where "domain knowledge" is critical for proper data science.**
 
-Now what type of feature is `class`? The column header of the `mpg` data table informs us that this feature is a `character` feature (`chr`), and therefore discrete. Therefore, we can add it to the graph with the `colour` or `shape` aesthetics.
+Now what type of feature is `class`? The column header of the `mpg` data table informs us that this feature is a `character` feature (`chr`), and therefore discrete. Thus, we can add it to the graph with the `colour` or `shape` aesthetics.
 ```{r Hwympg_x_displ_classcolour, echo=FALSE}
 ggplot(data = mpg) +
   aes(x = displ, y = hwy, colour = class) + 
   geom_point()
 ```
 
-It appears that our hypothesis was incorrect. These vehicles are not small, hybrid cars at all, but sports cars or midsize cars.
+It appears that our hypothesis was incorrect. These vehicles are not small, hybrid cars at all, but "2 seater" cars or midsize cars.
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
@@ -339,7 +344,7 @@ The manufacture year doesn't help explain the five outlier points very well. The
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Write the code necessary to create the above graph. *Hint: the shape is not dependent on the data, so it is not an aesthetic. Think about where you should put the shape argument if you can't put it in the `aes()` function.*
+Write the code necessary to create the above graph. *Hint: in this version of the figure, the shape is not dependent on the data, so it is not an aesthetic. Think about where you should put the shape argument if you can't put it in the `aes()` function.*
 :::
 
 ### Updated Hypothesis: Outlier Cars are Sportscars
@@ -448,7 +453,7 @@ ggplot(data = mpg) +
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Discuss the above figure with your neighbours. What information can you draw from this figure? What can be done to improve it?
+Discuss the above figure with your neighbours. What information can you draw from this figure? What can be done to improve it? Is this figure useful?
 :::
 
 </br>
@@ -458,7 +463,31 @@ Discuss the above figure with your neighbours. What information can you draw fro
 
 
 
-# Online examples:
+# Organizing ggplot Code
+Up to this point, we have shown you how to create new layers and add them step-by-step to the "canvas". In this short section, I want to drive home some best practices for how to order these layers. After all, a nice figure made by poorly-organized code may be more trouble than it's worth in the long run. Here are the recommended groups for ggplot components.
+
+::: {.callout-tip}
+Use these layer organization rules to make sure that a later layer doesn't overwrite something important in an earlier layer. This is one of the most significant pain points for new ggplot users. Keep your layers organized!
+:::
+
+1. The data: keep parts of the code that modify the data itself at the top or near the top. Usually, I will put code to make minor modifications to data sets directly in the `ggplot()` call.
+2. Aesthetics: any code that controls the overall appearance of the figure (but not what the figure is) should go with aesthetics. This includes:
+    + `theme_*()` functions (usually at the very top, right after the data layer calls), 
+    + `aes()` mapping, then
+    + limits with `*lim()`, scales with `scale_*()`, and labels with `labs()`
+3. Geometric and Statistical objects: calls to `geom_*()` or `stat_*()` go here, as well as modifications to how those geoms are displayed that are independent of the data (such as changes to point transparency or size made simply so the graph is easier to understand)
+4. Facets: facets "multiply" the number of figures you display, so it makes sense to make sure the rest of the figure is set how you like it *before* you make multiple copies.
+
+These rules may seem arbitrary, but they will help you in the long run. After all, it's very challenging to paint "a mountain in the background" *after* you've finished the rest of the painting. 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Further Reading and Online Examples:
 
 - <https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>
 - <http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html>

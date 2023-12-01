@@ -17,7 +17,7 @@ What did we learn last class?
 2. Create new objects with `containerName <- value` syntax.
 3. R is a **vectorised** language: it treats single values as part of a larger set.
 4. Use functions with `functionName(argumentName = argumentValue)` syntax.
-5. Get help with `?` or Google.
+5. Get help with `?` and Google.
 
 </br>
 
@@ -66,7 +66,7 @@ Before we move on to creating our first reports with R, we need to understand a 
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Google "r package for writing report". Look through some of the links, and you should see something called `knitr` (pronounced "nitter" or "nit R") mentioned a few times.
+Google "package for writing reports in RStudio". Look through some of the links, and you should see something called "R Markdown" and `knitr` (pronounced "nitter" or "nit R") mentioned a few times.
 :::
 
 Now we know what package we want to use for reports, but how do we download it for R (or us) to use?
@@ -77,7 +77,7 @@ Now we know what package we want to use for reports, but how do we download it f
 2. Once you have discovered the function to install packages for R, read about the first argument of this function (in the "Arguments" section of the help file). What R syntax do you use to make something a *character vector*? Use this function to install the `knitr` package.
 :::
 
-After we have installed the `knitr` package. It is available for R to use. However, if we want to use the package directly, we need to take one more step, called *loading the library*. We will cover this in the next lesson. For what we need to do today, simply having the package installed is enough.
+After we have installed the `knitr` package, it is available for R to use. However, if we want to use the package directly, we need to take one more step, called *loading the library*. We will cover this in the next lesson. For what we need to do today, simply having the package installed is enough.
 
 </br>
 
@@ -90,7 +90,7 @@ After we have installed the `knitr` package. It is available for R to use. Howev
 Thankfully, we can build a report that meets all of our needs, a Quarto report. RStudio includes a basic template of one for us to work with.
 
 ::: {.callout-important}
-**If at any point RStudio prompts you to download a package, do it.**
+**If at any point RStudio prompts you to download a package, do it. If you are prompted to restart Rstudio, do that too.**
 :::
 
 
@@ -107,19 +107,19 @@ This window appears, giving us some options:
 This window gives us a few options:
 
 - Type of document:
-    + Document (plain manuscript style)
+    + **Document** (plain manuscript style): what we will use in this class for now
     + Presentation (slide deck)
     + Shiny (interactive website)
     + From Template (download a template from a journal or major conference, and write your manuscript to their formatting specifications)
 - Title and Author(s): if you are working in a group, this is where you add the names of your co-authors
 - Output Format:
-    + HTML (the default). This is the recommended starting place for any document. I will show you how to change this output type for a document that you have already written. We will use this option now, as it is the easiest to learn.
+    + HTML (the default). This is the recommended starting place for any document. I will show you how to change this output type for a document that you have already written. **We will use this option now**, as it is the easiest to learn.
     + PDF (advanced). This output style requires that you have additional advanced software installed, such as Windows MiKTeX or MacOS MacTeX. If you plan to use LaTeX to write your PhD dissertation, then you should learn how to use these tools; otherwise, avoid this option. Most people don't need it.
     + WORD (intermediate). This output style requires you to have MS Word installed on your computer (most people do). We will use this option for our reports later in the semester.
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Customise your title and author fields. Once you have finished your customization, click "OK".
+Customize your title and author fields. Once you have finished your customization, click "OK".
 :::
 
 
@@ -179,7 +179,7 @@ Render your report. This may require you to install some packages, so click "OK"
 
 ![](../_figures/qmd_render.png)
 
-While your report is building, notice that the "Console" pane has a new tab called "Background Jobs". If this tab isn't already open, click on it. You should see the following (I've annotated some of the important components in blue):
+While your report is building, notice that the "Console" pane (bottom left quarter) has a new tab called "Background Jobs". If this tab isn't already open, click on it. You should see the following (I've annotated some of the important components in blue):
 
 ![](../_figures/qmd_build_report.png)
 
@@ -206,21 +206,25 @@ Compare the three code chunks and their options with what R code appears in the 
 
 
 # Building your Own Report
-Now that we have seen the basic report, we can modify it to our needs. Remember, this is how you will turn in homework and projects for the remainder of the R portion of this course.
+Now that we have seen the basic report, we can modify it to our needs. 
+
+::: {.callout-important}
+Remember, this is how you will turn in homework and projects for the remainder of this course. For your homework and projects, you will submit a Quarto document and the resulting `.html` or `.docx` file.
+:::
 
 
 ## The Quarto Guide
-So that you don't have to try to remember all of what we just covered in excruciating detail, there is a very handy website with all of the major points of today's lesson: <https://quarto.org/>.
+So that you don't have to try to remember all of what we just covered in excruciating detail, there is a very handy website with all of the major points of today's lesson: <https://quarto.org/>. Also see the [Quarto Cheat Sheet](https://rstudio.github.io/cheatsheets/quarto.pdf)
 
 
 ## Including Code Chunks
-To construct your own report, you will need to create your own code chunks. The keyboard shortcut for this is `CTRL` + `Alt` + `I` on Windows, `CMD` + `Alt` + `I` on Mac. This will insert a basic code chunk with the R language selected. From there, you can name your chunk, add chunk options, and include code for R to execute. For chunk options, see Section 5 of the cheat sheet.
+To construct your own report, you will need to create your own code chunks. The keyboard shortcut for this is `CTRL` + `Alt` + `I` on Windows, `CMD` + `Alt` + `I` on Mac. This will insert a basic code chunk with the R language selected. From there, you can name your chunk, add chunk options, and include code for R to execute. For chunk options, see the "Include Code" section of the cheat sheet.
 
 
 ## Annotating your Work
-Good code has good explanations. Whenever you write code, you should include explanations for why you are doing what you are doing. Good code should be readable, in the sense that someone who knows the language can look at the code and see *what* you are doing. However, no one but you knows exactly *why* you chose to do what you did in the way that you did it.
+Good code has good explanations. Whenever you write code, you should include explanations for **why** you are doing what you are doing. Good code should be readable, in the sense that someone who knows the language can look at the code and see *what* you are doing. However, no one but you knows exactly *why* you chose to do what you did in the way that you did it.
 
-As will most textual explanation, we often need to organize it, format it, and add supplemental figures and tables to explain it. Here are the rules for formatting your report:
+As with almost all textual explanation, we often need to organize it, format it, and add supplemental figures and tables to explain it. Here are the rules for formatting your report:
 
 ![](../_figures/rmd_text_formatting_options.png)
 

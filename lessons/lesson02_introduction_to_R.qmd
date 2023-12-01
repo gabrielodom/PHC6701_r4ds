@@ -82,11 +82,11 @@ Your first code in R last class was to instruct R to tell the world hello. R use
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Instruct R to greet your neighbour, but using single quotes instead of double quotes. What changed?
+Instruct R to greet your neighbour, but using single quotes instead of double quotes. What (if anything) changed?
 :::
 
 ::: {.callout-tip}
-You can use the "up arrow" key to recall the last command you typed.
+You can use the `up` arrow key to recall the last command you typed.
 :::
 
 
@@ -107,13 +107,15 @@ If you would like to chain multiple operations together, you can use multiple li
 Type your age, then the plus sign (`+`), then hit `Enter`. What happens to the prompt? Can you type other commands, like a `"Hello, world!"`? What do you think you should do to get the original prompt back?
 :::
 
+::: {.callout-important}
 Note that from here on out, I will be assuming that you will type code at the proper `>` prompt, so I won't include that anymore.
+:::
 
-**Why "scalar" arithmetic?** Did you notice the "[1]" next to your answers? In mathematics, a scalar is a quantity represented in one dimension, or---as most commonly refer to them---numbers. We will return to this concept, and why it is important in R, shortly.
+**Why "scalar" arithmetic?** Did you notice the "[1]" next to your answers? In mathematics, a scalar is a numeric quantity represented in one dimension, or---as most people commonly refer to them---numbers. We will return to this concept, and why it is important in R, shortly.
 
 
 ## Logic
-We can use R's logic system to compare values. A simple comparison is, "is 5 less than 3"? In R, this is
+We can use R's logic system to compare values. A simple comparison is, "is 5 less than 3"? In R, this *expression* is
 ```{r less_than}
 5 < 3
 ```
@@ -130,6 +132,10 @@ The following symbols are useful in logical comparisons:
 | `<=`    | less than or equal to    | `5 <= 3` |
 | `==`    | equal to                 | `5 == 3` |
 | `!=`    | not equal to             | `5 != 3` |
+
+::: {.callout-tip}
+An *expression* in the R language is what we call a small line of code. All of the examples we have written so far have been "expressions". If you want to learn more, here is a [very advanced chapter](https://adv-r.hadley.nz/expressions.html) on the topic. But, in the most basic sence, "expressions" are the code you type.
+:::
 
 
 ## The Code Comment
@@ -175,11 +181,11 @@ Now look at the "Environment" pane on the top right. You should see this:
 
 ![](../_figures/intro_global_environment_with_x.png)
 
-What happened? Consider this analogy: you have a meal container, you put the number 2 in it, and you label the container as `x`.
+What happened? Consider this analogy: you have a small container, you put the number 2 in it, and you label the container as `x`.
 
 ![](../_figures/intro_scalar_atomic_object.png)
 
-So far, you have used "containers" without labelling them. When you executed `24 * 7`, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate `24 * 7` from scratch.
+An example in the real world is a container of food in the office refrigerator: it should have a *label* to identify what it is and who owns it, and it should *contain* some food or drink. So far, you have used "containers" without labelling them. When you executed `24 * 7`, R created a container and put the number 168 in it. However, R is like a vigilant office administrator: anything unlabelled in the refrigerator will be tossed out! Thus, if you wanted access to this number again, you must calculate `24 * 7` from scratch.
 
 We can perform calculations with objects just like we could with anything contained in that object. For instance, if you wanted 10 to the power of 2, we see that the following are equivalent:
 ```{r}
@@ -195,6 +201,7 @@ x <- 3
 ::: {.callout-tip}
 You can use the keyboard shortcut `Alt` + `-` to insert the `<-` symbol with spaces around it. Recall that to use a keyboard shortcut, the "+" symbol means "press these keys at the same time".
 :::
+
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. Create an object named `myState` that holds your current state of residence (e.g., "Florida"). Use the logical check for equality to show that the `myState` object and the object "florida" are *not* equal.
@@ -219,7 +226,7 @@ keypad < 5
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
-1. Create a sequence from 70 to 100. How does the display of this vector differ from the display of the object `keypad`?
+1. Create a sequence from 1 to 100. How does the display of this vector differ from the display of the object `keypad`?
 2. Create a vector called `revKeypad` with the integers from 9 to 0.
 3. All of the values we combined with the `keypad` vector were scalars. Multiply two vectors together: `revKeypad * keypad`. What happened? Is this what you expected?
 4. Create a new vector of integers from -1 to 1. Multiply this new vector by `keypad`. What happened? Is this what you expected?
@@ -233,7 +240,7 @@ keypad < 5
 
 
 # Calling Functions in R
-You are probably thinking about now, "but what if I want to make a vector with something other than just sequential integers?" That's a great question. To create some of the more complicated vectors, we need *functions*.
+You are probably thinking about now, "but what if I want to make a vector with something other than just sequential integers?" That's a great question. To create some of the more complicated vectors, we need to explicitly call some *functions*.
 
 
 ## The "Concatenate" Function
@@ -242,8 +249,8 @@ One of the most important functions you will learn is the function to create sim
 c(1, 3, 6, 12)
 ```
 
-The `c()` function will put almost anything you want into a single vector, provided that they are all similar things. For instance
-```{r concat_names, eval=TRUE}
+The `c()` function will put almost anything you want into a single vector, provided that they are all similar things. For instance, I can make a vector of my full name and terminal degrees:
+```{r concat_names}
 me <- c("Prof.", "Gabriel", "J.", "Odom", "PhD", "ThD")
 me
 ```
@@ -257,16 +264,16 @@ mean(x = 1:6)
 
 We unpack this as follows:
 
-- The function is named "mean".
-- The mean function has an argument named "x".
-- We supply the vector of integers from 1 to 6 as the value to the argument "x".
+- The function is named `mean`.
+- The mean function has an argument named `x`.
+- We supply the vector of integers from 1 to 6 as the value to the argument `x`.
+
+Notice that the name of the argument to the `mean()` function is "x". Most functions have named arguments, but the `c()` function does not. It allows you to choose your own names. 
 
 We can even put functions inside of other functions:
 ```{r log_mean}
 log(c(10, 100, 1000))
 ```
-
-Notice that the name of the argument to the `mean()` function is "x". Most functions have named arguments, but the `c()` function does not. It allows you to choose your own names.
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
@@ -282,9 +289,7 @@ Notice that the name of the argument to the `mean()` function is "x". Most funct
 
 
 # Getting Help
-Sometimes, you need to get some help with R code: <https://www.youtube.com/watch?v=OzRuuFA6oUs>.
-
-To get help on any function you know the name of, type `?` then the name (with no spaces). For example, to find the help file for the `round()` function, type
+Sometimes, you need to [get some help](https://www.youtube.com/watch?v=OzRuuFA6oUs) with R code. To get help on any function you know the name of, type `?` then the name (with no spaces). For example, to find the help file for the `round()` function, type
 ```{r eval=FALSE}
 ?round
 ```
