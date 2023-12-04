@@ -265,8 +265,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a>
   <ul class="collapse">
-  <li><a href="#color-palettes" id="toc-color-palettes" class="nav-link" data-scroll-target="#color-palettes">Color palettes</a></li>
-  <li><a href="#changing-the-color-palette" id="toc-changing-the-color-palette" class="nav-link" data-scroll-target="#changing-the-color-palette">Changing the color palette</a></li>
   <li><a href="#color-blind-friendly-color-palettes" id="toc-color-blind-friendly-color-palettes" class="nav-link" data-scroll-target="#color-blind-friendly-color-palettes">Color blind friendly color palettes</a></li>
   <li><a href="#just-pick-some-colors" id="toc-just-pick-some-colors" class="nav-link" data-scroll-target="#just-pick-some-colors">Just pick some colors</a></li>
   <li><a href="#some-other-color-palettes" id="toc-some-other-color-palettes" class="nav-link" data-scroll-target="#some-other-color-palettes">Some other color palettes</a></li>
@@ -316,23 +314,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>This chapter is a supplemental chapter to Lesson 04 containing many more <code>ggplot2</code> examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven’t seen yet. If you need some of these packages, make sure to “uncomment” the <code>install.packages()</code> call for the packages you need.</p>
+<p>This chapter is a supplemental chapter to Lesson 4. It contains many more <code>ggplot2</code> examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven’t seen yet. If you need some of these packages, make sure to “uncomment” the <code>install.packages()</code> call for the packages you need.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("Stat2Data")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("RColorBrewer")</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("jtools")</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("viridis")</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggthemes")</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("xkcd")</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Stat2Data)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xkcd)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">012922</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Stat2Data)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">012922</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <hr>
@@ -340,7 +336,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>We will be using the <code>FirstYearGPA</code> data set from the <code>Stat2Data::</code> package. This dataset includes several continuous and categorical variables related to GPA in the first year of college.</p>
+<p>We will be using the <code>FirstYearGPA</code> data set from the <code>Stat2Data::</code> package. This dataset includes several continuous and categorical variables related to GPA in the first year of college. The <code>glimpse()</code> function is new, but it helps is take a quick glance at a data set.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"FirstYearGPA"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(FirstYearGPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -535,13 +531,26 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/base_limits-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Either way, you can see that the values don’t run the full range of potential values. The X axis is probably because they collected data from college students and it’s harder to get into college if you have a very low GPA.</p>
+<p>Either way, you can see that the values don’t run the full range of potential values (notice the <code>Warning</code> that R displays). The X axis ranges from 2.34 to 4.0, probably because they collected data from college students (and it’s harder to get into college if you have a very low GPA). Once in college, the GPA limits are a little different. The highest college GPA in the dataset is 4.15 and the minimum is 1.93.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can set the limits on allowable data after we inspect the data itself. Helpful functions for setting data limits are <code>min()</code> and <code>max()</code>, or <code>summary()</code>. We will learn more about how to use these functions later, but here’s an example for now: <code>max(FirstYearGPA$GPA)</code>. The <code>$</code> lets us “extract” a column of a tibble.</p>
+</div>
+</div>
 </section>
 <section id="legend-title-and-labels" class="level2">
 <h2 class="anchored" data-anchor-id="legend-title-and-labels">Legend title and labels</h2>
 <p>The way to change the legend title is not at all obvious. And there are multiple ways to do it.</p>
 <p>The easiest thing to do is use the <code>labs()</code> function, but there’s not an argument that explicitly has to do with the legend. The argument ties back to how you <strong>mapped</strong> the variable in the original plot. You can also only change the title of the legend with this function, not the labels.</p>
-<p>In <code>base_plot_gg</code>, we used <code>color = as_factor(Male)</code> to <strong>map</strong> color onto the variable <code>Male</code>. So we’ll use <code>color</code> here.</p>
+<p>In <code>base_plot_gg</code>, we used <code>color = as_factor(Male)</code> to <strong>map</strong> <em>discrete</em> color onto the variable <code>Male</code>. So we’ll use <code>color</code> here.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> FirstYearGPA) <span class="sc">+</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
@@ -549,10 +558,24 @@ Tip
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> GPA, </span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">as_factor</span>(Male)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Gender"</span>) <span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This is a bad label name!</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Sex"</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/legend_title-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Rebuild the above figure with <code>color = Male</code> instead of <code>color = as_factor(Male)</code>. What changed? What kind of information does <code>R</code> think is in the feature <code>Male</code>?</p>
 </div>
 </div>
 <p>A more general way is to use the <code>scale_color_discrete()</code> function, which allows you to change the title and labels. There are several of these functions, all of the same form:</p>
@@ -574,13 +597,26 @@ Tip
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Sex"</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/base_legend-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Notice that we supplied the new labels to the feature mapped to color. R will assume that the values given to <code>labels</code> is in alphabetical order. To make sure that the labels match to the right values, we give the feature values in the order matching the labels as the function value to the <code>breaks</code> argument. That is, specifying <code>labels = c("Female", "Male")</code> and <code>breaks = c(0, 1)</code> sets the label for the value 0 in the feature <code>Male</code> to the label <code>"Female"</code> because the order that we used.</p>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="colors" class="level1">
+<h1>Colors</h1>
+<p>The default colors are fine. They’re easy to distinguish (for me), but they might not work well for someone who is color blind. To change colors, we often chose from a <em>palette</em>.</p>
+<section id="color-blind-friendly-color-palettes" class="level2">
+<h2 class="anchored" data-anchor-id="color-blind-friendly-color-palettes">Color blind friendly color palettes</h2>
+<p><code>viridis::</code> is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="uri">https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> FirstYearGPA) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
@@ -590,58 +626,35 @@ Tip
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Sex"</span>,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="lesson04s_examples_files/figure-html/base-legend2-1.png" class="img-fluid" width="672"></p>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.</code></pre>
 </div>
-</div>
-<p><br></p>
-<hr>
-<p><br></p>
-</section>
-</section>
-<section id="colors" class="level1">
-<h1>Colors</h1>
-<section id="color-palettes" class="level2">
-<h2 class="anchored" data-anchor-id="color-palettes">Color palettes</h2>
-<ul>
-<li>set theme for whole document</li>
-<li>Add titles</li>
-<li>Changing axis, legend, and other labels</li>
-<li>Text, size, font, color, etc.</li>
-<li>Modifying background colors</li>
-<li>Rotating objects</li>
-<li>Ordering variable options (alphabetical, increasing, etc.)</li>
-</ul>
-</section>
-<section id="changing-the-color-palette" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-color-palette">Changing the color palette</h2>
-<p>The default colors are fine. They’re easy to distinguish (for me), but they might not work well for someone who is color blind.</p>
-</section>
-<section id="color-blind-friendly-color-palettes" class="level2">
-<h2 class="anchored" data-anchor-id="color-blind-friendly-color-palettes">Color blind friendly color palettes</h2>
-<p><strong>viridis</strong> is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html</a></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/plot_viridis-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>I find this a little hard to see. So maybe not the best choice.</p>
-<p>Notice the warning:</p>
+<p>Notice the message:</p>
 <p><code>## Scale for 'colour' is already present. Adding another scale for 'colour',</code><br>
 <code>## which will replace the existing scale.</code></p>
-<p>This means that <code>scale_color_viridis()</code> overwrites <code>scale_color_discrete()</code> that we used above to label the legend. Notice that the legend title and labels are gone. We can add those <em>arguments</em> back into the <strong>viridis</strong> function and get them back.</p>
+<p>This means that <code>scale_color_viridis()</code> overwrites <code>scale_color_discrete()</code> that we used above to label the legend. Also notice that the legend title and labels are gone. We can add those <em>arguments</em> back into the <code>scale_color_viridis()</code> function and get them back.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">discrete =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Sex"</span>,</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># I didn't specify breaks = c(0, 1) here because R orders 0 before 1 by</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   default. This is a "quick and dirty" solution; in practice, you should</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   always specify breaks whenever you are changing labels (but we won't</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#   be so strict about it for the rest of these examples).</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/plot_viridis2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -649,8 +662,7 @@ Tip
 </section>
 <section id="just-pick-some-colors" class="level2">
 <h2 class="anchored" data-anchor-id="just-pick-some-colors">Just pick some colors</h2>
-<p>You can also just choose some colors from the default ones available in R. Here, I’m using some hex color values, but you can also use RBG or CMYK or default R ones (i.e, “blue” or “red”).</p>
-<p>Again, I’m adding the legend arguments back to this function.</p>
+<p>You can also just choose some colors from the default ones available in R. Here, I’m using some hex color values, but you can also use <a href="https://www.rapidtables.com/web/color/RGB_Color.html">RBG or Hex codes</a> or default R ones (i.e, “blue” or “red”). Again, I’m adding the legend arguments back to this function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
@@ -663,24 +675,37 @@ Tip
 </div>
 </div>
 <p>For a plot that uses the <code>fill()</code> option (like a bar plot), the command is <code>fill_color_manual()</code>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>This plot uses 3 colors (orange, grey, and blue), but we don’t see blue. Why not?</p>
+</div>
+</div>
 </section>
 <section id="some-other-color-palettes" class="level2">
 <h2 class="anchored" data-anchor-id="some-other-color-palettes">Some other color palettes</h2>
-<p>The <strong>RColorBrewer</strong> package has several pre-built color palettes that you can use. You can view all the <strong>RColorBrewer</strong> palettes using</p>
+<p>The <code>RColorBrewer::</code> package has several pre-built color palettes that you can use. You can view all the <code>RColorBrewer::</code> palettes using</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/rcolorbrewer_show-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Here are just the palettes that work for color blind people:</p>
+<p>Here are just the palettes that work for people with colorblindness:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>(<span class="at">colorblindFriendly =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/rcolorbrewer_show2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This is a qualitative palette, meaning that it works for <em>nominal</em> type variables. Again, adding the legend arguments back.</p>
+<p>This is a qualitative palette, meaning that it works for <em>nominal</em> type variables. Let’s build our figure again, adding the legend arguments back:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(</span>
@@ -692,7 +717,7 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/plot_rcolorbrewer-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>A diverging palette that goes from red to yellow to blue:</p>
+<p>Now we will use a diverging palette that goes from red (<code>Rd</code>) to yellow (<code>Yl</code>) to blue (<code>Bu</code>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(</span>
@@ -704,7 +729,7 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/plot_rcolorbrewer2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This is a sequential palette of blues:</p>
+<p>This is a sequential palette of blues (more useful if we have an ordered discrete value):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(</span>
@@ -716,7 +741,7 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/plot_rcolorbrewer3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Very hard to see the lighter dots on the grey background.</p>
+<p>But note that it’s very hard to see the lighter dots on the grey background (we can change this by using <code>theme_*()</code> calls, which we will discuss shortly).</p>
 </section>
 <section id="color-based-on-continuous-variable" class="level2">
 <h2 class="anchored" data-anchor-id="color-based-on-continuous-variable">Color based on continuous variable</h2>
@@ -754,7 +779,7 @@ Tip
 </section>
 <section id="color-fill-commands" class="level2">
 <h2 class="anchored" data-anchor-id="color-fill-commands">Color fill commands</h2>
-<p>When you’re using plots that <code>fill</code> rather than create lines or points, the commands are similar but include <code>fill</code> in them. Here is an unedited bar plot that uses one of the <strong>RColorBrewer</strong> color palettes.</p>
+<p>When you’re using plots that <code>fill</code> rather than create lines or points, the commands are similar but include <code>fill</code> in them. Here is an unedited bar plot that uses one of the <code>RColorBrewer::</code> color palettes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> FirstYearGPA) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
@@ -780,7 +805,7 @@ Tip
 </section>
 <section id="adding-annotations" class="level2">
 <h2 class="anchored" data-anchor-id="adding-annotations">Adding annotations</h2>
-<p>Let’s return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students, those with GPA &gt; 3.8.</p>
+<p>Let’s return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students (those with GPA &gt; 3.8).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
@@ -802,8 +827,7 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/annotate-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This is pretty basic and built in as an annotation.</p>
-<p>What about a line indicating academic probation?</p>
+<p>This is pretty basic and built in as an annotation. What about a line indicating college academic probation?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
@@ -920,8 +944,8 @@ Tip
 </div>
 <p>Notice a couple of things here:</p>
 <ul>
-<li>I had to specify that the gender variable was categorical with <code>as_factor(Male)</code>. If I didn’t, the X axis labels didn’t show up at all (axis label or category labels).</li>
-<li>In <code>scale_x_discrete()</code>, I specified which category the labels go with: <code>"0" = "Female", "1" = "Male"</code>. This is not actually required but may be helpful.</li>
+<li>I had to specify that the gender variable was categorical with <code>as_factor(Male)</code>. If I didn’t, the X axis labels won’t show up at all (axis label or category labels).</li>
+<li>In <code>scale_x_discrete()</code>, I specified which category the labels go with: <code>"0" = "Female", "1" = "Male"</code>. This is not actually required here because <code>R</code> sorts alphabetically, but <strong>you should do this by default</strong>.</li>
 <li>Notice the location of the line and star. I had to adjust their horizontal locations because factors in R do unexpected things: <strong>ggplot</strong> now places the bars at x = 1 and 2 instead of 0 and 1 because R is interpreting these factors as the numbers 1 and 2. We will discuss this more when we talk about <strong>atomic type coercion</strong> later this semester.</li>
 </ul>
 <p><br></p>
@@ -931,9 +955,10 @@ Tip
 </section>
 <section id="themes" class="level1">
 <h1>Themes</h1>
+<p>We discussed earlier that some of the colors do not appear as clear and vibrant on the grey background. We can change this with themes.</p>
 <section id="built-in-themes" class="level2">
 <h2 class="anchored" data-anchor-id="built-in-themes">Built-in themes</h2>
-<p>Black and white theme:</p>
+<p>Here is a simple black and white theme:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -960,7 +985,7 @@ Tip
 </section>
 <section id="package-themes" class="level2">
 <h2 class="anchored" data-anchor-id="package-themes">Package themes</h2>
-<p>There is an APA theme in the <strong>jtools</strong> package, which was installed and loaded above. As of today, it is APA Publication Manual Version 6 compliant.</p>
+<p>There is an APA theme in the <strong>jtools</strong> package, which was installed and loaded above. As of 2022, it is APA Publication Manual Version 6 compliant.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_apa</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -968,7 +993,7 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/plot_apa-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>What if I want my plot to look like it could be in the Wall Street Journal? (from the <strong>ggthemes</strong> package)</p>
+<p>What if I want my plot to look like it could be in the Wall Street Journal? We can get the appropriate theme from the <strong>ggthemes</strong> package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_wsj</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -976,8 +1001,8 @@ Tip
 <p><img src="lesson04s_examples_files/figure-html/plot_wsj-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Well, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.</p>
-<p>What about the Economist? (also <strong>ggthemes</strong>)</p>
+<p>Well, this figure is “maybe not ready for prime time” there. They sure like LARGE titles. Our title has been mostly chopped off.</p>
+<p>What about The Economist? (also <strong>ggthemes</strong>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1001,7 +1026,7 @@ Tip
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>base_plot_gg <span class="sc">+</span> </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"black"</span>), </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson04s_examples_files/figure-html/blackback-1.png" class="img-fluid" width="672"></p>

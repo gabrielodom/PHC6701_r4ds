@@ -10,21 +10,19 @@ format:
 ---
 
 # Overview
-This chapter is a supplemental chapter to Lesson 04 containing many more `ggplot2` examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven't seen yet. If you need some of these packages, make sure to "uncomment" the `install.packages()` call for the packages you need.
+This chapter is a supplemental chapter to Lesson 4. It contains many more `ggplot2` examples and a thorough discussion of colour palettes. These examples also make use of some other R packages we haven't seen yet. If you need some of these packages, make sure to "uncomment" the `install.packages()` call for the packages you need.
 
-```{r setup, include=TRUE, echo = TRUE, message=FALSE}
+```{r setup, message=FALSE}
 # install.packages("Stat2Data")
 # install.packages("RColorBrewer")
 # install.packages("jtools")
 # install.packages("viridis")
 # install.packages("ggthemes")
-# install.packages("xkcd")
 
 library(Stat2Data)
 library(RColorBrewer)
 library(jtools)
 library(viridis)
-library(xkcd)
 library(ggthemes)
 library(tidyverse)
 set.seed(012922)
@@ -39,7 +37,7 @@ set.seed(012922)
 
 # Data
 
-We will be using the `FirstYearGPA` data set from the `Stat2Data::` package. This dataset includes several continuous and categorical variables related to GPA in the first year of college.
+We will be using the `FirstYearGPA` data set from the `Stat2Data::` package. This dataset includes several continuous and categorical variables related to GPA in the first year of college. The `glimpse()` function is new, but it helps is take a quick glance at a data set.
 
 ```{r glimpse_data}
 data("FirstYearGPA")
@@ -198,7 +196,11 @@ ggplot(data = FirstYearGPA) +
   geom_point()
 ```
 
-Either way, you can see that the values don't run the full range of potential values. The X axis is probably because they collected data from college students and it's harder to get into college if you have a very low GPA.
+Either way, you can see that the values don't run the full range of potential values (notice the `Warning` that R displays). The X axis ranges from `r min(FirstYearGPA$HSGPA)` to 4.0, probably because they collected data from college students (and it's harder to get into college if you have a very low GPA). Once in college, the GPA limits are a little different. The highest college GPA in the dataset is `r max(FirstYearGPA$GPA)` and the minimum is `r min(FirstYearGPA$GPA)`.
+
+::: {.callout-tip}
+We can set the limits on allowable data after we inspect the data itself. Helpful functions for setting data limits are `min()` and `max()`, or `summary()`. We will learn more about how to use these functions later, but here's an example for now: `max(FirstYearGPA$GPA)`. The `$` lets us "extract" a column of a tibble.
+:::
 
 
 ## Legend title and labels
@@ -207,7 +209,7 @@ The way to change the legend title is not at all obvious. And there are multiple
 
 The easiest thing to do is use the  `labs()` function, but there's not an argument that explicitly has to do with the legend. The argument ties back to how you **mapped** the variable in the original plot. You can also only change the title of the legend with this function, not the labels.
 
-In `base_plot_gg`, we used `color = as_factor(Male)` to **map** color onto the variable `Male`. So we'll use `color` here.
+In `base_plot_gg`, we used `color = as_factor(Male)` to **map** *discrete* color onto the variable `Male`. So we'll use `color` here.
 
 ```{r legend_title}
 ggplot(data = FirstYearGPA) +
@@ -216,9 +218,15 @@ ggplot(data = FirstYearGPA) +
     y = GPA, 
     color = as_factor(Male)
   ) + 
-  labs(color = "Gender") +
+  # This is a bad label name!
+  labs(color = "Sex") +
   geom_point()
 ```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Rebuild the above figure with `color = Male` instead of `color = as_factor(Male)`. What changed? What kind of information does `R` think is in the feature `Male`?
+:::
 
 A more general way is to use the `scale_color_discrete()` function, which allows you to change the title and labels. There are several of these functions, all of the same form: 
 
@@ -240,24 +248,13 @@ ggplot(data = FirstYearGPA) +
   ) +
   scale_color_discrete(
     name = "Sex",
-    labels = c("Female", "Male")
+    labels = c("Female", "Male"),
+    breaks = c(0, 1)
   ) +
   geom_point()
 ```
 
-```{r base-legend2}
-ggplot(data = FirstYearGPA) +
-  aes(
-    x = HSGPA, 
-    y = GPA, 
-    color = as_factor(Male)
-  ) +
-  scale_color_discrete(
-    name = "Sex",
-    labels = c("Female", "Male")
-  ) +
-  geom_point()
-```
+Notice that we supplied the new labels to the feature mapped to color. R will assume that the values given to `labels` is in alphabetical order. To make sure that the labels match to the right values, we give the feature values in the order matching the labels as the function value to the `breaks` argument. That is, specifying `labels = c("Female", "Male")` and `breaks = c(0, 1)` sets the label for the value 0 in the feature `Male` to the label `"Female"` because the order that we used.
 
 </br>
 
@@ -267,41 +264,39 @@ ggplot(data = FirstYearGPA) +
 
 
 # Colors
-
-
-## Color palettes
-
-- set theme for whole document
-- Add titles
-- Changing axis, legend, and other labels
-- Text, size, font, color, etc.
-- Modifying background colors
-- Rotating objects
-- Ordering variable options (alphabetical, increasing, etc.)
-
-
-## Changing the color palette
-
-The default colors are fine. They're easy to distinguish (for me), but they might not work well for someone who is color blind.
+The default colors are fine. They're easy to distinguish (for me), but they might not work well for someone who is color blind. To change colors, we often chose from a *palette*.
 
 
 ## Color blind friendly color palettes
 
-**viridis** is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: [https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)
+`viridis::` is a widely-used color palette package that has several colorblind-friendly (and black-and-white friendly) color palettes. The vignette for the package, which is kind of the article introducing it and how it works, is here: <https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html>
 
 ```{r plot_viridis}
-base_plot_gg + 
-  scale_color_viridis(discrete = TRUE)
+#| warning: true
+
+ggplot(data = FirstYearGPA) +
+  aes(
+    x = HSGPA, 
+    y = GPA, 
+    color = as_factor(Male)
+  ) +
+  scale_color_discrete(
+    name = "Sex",
+    labels = c("Female", "Male"),
+    breaks = c(0, 1)
+  ) + 
+  scale_color_viridis(discrete = TRUE) +
+  geom_point()
 ```
 
 I find this a little hard to see. So maybe not the best choice.
 
-Notice the warning: 
+Notice the message: 
 
 `## Scale for 'colour' is already present. Adding another scale for 'colour',`  
 `## which will replace the existing scale.`  
 
-This means that `scale_color_viridis()` overwrites `scale_color_discrete()` that we used above to label the legend. Notice that the legend title and labels are gone. We can add those *arguments* back into the **viridis** function and get them back.
+This means that `scale_color_viridis()` overwrites `scale_color_discrete()` that we used above to label the legend. Also notice that the legend title and labels are gone. We can add those *arguments* back into the `scale_color_viridis()` function and get them back.
 
 ```{r plot_viridis2}
 base_plot_gg + 
@@ -309,15 +304,17 @@ base_plot_gg +
     discrete = TRUE,
     name = "Sex",
     labels = c("Female", "Male")
+    # I didn't specify breaks = c(0, 1) here because R orders 0 before 1 by
+    #   default. This is a "quick and dirty" solution; in practice, you should
+    #   always specify breaks whenever you are changing labels (but we won't
+    #   be so strict about it for the rest of these examples).
   )
 ```
 
 
 ## Just pick some colors
 
-You can also just choose some colors from the default ones available in R. Here, I'm using some hex color values, but you can also use RBG or CMYK or default R ones (i.e, "blue" or "red").  
-
-Again, I'm adding the legend arguments back to this function.
+You can also just choose some colors from the default ones available in R. Here, I'm using some hex color values, but you can also use [RBG or Hex codes](https://www.rapidtables.com/web/color/RGB_Color.html) or default R ones (i.e, "blue" or "red"). Again, I'm adding the legend arguments back to this function.
 
 ```{r plot_choose}
 base_plot_gg +
@@ -331,22 +328,27 @@ base_plot_gg +
 
 For a plot that uses the `fill()` option (like a bar plot), the command is `fill_color_manual()`.
 
+::: {.callout-note title="Exercise"}
+## Exercise
+This plot uses 3 colors (orange, grey, and blue), but we don't see blue. Why not?
+:::
+
 
 ## Some other color palettes
 
-The **RColorBrewer** package has several pre-built color palettes that you can use. You can view all the **RColorBrewer** palettes using 
+The `RColorBrewer::` package has several pre-built color palettes that you can use. You can view all the `RColorBrewer::` palettes using 
 
 ```{r rcolorbrewer_show, fig.height=10}
 display.brewer.all()
 ```
 
-Here are just the palettes that work for color blind people:
+Here are just the palettes that work for people with colorblindness:
 
 ```{r rcolorbrewer_show2, fig.height=8}
 display.brewer.all(colorblindFriendly = TRUE)
 ```
 
-This is a qualitative palette, meaning that it works for *nominal* type variables. Again, adding the legend arguments back. 
+This is a qualitative palette, meaning that it works for *nominal* type variables. Let's build our figure again, adding the legend arguments back: 
 
 ```{r plot_rcolorbrewer}
 base_plot_gg +
@@ -357,7 +359,7 @@ base_plot_gg +
   )
 ```
 
-A diverging palette that goes from red to yellow to blue:
+Now we will use a diverging palette that goes from red (`Rd`) to yellow (`Yl`) to blue (`Bu`):
 
 ```{r plot_rcolorbrewer2}
 base_plot_gg +
@@ -368,10 +370,9 @@ base_plot_gg +
   )
 ```
 
-This is a sequential palette of blues:
+This is a sequential palette of blues (more useful if we have an ordered discrete value):
 
 ```{r plot_rcolorbrewer3}
-
 base_plot_gg +
   scale_color_brewer(
     palette = "Blues",
@@ -380,7 +381,7 @@ base_plot_gg +
   )
 ```
 
-Very hard to see the lighter dots on the grey background.
+But note that it's very hard to see the lighter dots on the grey background (we can change this by using `theme_*()` calls, which we will discuss shortly).
 
 
 ## Color based on continuous variable
@@ -418,7 +419,7 @@ Notice that the continuous variable doesn't need any edits to the legend labels,
 
 ## Color fill commands
 
-When you're using plots that `fill` rather than create lines or points, the commands are similar but include `fill` in them. Here is an unedited bar plot that uses one of the **RColorBrewer** color palettes.
+When you're using plots that `fill` rather than create lines or points, the commands are similar but include `fill` in them. Here is an unedited bar plot that uses one of the `RColorBrewer::` color palettes.
 
 ```{r geom_bar_1stgen_gender_dodge}
 ggplot(data = FirstYearGPA) +
@@ -444,7 +445,7 @@ Notice that I added labels to the (discrete) X axis and (continuous) Y axis too.
 
 ## Adding annotations
 
-Let's return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students, those with GPA > 3.8.
+Let's return to our base plot of first year college GPA versus high school GPA. We can add annotations to the plot to make things more clear or to point out specific aspects of the plot. For example, we can highlight the area of the plot that includes high school honor roll students (those with GPA > 3.8).
 
 ```{r annotate}
 base_plot_gg +
@@ -466,9 +467,7 @@ base_plot_gg +
 
 ```
 
-This is pretty basic and built in as an annotation. 
-
-What about a line indicating academic probation?
+This is pretty basic and built in as an annotation.  What about a line indicating college academic probation?
 
 ```{r annotate2}
 base_plot_gg +
@@ -582,8 +581,8 @@ ggplot(data = FirstYearGPA) +
 
 Notice a couple of things here:
 
-- I had to specify that the gender variable was categorical with `as_factor(Male)`. If I didn't, the X axis labels didn't show up at all (axis label or category labels).
-- In `scale_x_discrete()`, I specified which category the labels go with: `"0" = "Female", "1" = "Male"`. This is not actually required but may be helpful.
+- I had to specify that the gender variable was categorical with `as_factor(Male)`. If I didn't, the X axis labels won't show up at all (axis label or category labels).
+- In `scale_x_discrete()`, I specified which category the labels go with: `"0" = "Female", "1" = "Male"`. This is not actually required here because `R` sorts alphabetically, but **you should do this by default**.
 - Notice the location of the line and star. I had to adjust their horizontal locations because factors in R do unexpected things: **ggplot** now places the bars at x = 1 and 2 instead of 0 and 1 because R is interpreting these factors as the numbers 1 and 2. We will discuss this more when we talk about **atomic type coercion** later this semester.
 
 </br>
@@ -594,11 +593,11 @@ Notice a couple of things here:
 
 
 # Themes
-
+We discussed earlier that some of the colors do not appear as clear and vibrant on the grey background. We can change this with themes.
 
 ## Built-in themes
 
-Black and white theme:
+Here is a simple black and white theme:
 
 ```{r plot_bw}
 base_plot_gg +
@@ -622,23 +621,23 @@ base_plot_gg +
 
 ## Package themes
 
-There is an APA theme in the **jtools** package, which was installed and loaded above. As of today, it is APA Publication Manual Version 6 compliant.
+There is an APA theme in the **jtools** package, which was installed and loaded above. As of 2022, it is APA Publication Manual Version 6 compliant.
 
 ```{r plot_apa}
 base_plot_gg +
   theme_apa()
 ```
 
-What if I want my plot to look like it could be in the Wall Street Journal? (from the **ggthemes** package)
+What if I want my plot to look like it could be in the Wall Street Journal? We can get the appropriate theme from the **ggthemes** package:
 
 ```{r plot_wsj}
 base_plot_gg + 
   theme_wsj()
 ```
 
-Well, maybe not ready for prime time there. They sure like LARGE titles. Our title has been mostly chopped off.
+Well, this figure is "maybe not ready for prime time" there. They sure like LARGE titles. Our title has been mostly chopped off.
 
-What about the Economist? (also **ggthemes**)
+What about The Economist? (also **ggthemes**)
 
 ```{r plot_econ}
 base_plot_gg +
@@ -661,7 +660,7 @@ How about changing the background of the plot (and the gridlines) to black to ma
 base_plot_gg + 
   theme(
     panel.background = element_rect(fill = "black"), 
-    panel.grid = element_line(color = "black")
+    panel.grid = element_line(color = "white")
   )
 ```
 

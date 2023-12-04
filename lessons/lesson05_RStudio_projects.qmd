@@ -134,7 +134,7 @@ myData_mat <- matrix(data = 0, nrow = 5, ncol = 2)
 myData_mat
 ```
 
-Notice a few things. We used a function called `matrix` (a verb) with three arguments (`data`, `nrow`, and `ncol`). This function did some things behind the scenes (as defined in the object `matrix`), and returned an output. This output is a matrix of zeroes (the "noun") with two columns and five rows (adverbs controlling *how* the verb should work; not all functions use additional arguments to change their behaviour, but most do). The `data` input was recycled to fill the entire matrix.
+Notice a few things. We used a function called `matrix` (a verb) with three arguments (`data`, `nrow`, and `ncol`). This function did some things behind the scenes (as defined in the object `matrix`), and returned an output. This output is a matrix of zeroes (the "noun") with two columns and five rows (adverbs controlling *how* the verb should work). Not all functions use additional arguments to change their behaviour, but most do. The `data` input was recycled to fill the entire matrix.
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
@@ -192,9 +192,9 @@ into this
 lsum <- sum(log(x))
 ```
 
-(This and other mortal R sins are covered in [The R Inferno](http://www.burns-stat.com/documents/books/the-r-inferno/).) R is a *functional* programming language, so you must *learn to use functions* in your code. Furthermore, while this isn't required, you should probably think about collecting the functions you write into a package. Here are some guidelines on writing functions:
+(This and other mortal R sins are covered in [The R Inferno](http://www.burns-stat.com/documents/books/the-r-inferno/).) R is a *functional* programming language, so you must *learn to use functions* in your code. Furthermore, while this isn't required, you should probably think about collecting the functions you write [into a package](https://www.coursera.org/learn/r-packages). Here are some guidelines on writing functions:
 
-1. **Functions should do one major thing, only that thing, and that thing well.** A function that does a million things is easy to break and horribly difficult to check. Keep your functions simple, and you will not regret it.
+1. **Functions should do one major thing, only that thing, and do that thing well.** A function that does a million things is easy to break and horribly difficult to check. Keep your functions simple, and you will not regret it.
 2. **Major functions should be saved in their own script files.** This encourages your project code to be compartmentalized and organized. For projects, this is *very important* for testing and organization. Overall, I *strongly* recommend you do not store all of your functions in one file. If you have a ton of functions to source all at once, create a package. Even if you never plan to release the code to anyone outside your group, *create a package anyway*. 
 3. **Utility functions can be collected into one file.** Because you probably do not need extensive documentation or checking of utility functions, you can store all related utility functions together.
 
@@ -210,7 +210,7 @@ Code comments are the glue that hold a collaboration team together across time a
 5. at least one working example, and
 6. citation, external links, internal links, etc. all as appropriate.
 
-Comments *always* have a single space between the comment character (`#`) and the start of the comment. If your functions are *not* saved within a package, add these same comments as the first lines within your function. This ensures that the comments *about* the function always travel *with* the function.
+Comments *always* have a single space between the comment character (`#`) and the start of the comment. If your functions are *not* saved within a package, add these same comments as the first lines within your function. This ensures that the comments *about* the function always travel *with* the function. If your functions are saved within a package, you will use `#' ` to start your function comments instead of `# `, but that's beyond the scope of this course.
 
 Example:
 ```         
@@ -256,18 +256,21 @@ CalculateSampleCovariance <- function(x, y, verbose = TRUE) {
 
 # Writing Code Scripts: The Code "Paragraph"
 
-Just like we use a word processor when writing an essay, we use an IDE when writing code. Here is the layout of the RStudio IDE. ![](http://r4ds.had.co.nz/diagrams/rstudio-editor.png)
+Just like we use a word processor when writing an essay, we use an IDE when writing code. Recall the layout of the RStudio IDE: ![](http://r4ds.had.co.nz/diagrams/rstudio-editor.png)
 
 So far, most of the code we have typed has been in the Console (bottom left) after the code "prompt" (`>`). This is fine for writing a "sentence" or two at a time, but "paragraphs" should be written in the Editor (top left). In `R`, it is often very difficult to go back and edit your code once you execute it in the Console. If you write a script ("paragraph") in the Editor, however, you can make as many edits as you need, all while keeping a record of your steps.
 
 
 ## A New R Script
 
+::: {.callout-note title="Exercise"}
+## Exercise
 Let's start a new script:
 
 1.  Go to File \> New File \> R Script
 2.  Type "Hello from my first Script!"
-3.  With your cursor on the line you typed, press CTRL + ENTER to *run* your code.
+3.  With your cursor on the line you typed, press `CTRL` + `ENTER` (Windows) or `CMD` + `RETURN` (Mac) to *run* your code.
+:::
 
 You will notice that `"Hello from my first Script!"` appeared in the Console below, and your cursor moved to a new line in your script. You can write new commands and run them, or you can move your cursor back up to the previous line to edit the code that you've written.
 
@@ -296,7 +299,10 @@ These rules are loosely ordered by importance:
     a.  `randErr_num <- rnorm(25, sd = 0.1)` instead of `randErr_num<-rnorm(25,sd=0.1)`.
     b.  `loss <- 3` or `loss < -3` instead of `loss<-3`.
     c.  `if (check) {` instead of `if(check){`
-8. Minutiae: **Use `<-` for assignment, not `=`. Do not end lines with `;`. Use double quotes instead of single quotes.**
+8. Minutiae:
+    + Use ` <- ` for assignment, not ` = `.
+    + Do not end lines with `;`.
+    + Use double quotes (`"`) instead of single quotes (`'`).
 
 
 ## An Example
@@ -334,7 +340,7 @@ Open one of your previous scripts. Swap your computer with your neighbour. Have 
 
 We have written quite a few code sentences, and we have organized these code sentences in to code paragraphs (scripts). It's time to create our code essay (project). Projects are the collection of script and data files that are necessary for, or the output of, an analysis workflow.
 
-We care about good development because we want to make our pipelines and projects more *efficient*. However, efficiency has little to do with computational speed. **Efficient computing is *not* about making bad code run faster.** Why is this true? Human time is more valuable than computing time. Well-written code is easier to read and therefore easier to check for errors. Well-documented code is easier to use by other people. Writing a well-organized and well-documented project is better than writing a "fast" project almost every time. Efficiency is more about making you a better programmer, than it is about fast code or quickly-written projects.
+We care about good development because we want to make our pipelines and projects more *efficient*. However, efficiency has little to do with computational speed. **Efficient computing is *not* about making bad code run faster.** Why is this true? Human time is more valuable than computing time. Well-written code is easier to read and therefore easier to check for errors. Well-documented code is easier to use by other people. Writing a well-organized and well-documented project is better than writing a "fast" project almost every time. Efficiency is more about making you a better programmer than it is about fast code or quickly-written projects.
 
 Project code that can be easily understood (i.e. it requires comparatively little human time to understand), is more *efficient* than code that is just "fast". Of course this doesn't mean we don't try to make our code fast---faster code is better than slower code! However, I have found in many real-life scenarios that writing well-organized and properly documented code leads to that code being "faster" as a byproduct.
 
