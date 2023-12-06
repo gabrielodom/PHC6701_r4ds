@@ -336,7 +336,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>First of all, I’d like to acknowledge the Data Carpentry instructors for the “R for Ecology” lesson. We worked on updating that lesson back in 2018, so I did not write all of this lesson by myself. In this lesson, we will cover the following:</p>
+<p>First of all, I’d like to acknowledge the Data Carpentry instructors for the <a href="https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html">“R for Ecology” lesson</a>. We worked on updating that lesson back in 2018, so I did not write all of this lesson by myself. In this lesson, we will cover the following:</p>
 <ol type="1">
 <li>Atomic Vectors</li>
 <li>Basic Subsetting</li>
@@ -404,7 +404,7 @@ Important
 <pre><code>[1] 30 50 60 65 82 90</code></pre>
 </div>
 </div>
-<p>In the first line, we take the original vector <code>weight_g</code>, add the value <code>90</code> to the end of it, and save the result back into <code>weight_g</code>. Then we add the value <code>30</code> to the beginning, again saving the result back into <code>weight_g</code>. While we can do this over and over again to grow a vector, there are usually better ways to make a bigger vector (more on this in our lesson on functions).</p>
+<p>In the first line, we take the original vector <code>weight_g</code>, add the value <code>90</code> to the end of it, and save the result back into <code>weight_g</code>. The second time, we add the value <code>30</code> to the beginning, and again save the result back into <code>weight_g</code>. While we can do this over and over again to grow a vector, there are usually better ways to make a bigger vector (more on this in our lesson on functions).</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -429,7 +429,7 @@ Exercise
 <li><code>complex</code>: This class allows us to represent complex numbers (real and imaginary parts; e.g., <code>1 + 4i</code>). In the health sciences, we won’t use objects of this class very often, if ever.</li>
 <li><code>character</code>: This is the most complex class of atomic information. This class ensures that the information you type into <code>R</code> stays marked with the keystrokes you typed to enter it. Therefore, <code>"10"</code> is not recorded as the integer 10, or the real number 10.000000…, but rather the combined keystrokes of the “1” and “0” keys on your keyboard (to be very technical, “1” and “0” are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).</li>
 </ol>
-<p>There is one other class below <code>logical</code> in complexity: <code>raw</code>. It measures bits of computer information. We do not use objects of this class.</p>
+<p>There is one other class below <code>logical</code> in complexity: <code>raw</code>. It measures bits of computer information. We will not use objects of this class.</p>
 </section>
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
@@ -462,6 +462,19 @@ Exercise
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Odom"           "Gabriel"        "PhD, ThD"       "31"            
 [5] "Pembroke Pines" "FL"             "TX"             "2.1"           </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>My time employed, 2.1, is now in quotes. Why?</p>
 </div>
 </div>
 <p><br></p>
@@ -573,7 +586,7 @@ Exercise
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>The set membership operator, <code>%in%</code>, is also known as the “infix” operator. It checks if a value is included in a set of values.</p>
+<p>The set membership operator is <code>%in%</code>; it is one of the “infix” operators, like <code>+</code> or <code>-</code>, because it sits “in” between its two arguments. It checks if a value is included in a set of values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>A <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> A <span class="sc">==</span> <span class="dv">2</span> <span class="sc">|</span> A <span class="sc">==</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -589,7 +602,7 @@ Exercise
 </section>
 <section id="repeating-values" class="level3">
 <h3 class="anchored" data-anchor-id="repeating-values">Repeating Values</h3>
-<p>Before we move on to the specific vector-type examples, it is helpful to have a function to repeat values. If you would like to create a vector of six <code>true</code> values in a row, we can use the <code>rep()</code> function.</p>
+<p>Before we move on to the specific vector-type examples, it is helpful to have a function to repeat values. If you would like to create a vector of six <code>TRUE</code> values in a row, we can use the <code>rep()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="at">times =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -613,7 +626,7 @@ Exercises
 </ol>
 <pre><code>1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5</code></pre>
 <ol start="3" type="1">
-<li>Now create this vector:</li>
+<li>Now create this vector using arguments to the <code>rep()</code> function:</li>
 </ol>
 <pre><code>1 2 2 3 3 3 4 4 4 4 5 5 5 5 5</code></pre>
 </div>
@@ -939,7 +952,7 @@ Exercises
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
-<p>We can then see that many of the more exotic types of data are simple types with additional attributes. In R, matrices are just atomic vectors with a <code>dim</code> attribute.</p>
+<p>We can then see that many of the more exotic types of data are simple atomic types with additional attributes. In R, matrices are just atomic vectors with a <code>dim</code> attribute.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -980,7 +993,7 @@ Exercise
      31 </code></pre>
 </div>
 </div>
-<p>What if we only wanted my age. Can we use negative subsetting by name with the <code>[</code> function?</p>
+<p>What if we didn’t want my age. Can we use negative subsetting by name with the <code>[</code> function?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>ages_int[<span class="sc">-</span><span class="st">"Gabriel"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
@@ -1104,11 +1117,11 @@ factor(c("MPH", "PhD")) == factor("PhD")</code></pre>
 </div>
 <section id="review-atomic-vector-types" class="level3">
 <h3 class="anchored" data-anchor-id="review-atomic-vector-types">Review: Atomic Vector Types</h3>
-<p>Because there are multiple types of atomic data, there are <em>technically</em> multiple types of <code>NA</code>. Recall the atomic data types:</p>
+<p>Because there are multiple types of atomic data, there are <em>technically</em> multiple types of <code>NA</code>. Recall the four atomic data types of use in the health sciences:</p>
 <ol type="1">
 <li><code>logical</code>: This is the most basic type of information that can be stored in <code>R</code>. A vector with elements of class <code>logical</code> is a vector of only <code>TRUE</code> or <code>FALSE</code> values.</li>
 <li><code>integer</code>: This is the second-most basic type of information. An <code>integer</code> vector is a vector of positive or negative counting numbers (and 0).</li>
-<li><code>numeric</code>: This is the class for the Real numbers in <code>R</code>. Any object of class <code>integer</code> is necessarily also an object of class <code>numeric</code>, but the reverse is not true.</li>
+<li><code>numeric</code>: This is the class for the Real numbers in <code>R</code>. Any <code>integer</code> is necessarily also <code>numeric</code>, but the reverse is not true.</li>
 <li><code>character</code>: This is the most complex class of atomic information. This class ensures that the information you type into <code>R</code> stays marked with the keystrokes you typed to enter it. Therefore, <code>"10"</code> is not recorded as the integer 10, or the real number 10.000000…, but rather the combined keystrokes of the “1” and “0” keys on your keyboard (to be very technical, “1” and “0” are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).</li>
 </ol>
 </section>
@@ -1153,7 +1166,19 @@ Exercise
 <pre><code>[1] -Inf</code></pre>
 </div>
 </div>
-<p>*Note: most computer languages differ in how they handle the quantity <code>1 / 0</code>. R, Mathematica, and FORTRAN treat it as <code>Inf</code>; C++ treats it as a “floating point exception”; Python has a special class of results to handle these cases called a <code>ZeroDivisionError</code>; SAS issues a warning and replaces the value with the missing value symbol, <code>.</code>. Overall, you shouldn’t be dividing by 0 very often, but just be aware that these exceptions in computer arithmetic can trip you up.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note on Division by Zero
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most computer languages differ in how they handle the quantity <code>1 / 0</code>. R, Mathematica, and FORTRAN treat it as <code>Inf</code>; C++ treats it as a “floating point exception”; Python has a special class of results to handle these cases called a <code>ZeroDivisionError</code>; SAS issues a warning and replaces the value with the missing value symbol, <code>.</code>. Overall, you shouldn’t be dividing by 0 very often, but just be aware that these exceptions in computer arithmetic can trip you up.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="missing-values-in-non-atomic-vector-types" class="level2">

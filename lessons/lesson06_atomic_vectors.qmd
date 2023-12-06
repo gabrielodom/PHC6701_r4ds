@@ -30,7 +30,7 @@ What did we learn last class?
 
 
 # Overview
-First of all, I'd like to acknowledge the Data Carpentry instructors for the "R for Ecology" lesson. We worked on updating that lesson back in 2018, so I did not write all of this lesson by myself. In this lesson, we will cover the following:
+First of all, I'd like to acknowledge the Data Carpentry instructors for the ["R for Ecology" lesson](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html). We worked on updating that lesson back in 2018, so I did not write all of this lesson by myself. In this lesson, we will cover the following:
 
 1. Atomic Vectors
 2. Basic Subsetting
@@ -87,7 +87,7 @@ weight_g <- c(30, weight_g)
 weight_g
 ```
 
-In the first line, we take the original vector `weight_g`, add the value `90` to the end of it, and save the result back into `weight_g`. Then we add the value `30` to the beginning, again saving the result back into `weight_g`. While we can do this over and over again to grow a vector, there are usually better ways to make a bigger vector (more on this in our lesson on functions).
+In the first line, we take the original vector `weight_g`, add the value `90` to the end of it, and save the result back into `weight_g`. The second time, we add the value `30` to the beginning, and again save the result back into `weight_g`. While we can do this over and over again to grow a vector, there are usually better ways to make a bigger vector (more on this in our lesson on functions).
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
@@ -104,7 +104,7 @@ The basic atomic classes in `R` (in order of complexity) are
 4. `complex`: This class allows us to represent complex numbers (real and imaginary parts; e.g., `1 + 4i`). In the health sciences, we won't use objects of this class very often, if ever.
 5. `character`: This is the most complex class of atomic information. This class ensures that the information you type into `R` stays marked with the keystrokes you typed to enter it. Therefore, `"10"` is not recorded as the integer 10, or the real number 10.000000..., but rather the combined keystrokes of the "1" and "0" keys on your keyboard (to be very technical, "1" and "0" are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).
 
-There is one other class below `logical` in complexity: `raw`. It measures bits of computer information. We do not use objects of this class.
+There is one other class below `logical` in complexity: `raw`. It measures bits of computer information. We will not use objects of this class.
 
 
 ## Examples
@@ -131,6 +131,11 @@ DrGabriel <- c(
 # Inspect the Vector
 DrGabriel
 ```
+
+::: {.callout-note title="Exercise"}
+## Exercise
+My time employed, 2.1, is now in quotes. Why?
+:::
 
 </br>
 
@@ -210,7 +215,7 @@ The XOR operator asks "are x or y TRUE, but not both?"
 xor(x, y)
 ```
 
-The set membership operator, `%in%`, is also known as the "infix" operator. It checks if a value is included in a set of values.
+The set membership operator is `%in%`; it is one of the "infix" operators, like `+` or `-`, because it sits "in" between its two arguments. It checks if a value is included in a set of values.
 ```{r}
 A <- 2
 A == 1 | A == 2 | A == 3
@@ -218,7 +223,7 @@ A %in% c(1, 2, 3)
 ```
 
 ### Repeating Values
-Before we move on to the specific vector-type examples, it is helpful to have a function to repeat values. If you would like to create a vector of six `true` values in a row, we can use the `rep()` function.
+Before we move on to the specific vector-type examples, it is helpful to have a function to repeat values. If you would like to create a vector of six `TRUE` values in a row, we can use the `rep()` function.
 ```{r}
 rep(TRUE, times = 6)
 ```
@@ -232,7 +237,7 @@ We can combine this with the `c()` function for very powerful results.
 ```
 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5
 ```
-3. Now create this vector:
+3. Now create this vector using arguments to the `rep()` function:
 ```
 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5
 ```
@@ -440,7 +445,7 @@ class(superheroes)
 typeof(superheroes)
 ```
 
-We can then see that many of the more exotic types of data are simple types with additional attributes. In R, matrices are just atomic vectors with a `dim` attribute. 
+We can then see that many of the more exotic types of data are simple atomic types with additional attributes. In R, matrices are just atomic vectors with a `dim` attribute. 
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
@@ -470,7 +475,7 @@ Now that we have a named atomic vector, we can extract my age:
 ages_int["Gabriel"]
 ```
 
-What if we only wanted my age. Can we use negative subsetting by name with the `[` function?
+What if we didn't want my age. Can we use negative subsetting by name with the `[` function?
 ```{r, error=TRUE}
 ages_int[-"Gabriel"]
 ```
@@ -553,11 +558,11 @@ is.na(NA) # Is this something we don't know? Yes.
 ```
 
 ### Review: Atomic Vector Types
-Because there are multiple types of atomic data, there are *technically* multiple types of `NA`. Recall the atomic data types:
+Because there are multiple types of atomic data, there are *technically* multiple types of `NA`. Recall the four atomic data types of use in the health sciences:
 
 1. `logical`: This is the most basic type of information that can be stored in `R`. A vector with elements of class `logical` is a vector of only `TRUE` or `FALSE` values.
 2. `integer`: This is the second-most basic type of information. An `integer` vector is a vector of positive or negative counting numbers (and 0).
-3. `numeric`: This is the class for the Real numbers in `R`. Any object of class `integer` is necessarily also an object of class `numeric`, but the reverse is not true.
+3. `numeric`: This is the class for the Real numbers in `R`. Any `integer` is necessarily also `numeric`, but the reverse is not true.
 4. `character`: This is the most complex class of atomic information. This class ensures that the information you type into `R` stays marked with the keystrokes you typed to enter it. Therefore, `"10"` is not recorded as the integer 10, or the real number 10.000000..., but rather the combined keystrokes of the "1" and "0" keys on your keyboard (to be very technical, "1" and "0" are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).
 
 ### Type-Specific Missing Values
@@ -585,7 +590,10 @@ log(-1)
 -1 / (0 ^ 2)
 ```
 
-*Note: most computer languages differ in how they handle the quantity `1 / 0`. R, Mathematica, and FORTRAN treat it as `Inf`; C++ treats it as a "floating point exception"; Python has a special class of results to handle these cases called a `ZeroDivisionError`; SAS issues a warning and replaces the value with the missing value symbol, `.`. Overall, you shouldn't be dividing by 0 very often, but just be aware that these exceptions in computer arithmetic can trip you up.
+::: {.callout-tip}
+## Note on Division by Zero
+Most computer languages differ in how they handle the quantity `1 / 0`. R, Mathematica, and FORTRAN treat it as `Inf`; C++ treats it as a "floating point exception"; Python has a special class of results to handle these cases called a `ZeroDivisionError`; SAS issues a warning and replaces the value with the missing value symbol, `.`. Overall, you shouldn't be dividing by 0 very often, but just be aware that these exceptions in computer arithmetic can trip you up.
+:::
 
 
 ## Missing Values in Non-Atomic Vector Types
