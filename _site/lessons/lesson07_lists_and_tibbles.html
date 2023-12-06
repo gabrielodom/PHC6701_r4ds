@@ -340,7 +340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>First of all, I’d like to acknowledge once again the Data Carpentry instructors for the “R for Ecology” lesson. We worked on updating that lesson last year, so I did not write all of this lesson by myself. In this lesson, we will cover the following:</p>
+<p>First of all, I’d like to acknowledge once again the Data Carpentry instructors for the “R for Ecology” lesson. In this lesson, we will cover the following:</p>
 <ol type="1">
 <li>Lists</li>
 <li>Tibbles and Data Frames</li>
@@ -364,6 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For these considerations, we use the <strong>class</strong> of the object to decide the proper subsetting rules (rather than the type).</p>
 <p>Here is a table of <strong>example</strong> vector types, their dimensions, and their resulting <em>classes</em> (this is not exhaustive):</p>
 <table class="table">
+<caption>Examples of data classes by their dimension and atomic type distinction</caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -419,12 +420,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">timeEmployed =</span> <span class="fl">2.1</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We discovered last lesson that the values for <code>Age</code> and <code>timeEmployed</code> were coerced from numeric to character information due to the restrictions of atomic vectors. However, <strong>non-atomic vectors are vectors such that the type / class of each element in the vector is not forced to be the same.</strong> So far, we have created ID vectors for ourselves, but these do not allow us to mix different classes of data. We need something more flexible.</p>
+<p>We discovered last lesson that the values for <code>Age</code> and <code>timeEmployed</code> were coerced from numeric to character information due to the restrictions of atomic vectors. So far, we have created ID vectors for ourselves, but these do not allow us to mix different classes of data. We need something more flexible than atomic vectors. <strong>Non-atomic vectors are vectors such that the type / class of each element in the vector is not forced to be the same.</strong></p>
 </section>
 </section>
 <section id="creating-lists" class="level2">
 <h2 class="anchored" data-anchor-id="creating-lists">Creating Lists</h2>
-<p>Lists are vectors that can have any class of object as its elements—even other lists! They are the opposite of <em>atomic</em>. We have seen one such example so far: the attributes of an atomic vector are a <em>list</em>:</p>
+<p>The most common example of a non-atomic vector is a <strong>list</strong>. Lists are vectors that can have any class of object as its elements—even other lists! They are the opposite of <em>atomic</em>. We have seen one such example so far: the attributes of an atomic vector are a <em>list</em>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(DrGabriel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -488,7 +489,7 @@ $TimeEmpl
 [1] 2.1</code></pre>
 </div>
 </div>
-<p>If we want to inspect the internal <strong>str</strong>ucture of this list, we can see that the classes of our original atomic vectors have been preserved. There is no class coercion in a list.</p>
+<p>If we want to inspect the internal <strong>str</strong>ucture of this list, we can see that the classes of our original atomic vectors have been preserved. There is no type coercion in a list.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -550,7 +551,7 @@ Exercises
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can create the same ID card as we did with the <code>list()</code> function, but in a rectangular / tabular form. We create a tibble with the <code>tibble()</code> function. Similar to the <code>c()</code> function, we can supply as many inputs as we want, as long as they are all atomic vectors with the same length (notice that I changed the “highest degrees” back to a single character because of this restriction).</p>
+<p>We can create the same ID card as we did with the <code>list()</code> function, but in a rectangular / tabular form. We create a tibble with the <code>tibble()</code> function. Similar to the <code>c()</code> function, we can supply as many inputs as we want, as long as they are all <strong>vectors with the same length</strong> (notice that I changed the “highest degrees” back to a <em>character vector with length 1</em> because of this restriction).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Tibble</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>DrGabriel_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -573,7 +574,7 @@ Exercises
 1 Odom    Gabriel   PhD, ThD          31 Pembroke … FL    TX                 2.1</code></pre>
 </div>
 </div>
-<p>(Technically I could have left the degrees entry as an atomic vector with 2 entries, but the <code>tibble()</code> function would have to try to figure out what I meant. Sometimes it guesses correctly, sometimes not. We will discuss the <code>tibble()</code> function more in a few weeks.)</p>
+<p>(Technically I could have left the degrees entry as an atomic vector with 2 entries, but the <code>tibble()</code> function would have to try to figure out what I meant. Sometimes it guesses correctly, sometimes not. We will discuss the <code>tibble()</code> function more later.)</p>
 <p>As with the atomic vectors, we can also find what R thinks about lists and how R stores this information:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DrGabriel_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -585,7 +586,12 @@ Exercises
 <pre><code>[1] "list"</code></pre>
 </div>
 </div>
-<p>Notice that R still stores a tibble as a list (we see this from the <code>typeof()</code> function). In a tibble, the individual columns <strong>must have the same class</strong> and all columns <strong>must have the same length</strong>, but the entire data set often has different classes of data in each column. Here’s the example from the figure above.</p>
+<p>Notice that R still stores a tibble as a list (we see this from the <code>typeof()</code> function). In a tibble, all the individual columns</p>
+<ol type="1">
+<li><strong>must have the same class</strong>,</li>
+<li><strong>must have the same length</strong>.</li>
+</ol>
+<p>While these two restrictions apply <em>within</em> the columns, the entire data set often has different classes of data in each column. Here’s an example of superhero data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>heroes_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">subject_ID =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"008"</span>, <span class="st">"016"</span>, <span class="st">"115"</span>, <span class="st">"027"</span>, <span class="st">"001"</span>)),</span>
@@ -701,7 +707,7 @@ Exercises
 <div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
 <li>What are some differences between tibbles and data frames that you can find?</li>
-<li>Check the help file of the <code>data.frame()</code> function to find out how to preserve character information. What option should you add to the code above?</li>
+<li>Check the help file of the <code>data.frame()</code> function. Read about the argument <code>stringsAsFactors</code>. What would you think if you saw code that included the expression <code>stringsAsFactors = FALSE</code>?</li>
 <li>Last class, we discussed naming conventions. Are the names within my vectors consistent? Why or why not? What might I do to make them better?</li>
 </ol>
 </div>
@@ -745,12 +751,12 @@ Exercises
 <ul>
 <li><code>head(mpg)</code>: the first 6 rows</li>
 <li><code>tail(mpg)</code>: the last 6 rows</li>
-<li><code>summary(mpg)</code>: summary statistics for each column</li>
+<li><code>summary(mpg)</code>: summary statistics for each numeric column</li>
 </ul></li>
 <li>Names:
 <ul>
 <li><code>names(mpg)</code> or <code>colnames(mpg)</code>: the column names</li>
-<li><code>rownames(mpg)</code>: the row names</li>
+<li><code>rownames(mpg)</code>: the row names (<em>only for old-school <code>data.frame</code> objects</em>)</li>
 </ul></li>
 </ul>
 <p>Note: the <code>head</code>, <code>tail</code>, <code>summary</code>, and <code>names</code> functions are “generic”; that is, they can be used on most other types of objects besides tibbles, including data frames and even atomic vectors. The <code>dim</code>, <code>nrow</code>, and <code>ncol</code> functions are also generic, but they are only applicable to rectangular, layered, or tabular data.</p>
@@ -1005,7 +1011,7 @@ Exercises
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical vector to match the rows (keep the lat two):</span></span>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical vector to match the rows (keep the last two):</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
@@ -1016,7 +1022,29 @@ Exercises
 <pre><code>[1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the tibble:</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>)), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">each =</span> <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>heroes_df[</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rows</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>)),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># columns</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">each =</span> <span class="dv">4</span>)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  male  heightCM weightKg firstRun
+  &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;
+1 TRUE      188      95.3     1939
+2 TRUE      190.    107.      1938</code></pre>
+</div>
+</div>
+<p>Did you notice that I broke the last expression up over multiple lines? This is to make the code easier for humans to read. Another option I could have done is this (this is usually what I do):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical vector to match the rows (keep the last two):</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>keepRows_lgl <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">2</span>))</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical vector to match the columns (keep the last four):</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>keepCols_lgl <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">each =</span> <span class="dv">4</span>)</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the tibble:</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>heroes_df[keepRows_lgl, keepCols_lgl]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   male  heightCM weightKg firstRun
@@ -1030,7 +1058,7 @@ Exercises
 <h3 class="anchored" data-anchor-id="list-subsetting">List Subsetting</h3>
 <p>Because tibbles are also lists, we can subset the columns of the tibble using a logical atomic vector with length equal to the number of columns. This code will let us keep every other column starting with the second column:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 4
   name          city          heightCM firstRun
@@ -1061,24 +1089,24 @@ Exercise
 <p>For numeric and logical atomic vectors, we can make easy Boolean comparisons. “Is this value <code>TRUE</code>?” “Are these numbers less than 0?” Unfortunately, comparisons for character vectors are not as easy. We need new functions to measure if one character string belongs to a character vector. However, character set membership operators share this with other comparison operators: they <em>must</em> return <strong>logical</strong> values.</p>
 <section id="exact-matching" class="level4">
 <h4 class="anchored" data-anchor-id="exact-matching">Exact Matching</h4>
-<p>If we want to find if one string is an element of a set of strings <em>exactly</em>, we can use the “infix” operator: <code>%in%</code>. This is helpful if you have many possible spellings or abbriviations of the same word or idea:</p>
+<p>If we want to find if one string is an element of a set of strings <em>exactly</em>, we can use the “in” operator: <code>%in%</code>. This is helpful if you have many possible spellings or abbreviations of the same word or idea:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Georgia"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Georgia"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 <p>This matching is exact: the character string on the left of <code>%in%</code> must match <em>exactly</em> to one of the elements of the character vector on the right. This means the following checks will fail:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida State"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida State"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"State of Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Florida"</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"State of Florida"</span>, <span class="st">"florida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
@@ -1086,12 +1114,12 @@ Exercise
 </section>
 <section id="partial-matching" class="level4">
 <h4 class="anchored" data-anchor-id="partial-matching">Partial Matching</h4>
-<p>If we want to find if a string is <em>part of another string</em>, we use the string detection function: <code>str_detect()</code>. This function is from the <code>stringr</code> package, which is part of the <code>tidyverse</code>.</p>
+<p>If we want to find if a string is <em>part of another string</em>, we use the string detection function: <code>str_detect()</code>. This function is from the <code>stringr</code> package, which is part of the <code>tidyverse</code> (more on this later this semester).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"State of Florida"</span>, <span class="st">"florida"</span>, <span class="st">"Florida"</span>),</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"Florida"</span></span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> <span class="fu">c</span>(<span class="st">"FL"</span>, <span class="st">"Fl"</span>, <span class="st">"fl"</span>, <span class="st">"State of Florida"</span>, <span class="st">"florida"</span>, <span class="st">"Florida"</span>),</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"Florida"</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
 </div>
@@ -1102,23 +1130,23 @@ Exercise
 </section>
 <section id="relational-subsetting-for-tibbles" class="level2">
 <h2 class="anchored" data-anchor-id="relational-subsetting-for-tibbles">Relational Subsetting for Tibbles</h2>
-<p>The tibble uses both the <strong>row</strong>, <strong>column</strong> and list subsetting rules, which gives it more flexibility than lists alone. Finally, we can use relational subsetting to get at some powerful results.</p>
+<p>The tibble uses both the <strong>row</strong>, <strong>column</strong> and list subsetting rules, which gives it more flexibility than lists alone. We can use relational subsetting to get at some powerful results.</p>
 <section id="numerical-relationships" class="level3">
 <h3 class="anchored" data-anchor-id="numerical-relationships">Numerical Relationships</h3>
 <p>If we would like to see which superheroes were in print prior to the US involvement in WWII, we will use a numeric comparison of the first print run year vs 1941.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the first print year of the superheroes:</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"firstRun"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the first print year of the superheroes:</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"firstRun"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1941 1940 1962 1939 1938</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: compare these print years to the start of WWII for the US:</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"firstRun"</span>]] <span class="sc">&lt;=</span> <span class="dv">1941</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: compare these print years to the start of WWII for the US:</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"firstRun"</span>]] <span class="sc">&lt;=</span> <span class="dv">1941</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: subset the tibble to return only the pre-war heroes</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>heroes_df[heroes_df[[<span class="st">"firstRun"</span>]] <span class="sc">&lt;=</span> <span class="dv">1941</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: subset the tibble to return only the pre-war heroes</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>heroes_df[heroes_df[[<span class="st">"firstRun"</span>]] <span class="sc">&lt;=</span> <span class="dv">1941</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 8
   subject_ID name          alias          city  male  heightCM weightKg firstRun
@@ -1134,19 +1162,19 @@ Exercise
 <h3 class="anchored" data-anchor-id="character-relationships">Character Relationships</h3>
 <p>How many heroes include the name “man” somewhere in their name? (<em>We will learn more about the <code>str_detect()</code> function in the <code>stringr::</code> lesson; for now, note that it returns <code>TRUE</code> or <code>FALSE</code> values.</em>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the names of the superheroes:</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"name"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the names of the superheroes:</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"name"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Wonder Woman"  "Green Lantern" "Spider-Man"    "Batman"       
 [5] "Superman"     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: compare these names to the character strings "man":</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> heroes_df[[<span class="st">"name"</span>]], <span class="at">pattern =</span> <span class="st">"man"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: compare these names to the character strings "man":</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> heroes_df[[<span class="st">"name"</span>]], <span class="at">pattern =</span> <span class="st">"man"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: subset the tibble to return only the heroes with "man" in their names</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">str_detect</span>(<span class="at">string =</span> heroes_df[[<span class="st">"name"</span>]], <span class="at">pattern =</span> <span class="st">"man"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: subset the tibble to return only the heroes with "man" in their names</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">str_detect</span>(<span class="at">string =</span> heroes_df[[<span class="st">"name"</span>]], <span class="at">pattern =</span> <span class="st">"man"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 8
   subject_ID name         alias           city  male  heightCM weightKg firstRun
@@ -1215,7 +1243,7 @@ Exercises
 <h2 class="anchored" data-anchor-id="lists-3">Lists</h2>
 <p>We know that the electronic ID list we made has names, but we can check to be sure:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(DrGabriel_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Surname"   "Forename"  "Male"      "City"      "State"     "CurrZIP"  
  [7] "MovedFrom" "Age"       "MaxDegree" "TimeEmpl" </code></pre>
@@ -1223,7 +1251,7 @@ Exercises
 </div>
 <p>Therefore, we can extract the contents of this list by position name:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="st">"Age"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="st">"Age"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$Age
 [1] 31</code></pre>
@@ -1251,7 +1279,7 @@ Exercises
 <h2 class="anchored" data-anchor-id="tibbles-2">Tibbles</h2>
 <p>All of the same name-based extraction / subsetting rules that work on the names of list elements work on tibbles, because a tibble is a type of list (<em>check this with the <code>typeof()</code> function</em>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="st">"alias"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="st">"alias"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   alias              
@@ -1262,7 +1290,7 @@ Exercises
 4 Bruce Wayne        
 5 Clark Kent / Kal-El</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"alias"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>heroes_df[[<span class="st">"alias"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Diana Prince"        "Alan Scott"          "Peter Parker"       
 [4] "Bruce Wayne"         "Clark Kent / Kal-El"</code></pre>
@@ -1270,7 +1298,7 @@ Exercises
 </div>
 <p>However, we also get the column-based subsetting options too!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>heroes_df[, <span class="st">"alias"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>heroes_df[, <span class="st">"alias"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   alias              
@@ -1306,13 +1334,13 @@ Exercises
 <h2 class="anchored" data-anchor-id="the-operator">The <code>$</code> Operator</h2>
 <p>There is one other subsetting operator that only works for name-based subsetting of non-atomic vectors, the <code>$</code> function. We can subset any object of type <code>list</code> with the <code>$</code> function in the following manner:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From a list</span></span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls<span class="sc">$</span>MaxDegree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From a list</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls<span class="sc">$</span>MaxDegree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "PhD" "ThD"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From a tibble</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>heroes_df<span class="sc">$</span>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From a tibble</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>heroes_df<span class="sc">$</span>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Wonder Woman"  "Green Lantern" "Spider-Man"    "Batman"       
 [5] "Superman"     </code></pre>
@@ -1320,18 +1348,30 @@ Exercises
 </div>
 <p>What is the class of the object returned by <code>$</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(heroes_df<span class="sc">$</span>city)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(heroes_df<span class="sc">$</span>city)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
-<p>In this case, this is similar to the output of the <code>pull()</code> function we saw earlier.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Look up the help file for the Tidyverse function <code>pull()</code>. Run <code>pull(heroes_df, city)</code>. Compare these results to <code>heroes_df$city</code>. Why do you think the <code>pull()</code> function might be useful?</p>
+</div>
+</div>
 <section id="symbol-objects" class="level3">
 <h3 class="anchored" data-anchor-id="symbol-objects">Symbol Objects</h3>
 <p>This function is very different. Instead of taking in the name of the element as a character string, it takes in the name as a <strong>symbol</strong>. If you remember our flowchart on objects from last class, recall that there was a small box connecting “Functions” to “Vectors” labelled “Languages”; <em>symbols</em> are <em>language</em> objects: they help R connect functions to vectors. You have technically used symbols since the second day of class. Consider this example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>myIntegers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x =</span> myIntegers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>myIntegers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x =</span> myIntegers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notice that I did not type <code>myIntegers</code> in quotes (as <code>"myIntegers"</code>). When R sees a reference to something other than all letters, crazy symbols, or <code>TRUE</code> / <code>FALSE</code>, R interprets what you typed as a <em>symbol</em> to be evaluated (think back to our rules for naming objects in lesson 5). R will look in your Global Environment for the object named what you typed. In the example above, R isn’t taking the mean of the letters <code>myIntegers</code>, but rather replacing that symbol with the atomic vector <code>1:10</code>.</p>
 </section>

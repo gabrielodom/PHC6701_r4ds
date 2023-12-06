@@ -33,7 +33,7 @@ What did we learn last class?
 
 
 # Overview
-First of all, I'd like to acknowledge once again the Data Carpentry instructors for the "R for Ecology" lesson. We worked on updating that lesson last year, so I did not write all of this lesson by myself. In this lesson, we will cover the following:
+First of all, I'd like to acknowledge once again the Data Carpentry instructors for the "R for Ecology" lesson. In this lesson, we will cover the following:
 
 1. Lists
 2. Tibbles and Data Frames
@@ -64,6 +64,8 @@ Here is a table of **example** vector types, their dimensions, and their resulti
 |---------|-----------|--------------|
 | **1-D** | `logical` | `list`       |
 | **2-D** | `matrix`  | `data.frame` |
+
+: Examples of data classes by their dimension and atomic type distinction
 
 </br>
 
@@ -102,11 +104,11 @@ DrGabriel <- c(
 )
 ```
 
-We discovered last lesson that the values for `Age` and `timeEmployed` were coerced from numeric to character information due to the restrictions of atomic vectors. However, **non-atomic vectors are vectors such that the type / class of each element in the vector is not forced to be the same.** So far, we have created ID vectors for ourselves, but these do not allow us to mix different classes of data. We need something more flexible.
+We discovered last lesson that the values for `Age` and `timeEmployed` were coerced from numeric to character information due to the restrictions of atomic vectors. So far, we have created ID vectors for ourselves, but these do not allow us to mix different classes of data. We need something more flexible than atomic vectors. **Non-atomic vectors are vectors such that the type / class of each element in the vector is not forced to be the same.** 
 
 
 ## Creating Lists
-Lists are vectors that can have any class of object as its elements---even other lists! They are the opposite of *atomic*. We have seen one such example so far: the attributes of an atomic vector are a *list*:
+The most common example of a non-atomic vector is a **list**. Lists are vectors that can have any class of object as its elements---even other lists! They are the opposite of *atomic*. We have seen one such example so far: the attributes of an atomic vector are a *list*:
 ```{r}
 attributes(DrGabriel)
 class(attributes(DrGabriel))
@@ -132,7 +134,7 @@ DrGabriel_ls <- list(
 DrGabriel_ls
 ```
 
-If we want to inspect the internal **str**ucture of this list, we can see that the classes of our original atomic vectors have been preserved. There is no class coercion in a list.
+If we want to inspect the internal **str**ucture of this list, we can see that the classes of our original atomic vectors have been preserved. There is no type coercion in a list.
 ```{r}
 str(DrGabriel_ls)
 ```
@@ -171,7 +173,7 @@ In order to use tibbles, we need functions from the `tidyverse`. A tibble can be
 library(tidyverse)
 ```
 
-We can create the same ID card as we did with the `list()` function, but in a rectangular / tabular form. We create a tibble with the `tibble()` function. Similar to the `c()` function, we can supply as many inputs as we want, as long as they are all atomic vectors with the same length (notice that I changed the "highest degrees" back to a single character because of this restriction).
+We can create the same ID card as we did with the `list()` function, but in a rectangular / tabular form. We create a tibble with the `tibble()` function. Similar to the `c()` function, we can supply as many inputs as we want, as long as they are all **vectors with the same length** (notice that I changed the "highest degrees" back to a *character vector with length 1* because of this restriction).
 ```{r person_df}
 # Create a Tibble
 DrGabriel_df <- tibble(
@@ -189,7 +191,7 @@ DrGabriel_df <- tibble(
 DrGabriel_df
 ```
 
-(Technically I could have left the degrees entry as an atomic vector with 2 entries, but the `tibble()` function would have to try to figure out what I meant. Sometimes it guesses correctly, sometimes not. We will discuss the `tibble()` function more in a few weeks.) 
+(Technically I could have left the degrees entry as an atomic vector with 2 entries, but the `tibble()` function would have to try to figure out what I meant. Sometimes it guesses correctly, sometimes not. We will discuss the `tibble()` function more later.) 
 
 As with the atomic vectors, we can also find what R thinks about lists and how R stores this information:
 ```{r}
@@ -197,7 +199,12 @@ class(DrGabriel_df)
 typeof(DrGabriel_df)
 ```
 
-Notice that R still stores a tibble as a list (we see this from the `typeof()` function). In a tibble, the individual columns **must have the same class** and all columns **must have the same length**, but the entire data set often has different classes of data in each column. Here's the example from the figure above.
+Notice that R still stores a tibble as a list (we see this from the `typeof()` function). In a tibble, all the individual columns 
+
+1. **must have the same class**, 
+2. **must have the same length**.
+
+While these two restrictions apply *within* the columns, the entire data set often has different classes of data in each column. Here's an example of superhero data:
 ```{r}
 heroes_df <- tibble(
   subject_ID = factor(c("008", "016", "115", "027", "001")),
@@ -267,7 +274,7 @@ str(heroes_OldDF)
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. What are some differences between tibbles and data frames that you can find?
-2. Check the help file of the `data.frame()` function to find out how to preserve character information. What option should you add to the code above?
+2. Check the help file of the `data.frame()` function. Read about the argument `stringsAsFactors`. What would you think if you saw code that included the expression `stringsAsFactors = FALSE`?
 3. Last class, we discussed naming conventions. Are the names within my vectors consistent? Why or why not? What might I do to make them better?
 :::
 
@@ -289,10 +296,10 @@ Here is a non-exhaustive list of functions to get a sense of the content/structu
 * Content:
     + `head(mpg)`: the first 6 rows
     + `tail(mpg)`: the last 6 rows
-    + `summary(mpg)`: summary statistics for each column
+    + `summary(mpg)`: summary statistics for each numeric column
 * Names:
     + `names(mpg)` or `colnames(mpg)`: the column names
-    + `rownames(mpg)`: the row names
+    + `rownames(mpg)`: the row names (*only for old-school `data.frame` objects*)
 
 Note: the `head`, `tail`, `summary`, and `names` functions are "generic"; that is, they can be used on most other types of objects besides tibbles, including data frames and even atomic vectors. The `dim`, `nrow`, and `ncol` functions are also generic, but they are only applicable to rectangular, layered, or tabular data.
 
@@ -423,13 +430,29 @@ We can create logical atomic vectors of the same lengths as the number of rows a
 ```{r}
 # Dimension of the tibble:
 dim(heroes_df)
-# Logical vector to match the rows (keep the lat two):
+# Logical vector to match the rows (keep the last two):
 c(rep(FALSE, 3), rep(TRUE, 2))
 # Logical vector to match the columns (keep the last four):
 rep(c(FALSE, TRUE), each = 4)
 
 # Subset the tibble:
-heroes_df[c(rep(FALSE, 3), rep(TRUE, 2)), rep(c(FALSE, TRUE), each = 4)]
+heroes_df[
+  # rows
+  c(rep(FALSE, 3), rep(TRUE, 2)),
+  # columns
+  rep(c(FALSE, TRUE), each = 4)
+]
+```
+
+Did you notice that I broke the last expression up over multiple lines? This is to make the code easier for humans to read. Another option I could have done is this (this is usually what I do):
+```{r}
+# Logical vector to match the rows (keep the last two):
+keepRows_lgl <- c(rep(FALSE, 3), rep(TRUE, 2))
+# Logical vector to match the columns (keep the last four):
+keepCols_lgl <- rep(c(FALSE, TRUE), each = 4)
+
+# Subset the tibble:
+heroes_df[keepRows_lgl, keepCols_lgl]
 ```
 
 ### List Subsetting
@@ -447,7 +470,7 @@ Subset the tibble by every other row and column.
 For numeric and logical atomic vectors, we can make easy Boolean comparisons. "Is this value `TRUE`?" "Are these numbers less than 0?" Unfortunately, comparisons for character vectors are not as easy. We need new functions to measure if one character string belongs to a character vector. However, character set membership operators share this with other comparison operators: they *must* return **logical** values.
 
 #### Exact Matching
-If we want to find if one string is an element of a set of strings *exactly*, we can use the "infix" operator: `%in%`. This is helpful if you have many possible spellings or abbriviations of the same word or idea:
+If we want to find if one string is an element of a set of strings *exactly*, we can use the "in" operator: `%in%`. This is helpful if you have many possible spellings or abbreviations of the same word or idea:
 ```{r}
 "Florida" %in% c("FL", "Fl", "fl", "Florida", "florida")
 "Georgia" %in% c("FL", "Fl", "fl", "Florida", "florida")
@@ -460,7 +483,7 @@ This matching is exact: the character string on the left of `%in%` must match *e
 ```
 
 #### Partial Matching
-If we want to find if a string is *part of another string*, we use the string detection function: `str_detect()`. This function is from the `stringr` package, which is part of the `tidyverse`.
+If we want to find if a string is *part of another string*, we use the string detection function: `str_detect()`. This function is from the `stringr` package, which is part of the `tidyverse` (more on this later this semester).
 ```{r}
 str_detect(
   string = c("FL", "Fl", "fl", "State of Florida", "florida", "Florida"),
@@ -472,7 +495,7 @@ We know that the labels `"State of Florida"` and `"Florida"` match our search, b
 
 
 ## Relational Subsetting for Tibbles
-The tibble uses both the **row**, **column** and list subsetting rules, which gives it more flexibility than lists alone. Finally, we can use relational subsetting to get at some powerful results. 
+The tibble uses both the **row**, **column** and list subsetting rules, which gives it more flexibility than lists alone. We can use relational subsetting to get at some powerful results. 
 
 ### Numerical Relationships
 If we would like to see which superheroes were in print prior to the US involvement in WWII, we will use a numeric comparison of the first print run year vs 1941.
@@ -592,7 +615,10 @@ What is the class of the object returned by `$`?
 class(heroes_df$city)
 ```
 
-In this case, this is similar to the output of the `pull()` function we saw earlier.
+::: {.callout-note title="Exercise"}
+## Exercise
+Look up the help file for the Tidyverse function `pull()`. Run `pull(heroes_df, city)`. Compare these results to `heroes_df$city`. Why do you think the `pull()` function might be useful?
+:::
 
 ### Symbol Objects
 This function is very different. Instead of taking in the name of the element as a character string, it takes in the name as a **symbol**. If you remember our flowchart on objects from last class, recall that there was a small box connecting "Functions" to "Vectors" labelled "Languages"; *symbols* are *language* objects: they help R connect functions to vectors. You have technically used symbols since the second day of class. Consider this example:
