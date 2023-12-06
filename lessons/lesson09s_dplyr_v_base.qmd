@@ -119,7 +119,7 @@ framingham_dataframe[1, ]
 This returns a 1-row data frame.
 
 ## dplyr
-To select the first row of a tibble using dplyr subsetting rules, use the `slice()` function. This uses row position only.
+To select the first row of a tibble using dplyr subsetting rules, use `[` or the `slice()` function. This uses row position only.
 ```{r}
 framingham_tbldf %>% 
   slice(1)
@@ -184,7 +184,7 @@ This returns an atomic vector of length `r nrow(framingham_dataframe)` with the 
 
 
 ## dplyr
-To select the first column of a tibble using dplyr subsetting rules, use the `select()` function. This uses column position only.
+To select the first column of a tibble using dplyr subsetting rules, use `[` or the `select()` function. This uses column position only.
 ```{r}
 framingham_tbldf %>% 
   select(1)
@@ -214,10 +214,12 @@ framingham_tbldf[c("totchol", "death")]
 ```
 
 ### Column Contents
-The `pull()` function works almost exactly like the `$` function: it takes in the name of a *single* column as a *symbol* object rather than a character string, and it returns the contents of the column as a vector.
+The `pull()` function works similarly to the `$` and `[[` functions: it takes in the name of a *single* column as a *symbol* object or a character string, and it returns the contents of the column as a vector.
 ```{r}
 framingham_tbldf %>% 
   pull(totchol)
+framingham_tbldf %>% 
+  pull("totchol")
 framingham_tbldf$totchol
 framingham_tbldf[[1]]
 framingham_tbldf[["totchol"]]

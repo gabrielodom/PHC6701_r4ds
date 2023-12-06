@@ -66,11 +66,13 @@ If you get stuck, the `dplyr` cheat sheet is here: <https://www.rstudio.com/wp-c
 
 
 ## Example Data
-Our example data set has measurements on all flights departing the Greater New York City area in 2013. It has 336,776 unique flights and 19 measurements on those flights. We will use this data set to explore a few of the more commonly-used `dplyr` functions. Load the `nycflights13` package you installed last class:
+Our example data set has measurements on all flights departing the Greater New York City area in 2013. We will use this data set to explore a few of the more commonly-used `dplyr` functions. Load the `nycflights13` package you installed last class:
 ```{r head_flights}
 library(nycflights13)
 flights
 ```
+
+This data set has `r format(nrow(flights), big.mark = ",")` unique flights and `r ncol(flights)` measurements on those flights. 
 
 </br>
 
@@ -92,6 +94,8 @@ As a review, the pipe turns `x %>% f(y)` into `f(x, y)`. Pipes allow us to read 
 
 
 ## Examples
+For these examples, we need to read the documentation on the `flights` data first. Make sure you know what the columns are and their values.
+
 1. Find all the flights on Christmas Eve. We'll use the same code structure as the code for finding all the New Year's Day flights.
 ```{r}
 flights %>% filter(month == 12, day == 24)
@@ -184,7 +188,7 @@ flights %>% select(contains("time"))
 ```{r}
 flights %>% select(matches("^[a-z]{3}\\_"))
 ```
-The `matches()` function takes in a *regular expression*. If you have never used regular expressions for string queries before, don't be afraid. You can do most of the things you need without ever touching the `matches()` function. However, if you do find yourself needing some help with string manipulation in `R`, please see the `stringr` package cheat sheet from the [RStudio Cheat Sheets page](https://www.rstudio.com/resources/cheatsheets/) and [the strings chapter](http://r4ds.had.co.nz/strings.html#strings) from *R for Data Science*. You can also practice building expressions on <https://regexr.com/>.
+The `matches()` function takes in a *regular expression*. If you have never used regular expressions for string queries before, don't be afraid. You can do most of the things you need without ever touching the `matches()` function. However, if you do find yourself needing some help with string manipulation in `R`, please see the `stringr` package cheat sheet from the [RStudio Cheat Sheets page](https://www.rstudio.com/resources/cheatsheets/) and [the strings chapter](http://r4ds.had.co.nz/strings.html#strings) from *R for Data Science*. You can also practice building expressions on <https://regexr.com/>. We will also learn a bit more about the `stringr` package in a later lesson.
 
 
 ## Remove, Reorder, or Rename
@@ -218,6 +222,11 @@ While the `select()` function *can* rename columns, we recommend using the `rena
 flights <- rename(flights, tail_num = tailnum)
 names(flights)
 ```
+
+::: {.callout-tip}
+## Overwriting Data
+Note that I am saving the old data set as a new data set with the same name. Only do this if you are *positive* that you don't want to "go back a step". This action cannot be undone. While you are learning, I always recommend that you save new objects with new names.
+:::
 
 </br>
 
@@ -335,7 +344,7 @@ The `%%` operator is the [*modulo* operator](https://en.wikipedia.org/wiki/Modul
 
 
 # Grouping and Group Summaries with `group_by()` and `summarise()`
-The `summarise()` function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see [the `summarise()` section](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise) of *R for Data Science*, chapter 5.
+The `summarise()` function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see [the `summarise()` section](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise) of *R for Data Science*, chapter 5 (in the 1st edition, [chapter 3](https://r4ds.hadley.nz/data-transform.html) in the 2nd edition).
 
 The syntax of `summarise()` is similar to the `mutate()` syntax. We can find the average delay of all flights leaving the New York City area in 2013. Because `NA`s are contagious, we remove them from the calculation with `na.rm = TRUE`.
 ```{r}
@@ -349,7 +358,7 @@ not_cancelled <- flights %>%
   filter(!is.na(arr_delay))
 ```
 
-We can also find the arrival delay by destination with `group_by()`, then check if any cites seem to have less arrival delays (possibly due to changes in wind resistance).
+We can also find the arrival delay by destination with `group_by()`, then check if any cites seem to have less arrival delays (possibly due to changes in wind resistance or traffic control at those airports?).
 ```{r}
 not_cancelled %>% 
   group_by(dest) %>% 
@@ -361,7 +370,7 @@ We can always ungroup our data table with the `ungroup()` function.
 
 
 ## Chaining Operations Together
-We have already used the pipe (` %>% `) operator quite a bit. This allows us to chain multiple steps together. For example, we might want to plot the relationship between flight distance and arrival delay (if you don't remember how to use `ggplot()`, take a look at the Review section).
+We have already used the pipe (` %>% `) operator quite a bit. This allows us to chain multiple steps together. For example, we might want to plot the relationship between flight distance and arrival delay (if you don't remember how to use `ggplot()`, look back a few lessons).
 ```{r}
 # Create a "delays" data table
 delays <- flights %>% 
@@ -383,7 +392,7 @@ ggplot(data = delays) +
 
 
 ## Adding and Visualising Counts
-Let's look at the average delay by plane. Based on this graph, there are some planes with an *average* delay of over five hours! But how many flights did that plane make? We need to add a count.
+Let's look at the average delay by plane. 
 ```{r}
 delays <- not_cancelled %>% 
   group_by(tail_num) %>% 
@@ -396,7 +405,7 @@ ggplot(data = delays) +
   geom_freqpoly(binwidth = 10)
 ```
 
-Now that we add a count and re-plot the average arrival delay, we immediately see the Central Limit Theorem in action. All those planes with massive average delays only had one or two flights.
+Based on this graph, there are some planes with an *average* delay of over five hours! But how many flights did that plane make? We need to add a count. Now that we add a count and re-plot the average arrival delay, we immediately see the Central Limit Theorem in action. All those planes with massive average delays only had one or two flights.
 ```{r}
 delays <- not_cancelled %>% 
   group_by(tail_num) %>% 

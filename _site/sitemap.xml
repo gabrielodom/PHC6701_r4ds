@@ -2,74 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/index.html</loc>
-    <lastmod>2023-12-06T14:19:35.609Z</lastmod>
+    <lastmod>2023-12-06T20:23:24.908Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/about.html</loc>
-    <lastmod>2023-12-06T14:19:36.001Z</lastmod>
+    <lastmod>2023-12-06T20:23:25.322Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson01_greater_data_science.html</loc>
-    <lastmod>2023-12-06T14:19:37.964Z</lastmod>
+    <lastmod>2023-12-06T20:23:27.207Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson10_stringr.html</loc>
-    <lastmod>2023-12-06T14:19:41.878Z</lastmod>
+    <lastmod>2023-12-06T20:23:31.117Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson07_lists_and_tibbles.html</loc>
-    <lastmod>2023-12-06T14:19:45.584Z</lastmod>
+    <lastmod>2023-12-06T20:23:34.818Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson06_atomic_vectors.html</loc>
-    <lastmod>2023-12-06T14:19:48.088Z</lastmod>
+    <lastmod>2023-12-06T20:23:37.325Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson04s_examples.html</loc>
-    <lastmod>2023-12-06T14:20:00.750Z</lastmod>
+    <lastmod>2023-12-06T20:23:49.727Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson11_functions.html</loc>
-    <lastmod>2023-12-06T14:20:02.810Z</lastmod>
+    <lastmod>2023-12-06T20:23:51.812Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson09s_dplyr_v_base.html</loc>
-    <lastmod>2023-12-06T14:20:06.231Z</lastmod>
+    <lastmod>2023-12-06T20:23:55.316Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson04_ggplot.html</loc>
-    <lastmod>2023-12-06T14:20:14.267Z</lastmod>
+    <lastmod>2023-12-06T20:24:03.542Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson12_purrr.html</loc>
-    <lastmod>2023-12-06T14:20:19.214Z</lastmod>
+    <lastmod>2023-12-06T20:24:08.523Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson05_RStudio_projects.html</loc>
-    <lastmod>2023-12-06T14:20:21.150Z</lastmod>
+    <lastmod>2023-12-06T20:24:10.529Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson02s_scripts.html</loc>
-    <lastmod>2023-12-06T14:20:22.166Z</lastmod>
+    <lastmod>2023-12-06T20:24:11.600Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson08_Data_Read_Write.html</loc>
-    <lastmod>2023-12-06T14:20:25.705Z</lastmod>
+    <lastmod>2023-12-06T20:24:15.179Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson13_eda_w_tidyverse.html</loc>
-    <lastmod>2023-12-06T14:20:31.656Z</lastmod>
+    <lastmod>2023-12-06T20:24:21.135Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson02_introduction_to_R.html</loc>
-    <lastmod>2023-12-06T14:20:33.622Z</lastmod>
+    <lastmod>2023-12-06T20:24:23.112Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson03_introduction_to_Quarto.html</loc>
-    <lastmod>2023-12-06T14:20:34.137Z</lastmod>
+    <lastmod>2023-12-06T20:24:23.649Z</lastmod>
   </url>
   <url>
     <loc>https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson09_dplyr.html</loc>
-    <lastmod>2023-12-06T14:20:44.239Z</lastmod>
+    <lastmod>2023-12-06T20:24:33.812Z</lastmod>
   </url>
 </urlset>

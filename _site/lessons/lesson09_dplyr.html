@@ -378,7 +378,7 @@ Important
 </section>
 <section id="example-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-data">Example Data</h2>
-<p>Our example data set has measurements on all flights departing the Greater New York City area in 2013. It has 336,776 unique flights and 19 measurements on those flights. We will use this data set to explore a few of the more commonly-used <code>dplyr</code> functions. Load the <code>nycflights13</code> package you installed last class:</p>
+<p>Our example data set has measurements on all flights departing the Greater New York City area in 2013. We will use this data set to explore a few of the more commonly-used <code>dplyr</code> functions. Load the <code>nycflights13</code> package you installed last class:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>flights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -402,6 +402,7 @@ Important
 #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 </div>
 </div>
+<p>This data set has 336,776 unique flights and 19 measurements on those flights.</p>
 <p><br></p>
 <hr>
 <p><br></p>
@@ -458,6 +459,7 @@ Important
 <p>As a review, the pipe turns <code>x %&gt;% f(y)</code> into <code>f(x, y)</code>. Pipes allow us to read code from left-to-right and top-to-bottom, rather than inside out with a giant nest of parentheses.</p>
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>For these examples, we need to read the documentation on the <code>flights</code> data first. Make sure you know what the columns are and their values.</p>
 <ol type="1">
 <li>Find all the flights on Christmas Eve. We’ll use the same code structure as the code for finding all the New Year’s Day flights.</li>
 </ol>
@@ -804,7 +806,7 @@ Important
 # ℹ 336,766 more rows</code></pre>
 </div>
 </div>
-<p>The <code>matches()</code> function takes in a <em>regular expression</em>. If you have never used regular expressions for string queries before, don’t be afraid. You can do most of the things you need without ever touching the <code>matches()</code> function. However, if you do find yourself needing some help with string manipulation in <code>R</code>, please see the <code>stringr</code> package cheat sheet from the <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets page</a> and <a href="http://r4ds.had.co.nz/strings.html#strings">the strings chapter</a> from <em>R for Data Science</em>. You can also practice building expressions on <a href="https://regexr.com/" class="uri">https://regexr.com/</a>.</p>
+<p>The <code>matches()</code> function takes in a <em>regular expression</em>. If you have never used regular expressions for string queries before, don’t be afraid. You can do most of the things you need without ever touching the <code>matches()</code> function. However, if you do find yourself needing some help with string manipulation in <code>R</code>, please see the <code>stringr</code> package cheat sheet from the <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheat Sheets page</a> and <a href="http://r4ds.had.co.nz/strings.html#strings">the strings chapter</a> from <em>R for Data Science</em>. You can also practice building expressions on <a href="https://regexr.com/" class="uri">https://regexr.com/</a>. We will also learn a bit more about the <code>stringr</code> package in a later lesson.</p>
 </section>
 <section id="remove-reorder-or-rename" class="level2">
 <h2 class="anchored" data-anchor-id="remove-reorder-or-rename">Remove, Reorder, or Rename</h2>
@@ -918,6 +920,19 @@ Important
  [9] "arr_delay"      "carrier"        "flight"         "tail_num"      
 [13] "origin"         "dest"           "air_time"       "distance"      
 [17] "hour"           "minute"         "time_hour"     </code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Overwriting Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that I am saving the old data set as a new data set with the same name. Only do this if you are <em>positive</em> that you don’t want to “go back a step”. This action cannot be undone. While you are learning, I always recommend that you save new objects with new names.</p>
 </div>
 </div>
 <p><br></p>
@@ -1148,7 +1163,7 @@ Important
 </section>
 <section id="grouping-and-group-summaries-with-group_by-and-summarise" class="level1">
 <h1>Grouping and Group Summaries with <code>group_by()</code> and <code>summarise()</code></h1>
-<p>The <code>summarise()</code> function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise">the <code>summarise()</code> section</a> of <em>R for Data Science</em>, chapter 5.</p>
+<p>The <code>summarise()</code> function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise">the <code>summarise()</code> section</a> of <em>R for Data Science</em>, chapter 5 (in the 1st edition, <a href="https://r4ds.hadley.nz/data-transform.html">chapter 3</a> in the 2nd edition).</p>
 <p>The syntax of <code>summarise()</code> is similar to the <code>mutate()</code> syntax. We can find the average delay of all flights leaving the New York City area in 2013. Because <code>NA</code>s are contagious, we remove them from the calculation with <code>na.rm = TRUE</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1165,7 +1180,7 @@ Important
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dep_delay)) <span class="sc">%&gt;%</span> </span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(arr_delay))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can also find the arrival delay by destination with <code>group_by()</code>, then check if any cites seem to have less arrival delays (possibly due to changes in wind resistance).</p>
+<p>We can also find the arrival delay by destination with <code>group_by()</code>, then check if any cites seem to have less arrival delays (possibly due to changes in wind resistance or traffic control at those airports?).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>not_cancelled <span class="sc">%&gt;%</span> </span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span> </span>
@@ -1192,7 +1207,7 @@ Important
 <p>We can always ungroup our data table with the <code>ungroup()</code> function.</p>
 <section id="chaining-operations-together" class="level2">
 <h2 class="anchored" data-anchor-id="chaining-operations-together">Chaining Operations Together</h2>
-<p>We have already used the pipe (<code>%&gt;%</code>) operator quite a bit. This allows us to chain multiple steps together. For example, we might want to plot the relationship between flight distance and arrival delay (if you don’t remember how to use <code>ggplot()</code>, take a look at the Review section).</p>
+<p>We have already used the pipe (<code>%&gt;%</code>) operator quite a bit. This allows us to chain multiple steps together. For example, we might want to plot the relationship between flight distance and arrival delay (if you don’t remember how to use <code>ggplot()</code>, look back a few lessons).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a "delays" data table</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>delays <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
@@ -1220,7 +1235,7 @@ Important
 </section>
 <section id="adding-and-visualising-counts" class="level2">
 <h2 class="anchored" data-anchor-id="adding-and-visualising-counts">Adding and Visualising Counts</h2>
-<p>Let’s look at the average delay by plane. Based on this graph, there are some planes with an <em>average</em> delay of over five hours! But how many flights did that plane make? We need to add a count.</p>
+<p>Let’s look at the average delay by plane.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>delays <span class="ot">&lt;-</span> not_cancelled <span class="sc">%&gt;%</span> </span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tail_num) <span class="sc">%&gt;%</span> </span>
@@ -1235,7 +1250,7 @@ Important
 <p><img src="lesson09_dplyr_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Now that we add a count and re-plot the average arrival delay, we immediately see the Central Limit Theorem in action. All those planes with massive average delays only had one or two flights.</p>
+<p>Based on this graph, there are some planes with an <em>average</em> delay of over five hours! But how many flights did that plane make? We need to add a count. Now that we add a count and re-plot the average arrival delay, we immediately see the Central Limit Theorem in action. All those planes with massive average delays only had one or two flights.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>delays <span class="ot">&lt;-</span> not_cancelled <span class="sc">%&gt;%</span> </span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tail_num) <span class="sc">%&gt;%</span> </span>
