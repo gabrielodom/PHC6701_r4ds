@@ -335,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="a-quick-comment-to-begin" class="level2">
 <h2 class="anchored" data-anchor-id="a-quick-comment-to-begin">A Quick Comment to Begin…</h2>
 <p>When you use the RStudio IDE, you have access to a point-and-click data import guide for data files in many different forms. Such forms include tab-seperated, fixed-width, .csv, Stata, SAS, SPSS, Excel, and many others. A word of caution: you should practice importing the your data with the <code>read_fwf()</code>, <code>read_delim</code>, or <code>read_csv</code> functions (from the <code>readr</code> package) using the point-and-click RStudio interface. At each import, copy the code you build in the interactive window into a script so that you can see how the functions work. Once you are familiar with how these functions treat your data, then you can start writing the <code>readr</code> functions directly within a script instead of using the point-and-click RStudio IDE importing steps.</p>
-<p>If you have never imported data before, this can be one of the most challenging tasks in data science. Also, read <a href="https://r4ds.had.co.nz/data-import.html">R4DS Chapter 11</a>, which covers importing data from a variety of sources. I have seen many problems in code because a tiny little piece of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don’t let this happen to you.</p>
+<p>If you have never imported data before, this can be one of the most challenging tasks in data science. Also, you should read the <a href="https://r4ds.hadley.nz/data-import">“Importing Data” Chapter</a> of <em>R for Data Science</em>, which covers importing data from a variety of sources. I have seen many problems in code because a tiny little piece of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don’t let this happen to you.</p>
 </section>
 <section id="example-data-food-stamp-usage-by-zip-code" class="level2">
 <h2 class="anchored" data-anchor-id="example-data-food-stamp-usage-by-zip-code">Example Data: Food Stamp Usage by ZIP Code</h2>
@@ -403,7 +403,7 @@ Exercise: Download SNAP Data by ZIP
 <p>Notice that we can import Excel, SAS, Stata, or SPSS data files, or we can import any text-based file with the <code>From Text (readr)...</code> button.</p>
 <section id="the-readr-package" class="level2">
 <h2 class="anchored" data-anchor-id="the-readr-package">The <code>readr</code> Package</h2>
-<p>The <code>readr</code> package (<a href="https://cran.r-project.org/web/packages/readr/README.html" class="uri">https://cran.r-project.org/web/packages/readr/README.html</a> is the data import package of the <code>tidyverse</code>. If you want a good overview of how to use this package, read Chapter 11 of R4DS. We’ll load the <code>tidyverse</code> package suite now.</p>
+<p>The <code>readr</code> package (<a href="https://cran.r-project.org/web/packages/readr/README.html" class="uri">https://cran.r-project.org/web/packages/readr/README.html</a>) is the data import package of the <code>tidyverse</code>. If you want a good overview of how to use this package, read the <a href="https://r4ds.hadley.nz/data-import.html">“Importing Data” chapter</a> of <em>R for Data Science</em>. We’ll load the <code>tidyverse</code> package suite now.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -412,7 +412,7 @@ Exercise: Download SNAP Data by ZIP
 <p>The <code>readr</code> package has three main goals:</p>
 <ol type="1">
 <li>Be faster than the <code>base::</code> package reading functions (<code>read.csv</code>, <code>read.delim</code>, <code>read.fwf</code>, etc.).</li>
-<li>Import data as a tibble, so that we don’t get hung up on character / factor conversion and we don’t mess up row and column names. For more on the tibble object, read their vignette: <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a></li>
+<li>Import data as a tibble, so that we get the benefits of using tibbles, and we don’t mess up row and column names. For more on the tibble object, read their vignette: <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a></li>
 <li>Operate similarly on all operating systems.</li>
 </ol>
 </section>
@@ -429,21 +429,21 @@ Exercise: Download SNAP Data by ZIP
 </section>
 <section id="read-a-.csv-file-with-read_csv" class="level2">
 <h2 class="anchored" data-anchor-id="read-a-.csv-file-with-read_csv">Read a <code>.csv</code> File with <code>read_csv</code></h2>
-<p>In the “Import Dataset” drop-down menu, select <code>From Text (readr)...</code>. In the “Import Text Data” pop-up window, click “Browse” to find and open your data. If you are using an RStudio project, then the “Browse” file finder should open directly to your directory for this class, and the data directory where you saved all three data files should be visible. Select the ACS data <code>.csv</code> file and click “Open”. You should see this window:</p>
+<p>In the “Import Dataset” drop-down menu, select <code>From Text (readr)...</code>. In the “Import Text Data” pop-up window, click “Browse” to find and open your data. If you are using an RStudio project, then the “Browse” file finder should open directly to your directory for this class, and the data directory where you saved all three data files should be visible. Select the ACS data <code>.csv</code> file and click “Open”. You should see this window (your “File path” field will be different):</p>
 <p><img src="../_figures/r4ds_import_ACS_survey_2023.png" class="img-fluid"></p>
 <p>There is a lot of stuff going on in this window! Let’s unpack all of our options:</p>
 <ul>
 <li><p>The “Data Preview” pane shows you an Excel-style view of the first few rows and columns of your data:</p>
 <ul>
 <li>The column names were imported correctly.</li>
-<li>The <code>readr</code> package identifies the data type for each column by looking at the first 1000 rows.</li>
+<li>The <code>readr</code> package identifies the data type for each column by looking at the first 1000 rows (<em>notice here that everything is a character; more on this shortly</em>).</li>
 <li>The down-arrow next to the column name lets you manually override <code>readr</code>’s best guess for the column data type, as well as include, skip, or include only the column:</li>
 </ul>
 <p><img src="../_figures/r4ds_import_column_options.PNG" class="img-fluid"></p></li>
 <li><p>The “Import Options” pane allows you more direct control over <em>how</em> the data file is imported:</p>
 <ul>
 <li>“Name” — what name do you want to give the data tibble in the working directory? Often, the file itself has a long name, so it’s better to name the tibble saved in your <code>R</code> environment a shorthand version.</li>
-<li>“Skip” — skip reading the first rows of the file. This is helpful if you have metadata in the first few rows of the file, and the data itself doesn’t start until later. <strong>NOTE: we will have to set <code>skip = 1</code> for this data.</strong></li>
+<li>“Skip” — skip reading the first rows of the file. This is helpful if you have metadata in the first few rows of the file, and the data itself doesn’t start until later. <strong>NOTE: because there are two rows of “header” information, we will have to set <code>skip = 1</code> for this data.</strong></li>
 <li>Check Box Options — these do what they say they do.</li>
 <li>“Delimiter: Comma” — this drop-down menu allows you to switch among commas, tabs, semicolons, white space, or other delimiters. The <code>readr</code> package correctly identified that our <code>.csv</code> file was comma-delimited.</li>
 <li>“NA” — how are missing values coded in your data? The drop-down menu has only a few options, but have more flexibility by interacting with the code itself (more on that in the next lesson).</li>
@@ -486,7 +486,7 @@ Exercise
 </section>
 <section id="read-a-tab-delimited-.txt-file-with-read_tsv" class="level2">
 <h2 class="anchored" data-anchor-id="read-a-tab-delimited-.txt-file-with-read_tsv">Read a Tab-Delimited <code>.txt</code> File with <code>read_tsv</code></h2>
-<p>Now that we have a decent idea of how the <code>read_csv</code> function works, we can easily read in the Miami-Dade and Broward ZIP code files with the <code>read_tsv</code> function—it has the same syntax! <em>Note: you will have to change the file path to match where your data is stored; mine is stored in a subfolder called <code>_data/</code>.</em></p>
+<p>Now that we have a decent idea of how the <code>read_csv</code> function works, we can easily read in the Miami-Dade and Broward ZIP code files with the <code>read_tsv</code> function—it has almost the same syntax! <em>Note: you will have to change the file path to match where your data is stored; mine is stored in a subfolder called <code>_data/</code>.</em></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>miamidade_ZIPs <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"../_data/miamidade_ZIP_codes.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -545,7 +545,7 @@ Looking ahead…
 </section>
 <section id="tibbles-and-tidy-data" class="level1">
 <h1>Tibbles and Tidy Data</h1>
-<p>So far this semester, we have seen and used data in a tidy form (recall the <code>mpg</code> dataset), but we have had very little discussion of <em>what</em> this form entails and <em>why</em> it is important. We draw our information from <em>R for Data Science</em>, chapter 12.</p>
+<p>So far this semester, we have seen and used data in a tidy form (recall the <code>mpg</code> dataset), but we have had very little discussion of <em>what</em> this form entails and <em>why</em> it is important. We draw our information from the <a href="https://r4ds.hadley.nz/data-tidy.html">“Tidying Data” chapter</a> of <em>R for Data Science</em>.</p>
 <section id="data-format-example-tuberculosis-cases" class="level2">
 <h2 class="anchored" data-anchor-id="data-format-example-tuberculosis-cases">Data Format Example: Tuberculosis Cases</h2>
 <p>Consider data with counts of tuberculosis (TB) cases for three countries measured over a single 10-year interval. What could our data look like?</p>
@@ -590,7 +590,7 @@ Looking ahead…
 </tr>
 </tbody>
 </table>
-<p>Notice that this table has all the information we need: the name of the country, the year of the demograpic measurement, the number of TB cases in that year for each country, and the total population in the country at that time. The data is in a good format for humans. However, the information in this data is not immediately accesible by the <em>computer</em>.</p>
+<p>Notice that this table has all the information we need: the name of the country, the year of the demographic measurement, the number of TB cases in that year for each country, and the total population in the country at that time. The data is in a good format for humans. However, the information in this data is not immediately accessible by the <em>computer</em>.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -610,13 +610,13 @@ Exercises
 </section>
 <section id="what-is-tidy-data" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-tidy-data">What is Tidy Data?</h2>
-<p>Before we try to “tidy up” the data set above, we need a grammar for data. Specifically, mathematical convention holds that (if you would like the justification for these rules, please see <a href="https://www.doi.org/10.18637/jss.v059.i10">Wickham (2014)</a>):</p>
+<p>Before we try to “tidy up” the data set above, we need a grammar for data. Specifically, mathematical convention holds that:</p>
 <ul>
 <li>Each variable must have its own column.</li>
 <li>Each observation must have its own row.</li>
 <li>Each value must have its own cell.</li>
 </ul>
-<p>Visually, tidy data has this form:</p>
+<p>If you would like the justification for these rules, please see <a href="https://www.doi.org/10.18637/jss.v059.i10">Wickham (2014)</a>. Visually, tidy data has this form:</p>
 <p><img src="https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" class="img-fluid"></p>
 <section id="tidy-the-tb-data" class="level3">
 <h3 class="anchored" data-anchor-id="tidy-the-tb-data">Tidy the TB Data</h3>
@@ -746,7 +746,7 @@ babynames %&gt;%
   filter(sex == "M", name == "Taylor") %&gt;%
   select(n) %&gt;%
   sum()</code></pre>
-<p>The pipe operator makes chained or nested code much easier to read. However, this clarity comes with a drawback: the pipe operator uses <a href="http://adv-r.had.co.nz/Computing-on-the-language.html">non-standard evaluation</a>, which means that <em>development</em> with the pipe operator <a href="https://bookdown.org/rdpeng/RProgDA/non-standard-evaluation.html">can be more challenging</a>. However, do not let this discourage you from using the pipe operator in your scripts.</p>
+<p>The pipe operator makes chained or nested code much easier to read. However, this clarity comes with a drawback: the pipe operator uses <a href="http://adv-r.had.co.nz/Computing-on-the-language.html">non-standard evaluation</a>, which means that <em>R package development</em> with the pipe operator <a href="https://bookdown.org/rdpeng/RProgDA/non-standard-evaluation.html">can be more challenging</a>. However, do not let this discourage you from using the pipe operator in your analysis scripts—I use it all the time.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -757,7 +757,7 @@ Exercises
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercises">
-<p>Install and load the <code>nycflights13</code> package. Re-write the following code with the pipe operator (<em>we will learn what this code actually does next lesson, so don’t worry about it for now</em>):</p>
+<p>Install and load the <code>nycflights13</code> package. Re-write the following code with the pipe operator. We will learn what this code actually does next lesson, so don’t worry about it for now. <em>Hint: you may want to write out these function calls on paper to make sense of it all.</em> Here is the code to re-write:</p>
 <pre><code>arrange(mutate(summarise(group_by(flights, dest), delay = mean(arr_delay, na.rm = TRUE)), resid_delay = delay - mean(delay, na.rm = TRUE)), resid_delay)</code></pre>
 <p>Confirm that the results before and after are the same.</p>
 </div>
