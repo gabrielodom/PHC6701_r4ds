@@ -40,15 +40,15 @@ In this lesson, we will cover the following:
 
 
 ## More About this Lesson
-The original version of this material was largely from my memory and what Catalina and I needed to solve some problems, but "version 2" was restructured to draw from the training materials here: <https://rstudio.github.io/cheatsheets/html/strings.html>. The cool thing about the `stringr` package is that all of the functions start with `str_`. This means that you can more easily find helpful string functions. Also, as with all of the packages in the `tidyverse`, the `stringr` package comes with a nice cheat sheet: <https://rstudio.github.io/cheatsheets/strings.pdf>.
+The original version of this material was largely from my memory and what Catalina and I needed to solve some problems related to a disasters database, but "version 2" was restructured to draw from the training materials here: <https://rstudio.github.io/cheatsheets/html/strings.html>. The cool thing about the `stringr` package is that all of the functions start with `str_`. This means that you can easily find helpful string functions. Also, as with all of the packages in the `tidyverse`, the `stringr` package comes with a nice cheat sheet: <https://rstudio.github.io/cheatsheets/strings.pdf>.
 
 
 ## Example Data
-We will use two data sets as examples in this lesson, one easy and one complex.
+We will use three data sets as examples in this lesson, easy, medium, and complex.
 
 - Easy: the `fruit` object from the `stringr` package. This is a simple character vector of names of different fruits. This small data set comes automatically with the Tidyverse.
 - Medium: the `sentences` object from the `stringr` package. This contains the `r length(stringr::sentences)` [Harvard Sentences](https://en.wikipedia.org/wiki/Harvard_sentences) for North American English voice identification. This data set also comes automatically with the Tidyverse.
-- Complex: the `outcomesCTN0094` data frame, with column `usePatternUDS`, from the `CTNote` package. For more information about the character string in this data set, see [Odom et al. (2023)](https://doi.org/10.1371/journal.pone.0291248). Install this package via (make sure to uncomment the install line the first time you run it)
+- Complex: the `outcomesCTN0094` data frame, with column `usePatternUDS`, from the `CTNote` package. For more information about the character string in this data set, see [Odom et al. (2023)](https://doi.org/10.1371/journal.pone.0291248). Install this package via this code, but make sure to uncomment the install line the first time you run it:
 ```{r packages, message=FALSE}
 # install.packages("CTNote")
 library(CTNote)
@@ -94,19 +94,19 @@ In the `fruit` vector, we may want to find which fruit names have the word "berr
 
 Option 1: the character intersection of "berry" and "berries":
 ```{r find-berries-1}
-# Create a logical vector to indicate which strings have the matching pattern
+# 1. Create a logical vector to indicate which strings have the matching pattern
 str_detect(string = fruit, pattern = "berr")
 
-# Print the names of the fruits which have the matching pattern
+# 2. Print the names of the fruits which have the matching pattern
 fruit[ str_detect(string = fruit, pattern = "berr") ]
 ```
 
 Option 2: using an "OR" statement (the `|` symbol):
 ```{r find-berries-2}
-# Create a logical vector to indicate which strings have the matching pattern
+# 1. Create a logical vector to indicate which strings have the matching pattern
 str_detect(string = fruit, pattern = "berry|berries")
 
-# Print the names of the fruits which have the matching pattern
+# 2. Print the names of the fruits which have the matching pattern
 fruit[ str_detect(string = fruit, pattern = "berry|berries") ]
 ```
 
@@ -117,7 +117,7 @@ Find all the fruits with the word "fruit" in the name.
 
 
 ## Counting Matches
-In the `outcome_df` data set each symbol in the column `usePatternUDS` represents the patient status during the routine weekly clinic visit. The `o` symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):
+In the `outcome_df` data set, each symbol in the column `usePatternUDS` represents the patient status during a routine weekly clinic visit. The `o` symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):
 ```{r}
 outcome_df$usePatternUDS[1:20] %>% 
   str_count(pattern = "o")
@@ -158,7 +158,7 @@ fruit %>%
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-In the use pattern symbol vector the `*` symbol represents a mixture of positive and negative results. Change all `*` symbols to `+`. You will most likely need to [escape the symbols](https://r4ds.had.co.nz/strings.html#basic-matches) with two backslashes.
+In the use pattern symbol vector in `outcome_df`, the `*` symbol represents a mixture of positive and negative results. Change all `*` symbols to `+`. You will most likely need to [escape the symbols](https://r4ds.had.co.nz/strings.html#basic-matches) with two backslashes. Use the first 20 patients only.
 :::
 
 
@@ -180,6 +180,7 @@ sentences[1:20] %>%
     + some words are now misspelled
 
 Brainstorm with your neighbour what you think went wrong and how you could fix it.
+
 2. Try a few solutions you suggested in Exercise 1.
 3. Some of the words now have extra spaces between them. What could we modify in the code above to address this?
 :::
@@ -201,7 +202,7 @@ Notice that I modified the two stop words slightly. What did that change? Discus
 
 ::: {.callout-tip title="tip"}
 ## Tip: Order Matters
-When calling string manipulation functions, the order of the function calls in the pipeline matters A LOT. Pay close attention to the orders of the actions you prescribe, and it's usually very wise to run a `stringr::` pipeline line-by-line as you build it.
+When calling string manipulation functions, the order of the function calls in the pipeline matters A LOT. Pay close attention to the order of the actions you prescribe, and it's usually very wise to run a `stringr::` pipeline line-by-line as you build it.
 :::
 
 </br>
@@ -240,7 +241,7 @@ heightsF_char %>%
 
 ::: {.callout-note title="Exercise"}
 ## Exercise
-Pretend that you spoke with a clinician about the use patterns in the `outcome_df` data set. She informed you that the first three weeks should be considered an onboarding period for each participant, and therefore should be removed from the data before final analysis. Remove the symbols for the first three weeks.
+Pretend that you spoke with a clinician about the use patterns in the `outcome_df` data set. She informed you that the first three weeks should be considered an onboarding period for each participant, and therefore should be removed from the data before final analysis. Remove the symbols for the first three weeks. Use the first 20 patients only.
 :::
 
 
@@ -396,5 +397,5 @@ Between this lesson and the `dplyr::` lesson, you now have the skills to join th
 
 1. Import the data sets.
 2. Use the string manipulation functions to clean up the ZIP code columns until they can match.
-3. Join the data sets so that you have one table with all the ACS SNAP data combined for Miami-Dade and Broward counties.
+3. Join the data sets so that you have one table with all the ACS SNAP data and an indicator variable that marks if the data comes from South Florida (Miami-Dade or Broward counties).
 :::
