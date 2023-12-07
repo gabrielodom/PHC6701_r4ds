@@ -350,15 +350,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <section id="more-about-this-lesson" class="level2">
 <h2 class="anchored" data-anchor-id="more-about-this-lesson">More About this Lesson</h2>
-<p>The original version of this material was largely from my memory and what Catalina and I needed to solve some problems, but “version 2” was restructured to draw from the training materials here: <a href="https://rstudio.github.io/cheatsheets/html/strings.html" class="uri">https://rstudio.github.io/cheatsheets/html/strings.html</a>. The cool thing about the <code>stringr</code> package is that all of the functions start with <code>str_</code>. This means that you can more easily find helpful string functions. Also, as with all of the packages in the <code>tidyverse</code>, the <code>stringr</code> package comes with a nice cheat sheet: <a href="https://rstudio.github.io/cheatsheets/strings.pdf" class="uri">https://rstudio.github.io/cheatsheets/strings.pdf</a>.</p>
+<p>The original version of this material was largely from my memory and what Catalina and I needed to solve some problems related to a disasters database, but “version 2” was restructured to draw from the training materials here: <a href="https://rstudio.github.io/cheatsheets/html/strings.html" class="uri">https://rstudio.github.io/cheatsheets/html/strings.html</a>. The cool thing about the <code>stringr</code> package is that all of the functions start with <code>str_</code>. This means that you can easily find helpful string functions. Also, as with all of the packages in the <code>tidyverse</code>, the <code>stringr</code> package comes with a nice cheat sheet: <a href="https://rstudio.github.io/cheatsheets/strings.pdf" class="uri">https://rstudio.github.io/cheatsheets/strings.pdf</a>.</p>
 </section>
 <section id="example-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-data">Example Data</h2>
-<p>We will use two data sets as examples in this lesson, one easy and one complex.</p>
+<p>We will use three data sets as examples in this lesson, easy, medium, and complex.</p>
 <ul>
 <li>Easy: the <code>fruit</code> object from the <code>stringr</code> package. This is a simple character vector of names of different fruits. This small data set comes automatically with the Tidyverse.</li>
 <li>Medium: the <code>sentences</code> object from the <code>stringr</code> package. This contains the 720 <a href="https://en.wikipedia.org/wiki/Harvard_sentences">Harvard Sentences</a> for North American English voice identification. This data set also comes automatically with the Tidyverse.</li>
-<li>Complex: the <code>outcomesCTN0094</code> data frame, with column <code>usePatternUDS</code>, from the <code>CTNote</code> package. For more information about the character string in this data set, see <a href="https://doi.org/10.1371/journal.pone.0291248">Odom et al.&nbsp;(2023)</a>. Install this package via (make sure to uncomment the install line the first time you run it)</li>
+<li>Complex: the <code>outcomesCTN0094</code> data frame, with column <code>usePatternUDS</code>, from the <code>CTNote</code> package. For more information about the character string in this data set, see <a href="https://doi.org/10.1371/journal.pone.0291248">Odom et al.&nbsp;(2023)</a>. Install this package via this code, but make sure to uncomment the install line the first time you run it:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("CTNote")</span></span>
@@ -406,7 +406,7 @@ Exercises
 <p>In the <code>fruit</code> vector, we may want to find which fruit names have the word “berry” or “berries” in them, then print those names. Because I want to detect both, I have two options.</p>
 <p>Option 1: the character intersection of “berry” and “berries”:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical vector to indicate which strings have the matching pattern</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a logical vector to indicate which strings have the matching pattern</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE
@@ -417,7 +417,7 @@ Exercises
 [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
 [73]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the names of the fruits which have the matching pattern</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Print the names of the fruits which have the matching pattern</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>fruit[ <span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berr"</span>) ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
@@ -427,7 +427,7 @@ Exercises
 </div>
 <p>Option 2: using an “OR” statement (the <code>|</code> symbol):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical vector to indicate which strings have the matching pattern</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a logical vector to indicate which strings have the matching pattern</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berry|berries"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE
@@ -438,7 +438,7 @@ Exercises
 [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
 [73]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the names of the fruits which have the matching pattern</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Print the names of the fruits which have the matching pattern</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fruit[ <span class="fu">str_detect</span>(<span class="at">string =</span> fruit, <span class="at">pattern =</span> <span class="st">"berry|berries"</span>) ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
@@ -462,7 +462,7 @@ Exercise
 </section>
 <section id="counting-matches" class="level2">
 <h2 class="anchored" data-anchor-id="counting-matches">Counting Matches</h2>
-<p>In the <code>outcome_df</code> data set each symbol in the column <code>usePatternUDS</code> represents the patient status during the routine weekly clinic visit. The <code>o</code> symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):</p>
+<p>In the <code>outcome_df</code> data set, each symbol in the column <code>usePatternUDS</code> represents the patient status during a routine weekly clinic visit. The <code>o</code> symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>outcome_df<span class="sc">$</span>usePatternUDS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_count</span>(<span class="at">pattern =</span> <span class="st">"o"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -548,7 +548,7 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>In the use pattern symbol vector the <code>*</code> symbol represents a mixture of positive and negative results. Change all <code>*</code> symbols to <code>+</code>. You will most likely need to <a href="https://r4ds.had.co.nz/strings.html#basic-matches">escape the symbols</a> with two backslashes.</p>
+<p>In the use pattern symbol vector in <code>outcome_df</code>, the <code>*</code> symbol represents a mixture of positive and negative results. Change all <code>*</code> symbols to <code>+</code>. You will most likely need to <a href="https://r4ds.had.co.nz/strings.html#basic-matches">escape the symbols</a> with two backslashes. Use the first 20 patients only.</p>
 </div>
 </div>
 </section>
@@ -602,7 +602,11 @@ Exercises
 <li>some words are now misspelled</li>
 </ul></li>
 </ol>
-<p>Brainstorm with your neighbour what you think went wrong and how you could fix it. 2. Try a few solutions you suggested in Exercise 1. 3. Some of the words now have extra spaces between them. What could we modify in the code above to address this?</p>
+<p>Brainstorm with your neighbour what you think went wrong and how you could fix it.</p>
+<ol start="2" type="1">
+<li>Try a few solutions you suggested in Exercise 1.</li>
+<li>Some of the words now have extra spaces between them. What could we modify in the code above to address this?</li>
+</ol>
 </div>
 </div>
 </section>
@@ -660,7 +664,7 @@ Tip: Order Matters
 </div>
 </div>
 <div class="callout-body-container callout-body" title="tip">
-<p>When calling string manipulation functions, the order of the function calls in the pipeline matters A LOT. Pay close attention to the orders of the actions you prescribe, and it’s usually very wise to run a <code>stringr::</code> pipeline line-by-line as you build it.</p>
+<p>When calling string manipulation functions, the order of the function calls in the pipeline matters A LOT. Pay close attention to the order of the actions you prescribe, and it’s usually very wise to run a <code>stringr::</code> pipeline line-by-line as you build it.</p>
 </div>
 </div>
 <p><br></p>
@@ -709,7 +713,7 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body" title="Exercise">
-<p>Pretend that you spoke with a clinician about the use patterns in the <code>outcome_df</code> data set. She informed you that the first three weeks should be considered an onboarding period for each participant, and therefore should be removed from the data before final analysis. Remove the symbols for the first three weeks.</p>
+<p>Pretend that you spoke with a clinician about the use patterns in the <code>outcome_df</code> data set. She informed you that the first three weeks should be considered an onboarding period for each participant, and therefore should be removed from the data before final analysis. Remove the symbols for the first three weeks. Use the first 20 patients only.</p>
 </div>
 </div>
 </section>
@@ -896,7 +900,7 @@ Exercise
 <ol type="1">
 <li>Import the data sets.</li>
 <li>Use the string manipulation functions to clean up the ZIP code columns until they can match.</li>
-<li>Join the data sets so that you have one table with all the ACS SNAP data combined for Miami-Dade and Broward counties.</li>
+<li>Join the data sets so that you have one table with all the ACS SNAP data and an indicator variable that marks if the data comes from South Florida (Miami-Dade or Broward counties).</li>
 </ol>
 </div>
 </div>
