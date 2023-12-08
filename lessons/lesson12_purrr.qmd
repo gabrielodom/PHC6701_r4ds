@@ -41,9 +41,9 @@ Because the point of this lesson is to meaningfully connect functions and vector
 
 
 ## Learning Resources
-This lesson borrows data from some material from Washington State University's [Department of Statistics](https://cougrstats.wordpress.com/2020/02/19/an-introduction-to-working-with-lists-using-purrr/). The link to the zipped data (1.7Mb unzipped) is <https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA>.
+This lesson borrows data from some material from Washington State University's [Department of Statistics](https://cougrstats.wordpress.com/2020/02/19/an-introduction-to-working-with-lists-using-purrr/). The link to the zipped data (1.7Mb unzipped) is: <https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA>.
 
-For this lesson, we will use a simple subset of the Gapminder data. Also, we will need the `tidyverse` again:
+For this lesson, we will also use a simple subset of the Gapminder data. And, of course, we will need the `tidyverse` again:
 ```{r packages, message=FALSE}
 # install.packages("gapminder")
 library(gapminder)
@@ -92,11 +92,12 @@ gapminder_df
 
 All the elements of any vector can be accessed by their **position**:
 ```{r}
-me_ls[[1]]
-gapminder_df[1, c(1, 3, 4)]
+x[1]
+me_ls[1]
+gapminder_df[1]
 ```
 
-This idea of using position to access the elements of a vector is important for this lesson, and we will bring it up again shortly.
+This idea of using position to access the elements of a vector is important for this lesson, and we will bring it up again shortly. Similarly, we should recognize that using the `[` accessor yields vector elements that could be atomic or non-atomic. The concepts of 1) position access to vector elements and 2) the classes of those elements will be key to understanding this lesson.
 
 </br>
 
@@ -107,11 +108,11 @@ This idea of using position to access the elements of a vector is important for 
 
 # Review: Functions
 
-Last lesson we learned functions, how they work, and the best practices for writing them. Recall that functions have 3 main components:
+Last lesson, we learned functions, how they work, and the best practices for writing them. Recall that functions have 3 main components:
 
-- Name: object in the environment (Global Environment for example) that "holds" the code we write
-- Arguments: inputs of the function; what does the user need to provide in order for the function to work
-- Body: what the function does; that is, the code that we write
+- **Name**: the object in the environment (Global Environment for example) that "holds" the code we write
+- **Arguments**: inputs of the function; what does the user need to provide in order for the function to work?
+- **Body**: what the function does; that is, the code that we write
 
 We have written a few versions of a "data summary" function in the past. Here is one version, specifically designed for numeric data:
 ```{r}
@@ -157,15 +158,14 @@ output <- a_function(input1, input2, ...)
 Functionals give us the ability to abstract this relationship between inputs, outputs, and the work done in between. Functionals are specific *helper functions* which take in another function as one of its arguments. So, our interaction with functionals looks more like one of these:
 ```{r}
 #| eval: false
-
 # A Functional form
-output <- DO(THIS = a_function, TO = c(input1, input2, ...), WITH = {options})
-
-# Another  Functional form
 output <- DO(TO = c(input1, input2, ...), THIS = a_function, WITH = {options})
+
+# Another Functional form
+output <- DO(THIS = a_function, TO = c(input1, input2, ...), WITH = {options})
 ```
 
-In the two sets of code above, the object `output` would probably contain the same information, but it might be in a different "form" (think about the `class()` function). Also, the ordering of the `THIS` (the function) and the `TO` (the function arguments) may be reversed, and sometimes the `WITH` options are mixed in with the function arguments (i.e., there isn't a separation between the `TO` and `WITH` parts of the functional).
+In the two sets of code above, the object `output` would contain the same information, but it might be in a different "form" (think about the `class()` function). Also, the ordering of the `THIS` (the function) and the `TO` (the function arguments) may be reversed, and sometimes the `WITH` options are mixed in with the function arguments (i.e., there isn't a separation between the `TO` and `WITH` parts of the functional).
 
 
 ## An Example
@@ -204,7 +204,7 @@ Now that we have reviewed vectors, functions, and learned some basics of functio
 
 
 ## Example: The Convergence of the Sample Mean
-During this, my 12th lesson in statistical computing, we will finally do a little bit of "traditional" statistics. Here is the general premise: the sample mean is an "unbiased" estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean goes to 0. To test this, we will first generate a medium-sized population from a random normal distribution (the `set.seed()` function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):
+During this, my 12th lesson in statistical computing, we will finally do a little bit of "traditional" statistics. Here is the general premise: the sample mean is an "unbiased" estimator. That is, if you take larger and larger samples from the population, the difference between the sample mean and the population mean should get smaller. To test this, we will first generate a medium-sized population from a random normal distribution (the `set.seed()` function allows me to generate the same random population each time, so that everyone can reproduce the output of my code):
 ```{r}
 # for reproducibility:
 set.seed(12345) # if you change this number, you will get a different sample
@@ -272,6 +272,8 @@ abs(mu - sampleMeans)
 plot(x = lengths(samples_ls), y = abs(mu - sampleMeans), ylim = c(0, 0.3))
 ```
 
+We can see that, as my sample size grows, the difference between the sample mean and the population mean gets smaller.
+
 
 ## Mapping a Defined Function to Values
 This code was quite cumbersome. We had to measure how long the list was, create an empty atomic vector to hold our results, and then write the FOR loop to iterate over each position in the list of samples. On top of all of this, we've added this useless `i` object to the Global Environment, and the FOR loop lost the names of the samples! There is a better way: the `map()` function from the `purrr` package (included in the `tidyverse`, so remember to load that package):
@@ -281,7 +283,7 @@ map(samples_ls, mean)
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
-1. This function does return the values we want, but it does so as a list. We would like an atomic vector. Check the help files for this function to find out what to change.
+1. This function does return the values we want, but it does so as a list. We would like an atomic vector. Check the help files for `map()` to find out what to change.
 2. While you are in the help file for `map()`, find out how to pass in a second argument to the `mean()` function. Set `na.rm = TRUE` and test it.
 :::
 
@@ -292,7 +294,9 @@ In order to use the `map()` function and its friends, follow the following synta
 map(mpg, summary)
 ```
 
-This example shows that the `summary()` function isn't very helpful for character information. We are immediately motivated us to ask, "Can I write my own function for `map()` to use?" The answer is YES!
+::: {.callout-tip}
+This example shows that the `summary()` function isn't very helpful for character information. We are immediately motivated us to ask, "Can I write my own function for `map()` to use?" The answer is YES! More on that shortly...
+:::
 
 ### Sample Means with `map()`
 Back to our first example, we still want to find out how close the sample mean gets to the population mean as we increase the sample size. For this, we write our own function to pass to `map()`. Recall the function constructor:
@@ -308,7 +312,7 @@ absMean <- function(xBar_num, mu_num){
 map_dbl(sampleMeans, absMean, mu_num = mu)
 ```
 
-For better or for worse, this matches the output of what we calculated using the FOR loop exactly.
+This matches the output of what we calculated using the FOR loop exactly, but with two added benefits: 1) we wrote a function (that could be reused elsewhere in our analysis), and 2) the map is self-contained---we didn't have to initialize a vector or clean up after the FOR loop.
 
 ### An Improved `summary()`
 We saw that when we applied `summary()` to each column of a tibble, the character columns didn't give us much information. We can then write our own summary function that prints the most common unique values:
@@ -337,11 +341,12 @@ It's not terribly pretty (I am *not* a fan of the `table()` function), but it gi
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
-1. Create a sequence of sample sizes from 5 to 500 by 5. Save this vector of sample sizes. *Hint: look up the help files for `sequence()`. You will find the function you need mentioned therein.*
-2. Use the `map()` function combined with the sequence you just created to make a list of samples with increasing sizes from the `population` vector. Store it as another list of samples. This should make typing that list by hand obsolete.
-3. Use the `map_dbl()` function combined with the `absMean()` function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better?
-4. Find one of the statistics / biostatistics students and contrast this process with the idea of "repeated sampling". What is different here? Why doesn't the traditional $n = 30$ heuristic apply?
-5. Repeat the above process with the following modification: chain these operations together with pipes (`%>%`).
+1. Why do we only see at most 6 categories for the character information in our function? How could we add an option to our `MySummaryFun()` to change this?
+2. Create a sequence of sample sizes from 5 to 500 by 5. Save this vector of sample sizes. *Hint: look up the help files for `sequence()`. You will find the function you need mentioned therein.*
+3. Use the `map()` function combined with the sequence you just created to make a list of samples with increasing sizes from the `population` vector. Store it as another list of samples. This should make typing that list by hand obsolete.
+4. Use the `map_dbl()` function combined with the `absMean()` function we created to calculate the atomic vector of absolute differences from the sample mean. At what sample size does the estimate get better?
+5. Find one of the statistics / biostatistics students and contrast this process with the idea of "repeated sampling". What is different here? Why doesn't the traditional $n = 30$ heuristic apply?
+6. Repeat the above process with the following modification: chain these operations together with pipes (`%>%`).
 :::
 
 <!-- You can also chain everything together, and then pass it it `ggplot`: -->
@@ -377,7 +382,7 @@ Now that we have an understanding of how to **map** functions to the values of a
 2. Apply a statistical or machine learning method to each of the smaller data sets and save the results.
 3. Combine the saved results from each sub-analysis and report.
 
-We will walk through an example using the Gapminder data.
+We will walk through an example using the Gapminder data. Our goal is to create a table of the life expectancy distribution for each country.
 
 
 ## Split the Gapminder Data by Country
@@ -414,6 +419,8 @@ lifeExpSummary_ls <-
 lifeExpSummary_ls[1:5]
 ```
 
+For this example, we could probably get very similar results just using `group_by()` and `summarize()` together. However, this "split-apply-combine" strategy works for **ANY** analysis or operation that you want to do---even advanced machine learning methods---far beyond the capabilities of the `summarize()` function alone.
+
 ::: {.callout-note title="Exercise"}
 ## Exercise
 We wrote the function `MySummaryFun()` to be able to take the summary of any column, numeric or otherwise. Modify the code above so that we can find the summaries of ALL the columns within the data set specific to each country. Make sure your code works for just the first 5 countries.
@@ -435,7 +442,7 @@ lifeExpSummary_ls$Afghanistan
 bind_rows(lifeExpSummary_ls$Afghanistan)
 ```
 
-Now that we know this will work for one country, we can add it into a pipeline for all the countries. Then, calling the `bind_rows()` function as we would expect, we will end up with a tibble with a row for each country and `r length(lifeExpSummary_ls$Afghanistan)` columns:
+Now that we know this will work for one country, we can add it into a pipeline for all the countries. Then, calling the `bind_rows()` function a second time (using it as designed), we will end up with a tibble with a row for each country and `r length(lifeExpSummary_ls$Afghanistan)` columns:
 ```{r}
 lifeExpSummary_df <- 
   lifeExpSummary_ls %>% 
@@ -448,8 +455,9 @@ lifeExpSummary_df
 ::: {.callout-note title="Exercise"}
 ## Exercise
 1. In the last exercise, we found the summaries of *all* the features for each country (not just the numeric ones). Can these results be combined into a single tibble? Why or why not?
-2. Read the help file for the `bind_rows()` function. What does the `.id` argument do? Is this a default behaviour?
-3. Take the summary of life expectancy table above, and join it back to `gapminder_df` to add a column for the continent to our results. Plot a boxplot of the 75th percentile of life expectancy by continent.
+2. Can you create the `lifeExpSummary_df` data table by using `group_by()` and `summarize()` (without the split-apply-combine strategy)?
+3. Read the help file for the `bind_rows()` function. What does the `.id` argument do? Is this a default behavior?
+4. Take the summary of life expectancy table above, and join it back to `gapminder_df` to add a column for the continent to our results. Plot a boxplot of the 75th percentile of life expectancy by continent.
 :::
 
 
@@ -486,6 +494,7 @@ tornadoData_ls <- map(
 2. Is the output you got in the last question "professional"? (Probably not). Modify your code to:
     + Create a table of the number of tornados by state for each year
     + Create a vector of the state abbreviations where a tornado occured for each year
+3. The `list.files()` function has an argument `full.names`. What does this do, and why did we need to change this argument from `TRUE` to `FALSE` in the code above?
 :::
 
 ```{r}
