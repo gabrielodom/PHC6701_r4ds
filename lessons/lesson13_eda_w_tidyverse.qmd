@@ -44,11 +44,11 @@ library(tidyverse)
 
 
 # Importing Data
-We will work through some of the American Community Survey data from the U.S. Census Bureau. If you have not yet done so, download the ACS Supplemental Nutrition Assistance Program (SNAP) benefits data ("FOOD STAMPS/Supplemental Nutrition Assistance Program (SNAP) 2012-2016 American Community Survey 5-Year Estimates") for 2021 (use the steps we worked out in Lesson 08).
+We will work through some of the [American Community Survey](https://www.census.gov/programs-surveys/acs) data from the U.S. Census Bureau. If you have not yet done so, download the ACS "food stamps" data ("FOOD STAMPS/Supplemental Nutrition Assistance Program (SNAP) American Community Survey 5-Year Estimates") for 2021 (use the steps we worked out in Lesson 08).
 
 
 ## The Raw Data
-*You should have already done all this in lesson 8.* However, if you did not complete that exercise, download the data and metadata from GitHub. You should have a metadata file called `ACSST5Y2021.S2201-Column-Metadata.csv` which explains all the variable names and a data file called `ACSST5Y2021.S2201-Data.csv` that contains some of the features of interest.
+*You should have already downloaded the raw data in lesson 8.* However, if you did not complete that exercise, download the data and metadata [from the GitHub repository for this class](https://github.com/gabrielodom/PHC6701_r4ds/tree/main/_data). You should have a metadata file called `ACSST5Y2021.S2201-Column-Metadata.csv` which explains all the variable names and a data file called `ACSST5Y2021.S2201-Data.csv` that contains some of the features of interest.
 
 
 ## Read the Data
@@ -80,7 +80,7 @@ Let's get an idea of what is in these data sets:
 FLallZIP_df
 ```
 
-There are 457 columns of information (459 - 2 index columns), and it looks like all of these columns have bizarre codes for their names. Also, many of the columns are numeric and many are character (some columns that are character shouldn't be).
+There are 457 columns of information (459 - 2 index columns), and it looks like all of these columns have bizarre codes for their names. 
 
 Now for the metadata:
 ```{r}
@@ -88,6 +88,10 @@ FLmetadata_df
 ```
 The first column of this data looks exactly like the crazy column names of the main data set. This information should allow us to find out what the column codes mean.
 
+::: {.callout-note title="Exercise"}
+## Exercise
+Spend some time looking through the columns of this dataset and their classes. Many of the columns are numeric and many are character; some columns that are character shouldn't be. Discuss this with your neighbours and think about solutions to figure out how to detect columns that should be numeric but are not.
+:::
 
 ### Updated Summary Function
 Recall our lesson on functions last week. Based on this lesson, we are able to write an updated version of the `summary()` function. Our summary function should print the most common unique values for character information, but call the `summary()` function as normal for anything else:
@@ -108,7 +112,7 @@ MySummary <- function(x){
 ```
 
 ### Apply to the Raw Data
-Now that we have an updated function to take summaries of a tibble across the columns, let's apply it to each column of the data (because this will print almost 500 results, we will to a random set of 50 columns):
+Now that we have an updated function to take summaries of a tibble across the columns, let's apply it to each column of the data (because this will print almost 500 results, we will apply this function to a random set of 50 columns as an example):
 ```{r}
 set.seed(12345)
 # The first two columns are ZIP codes and geography IDs
@@ -117,9 +121,14 @@ randColumns_idx <- sort(sample(3:ncol(FLallZIP_df), size = 50))
 map(FLallZIP_df[, randColumns_idx], MySummary)
 ```
 
-It looks like many of these columns (such as `S2201_C02_002M` or `S2201_C06_022E`) have numeric data stored as character information, probably because the symbols `"-"` and `"**"` are used in some columns (they may mark missing data).
+It looks like many of these columns (such as `S2201_C02_002M` or `S2201_C06_022E`) have numeric data stored as character information, probably because the symbols `"-"`, `"**"`, and `"***"` are used in some columns. From my experience, these symbols mark various types of missing data.
 
-If we were planning to perform an analysis of all these features, then we should write code to go through these columns to 1) replace the `"-"` and `"**"` with `NA_real_`, and 2) transform these columns to numeric. However, we only need a few columns from this data set. If the columns we need have this issue, then we will fix it.
+::: {.callout-note title="Exercise"}
+## Exercise
+Find out what these symbols mean. Where should you look? Write the definitions of these symbols as comments in your analysis script, and state the source of this information.
+:::
+
+If we were planning to perform an analysis of all these features, then we should write code to go through these columns to 1) replace the `"-"` and `"**"` with `NA_real_`, and 2) transform these columns to numeric. However, we only need a few columns from this data set. Therefore, we will fix these issues only for the columns we need (after we find out what those columns are).
 
 </br>
 
@@ -133,7 +142,7 @@ Because the column name look-up table and many of the data columns contain chara
 
 
 ## Detecting Strings
-From looking at the columns in the metadata table, it would probably be helpful to find if a word or phrase is contained in a character string. This is the function of `str_detect()`.
+From looking at the columns in the metadata table, it would probably be helpful to find if a word or phrase is contained in a character string. This is the function of `str_detect()`. As an example, let's see if any of the features are specific to Hispanic households:
 ```{r}
 FLmetadata_df %>% 
   pull(Label) %>% 
@@ -155,8 +164,9 @@ This is a very nice result: we used the `mutate()` function to add a column of `
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
-1. Try to find "HISPANIC" and "hispanic". What can we do to modify the metadata so that one search will find all the rows we might want?
-2. Many of the rows in the meta-data are not going to be any use to use at all. Can you brainstorm a `stringr::` pipeline that will clean up the meta-data table to make it easier for us to go through?
+1. I explained the code above in a short paragraph after the code. Is this the best way? (*Hint: think about how we document functions and why.*) Can you add a few comments to the code itself to explain what each line is doing?
+2. Try to find "HISPANIC" and "hispanic". What can we do to modify the metadata so that one search will find all the rows we might want?
+3. Many of the rows in the meta-data are not going to be any use to use at all. Can you brainstorm a `stringr::` pipeline that will clean up the meta-data table to make it easier for us to go through?
 :::
 
 
@@ -174,7 +184,12 @@ FLmetadata2_df %>%
   select(-Hispanic_logi)
 ```
 
-One tip for working with strings: DO NOT write the new object into the container holding the old object. Strings are incredibly difficult to work with at times, so make sure you can always go back a few steps. This is why I saved the new look-up table with a different name (personally, I usually append a number to the name of the object when I'm working with strings; then, when I'm sure I have done all the string clean-up I need, I save it with a better name).
+We certainly found more rows this time! 
+
+::: {.callout-important}
+# "Saving" your work
+When working with strings, **DO NOT** write the new object into the container holding the old object (don't "overwrite" your data). Strings are incredibly difficult to work with at times, so make sure you can always go back a few steps. This is why I saved the new look-up table with a different name. Personally, I usually append a number to the name of the object when I'm working with strings; then, when I'm sure I have done all the string clean-up I need, I save it with a better name and use `rm()` to remove the intermediate steps I no longer need.
+:::
 
 In the dictionary/look-up table, we have all the information necessary to find the columns we want. However, before we dig into the look-up table, we notice that all of the rows are copied twice: one for estimate, and one for margin of error. For now, we aren't interested in the margins of error, so let's remove these rows:
 ```{r}
@@ -191,7 +206,7 @@ FLmetadata3_df
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. The meta-data table has information on whether the number is an estimate of the raw count (`total!!`) or an estimate of the population proportion (`percent!!`). Use `stringr::` functions to remove this information from the "Label" column and add it to its own column.
-2. Can you break the "Label" column into any other pieces without losing information?
+2. Can you easily break the "Label" column into any other pieces without losing information?
 :::
 
 </br>
@@ -202,7 +217,7 @@ FLmetadata3_df
 
 
 # Sanity Checks
-Often we have some idea of a pre-existing relationship in the data; e.g, we know that there should be a strong negative relationship between food stamp use and household income within a ZIP code. If our data does not show something we know to be true, then we check that we have the right data and that we are reading the data dictionary correctly.
+Often we have some idea of a pre-existing relationship in the data; e.g, we know that there should be a clear negative relationship between food stamp use and household income within a ZIP code. If our data does not show something we know to be true, then we check that we have the right data and that we are reading the data dictionary correctly.
 
 
 ## Find the "Food Stamps" Metric
@@ -222,8 +237,7 @@ FLmetadata3_df %>%
   pull(Label)
 ```
 
-
-That label is correct, and it matches to the feature `"estimate!!percent households receiving food stamps/snap!!households"`. Let's save this column ID.
+That label is correct, so let's save this column ID.
 ```{r}
 foodStampsColID_char <- "S2201_C04_001E"
 ```
@@ -262,7 +276,12 @@ FLmetadata3_df %>%
   pull(Label)
 ```
 
-Now that we have the two columns we care about, we can subset the SNAP values data to include only the following columns: ZIP code (technically the [ZCTA](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html)), proportion of households receiving food stamps in that area, and the median household income for that area. 
+Now that we have the two columns we care about, we can subset the SNAP values data to include only the following columns:
+
+- ZIP code (technically the [ZCTA](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html)),
+- proportion of households receiving food stamps in that area, and
+- the median household income for that area. 
+
 ```{r}
 FLallZIP_df %>% 
   select(
@@ -274,15 +293,13 @@ FLallZIP_df %>%
     food_stamp_prop = all_of(foodStampsColID_char),
     median_household_income = all_of(incomeColID_char)
   ) 
-
-# NOTE: after I wrote this lesson, the tidyverse developers modified how the
-#   select() function works. We should now use the all_of() helper functions.
-#   I included the original way (which causes warnings), but commented it out.
 ```
+
+NOTE: after I wrote this lesson, the Tidyverse developers modified how the `select()` function works. We should now use the `all_of()` helper functions. I included the original way (which now causes warnings), but I commented it out.
 
 
 ## Subset and Mutate the Data
-Notice that the atomic class of the `median_household_income` column is character. We see that some of the values are missing. Subsequently, it looks like have numeric information stored in character columns because a letter or symbol was used instead of `NA`. For atomic data, we can follow the type conversion rules to demote this character information to numeric (which triggers a warning):
+Notice that the atomic classes of the `food_stamp_prop` and  `median_household_income` columns are both character. We see that some of the values are "missing" (as shown by the `"-"` symbol). Subsequently, it looks like have numeric information stored in character columns because a letter or symbol was used instead of `NA`. For atomic data, we can follow the type conversion rules to demote this character information to numeric (which triggers a warning):
 ```{r}
 #| warning: true
 
@@ -313,23 +330,28 @@ ggplot(data = incomeSNAP_df) +
   geom_point()
 ```
 
-This clearly shows a negative relationship between income and proportion of residents on food stamps. However, the x-axis shows a strong tail, so let's try to clean this up with a log transformation (also, the relationship looks non-linear, so I've added a LOESS estimate in blue):
+This clearly shows a negative relationship between income and proportion of residents on food stamps. However, the x-axis shows a strong tail, so let's try to clean this up with a log transformation. I add the log labels automatically using the `label_number()` function from the `scales::` package (this is installed automatically when you install the Tidyverse, but I haven't loaded it with the `library()` command, so I have to type the name of the package explicitly). Also, the relationship looks non-linear, so I've added a LOESS estimate in blue.
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data = incomeSNAP_df) +
-  aes(x = log10(median_household_income), y = food_stamp_prop) +
+  aes(x = median_household_income, y = food_stamp_prop) +
+  scale_x_log10(labels = scales::label_number()) +
   geom_point(alpha = 0.3) +
   geom_smooth(se = FALSE)
 ```
+
+::: {.callout-tip}
+If you need to use one function one time from a package that you have installed on your computer, you can use the `<packName>::<funName>` syntax. In the code above, I didn't want to load the entire `scales` package for a function I'll use only once, so I used `scales::label_number()` instead.
+:::
 
 In practice, at this point we would thoroughly inspect all of the features of interest, *and* plot their relationships with the outcomes of interest. However, we don't have time to do this in class.
 
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. Why did I turn off the error bands for the LOESS smoother? Discuss with one of the statistics / biostatistics students (*HINT: think about the assumptions of regression*).
-2. Import the ZIP code data for Miami-Dade and Broward counties.
+2. Import the ZIP code data for Miami-Dade and Broward counties. If you want, you can go find the Palm Beach county ZIP code data too.
 3. Merge these two county tibbles, and clean up the ZIP code column (if you haven't already done this as part of your homework from Lessons 8 and 10).
-4. Use a `*_join()` function to create a single subset of the 2021 ACS SNAP data set with a column that indicates if the ZIP code belongs to one of these two counties.
-5. Re-build your plot of this relationship, adding a color to indicate the ZIP codes in Miami-Dade and Broward counties. Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?
+4. Use a `*_join()` function to create a single subset of the 2021 ACS SNAP data set with a "South Florida" indicator column that marks if the ZIP code belongs to one of these two (or three) counties.
+5. Re-build your plot of this relationship, adding a color to indicate the ZIP codes in Miami-Dade and Broward (and Palm Beach?) counties. Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?
 :::
 
 </br>
@@ -345,7 +367,7 @@ Based on the above graph, there is a strong relationship between income and the 
 ::: {.callout-note title="Exercises"}
 ## Exercises
 1. Work in groups of 3-4 to generate 8-10 hypotheses to explain the excess variability in the relationship between income and percentage of food stamp recipients within a ZIP code. Include at least 2 multiple-predictor hypotheses (y depends on x within/interacting with z).
-2. Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 4-5 hypotheses left (if you don't, go back to exercise 1).
+2. Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 1-2 hypotheses left (if you don't, go back to exercise 1 or go back to the ACS for more data).
 3. Graphically test the remaining hypotheses.
 4. Write a short report outlining following:
     + the hypotheses that you wanted to try but could not (because of lack of data),

@@ -334,10 +334,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="importing-data" class="level1">
 <h1>Importing Data</h1>
-<p>We will work through some of the American Community Survey data from the U.S. Census Bureau. If you have not yet done so, download the ACS Supplemental Nutrition Assistance Program (SNAP) benefits data (“FOOD STAMPS/Supplemental Nutrition Assistance Program (SNAP) 2012-2016 American Community Survey 5-Year Estimates”) for 2021 (use the steps we worked out in Lesson 08).</p>
+<p>We will work through some of the <a href="https://www.census.gov/programs-surveys/acs">American Community Survey</a> data from the U.S. Census Bureau. If you have not yet done so, download the ACS “food stamps” data (“FOOD STAMPS/Supplemental Nutrition Assistance Program (SNAP) American Community Survey 5-Year Estimates”) for 2021 (use the steps we worked out in Lesson 08).</p>
 <section id="the-raw-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-raw-data">The Raw Data</h2>
-<p><em>You should have already done all this in lesson 8.</em> However, if you did not complete that exercise, download the data and metadata from GitHub. You should have a metadata file called <code>ACSST5Y2021.S2201-Column-Metadata.csv</code> which explains all the variable names and a data file called <code>ACSST5Y2021.S2201-Data.csv</code> that contains some of the features of interest.</p>
+<p><em>You should have already downloaded the raw data in lesson 8.</em> However, if you did not complete that exercise, download the data and metadata <a href="https://github.com/gabrielodom/PHC6701_r4ds/tree/main/_data">from the GitHub repository for this class</a>. You should have a metadata file called <code>ACSST5Y2021.S2201-Column-Metadata.csv</code> which explains all the variable names and a data file called <code>ACSST5Y2021.S2201-Data.csv</code> that contains some of the features of interest.</p>
 </section>
 <section id="read-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="read-the-data">Read the Data</h2>
@@ -419,7 +419,7 @@ chr (2): Column Name, Label
 #   S2201_C01_010E &lt;dbl&gt;, S2201_C01_010M &lt;dbl&gt;, S2201_C01_011E &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
-<p>There are 457 columns of information (459 - 2 index columns), and it looks like all of these columns have bizarre codes for their names. Also, many of the columns are numeric and many are character (some columns that are character shouldn’t be).</p>
+<p>There are 457 columns of information (459 - 2 index columns), and it looks like all of these columns have bizarre codes for their names.</p>
 <p>Now for the metadata:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FLmetadata_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -441,6 +441,19 @@ chr (2): Column Name, Label
 </div>
 </div>
 <p>The first column of this data looks exactly like the crazy column names of the main data set. This information should allow us to find out what the column codes mean.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Spend some time looking through the columns of this dataset and their classes. Many of the columns are numeric and many are character; some columns that are character shouldn’t be. Discuss this with your neighbours and think about solutions to figure out how to detect columns that should be numeric but are not.</p>
+</div>
+</div>
 </section>
 <section id="updated-summary-function" class="level3">
 <h3 class="anchored" data-anchor-id="updated-summary-function">Updated Summary Function</h3>
@@ -463,7 +476,7 @@ chr (2): Column Name, Label
 </section>
 <section id="apply-to-the-raw-data" class="level3">
 <h3 class="anchored" data-anchor-id="apply-to-the-raw-data">Apply to the Raw Data</h3>
-<p>Now that we have an updated function to take summaries of a tibble across the columns, let’s apply it to each column of the data (because this will print almost 500 results, we will to a random set of 50 columns):</p>
+<p>Now that we have an updated function to take summaries of a tibble across the columns, let’s apply it to each column of the data (because this will print almost 500 results, we will apply this function to a random set of 50 columns as an example):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The first two columns are ZIP codes and geography IDs</span></span>
@@ -696,8 +709,21 @@ $S2201_C06_035E
 1013 </code></pre>
 </div>
 </div>
-<p>It looks like many of these columns (such as <code>S2201_C02_002M</code> or <code>S2201_C06_022E</code>) have numeric data stored as character information, probably because the symbols <code>"-"</code> and <code>"**"</code> are used in some columns (they may mark missing data).</p>
-<p>If we were planning to perform an analysis of all these features, then we should write code to go through these columns to 1) replace the <code>"-"</code> and <code>"**"</code> with <code>NA_real_</code>, and 2) transform these columns to numeric. However, we only need a few columns from this data set. If the columns we need have this issue, then we will fix it.</p>
+<p>It looks like many of these columns (such as <code>S2201_C02_002M</code> or <code>S2201_C06_022E</code>) have numeric data stored as character information, probably because the symbols <code>"-"</code>, <code>"**"</code>, and <code>"***"</code> are used in some columns. From my experience, these symbols mark various types of missing data.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body" title="Exercise">
+<p>Find out what these symbols mean. Where should you look? Write the definitions of these symbols as comments in your analysis script, and state the source of this information.</p>
+</div>
+</div>
+<p>If we were planning to perform an analysis of all these features, then we should write code to go through these columns to 1) replace the <code>"-"</code> and <code>"**"</code> with <code>NA_real_</code>, and 2) transform these columns to numeric. However, we only need a few columns from this data set. Therefore, we will fix these issues only for the columns we need (after we find out what those columns are).</p>
 <p><br></p>
 <hr>
 <p><br></p>
@@ -709,7 +735,7 @@ $S2201_C06_035E
 <p>Because the column name look-up table and many of the data columns contain character information, we need to review a few basic functions from the <code>stringr</code> package (included in the <code>tidyverse</code>).</p>
 <section id="detecting-strings" class="level2">
 <h2 class="anchored" data-anchor-id="detecting-strings">Detecting Strings</h2>
-<p>From looking at the columns in the metadata table, it would probably be helpful to find if a word or phrase is contained in a character string. This is the function of <code>str_detect()</code>.</p>
+<p>From looking at the columns in the metadata table, it would probably be helpful to find if a word or phrase is contained in a character string. This is the function of <code>str_detect()</code>. As an example, let’s see if any of the features are specific to Hispanic households:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>FLmetadata_df <span class="sc">%&gt;%</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Label) <span class="sc">%&gt;%</span> </span>
@@ -757,6 +783,7 @@ Exercises
 </div>
 <div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
+<li>I explained the code above in a short paragraph after the code. Is this the best way? (<em>Hint: think about how we document functions and why.</em>) Can you add a few comments to the code itself to explain what each line is doing?</li>
 <li>Try to find “HISPANIC” and “hispanic”. What can we do to modify the metadata so that one search will find all the rows we might want?</li>
 <li>Many of the rows in the meta-data are not going to be any use to use at all. Can you brainstorm a <code>stringr::</code> pipeline that will clean up the meta-data table to make it easier for us to go through?</li>
 </ol>
@@ -793,7 +820,20 @@ Exercises
 # ℹ 98 more rows</code></pre>
 </div>
 </div>
-<p>One tip for working with strings: DO NOT write the new object into the container holding the old object. Strings are incredibly difficult to work with at times, so make sure you can always go back a few steps. This is why I saved the new look-up table with a different name (personally, I usually append a number to the name of the object when I’m working with strings; then, when I’m sure I have done all the string clean-up I need, I save it with a better name).</p>
+<p>We certainly found more rows this time!</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+“Saving” your work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When working with strings, <strong>DO NOT</strong> write the new object into the container holding the old object (don’t “overwrite” your data). Strings are incredibly difficult to work with at times, so make sure you can always go back a few steps. This is why I saved the new look-up table with a different name. Personally, I usually append a number to the name of the object when I’m working with strings; then, when I’m sure I have done all the string clean-up I need, I save it with a better name and use <code>rm()</code> to remove the intermediate steps I no longer need.</p>
+</div>
+</div>
 <p>In the dictionary/look-up table, we have all the information necessary to find the columns we want. However, before we dig into the look-up table, we notice that all of the rows are copied twice: one for estimate, and one for margin of error. For now, we aren’t interested in the margins of error, so let’s remove these rows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>FLmetadata3_df <span class="ot">&lt;-</span> </span>
@@ -833,7 +873,7 @@ Exercises
 <div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
 <li>The meta-data table has information on whether the number is an estimate of the raw count (<code>total!!</code>) or an estimate of the population proportion (<code>percent!!</code>). Use <code>stringr::</code> functions to remove this information from the “Label” column and add it to its own column.</li>
-<li>Can you break the “Label” column into any other pieces without losing information?</li>
+<li>Can you easily break the “Label” column into any other pieces without losing information?</li>
 </ol>
 </div>
 </div>
@@ -844,7 +884,7 @@ Exercises
 </section>
 <section id="sanity-checks" class="level1">
 <h1>Sanity Checks</h1>
-<p>Often we have some idea of a pre-existing relationship in the data; e.g, we know that there should be a strong negative relationship between food stamp use and household income within a ZIP code. If our data does not show something we know to be true, then we check that we have the right data and that we are reading the data dictionary correctly.</p>
+<p>Often we have some idea of a pre-existing relationship in the data; e.g, we know that there should be a clear negative relationship between food stamp use and household income within a ZIP code. If our data does not show something we know to be true, then we check that we have the right data and that we are reading the data dictionary correctly.</p>
 <section id="find-the-food-stamps-metric" class="level2">
 <h2 class="anchored" data-anchor-id="find-the-food-stamps-metric">Find the “Food Stamps” Metric</h2>
 <p>We will use the same process as above (<code>mutate()</code> + <code>str_detect()</code> + <code>filter()</code>) to find all the columns that measure food stamp usage as a percentage:</p>
@@ -880,7 +920,7 @@ Exercises
 <pre><code>[1] "estimate!!percent households receiving food stamps/snap!!households"</code></pre>
 </div>
 </div>
-<p>That label is correct, and it matches to the feature <code>"estimate!!percent households receiving food stamps/snap!!households"</code>. Let’s save this column ID.</p>
+<p>That label is correct, so let’s save this column ID.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>foodStampsColID_char <span class="ot">&lt;-</span> <span class="st">"S2201_C04_001E"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -938,7 +978,12 @@ Exercises
 <pre><code>[1] "estimate!!total!!households!!household income in the past 12 months (in 2021 inflation-adjusted dollars)!!median income (dollars)"</code></pre>
 </div>
 </div>
-<p>Now that we have the two columns we care about, we can subset the SNAP values data to include only the following columns: ZIP code (technically the <a href="https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html">ZCTA</a>), proportion of households receiving food stamps in that area, and the median household income for that area.</p>
+<p>Now that we have the two columns we care about, we can subset the SNAP values data to include only the following columns:</p>
+<ul>
+<li>ZIP code (technically the <a href="https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html">ZCTA</a>),</li>
+<li>proportion of households receiving food stamps in that area, and</li>
+<li>the median household income for that area.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>FLallZIP_df <span class="sc">%&gt;%</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
@@ -966,27 +1011,25 @@ Exercises
 10 ZCTA5 32034 7.3             87047                  
 # ℹ 1,003 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: after I wrote this lesson, the tidyverse developers modified how the</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   select() function works. We should now use the all_of() helper functions.</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   I included the original way (which causes warnings), but commented it out.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>NOTE: after I wrote this lesson, the Tidyverse developers modified how the <code>select()</code> function works. We should now use the <code>all_of()</code> helper functions. I included the original way (which now causes warnings), but I commented it out.</p>
 </section>
 <section id="subset-and-mutate-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="subset-and-mutate-the-data">Subset and Mutate the Data</h2>
-<p>Notice that the atomic class of the <code>median_household_income</code> column is character. We see that some of the values are missing. Subsequently, it looks like have numeric information stored in character columns because a letter or symbol was used instead of <code>NA</code>. For atomic data, we can follow the type conversion rules to demote this character information to numeric (which triggers a warning):</p>
+<p>Notice that the atomic classes of the <code>food_stamp_prop</code> and <code>median_household_income</code> columns are both character. We see that some of the values are “missing” (as shown by the <code>"-"</code> symbol). Subsequently, it looks like have numeric information stored in character columns because a letter or symbol was used instead of <code>NA</code>. For atomic data, we can follow the type conversion rules to demote this character information to numeric (which triggers a warning):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>incomeSNAP_df <span class="ot">&lt;-</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  FLallZIP_df <span class="sc">%&gt;%</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">zcta =</span> NAME,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">food_stamp_prop =</span> <span class="fu">all_of</span>(foodStampsColID_char),</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_household_income =</span> <span class="fu">all_of</span>(incomeColID_char)</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">%&gt;%</span> </span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop character to numeric</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">food_stamp_prop =</span> <span class="fu">as.numeric</span>(food_stamp_prop),</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_household_income =</span> <span class="fu">as.numeric</span>(median_household_income)</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>incomeSNAP_df <span class="ot">&lt;-</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  FLallZIP_df <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">zcta =</span> NAME,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">food_stamp_prop =</span> <span class="fu">all_of</span>(foodStampsColID_char),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_household_income =</span> <span class="fu">all_of</span>(incomeColID_char)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">%&gt;%</span> </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop character to numeric</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">food_stamp_prop =</span> <span class="fu">as.numeric</span>(food_stamp_prop),</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_household_income =</span> <span class="fu">as.numeric</span>(median_household_income)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 2 warnings in `mutate()`.
 The first warning was:
@@ -995,7 +1038,7 @@ Caused by warning:
 ! NAs introduced by coercion
 ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>incomeSNAP_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>incomeSNAP_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,013 × 3
    zcta        food_stamp_prop median_household_income
@@ -1019,21 +1062,35 @@ Caused by warning:
 <h2 class="anchored" data-anchor-id="plotting-the-relationship">Plotting the Relationship</h2>
 <p>Finally, we have data we can plot!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> incomeSNAP_df) <span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> median_household_income, <span class="at">y =</span> food_stamp_prop) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> incomeSNAP_df) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> median_household_income, <span class="at">y =</span> food_stamp_prop) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson13_eda_w_tidyverse_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This clearly shows a negative relationship between income and proportion of residents on food stamps. However, the x-axis shows a strong tail, so let’s try to clean this up with a log transformation (also, the relationship looks non-linear, so I’ve added a LOESS estimate in blue):</p>
+<p>This clearly shows a negative relationship between income and proportion of residents on food stamps. However, the x-axis shows a strong tail, so let’s try to clean this up with a log transformation. I add the log labels automatically using the <code>label_number()</code> function from the <code>scales::</code> package (this is installed automatically when you install the Tidyverse, but I haven’t loaded it with the <code>library()</code> command, so I have to type the name of the package explicitly). Also, the relationship looks non-linear, so I’ve added a LOESS estimate in blue.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> incomeSNAP_df) <span class="sc">+</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log10</span>(median_household_income), <span class="at">y =</span> food_stamp_prop) <span class="sc">+</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> incomeSNAP_df) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> median_household_income, <span class="at">y =</span> food_stamp_prop) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>()) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="lesson13_eda_w_tidyverse_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you need to use one function one time from a package that you have installed on your computer, you can use the <code>&lt;packName&gt;::&lt;funName&gt;</code> syntax. In the code above, I didn’t want to load the entire <code>scales</code> package for a function I’ll use only once, so I used <code>scales::label_number()</code> instead.</p>
 </div>
 </div>
 <p>In practice, at this point we would thoroughly inspect all of the features of interest, <em>and</em> plot their relationships with the outcomes of interest. However, we don’t have time to do this in class.</p>
@@ -1049,10 +1106,10 @@ Exercises
 <div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
 <li>Why did I turn off the error bands for the LOESS smoother? Discuss with one of the statistics / biostatistics students (<em>HINT: think about the assumptions of regression</em>).</li>
-<li>Import the ZIP code data for Miami-Dade and Broward counties.</li>
+<li>Import the ZIP code data for Miami-Dade and Broward counties. If you want, you can go find the Palm Beach county ZIP code data too.</li>
 <li>Merge these two county tibbles, and clean up the ZIP code column (if you haven’t already done this as part of your homework from Lessons 8 and 10).</li>
-<li>Use a <code>*_join()</code> function to create a single subset of the 2021 ACS SNAP data set with a column that indicates if the ZIP code belongs to one of these two counties.</li>
-<li>Re-build your plot of this relationship, adding a color to indicate the ZIP codes in Miami-Dade and Broward counties. Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?</li>
+<li>Use a <code>*_join()</code> function to create a single subset of the 2021 ACS SNAP data set with a “South Florida” indicator column that marks if the ZIP code belongs to one of these two (or three) counties.</li>
+<li>Re-build your plot of this relationship, adding a color to indicate the ZIP codes in Miami-Dade and Broward (and Palm Beach?) counties. Do you see any differences between the relationship between food stamp usage and median income for the ZIP codes in our counties vs the whole state?</li>
 </ol>
 </div>
 </div>
@@ -1076,7 +1133,7 @@ Exercises
 <div class="callout-body-container callout-body" title="Exercises">
 <ol type="1">
 <li>Work in groups of 3-4 to generate 8-10 hypotheses to explain the excess variability in the relationship between income and percentage of food stamp recipients within a ZIP code. Include at least 2 multiple-predictor hypotheses (y depends on x within/interacting with z).</li>
-<li>Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 4-5 hypotheses left (if you don’t, go back to exercise 1).</li>
+<li>Use string detection to find out if any of the columns of the data are related to the driving factors in your hypotheses. If you do not have data measured to graphically test a hypothesis, remove it from your list (but keep a record of it). Make sure you still have 1-2 hypotheses left (if you don’t, go back to exercise 1 or go back to the ACS for more data).</li>
 <li>Graphically test the remaining hypotheses.</li>
 <li>Write a short report outlining following:
 <ul>
