@@ -557,16 +557,8 @@ NA == NA  # Is something I don't know equal to something else I don't know? I do
 is.na(NA) # Is this something we don't know? Yes.
 ```
 
-### Review: Atomic Vector Types
-Because there are multiple types of atomic data, there are *technically* multiple types of `NA`. Recall the four atomic data types of use in the health sciences:
-
-1. `logical`: This is the most basic type of information that can be stored in `R`. A vector with elements of class `logical` is a vector of only `TRUE` or `FALSE` values.
-2. `integer`: This is the second-most basic type of information. An `integer` vector is a vector of positive or negative counting numbers (and 0).
-3. `numeric`: This is the class for the Real numbers in `R`. Any `integer` is necessarily also `numeric`, but the reverse is not true.
-4. `character`: This is the most complex class of atomic information. This class ensures that the information you type into `R` stays marked with the keystrokes you typed to enter it. Therefore, `"10"` is not recorded as the integer 10, or the real number 10.000000..., but rather the combined keystrokes of the "1" and "0" keys on your keyboard (to be very technical, "1" and "0" are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).
-
 ### Type-Specific Missing Values
-Because we have four major atomic types, we have four ways that data from atomic vectors could be missing. They all start with `NA`.
+Because there are multiple types of atomic data, there are *technically* multiple types of `NA`. They all start with `NA`.
 
 1. `NA`: This is the missing value marker for a **logical** vector.
 2. `NA_integer_`: This is the missing value marker for an **integer** vector.

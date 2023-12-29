@@ -1188,20 +1188,20 @@ Overwriting Data
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resid_delay =</span> delay <span class="sc">-</span> <span class="fu">mean</span>(delay)) <span class="sc">%&gt;%</span> </span>
 <span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(resid_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 105 × 3
+<pre><code># A tibble: 104 × 3
    dest     delay resid_delay
    &lt;chr&gt;    &lt;dbl&gt;       &lt;dbl&gt;
- 1 LEX   -22           -30.8 
- 2 PSP   -12.7         -21.6 
- 3 SNA    -7.87        -16.7 
- 4 STT    -3.84        -12.7 
- 5 ANC    -2.5         -11.3 
- 6 HNL    -1.37        -10.2 
- 7 SEA    -1.10         -9.95
- 8 MVY    -0.286        -9.14
- 9 LGB    -0.0620       -8.91
-10 SLC     0.176        -8.67
-# ℹ 95 more rows</code></pre>
+ 1 LEX   -22           -30.7 
+ 2 PSP   -12.7         -21.5 
+ 3 SNA    -7.87        -16.6 
+ 4 STT    -3.84        -12.6 
+ 5 ANC    -2.5         -11.2 
+ 6 HNL    -1.37        -10.1 
+ 7 SEA    -1.10         -9.83
+ 8 MVY    -0.286        -9.02
+ 9 LGB    -0.0620       -8.79
+10 SLC     0.176        -8.56
+# ℹ 94 more rows</code></pre>
 </div>
 </div>
 <p>We can always ungroup our data table with the <code>ungroup()</code> function.</p>
@@ -1359,7 +1359,7 @@ Overwriting Data
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">distance_sd =</span> <span class="fu">sd</span>(distance)) <span class="sc">%&gt;%</span> </span>
 <span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(distance_sd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 105 × 2
+<pre><code># A tibble: 104 × 2
    dest  distance_sd
    &lt;chr&gt;       &lt;dbl&gt;
  1 EGE         10.5 
@@ -1372,7 +1372,7 @@ Overwriting Data
  8 PHX          9.86
  9 LAX          9.66
 10 IND          9.46
-# ℹ 95 more rows</code></pre>
+# ℹ 94 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>not_cancelled <span class="sc">%&gt;%</span> </span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">%&gt;%</span> </span>
@@ -1412,7 +1412,7 @@ Overwriting Data
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span></span>
 <span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 105 × 2
+<pre><code># A tibble: 104 × 2
    dest      n
    &lt;chr&gt; &lt;int&gt;
  1 ABQ     254
@@ -1425,13 +1425,13 @@ Overwriting Data
  8 BDL     412
  9 BGR     358
 10 BHM     269
-# ℹ 95 more rows</code></pre>
+# ℹ 94 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use</span></span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>not_cancelled <span class="sc">%&gt;%</span> </span>
 <span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(dest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 105 × 2
+<pre><code># A tibble: 104 × 2
    dest      n
    &lt;chr&gt; &lt;int&gt;
  1 ABQ     254
@@ -1444,7 +1444,7 @@ Overwriting Data
  8 BDL     412
  9 BGR     358
 10 BHM     269
-# ℹ 95 more rows</code></pre>
+# ℹ 94 more rows</code></pre>
 </div>
 </div>
 <ol start="4" type="1">

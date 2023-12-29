@@ -61,7 +61,7 @@ data("outcomesCTN0094")
 ## Exercises
 1. Inspect the vector `fruit`.
 2. Inspect first 20 elements of the vector `sentences`.
-2. Create a smaller version of the `outcomesCTN0094` tibble with the following columns: `who`, `usePatternUDS`, and `ctn0094_relapse_time`. Save it as an object in your Global environment called `outcome_df`.
+2. Create a smaller version of the `outcomesCTN0094` tibble with the following columns: `who`, `usePatternUDS`, and `RsT_ctnNinetyFour_2023`. Save it as an object in your Global environment called `outcome_df`.
 :::
 
 ```{r answer-to-exercise}
@@ -69,7 +69,7 @@ data("outcomesCTN0094")
 
 outcome_df <- 
   outcomesCTN0094 %>% 
-  select(who, usePatternUDS, ctn0094_relapse_time)
+  select(who, usePatternUDS, RsT_ctnNinetyFour_2023)
 rm(outcomesCTN0094)
 ```
 

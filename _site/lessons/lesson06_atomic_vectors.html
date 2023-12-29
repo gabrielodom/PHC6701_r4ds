@@ -1115,19 +1115,9 @@ factor(c("MPH", "PhD")) == factor("PhD")</code></pre>
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<section id="review-atomic-vector-types" class="level3">
-<h3 class="anchored" data-anchor-id="review-atomic-vector-types">Review: Atomic Vector Types</h3>
-<p>Because there are multiple types of atomic data, there are <em>technically</em> multiple types of <code>NA</code>. Recall the four atomic data types of use in the health sciences:</p>
-<ol type="1">
-<li><code>logical</code>: This is the most basic type of information that can be stored in <code>R</code>. A vector with elements of class <code>logical</code> is a vector of only <code>TRUE</code> or <code>FALSE</code> values.</li>
-<li><code>integer</code>: This is the second-most basic type of information. An <code>integer</code> vector is a vector of positive or negative counting numbers (and 0).</li>
-<li><code>numeric</code>: This is the class for the Real numbers in <code>R</code>. Any <code>integer</code> is necessarily also <code>numeric</code>, but the reverse is not true.</li>
-<li><code>character</code>: This is the most complex class of atomic information. This class ensures that the information you type into <code>R</code> stays marked with the keystrokes you typed to enter it. Therefore, <code>"10"</code> is not recorded as the integer 10, or the real number 10.000000…, but rather the combined keystrokes of the “1” and “0” keys on your keyboard (to be very technical, “1” and “0” are stored with the ASCII code 049 and 048, respectively, or perhaps as a UTF-8 encoded value).</li>
-</ol>
-</section>
 <section id="type-specific-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="type-specific-missing-values">Type-Specific Missing Values</h3>
-<p>Because we have four major atomic types, we have four ways that data from atomic vectors could be missing. They all start with <code>NA</code>.</p>
+<p>Because there are multiple types of atomic data, there are <em>technically</em> multiple types of <code>NA</code>. They all start with <code>NA</code>.</p>
 <ol type="1">
 <li><code>NA</code>: This is the missing value marker for a <strong>logical</strong> vector.</li>
 <li><code>NA_integer_</code>: This is the missing value marker for an <strong>integer</strong> vector.</li>
