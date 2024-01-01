@@ -996,10 +996,10 @@ Overwriting Data
 # ℹ 52,367 more rows</code></pre>
 </div>
 </div>
-<p>Alternatively, we could use <code>mutate()</code>’s “cousin”, the <code>transmute()</code> function. This function is shorthand for <code>mutate</code> then <code>select</code>.</p>
+<p>Alternatively, if we only care about the one column we are creating with <code>mutate()</code>, then we add the argument <code>.keep = "none"</code>. This operation is shorthand for <code>mutate(newCol = &lt;calculation&gt;)</code> then <code>select(newCol)</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>jetStreamFlights <span class="sc">%&gt;%</span> </span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">speed_mph =</span> distance <span class="sc">/</span> (air_time <span class="sc">/</span> <span class="dv">60</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speed_mph =</span> distance <span class="sc">/</span> (air_time <span class="sc">/</span> <span class="dv">60</span>), <span class="at">.keep =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 52,377 × 1
    speed_mph
@@ -1015,6 +1015,19 @@ Overwriting Data
  9      406.
 10      429.
 # ℹ 52,367 more rows</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The <code>transmute()</code> Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This operation, <code>mutate()</code> then <code>select()</code>, used to have it’s own function, called <code>transmute()</code>. I would teach it, but it rarely every came up in practice. This function has now been replaced (technically <a href="https://lifecycle.r-lib.org/articles/stages.html">“superseded”</a>) by adding an option to the <code>.keep</code> argument of <code>mutate()</code>, which is—in my opinion—much better.</p>
 </div>
 </div>
 <section id="the-case_when-function" class="level2">
@@ -1078,7 +1091,7 @@ Overwriting Data
 <p>We may not be concerned with the actual distance of a flight, but perhaps its difference from the average flight distance.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">residual_dist =</span> distance <span class="sc">-</span> <span class="fu">mean</span>(distance))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual_dist =</span> distance <span class="sc">-</span> <span class="fu">mean</span>(distance), <span class="at">.keep =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 1
    residual_dist
@@ -1205,6 +1218,19 @@ Overwriting Data
 </div>
 </div>
 <p>We can always ungroup our data table with the <code>ungroup()</code> function.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Using the <code>.by</code> Argument
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the <code>summarize()</code> and <code>mutate()</code> functions also accept a <code>.by</code> argument, which allows you to specify the grouping for the calculation within the function call. When using the <code>group_by()</code> function, the groups you specify will persist, potentially even after your calculation has been completed. However, when using the <code>.by</code> argument, the groups will NOT persist: they will only be used to execute the computation from the function that called for them. For more discussion on these two options and their differences, see this <a href="https://dplyr.tidyverse.org/reference/dplyr_by.html">documentation page on <code>group_by()</code> vs.&nbsp;<code>.by</code></a>.</p>
+</div>
+</div>
 <section id="chaining-operations-together" class="level2">
 <h2 class="anchored" data-anchor-id="chaining-operations-together">Chaining Operations Together</h2>
 <p>We have already used the pipe (<code>%&gt;%</code>) operator quite a bit. This allows us to chain multiple steps together. For example, we might want to plot the relationship between flight distance and arrival delay (if you don’t remember how to use <code>ggplot()</code>, look back a few lessons).</p>
