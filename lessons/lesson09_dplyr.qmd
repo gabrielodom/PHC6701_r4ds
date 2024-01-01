@@ -259,11 +259,16 @@ jetStreamFlights %>%
   mutate(speed_mph = distance / (air_time / 60)) %>% 
   select(speed_mph)
 ```
-Alternatively, we could use `mutate()`'s "cousin", the `transmute()` function. This function is shorthand for `mutate` then `select`.
+Alternatively, if we only care about the one column we are creating with `mutate()`, then we add the argument `.keep = "none"`. This operation is shorthand for `mutate(newCol = <calculation>)` then `select(newCol)`.
 ```{r}
 jetStreamFlights %>% 
-  transmute(speed_mph = distance / (air_time / 60))
+  mutate(speed_mph = distance / (air_time / 60), .keep = "none")
 ```
+
+::: {.callout-note}
+## The `transmute()` Function
+This operation, `mutate()` then `select()`, used to have it's own function, called `transmute()`. I would teach it, but it rarely every came up in practice. This function has now been replaced (technically ["superseded"](https://lifecycle.r-lib.org/articles/stages.html)) by adding an option to the `.keep` argument of `mutate()`, which is---in my opinion---much better.
+:::
 
 
 ## The `case_when()` Function
@@ -311,7 +316,7 @@ The possible uses of the `mutate()` function are practically endless, but we can
 We may not be concerned with the actual distance of a flight, but perhaps its difference from the average flight distance.
 ```{r}
 flights %>% 
-  transmute(residual_dist = distance - mean(distance))
+  mutate(residual_dist = distance - mean(distance), .keep = "none")
 ```
 
 Perhaps we want to add an indicator for "long flights" (American Airlines considers a long flight any flight over four-and-a-half hours) and then order these flights by flight time, excluding flights to Honolulu.
@@ -344,7 +349,7 @@ The `%%` operator is the [*modulo* operator](https://en.wikipedia.org/wiki/Modul
 
 
 # Grouping and Group Summaries with `group_by()` and `summarise()`
-The `summarise()` function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see [the `summarise()` section](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise) of *R for Data Science*, chapter 5 (in the 1st edition, [chapter 3](https://r4ds.hadley.nz/data-transform.html) in the 2nd edition).
+The `summarise()` function is very powerful and very flexible. We will not have time to discuss all it can do. For a more complete discussion, see [the `summarise()` section](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarise) of *R for Data Science*, chapter 5 (in the 1st edition, [chapter 3](https://r4ds.hadley.nz/data-transform.html) in the 2nd edition). 
 
 The syntax of `summarise()` is similar to the `mutate()` syntax. We can find the average delay of all flights leaving the New York City area in 2013. Because `NA`s are contagious, we remove them from the calculation with `na.rm = TRUE`.
 ```{r}
@@ -367,6 +372,11 @@ not_cancelled %>%
   arrange(resid_delay)
 ```
 We can always ungroup our data table with the `ungroup()` function.
+
+::: {.callout-tip}
+## Using the `.by` Argument
+Note that the `summarize()` and `mutate()` functions also accept a `.by` argument, which allows you to specify the grouping for the calculation within the function call. When using the `group_by()` function, the groups you specify will persist, potentially even after your calculation has been completed. However, when using the `.by` argument, the groups will NOT persist: they will only be used to execute the computation from the function that called for them. For more discussion on these two options and their differences, see this [documentation page on `group_by()` vs. `.by`](https://dplyr.tidyverse.org/reference/dplyr_by.html).
+:::
 
 
 ## Chaining Operations Together
