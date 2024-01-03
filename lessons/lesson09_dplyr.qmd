@@ -531,12 +531,16 @@ We can group on the year, month within year, and day within month. Then, we can 
 # Using `*_join()` to Merge Tibbles
 If you have two or more tables which share one or more columns, then you can join these tables using the `*_join()` family of functions. For two data tables `A` and `B` with a shared column named `"x"`, these functions are
 
-- `left_join(A, B, by = "x")`: join matching rows from `B` to `A`. Missing rows in `B` will be padded with `NA`.
-- `right_join(A, B, by = "x")`: join matching rows from `A` to `B`. Missing rows in `A` will be padded with `NA`.
+- `left_join(A, B, by = "x")`: join matching rows from `B` to `A`. Missing rows in `B` will be padded with `NA`. The resulting data set will have the same number of rows as `A`.
+- `right_join(A, B, by = "x")`: join matching rows from `A` to `B`. Missing rows in `A` will be padded with `NA`. The resulting data set will have the same number of rows as `B`.
 - `inner_join(A, B, by = "x")`: join rows only in both `A` and `B`. There will be no missing rows.
 - `full_join(A, B, by = "x")`: join all rows in `A` and `B`. Missing rows in `A` and `B` will be padded with `NA`.
 - `semi_join(A, B, by = "x")`: retain rows in `A` which have a match in `B`.
 - `anti_join(A, B, by = "x")`: retain rows in `A` which do not have a match in `B`.
+
+There is a [Data Carpentry lesson](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins) on `dplyr::` joins that may be helpful to you, and I copied this Venn diagram from that lesson.
+
+![](../_figures/dplyr_joins_venn.svg)
 
 
 ## Carrier Name Data

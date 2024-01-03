@@ -1575,13 +1575,15 @@ Using the <code>.by</code> Argument
 <h1>Using <code>*_join()</code> to Merge Tibbles</h1>
 <p>If you have two or more tables which share one or more columns, then you can join these tables using the <code>*_join()</code> family of functions. For two data tables <code>A</code> and <code>B</code> with a shared column named <code>"x"</code>, these functions are</p>
 <ul>
-<li><code>left_join(A, B, by = "x")</code>: join matching rows from <code>B</code> to <code>A</code>. Missing rows in <code>B</code> will be padded with <code>NA</code>.</li>
-<li><code>right_join(A, B, by = "x")</code>: join matching rows from <code>A</code> to <code>B</code>. Missing rows in <code>A</code> will be padded with <code>NA</code>.</li>
+<li><code>left_join(A, B, by = "x")</code>: join matching rows from <code>B</code> to <code>A</code>. Missing rows in <code>B</code> will be padded with <code>NA</code>. The resulting data set will have the same number of rows as <code>A</code>.</li>
+<li><code>right_join(A, B, by = "x")</code>: join matching rows from <code>A</code> to <code>B</code>. Missing rows in <code>A</code> will be padded with <code>NA</code>. The resulting data set will have the same number of rows as <code>B</code>.</li>
 <li><code>inner_join(A, B, by = "x")</code>: join rows only in both <code>A</code> and <code>B</code>. There will be no missing rows.</li>
 <li><code>full_join(A, B, by = "x")</code>: join all rows in <code>A</code> and <code>B</code>. Missing rows in <code>A</code> and <code>B</code> will be padded with <code>NA</code>.</li>
 <li><code>semi_join(A, B, by = "x")</code>: retain rows in <code>A</code> which have a match in <code>B</code>.</li>
 <li><code>anti_join(A, B, by = "x")</code>: retain rows in <code>A</code> which do not have a match in <code>B</code>.</li>
 </ul>
+<p>There is a <a href="https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins">Data Carpentry lesson</a> on <code>dplyr::</code> joins that may be helpful to you, and I copied this Venn diagram from that lesson.</p>
+<p><img src="../_figures/dplyr_joins_venn.svg" class="img-fluid"></p>
 <section id="carrier-name-data" class="level2">
 <h2 class="anchored" data-anchor-id="carrier-name-data">Carrier Name Data</h2>
 <p>Take a look at the names of the airlines in the <code>flights</code> data set (the <code>unique()</code> function does what you think it does)</p>
