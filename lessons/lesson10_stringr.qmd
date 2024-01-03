@@ -119,7 +119,18 @@ Find all the fruits with the word "fruit" in the name.
 ## Counting Matches
 In the `outcome_df` data set, each symbol in the column `usePatternUDS` represents the patient status during a routine weekly clinic visit. The `o` symbol is used to represent a week when a clinical trial participant failed to visit the clinic for follow-up care. We can count how in many weeks each trial participant was missing (since this is an example, we will only look a the first 20 participants):
 ```{r}
-outcome_df$usePatternUDS[1:20] %>% 
+# Answer to exercise above, for you to confirm that you did it correctly:
+outcome_df <- 
+  outcomesCTN0094 %>% 
+  select(who, usePatternUDS, RsT_ctnNinetyFour_2023)
+
+# Inspect the data
+outcome_df
+
+# Look at the opioid use pattern of the first 20 participants
+outcome_df %>%
+  slice(1:20) %>% 
+  pull(usePatternUDS) %>% 
   str_count(pattern = "o")
 ```
 
