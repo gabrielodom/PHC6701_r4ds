@@ -283,8 +283,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#functions-to-know-3" id="toc-functions-to-know-3" class="nav-link" data-scroll-target="#functions-to-know-3">Functions to Know</a></li>
   <li><a href="#string-lengths" id="toc-string-lengths" class="nav-link" data-scroll-target="#string-lengths">String Lengths</a></li>
-  <li><a href="#trimming-strings" id="toc-trimming-strings" class="nav-link" data-scroll-target="#trimming-strings">Trimming Strings</a></li>
-  <li><a href="#padding-strings" id="toc-padding-strings" class="nav-link" data-scroll-target="#padding-strings">Padding Strings</a></li>
+  <li><a href="#truncating-strings" id="toc-truncating-strings" class="nav-link" data-scroll-target="#truncating-strings">Truncating Strings</a></li>
+  <li><a href="#trimming-and-padding-strings" id="toc-trimming-and-padding-strings" class="nav-link" data-scroll-target="#trimming-and-padding-strings">Trimming and Padding Strings</a></li>
   </ul></li>
   <li><a href="#modifying-strings-in-tibbles" id="toc-modifying-strings-in-tibbles" class="nav-link" data-scroll-target="#modifying-strings-in-tibbles">Modifying Strings in Tibbles</a>
   <ul class="collapse">
@@ -520,7 +520,7 @@ Exercise
 <h2 class="anchored" data-anchor-id="functions-to-know-1">Functions to Know</h2>
 <ul>
 <li><code>str_replace()</code> / <code>str_replace_all()</code>: replace the first/all matches of a pattern in a string with new text</li>
-<li><code>str_remove()</code> / <code>str_remove_all</code>: remove the first/all matches of a pattern in a string</li>
+<li><code>str_remove()</code> / <code>str_remove_all()</code>: remove the first/all matches of a pattern in a string</li>
 <li><code>str_to_lower()</code> / <code>str_to_upper()</code>: convert a string to lower case/UPPER CASE</li>
 </ul>
 </section>
@@ -783,8 +783,8 @@ Exercises
 <h2 class="anchored" data-anchor-id="functions-to-know-3">Functions to Know</h2>
 <ul>
 <li><code>str_length()</code>: compute the number of “letters” in a string</li>
-<li><code>str_trim()</code>: remove spaces from the start and end of string</li>
-<li><code>str_pad()</code>: add spaces (or some other “letter”) to the start or end of a string until the string is a specified length</li>
+<li><code>str_trunc()</code>: cut off excess “letters” from the right or left of a string</li>
+<li><code>str_trim()</code> / <code>str_pad()</code>: remove spaces from the start and end of string / add spaces (or some other “letter”) to the start or end of a string until the string is a specified length</li>
 </ul>
 <p>Overall, it’s often not immediately obvious when these functions would be useful to you, but know that from my experience that they are often unexpected lifesavers. I’m going to give three such examples from when these functions have helped me in the past.</p>
 </section>
@@ -804,8 +804,8 @@ Exercises
 </div>
 </div>
 </section>
-<section id="trimming-strings" class="level2">
-<h2 class="anchored" data-anchor-id="trimming-strings">Trimming Strings</h2>
+<section id="truncating-strings" class="level2">
+<h2 class="anchored" data-anchor-id="truncating-strings">Truncating Strings</h2>
 <p>This comes up for me most often when dealing with very long labels in <code>ggplot</code> figures. Sometimes a factor label is really long, and <code>ggplot</code> tries to fit the whole label in the figure, which ends up making the whole figure look weird.</p>
 <p>Here’s an example. I’m going to create a simple data set with one very long factor label.</p>
 <div class="cell">
@@ -839,25 +839,32 @@ Exercises
 </div>
 </div>
 </section>
-<section id="padding-strings" class="level2">
-<h2 class="anchored" data-anchor-id="padding-strings">Padding Strings</h2>
-<p>This comes up when I’m trying to create file names in a computer. Here’s the issue:</p>
+<section id="trimming-and-padding-strings" class="level2">
+<h2 class="anchored" data-anchor-id="trimming-and-padding-strings">Trimming and Padding Strings</h2>
+<p>Trimming strings is relatively simple: you “trim” off the white space at the start and/or end of a string.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_trim</span>(<span class="st">"      a        "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"</code></pre>
+</div>
+</div>
+<p>Padding strings comes up when I’m trying to create file names in a computer. Here’s the issue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1"  "10" "11" "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9" </code></pre>
 </div>
 </div>
 <p>When the computer turns numbers into characters, the ordering of the numbers gets destroyed. We all know that I <em>want</em> 10 and 11 to come last, but the computer doesn’t interpret these numbers the way that I do. The solution is to <strong>pad</strong> the numbers on the left with “0” so that the ordering is preserved:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set the width to 2 digits if 99 is enough, but increase to 3 digits in case</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   I need to go past 99 (up to 999)</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_pad</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="at">side =</span> <span class="st">"left"</span>, <span class="at">pad =</span> <span class="st">"0"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">11</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set the width to 2 digits if 99 is enough, but increase to 3 digits in case</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   I need to go past 99 (up to 999)</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_pad</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="at">side =</span> <span class="st">"left"</span>, <span class="at">pad =</span> <span class="st">"0"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "001" "002" "003" "004" "005" "006" "007" "008" "009" "010" "011"</code></pre>
 </div>
@@ -874,42 +881,42 @@ Exercises
 <h2 class="anchored" data-anchor-id="example-plotting-participant-heights">Example: Plotting Participant Heights</h2>
 <p>Here I show an entire (simplified) workflow to take in the height data and plot it by biological sex.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">###  Create tidy data  </span><span class="al">###</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>heights_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">is_female =</span> <span class="fu">c</span>(</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="fu">length</span>(heightsF_char)),</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="fu">length</span>(heightsM_char))</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>(heightsF_char, heightsM_char)</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="do">###  Wrangle the Data  </span><span class="al">###</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>heightsClean_df <span class="ot">&lt;-</span> </span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  heights_df <span class="sc">%&gt;%</span> </span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1: Split the Units into another column</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">units =</span> <span class="fu">str_sub</span>(heights, <span class="at">start =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2: Extract the height values</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">str_extract</span>(heights, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d{2}"</span>)</span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 3: change heights from character to numeric</span></span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">as.numeric</span>(value)</span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 4: remove the original column (check your work beforehand)</span></span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>heights) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 5: rename</span></span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">height =</span> value)</span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="do">###  Plot the Relationship  </span><span class="al">###</span></span>
-<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heightsClean_df) <span class="sc">+</span> </span>
-<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> is_female, <span class="at">y =</span> height) <span class="sc">+</span> </span>
-<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">###  Create tidy data  </span><span class="al">###</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>heights_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">is_female =</span> <span class="fu">c</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="fu">length</span>(heightsF_char)),</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="fu">length</span>(heightsM_char))</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>(heightsF_char, heightsM_char)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="do">###  Wrangle the Data  </span><span class="al">###</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>heightsClean_df <span class="ot">&lt;-</span> </span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  heights_df <span class="sc">%&gt;%</span> </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1: Split the Units into another column</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">units =</span> <span class="fu">str_sub</span>(heights, <span class="at">start =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">end =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2: Extract the height values</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">str_extract</span>(heights, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d{2}"</span>)</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 3: change heights from character to numeric</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">as.numeric</span>(value)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 4: remove the original column (check your work beforehand)</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>heights) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 5: rename</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">height =</span> value)</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="do">###  Plot the Relationship  </span><span class="al">###</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heightsClean_df) <span class="sc">+</span> </span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> is_female, <span class="at">y =</span> height) <span class="sc">+</span> </span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="lesson10_stringr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="lesson10_stringr_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">

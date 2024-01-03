@@ -152,7 +152,7 @@ Missing 3 clinic visits in a row is often a strong prognostic signal for a negat
 ## Functions to Know
 
 - `str_replace()` / `str_replace_all()`: replace the first/all matches of a pattern in a string with new text
-- `str_remove()` / `str_remove_all`: remove the first/all matches of a pattern in a string
+- `str_remove()` / `str_remove_all()`: remove the first/all matches of a pattern in a string
 - `str_to_lower()` / `str_to_upper()`: convert a string to lower case/UPPER CASE
 
 
@@ -286,8 +286,8 @@ If you are wondering where in the world that `\\d{2}` stuff came from, you're no
 ## Functions to Know
 
 - `str_length()`: compute the number of "letters" in a string
-- `str_trim()`: remove spaces from the start and end of string
-- `str_pad()`: add spaces (or some other "letter") to the start or end of a string until the string is a specified length
+- `str_trunc()`: cut off excess "letters" from the right or left of a string
+- `str_trim()` / `str_pad()`: remove spaces from the start and end of string / add spaces (or some other "letter") to the start or end of a string until the string is a specified length
 
 Overall, it's often not immediately obvious when these functions would be useful to you, but know that from my experience that they are often unexpected lifesavers. I'm going to give three such examples from when these functions have helped me in the past.
 
@@ -303,7 +303,7 @@ str_length("PPPPPAPP")
 ```
 
 
-## Trimming Strings
+## Truncating Strings
 This comes up for me most often when dealing with very long labels in `ggplot` figures. Sometimes a factor label is really long, and `ggplot` tries to fit the whole label in the figure, which ends up making the whole figure look weird.
 
 Here's an example. I'm going to create a simple data set with one very long factor label.
@@ -334,8 +334,13 @@ bookPages_df %>%
 ```
 
 
-## Padding Strings
-This comes up when I'm trying to create file names in a computer. Here's the issue:
+## Trimming and Padding Strings
+Trimming strings is relatively simple: you "trim" off the white space at the start and/or end of a string.
+```{r}
+str_trim("      a        ")
+```
+
+Padding strings comes up when I'm trying to create file names in a computer. Here's the issue:
 ```{r}
 1:11 %>% 
   as.character() %>% 

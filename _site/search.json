@@ -158,7 +158,7 @@
     "href": "lessons/lesson10_stringr.html#functions-to-know-1",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
     "section": "Functions to Know",
-    "text": "Functions to Know\n\nstr_replace() / str_replace_all(): replace the first/all matches of a pattern in a string with new text\nstr_remove() / str_remove_all: remove the first/all matches of a pattern in a string\nstr_to_lower() / str_to_upper(): convert a string to lower case/UPPER CASE"
+    "text": "Functions to Know\n\nstr_replace() / str_replace_all(): replace the first/all matches of a pattern in a string with new text\nstr_remove() / str_remove_all(): remove the first/all matches of a pattern in a string\nstr_to_lower() / str_to_upper(): convert a string to lower case/UPPER CASE"
   },
   {
     "objectID": "lessons/lesson10_stringr.html#replacing-one-pattern-with-another",
@@ -207,7 +207,7 @@
     "href": "lessons/lesson10_stringr.html#functions-to-know-3",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
     "section": "Functions to Know",
-    "text": "Functions to Know\n\nstr_length(): compute the number of “letters” in a string\nstr_trim(): remove spaces from the start and end of string\nstr_pad(): add spaces (or some other “letter”) to the start or end of a string until the string is a specified length\n\nOverall, it’s often not immediately obvious when these functions would be useful to you, but know that from my experience that they are often unexpected lifesavers. I’m going to give three such examples from when these functions have helped me in the past."
+    "text": "Functions to Know\n\nstr_length(): compute the number of “letters” in a string\nstr_trunc(): cut off excess “letters” from the right or left of a string\nstr_trim() / str_pad(): remove spaces from the start and end of string / add spaces (or some other “letter”) to the start or end of a string until the string is a specified length\n\nOverall, it’s often not immediately obvious when these functions would be useful to you, but know that from my experience that they are often unexpected lifesavers. I’m going to give three such examples from when these functions have helped me in the past."
   },
   {
     "objectID": "lessons/lesson10_stringr.html#string-lengths",
@@ -217,18 +217,18 @@
     "text": "String Lengths\nThe str_length() functions is useful when dealing with \\(n\\)-ary words. These are sets of letters or numbers where each single symbol from a pre-defined set of \\(n\\) possible symbols represents a state in a system. Examples include the use pattern “words” in the outcome_df data set; DNA/RNA (“CCCCAACGTGTG” is a string of letters where each single letter represents a one of the four DNA nucleotides bases—Cytosine, Adenine, Thymine, and Guanine); or class attendance (“PPPPPAPP” represents a student’s attendance record over eight weeks as “Present” or “Absent”).\n\n# How many nucleotides in the strand?\nstr_length(\"CCCCAACGTGTG\")\n\n[1] 12\n\n# How many weeks of attendance data?\nstr_length(\"PPPPPAPP\")\n\n[1] 8"
   },
   {
-    "objectID": "lessons/lesson10_stringr.html#trimming-strings",
-    "href": "lessons/lesson10_stringr.html#trimming-strings",
+    "objectID": "lessons/lesson10_stringr.html#truncating-strings",
+    "href": "lessons/lesson10_stringr.html#truncating-strings",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
-    "section": "Trimming Strings",
-    "text": "Trimming Strings\nThis comes up for me most often when dealing with very long labels in ggplot figures. Sometimes a factor label is really long, and ggplot tries to fit the whole label in the figure, which ends up making the whole figure look weird.\nHere’s an example. I’m going to create a simple data set with one very long factor label.\n\nbookPages_df <- tibble(\n  title = c(\"Germinal\", \"Frankenstein; or, The Modern Prometheus\"),\n  author = c(\"Emile Zola\", \"Mary Shelley\"),\n  pageCountOriginal = c(591L, 362L),\n  year = c(1885, 1818)\n)\n\n# Original\nggplot(data = bookPages_df) + \n  aes(x = year, y = pageCountOriginal, shape = title) + \n  geom_point()\n\n\n\n\nNow I’m going to truncate the very long title of Frankenstein.\n\n# Truncated text\nbookPages_df %>% \n  mutate(\n    title = str_trunc(title, width = 15)\n  ) %>% \n  ggplot() +\n    aes(x = year, y = pageCountOriginal, shape = title) + \n    geom_point()"
+    "section": "Truncating Strings",
+    "text": "Truncating Strings\nThis comes up for me most often when dealing with very long labels in ggplot figures. Sometimes a factor label is really long, and ggplot tries to fit the whole label in the figure, which ends up making the whole figure look weird.\nHere’s an example. I’m going to create a simple data set with one very long factor label.\n\nbookPages_df <- tibble(\n  title = c(\"Germinal\", \"Frankenstein; or, The Modern Prometheus\"),\n  author = c(\"Emile Zola\", \"Mary Shelley\"),\n  pageCountOriginal = c(591L, 362L),\n  year = c(1885, 1818)\n)\n\n# Original\nggplot(data = bookPages_df) + \n  aes(x = year, y = pageCountOriginal, shape = title) + \n  geom_point()\n\n\n\n\nNow I’m going to truncate the very long title of Frankenstein.\n\n# Truncated text\nbookPages_df %>% \n  mutate(\n    title = str_trunc(title, width = 15)\n  ) %>% \n  ggplot() +\n    aes(x = year, y = pageCountOriginal, shape = title) + \n    geom_point()"
   },
   {
-    "objectID": "lessons/lesson10_stringr.html#padding-strings",
-    "href": "lessons/lesson10_stringr.html#padding-strings",
+    "objectID": "lessons/lesson10_stringr.html#trimming-and-padding-strings",
+    "href": "lessons/lesson10_stringr.html#trimming-and-padding-strings",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
-    "section": "Padding Strings",
-    "text": "Padding Strings\nThis comes up when I’m trying to create file names in a computer. Here’s the issue:\n\n1:11 %>% \n  as.character() %>% \n  sort()\n\n [1] \"1\"  \"10\" \"11\" \"2\"  \"3\"  \"4\"  \"5\"  \"6\"  \"7\"  \"8\"  \"9\" \n\n\nWhen the computer turns numbers into characters, the ordering of the numbers gets destroyed. We all know that I want 10 and 11 to come last, but the computer doesn’t interpret these numbers the way that I do. The solution is to pad the numbers on the left with “0” so that the ordering is preserved:\n\n1:11 %>% \n  as.character() %>% \n  # Set the width to 2 digits if 99 is enough, but increase to 3 digits in case\n  #   I need to go past 99 (up to 999)\n  str_pad(width = 3, side = \"left\", pad = \"0\") %>% \n  sort()\n\n [1] \"001\" \"002\" \"003\" \"004\" \"005\" \"006\" \"007\" \"008\" \"009\" \"010\" \"011\""
+    "section": "Trimming and Padding Strings",
+    "text": "Trimming and Padding Strings\nTrimming strings is relatively simple: you “trim” off the white space at the start and/or end of a string.\n\nstr_trim(\"      a        \")\n\n[1] \"a\"\n\n\nPadding strings comes up when I’m trying to create file names in a computer. Here’s the issue:\n\n1:11 %>% \n  as.character() %>% \n  sort()\n\n [1] \"1\"  \"10\" \"11\" \"2\"  \"3\"  \"4\"  \"5\"  \"6\"  \"7\"  \"8\"  \"9\" \n\n\nWhen the computer turns numbers into characters, the ordering of the numbers gets destroyed. We all know that I want 10 and 11 to come last, but the computer doesn’t interpret these numbers the way that I do. The solution is to pad the numbers on the left with “0” so that the ordering is preserved:\n\n1:11 %>% \n  as.character() %>% \n  # Set the width to 2 digits if 99 is enough, but increase to 3 digits in case\n  #   I need to go past 99 (up to 999)\n  str_pad(width = 3, side = \"left\", pad = \"0\") %>% \n  sort()\n\n [1] \"001\" \"002\" \"003\" \"004\" \"005\" \"006\" \"007\" \"008\" \"009\" \"010\" \"011\""
   },
   {
     "objectID": "lessons/lesson10_stringr.html#example-plotting-participant-heights",
