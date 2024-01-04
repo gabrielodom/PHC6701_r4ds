@@ -1200,14 +1200,41 @@ time  (1): time
 <span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dataPaths_char) <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
 <span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"../_data/purrr_example_data/"</span>, </span>
 <span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>dataPaths_char</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                               2008_torn.csv 
+"../_data/purrr_example_data//2008_torn.csv" 
+                               2009_torn.csv 
+"../_data/purrr_example_data//2009_torn.csv" 
+                               2010_torn.csv 
+"../_data/purrr_example_data//2010_torn.csv" 
+                               2011_torn.csv 
+"../_data/purrr_example_data//2011_torn.csv" 
+                               2012_torn.csv 
+"../_data/purrr_example_data//2012_torn.csv" 
+                               2013_torn.csv 
+"../_data/purrr_example_data//2013_torn.csv" 
+                               2014_torn.csv 
+"../_data/purrr_example_data//2014_torn.csv" 
+                               2015_torn.csv 
+"../_data/purrr_example_data//2015_torn.csv" 
+                               2016_torn.csv 
+"../_data/purrr_example_data//2016_torn.csv" 
+                               2017_torn.csv 
+"../_data/purrr_example_data//2017_torn.csv" 
+                               2018_torn.csv 
+"../_data/purrr_example_data//2018_torn.csv" </code></pre>
+</div>
 </div>
 <p>Now that we have a vector of the file paths to the tornadoes data, we can write a <code>map()</code> call that imports each data file as an element of a list of tibbles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>tornadoData_ls <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.x =</span> dataPaths_char,</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f =</span> read_csv</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>tornadoData_ls <span class="ot">&lt;-</span> <span class="fu">map</span>(</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.x =</span> dataPaths_char,</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">.f =</span> read_csv</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
