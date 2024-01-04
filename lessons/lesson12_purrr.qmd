@@ -476,6 +476,9 @@ names(dataPaths_char) <- list.files(
   path = "../_data/purrr_example_data/", 
   full.names = FALSE
 )
+
+# Inspect
+dataPaths_char
 ```
 
 Now that we have a vector of the file paths to the tornadoes data, we can write a `map()` call that imports each data file as an element of a list of tibbles.

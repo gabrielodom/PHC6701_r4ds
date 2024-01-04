@@ -137,7 +137,7 @@ If we were planning to perform an analysis of all these features, then we should
 
 
 
-# REVIEW: Basic String Functions
+# Review: Basic String Functions
 Because the column name look-up table and many of the data columns contain character information, we need to review a few basic functions from the `stringr` package (included in the `tidyverse`). 
 
 
