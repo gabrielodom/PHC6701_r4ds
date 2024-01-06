@@ -254,9 +254,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a>
   <ul class="collapse">
-  <li><a href="#common-functions" id="toc-common-functions" class="nav-link" data-scroll-target="#common-functions">Common Functions</a></li>
+  <li><a href="#reading-videos-and-assignments" id="toc-reading-videos-and-assignments" class="nav-link" data-scroll-target="#reading-videos-and-assignments">Reading, Videos, and Assignments</a></li>
+  </ul></li>
+  <li><a href="#overview-of-common-functions" id="toc-overview-of-common-functions" class="nav-link" data-scroll-target="#overview-of-common-functions">Overview of Common Functions</a>
+  <ul class="collapse">
   <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data">Example Data</a></li>
   </ul></li>
   <li><a href="#subset-rows-with-filter" id="toc-subset-rows-with-filter" class="nav-link" data-scroll-target="#subset-rows-with-filter">Subset Rows with <code>filter()</code></a>
@@ -333,8 +336,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr>
 <p><br></p>
 </section>
-<section id="overview" class="level1">
-<h1>Overview</h1>
+<section id="outline" class="level1">
+<h1>Outline</h1>
 <p>In this lesson, we will cover the following:</p>
 <ol type="1">
 <li>Subset Rows with <code>filter()</code></li>
@@ -344,8 +347,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Grouping and Group Summaries with <code>group_by()</code> and <code>summarise()</code></li>
 <li>Using <code>*_join()</code> to Merge Tibbles</li>
 </ol>
-<section id="common-functions" class="level2">
-<h2 class="anchored" data-anchor-id="common-functions">Common Functions</h2>
+<section id="reading-videos-and-assignments" class="level2">
+<h2 class="anchored" data-anchor-id="reading-videos-and-assignments">Reading, Videos, and Assignments</h2>
+<ul>
+<li>Watch: &lt;&gt;</li>
+<li>Read:</li>
+<li>Do:</li>
+</ul>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="overview-of-common-functions" class="level1">
+<h1>Overview of Common Functions</h1>
 <p>These functions all operate on tidy data frames:</p>
 <ul>
 <li><code>filter()</code>: return rows that match a certain set of conditions</li>
@@ -375,7 +390,6 @@ Important
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you get stuck, the <code>dplyr</code> cheat sheet is here: <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a></p>
-</section>
 <section id="example-data" class="level2">
 <h2 class="anchored" data-anchor-id="example-data">Example Data</h2>
 <p>Our example data set has measurements on all flights departing the Greater New York City area in 2013. We will use this data set to explore a few of the more commonly-used <code>dplyr</code> functions. Load the <code>nycflights13</code> package you installed last class:</p>

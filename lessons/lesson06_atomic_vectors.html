@@ -254,6 +254,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a>
+  <ul class="collapse">
+  <li><a href="#reading-videos-and-assignments" id="toc-reading-videos-and-assignments" class="nav-link" data-scroll-target="#reading-videos-and-assignments">Reading, Videos, and Assignments</a></li>
+  </ul></li>
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#atomic-vectors" id="toc-atomic-vectors" class="nav-link" data-scroll-target="#atomic-vectors">Atomic Vectors</a>
   <ul class="collapse">
@@ -334,8 +338,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr>
 <p><br></p>
 </section>
-<section id="overview" class="level1">
-<h1>Overview</h1>
+<section id="outline" class="level1">
+<h1>Outline</h1>
 <p>First of all, I’d like to acknowledge the Data Carpentry instructors for the <a href="https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html">“R for Ecology” lesson</a>. We worked on updating that lesson back in 2018, so I did not write all of this lesson by myself. In this lesson, we will cover the following:</p>
 <ol type="1">
 <li>Atomic Vectors</li>
@@ -345,6 +349,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Named Subsetting</li>
 <li>Factors</li>
 </ol>
+<section id="reading-videos-and-assignments" class="level2">
+<h2 class="anchored" data-anchor-id="reading-videos-and-assignments">Reading, Videos, and Assignments</h2>
+<ul>
+<li>Watch: &lt;&gt;</li>
+<li>Read:</li>
+<li>Do:</li>
+</ul>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
 <p>Recall that <strong>everything in R is an object</strong>. The objects in R are broken up primarily like this:</p>
 <p><img src="../_figures/vectors_object_review.png" class="img-fluid"></p>
 <p>Also, because R is a <strong>vectorised</strong> language, most non-function objects we encounter are vectors. Vectors in R are broken into two main types: <em>atomic</em> and <em>non-atomic</em>. <em>Atomic</em> vectors mean that all of the elements in the vector have the same <em>type</em> or <em>class</em>. <em>Non-atomic</em> vectors are everything else. So far, almost every object you have created yourself has been an atomic vector, whether you knew it or not. Some of the more complex data objects you have encountered (such as the <code>mpg</code> data set from the <code>ggplot</code> lesson) have been non-atomic.</p>

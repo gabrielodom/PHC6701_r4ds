@@ -257,7 +257,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#a-quick-comment-to-begin" id="toc-a-quick-comment-to-begin" class="nav-link" data-scroll-target="#a-quick-comment-to-begin">A Quick Comment to Begin…</a></li>
+  <li><a href="#reading-videos-and-assignments" id="toc-reading-videos-and-assignments" class="nav-link" data-scroll-target="#reading-videos-and-assignments">Reading, Videos, and Assignments</a></li>
+  </ul></li>
+  <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data">Example Data</a>
+  <ul class="collapse">
   <li><a href="#example-data-food-stamp-usage-by-zip-code" id="toc-example-data-food-stamp-usage-by-zip-code" class="nav-link" data-scroll-target="#example-data-food-stamp-usage-by-zip-code">Example Data: Food Stamp Usage by ZIP Code</a></li>
   </ul></li>
   <li><a href="#reading-in-flat-csv-data" id="toc-reading-in-flat-csv-data" class="nav-link" data-scroll-target="#reading-in-flat-csv-data">Reading in Flat / CSV Data</a>
@@ -332,11 +335,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Writing flat text / CSV files</li>
 <li>The pipe (<code>%&gt;%</code>) operator</li>
 </ol>
-<section id="a-quick-comment-to-begin" class="level2">
-<h2 class="anchored" data-anchor-id="a-quick-comment-to-begin">A Quick Comment to Begin…</h2>
+<section id="reading-videos-and-assignments" class="level2">
+<h2 class="anchored" data-anchor-id="reading-videos-and-assignments">Reading, Videos, and Assignments</h2>
+<ul>
+<li>Watch: &lt;&gt;</li>
+<li>Read:</li>
+<li>Do:</li>
+</ul>
+<p><br></p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="example-data" class="level1">
+<h1>Example Data</h1>
 <p>When you use the RStudio IDE, you have access to a point-and-click data import guide for data files in many different forms. Such forms include tab-seperated, fixed-width, .csv, Stata, SAS, SPSS, Excel, and many others. A word of caution: you should practice importing the your data with the <code>read_fwf()</code>, <code>read_delim</code>, or <code>read_csv</code> functions (from the <code>readr</code> package) using the point-and-click RStudio interface. At each import, copy the code you build in the interactive window into a script so that you can see how the functions work. Once you are familiar with how these functions treat your data, then you can start writing the <code>readr</code> functions directly within a script instead of using the point-and-click RStudio IDE importing steps.</p>
 <p>If you have never imported data before, this can be one of the most challenging tasks in data science. Also, you should read the <a href="https://r4ds.hadley.nz/data-import">“Importing Data” Chapter</a> of <em>R for Data Science</em>, which covers importing data from a variety of sources. I have seen many problems in code because a tiny little piece of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don’t let this happen to you.</p>
-</section>
 <section id="example-data-food-stamp-usage-by-zip-code" class="level2">
 <h2 class="anchored" data-anchor-id="example-data-food-stamp-usage-by-zip-code">Example Data: Food Stamp Usage by ZIP Code</h2>
 <p>In order to plot food stamp usage by ZIP code, we first need data.</p>

@@ -18,7 +18,7 @@
     "href": "lessons/lesson01_greater_data_science.html",
     "title": "Lesson 1: Overview of Data Science",
     "section": "",
-    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\""
+    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\"\n\n\n\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR3kJGDD7iv9heS8RdNtFA5R\nRead: Donoho (2017): https://doi.org/10.1080/10618600.2017.1384734\nDo: nothing extra for now"
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#data-preparation-and-exploration",
@@ -117,6 +117,13 @@
     "title": "Lesson 10: Wrangling Character Strings with stringr",
     "section": "",
     "text": "What did we learn last class?\n\nSubset Rows with filter()\nSort Rows with arrange()\nSelect and Move Columns with select()\nCreate New Columns with mutate()\nGrouping and Group Summaries with group_by() and summarise()\nUsing *_join() to Merge Tibbles"
+  },
+  {
+    "objectID": "lessons/lesson10_stringr.html#reading-videos-and-assignments",
+    "href": "lessons/lesson10_stringr.html#reading-videos-and-assignments",
+    "title": "Lesson 10: Wrangling Character Strings with stringr",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson10_stringr.html#more-about-this-lesson",
@@ -245,6 +252,13 @@
     "text": "What did we learn last class?\n\nAtomic Vectors\nBasic Subsetting\nType Coercion\nAttributes\nNamed Subsetting\nFactors\nMissing Values"
   },
   {
+    "objectID": "lessons/lesson07_lists_and_tibbles.html#reading-videos-and-assignments",
+    "href": "lessons/lesson07_lists_and_tibbles.html#reading-videos-and-assignments",
+    "title": "Lesson 7: Lists and Tibbles",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+  },
+  {
     "objectID": "lessons/lesson07_lists_and_tibbles.html#review-of-objects",
     "href": "lessons/lesson07_lists_and_tibbles.html#review-of-objects",
     "title": "Lesson 7: Lists and Tibbles",
@@ -355,6 +369,13 @@
     "title": "Lesson 6: Atomic Vectors",
     "section": "",
     "text": "What did we learn last class?\n\nNaming Objects\nMy First R Function\nFormatting Scripts\nOrganizing your Files\nRStudio Projects"
+  },
+  {
+    "objectID": "lessons/lesson06_atomic_vectors.html#reading-videos-and-assignments",
+    "href": "lessons/lesson06_atomic_vectors.html#reading-videos-and-assignments",
+    "title": "Lesson 6: Atomic Vectors",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson06_atomic_vectors.html#review-1",
@@ -560,6 +581,13 @@
     "text": "What did we learn last class?\n\nString Matching\nModifying Strings\nSubstring Extraction\nTrim and Pad Strings\nManipulate Strings within Tibbles"
   },
   {
+    "objectID": "lessons/lesson11_functions.html#reading-videos-and-assignments",
+    "href": "lessons/lesson11_functions.html#reading-videos-and-assignments",
+    "title": "Lesson 11: Functions and Control Flow in R",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+  },
+  {
     "objectID": "lessons/lesson11_functions.html#preliminary-comments",
     "href": "lessons/lesson11_functions.html#preliminary-comments",
     "title": "Lesson 11: Functions and Control Flow in R",
@@ -700,6 +728,13 @@
     "text": "What did we learn last class?\n\nBenefits of reproducible reports\nR packages and how to install them\nThe components of a basic Quarto report\nMarkdown customization options"
   },
   {
+    "objectID": "lessons/lesson04_ggplot.html#reading-videos-and-assignments",
+    "href": "lessons/lesson04_ggplot.html#reading-videos-and-assignments",
+    "title": "Lesson 4: ggplot and the Layered Grammar of Graphics",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+  },
+  {
     "objectID": "lessons/lesson04_ggplot.html#unpacking-the-title",
     "href": "lessons/lesson04_ggplot.html#unpacking-the-title",
     "title": "Lesson 4: ggplot and the Layered Grammar of Graphics",
@@ -749,11 +784,11 @@
     "text": "What did we learn last class?\n\nControl Flow in R\nCreating Functions\nBest Practices\nFunction Scoping"
   },
   {
-    "objectID": "lessons/lesson12_purrr.html#learning-resources",
-    "href": "lessons/lesson12_purrr.html#learning-resources",
+    "objectID": "lessons/lesson12_purrr.html#reading-videos-and-assignments",
+    "href": "lessons/lesson12_purrr.html#reading-videos-and-assignments",
     "title": "Lesson 12: Functional Iteration with purrr",
-    "section": "Learning Resources",
-    "text": "Learning Resources\nThis lesson borrows data from some material from Washington State University’s Department of Statistics. The link to the zipped data (1.7Mb unzipped) is: https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA.\nFor this lesson, we will also use a simple subset of the Gapminder data. And, of course, we will need the tidyverse again:\n\n# install.packages(\"gapminder\")\nlibrary(gapminder)\nlibrary(tidyverse)\n\ngapminder_df <- as_tibble(gapminder)\n\n\n\n\n\n\n\nExercises\n\n\n\n\nDownload the compressed file from the link above; unzip it on your desktop.\nRename the data/ subdirectory in the folder above to purrr_example_data/; move it to your data folder for this class.\nDelete the compressed and unzipped folders from your desktop."
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson12_purrr.html#an-example",
@@ -817,6 +852,13 @@
     "title": "Lesson 5: RStudio Projects",
     "section": "",
     "text": "What did we learn last class?\n\nThe Layered Grammar of Graphics\nLoading a Package\nMy First ggplot\nMapping Aesthetics\nGeometric Objects\nLabels\nColor palettes and examples"
+  },
+  {
+    "objectID": "lessons/lesson05_RStudio_projects.html#reading-videos-and-assignments",
+    "href": "lessons/lesson05_RStudio_projects.html#reading-videos-and-assignments",
+    "title": "Lesson 5: RStudio Projects",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson05_RStudio_projects.html#everything-is-an-object",
@@ -917,11 +959,11 @@
     "text": "What did we learn last class?\n\nLists\nTibbles and Data Frames\nPositional Subsetting\nRelational Subsetting\nNamed Subsetting"
   },
   {
-    "objectID": "lessons/lesson08_Data_Read_Write.html#a-quick-comment-to-begin",
-    "href": "lessons/lesson08_Data_Read_Write.html#a-quick-comment-to-begin",
+    "objectID": "lessons/lesson08_Data_Read_Write.html#reading-videos-and-assignments",
+    "href": "lessons/lesson08_Data_Read_Write.html#reading-videos-and-assignments",
     "title": "Lesson 8: Importing Tidy Data",
-    "section": "A Quick Comment to Begin…",
-    "text": "A Quick Comment to Begin…\nWhen you use the RStudio IDE, you have access to a point-and-click data import guide for data files in many different forms. Such forms include tab-seperated, fixed-width, .csv, Stata, SAS, SPSS, Excel, and many others. A word of caution: you should practice importing the your data with the read_fwf(), read_delim, or read_csv functions (from the readr package) using the point-and-click RStudio interface. At each import, copy the code you build in the interactive window into a script so that you can see how the functions work. Once you are familiar with how these functions treat your data, then you can start writing the readr functions directly within a script instead of using the point-and-click RStudio IDE importing steps.\nIf you have never imported data before, this can be one of the most challenging tasks in data science. Also, you should read the “Importing Data” Chapter of R for Data Science, which covers importing data from a variety of sources. I have seen many problems in code because a tiny little piece of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don’t let this happen to you."
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson08_Data_Read_Write.html#example-data-food-stamp-usage-by-zip-code",
@@ -978,6 +1020,13 @@
     "title": "Lesson 13: Exploring Data with the Tidyverse",
     "section": "",
     "text": "What have we learned so far this semester?\n\nWriting reports with Quarto\nPlots with ggplot2\nVectors\nImporting and wrangling data with readr, tibble, and dplyr\nManipulating strings with stringr\nWriting functions and applying them with purrr"
+  },
+  {
+    "objectID": "lessons/lesson13_eda_w_tidyverse.html#reading-videos-and-assignments",
+    "href": "lessons/lesson13_eda_w_tidyverse.html#reading-videos-and-assignments",
+    "title": "Lesson 13: Exploring Data with the Tidyverse",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson13_eda_w_tidyverse.html#the-raw-data",
@@ -1043,6 +1092,13 @@
     "text": "Data science is the intersection of statistics, code, and domain knowledge.\n\n\n\nData science has a few major components:\n\nData Preparation and Exploration\nData Representation and Transformation\nComputing with Data\nModelling Data\nVisualizing and Presenting Data\nScience / Philosophy about Data Science\n\nReproducible research is pre-producible: research results that have been created with code can be re-created at will.\n\"Hello, world!\""
   },
   {
+    "objectID": "lessons/lesson02_introduction_to_R.html#reading-videos-and-assignments",
+    "href": "lessons/lesson02_introduction_to_R.html#reading-videos-and-assignments",
+    "title": "Lesson 2: Introduction to R",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+  },
+  {
     "objectID": "lessons/lesson02_introduction_to_R.html#characters",
     "href": "lessons/lesson02_introduction_to_R.html#characters",
     "title": "Lesson 2: Introduction to R",
@@ -1106,6 +1162,13 @@
     "text": "What did we learn last class?\n\nEverything in R is an Object. Objects are baskets that are labelled and hold values. We learned about objects that contain character, numeric, or logical information, among other things.\nCreate new objects with containerName <- value syntax.\nR is a vectorised language: it treats single values as part of a larger set.\nUse functions with functionName(argumentName = argumentValue) syntax.\nGet help with ? and Google."
   },
   {
+    "objectID": "lessons/lesson03_introduction_to_Quarto.html#reading-videos-and-assignments",
+    "href": "lessons/lesson03_introduction_to_Quarto.html#reading-videos-and-assignments",
+    "title": "Lesson 3: Quarto for Reproducible Reports",
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+  },
+  {
     "objectID": "lessons/lesson03_introduction_to_Quarto.html#setting-up-a-basic-qurto-file",
     "href": "lessons/lesson03_introduction_to_Quarto.html#setting-up-a-basic-qurto-file",
     "title": "Lesson 3: Quarto for Reproducible Reports",
@@ -1162,11 +1225,11 @@
     "text": "What did we learn last class?\n\nFind some raw data\nReading in flat text / CSV files\nTibbles and “tidy” data\nWriting flat text / CSV files\nThe pipe (%>%) operator"
   },
   {
-    "objectID": "lessons/lesson09_dplyr.html#common-functions",
-    "href": "lessons/lesson09_dplyr.html#common-functions",
+    "objectID": "lessons/lesson09_dplyr.html#reading-videos-and-assignments",
+    "href": "lessons/lesson09_dplyr.html#reading-videos-and-assignments",
     "title": "Lesson 9: Data Manipulation with dplyr",
-    "section": "Common Functions",
-    "text": "Common Functions\nThese functions all operate on tidy data frames:\n\nfilter(): return rows that match a certain set of conditions\narrange(): sort rows by a given set of measurements\nselect(): select, rename, and / or reorder columns\nmutate(): create new columns (often as functions of your existing columns)\ngroup_by(): group rows by chosen columns\nsummarise(): collapse multiple rows into one (often paired with group_by() for group summaries)\n*_join(): match observations from one tibble to observations from another\n\nAll of these functions have very similar syntax: function(data_df, ...). The ellipsis will take in the additional conditions or arguments for the function, and column names are passed unquoted. Because these functions all take in the data as their first argument and return the new data set, these functions are often written with the pipe operator we learned last class as data_df %>% function(...). Additionally, these functions do not create new data objects. If you want to keep the transformed data table you’ve created, you must store it as an object.\n\n\n\n\n\n\nImportant\n\n\n\nThe dplyr functions do not create new data objects. If you want to keep the transformed data table you’ve created, you must store it as an object.\n\n\nThese functions are all from the dplyr package, which is in the tidyverse. Load it now.\n\nlibrary(tidyverse)\n\nIf you get stuck, the dplyr cheat sheet is here: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"
+    "section": "Reading, Videos, and Assignments",
+    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson09_dplyr.html#example-data",
