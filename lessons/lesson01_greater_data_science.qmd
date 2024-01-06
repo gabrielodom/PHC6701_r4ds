@@ -13,7 +13,7 @@ format:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Overview
+# Outline
 We will cover the following:
 
 0. The Fear Factor
@@ -21,6 +21,13 @@ We will cover the following:
 2. What is Data Science?
 3. What is Reproducibility?
 5. `"Hello, World"`
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR3kJGDD7iv9heS8RdNtFA5R>
+- Read: Donoho (2017): <https://doi.org/10.1080/10618600.2017.1384734>
+- Do: nothing extra for now
 
 </br>
 

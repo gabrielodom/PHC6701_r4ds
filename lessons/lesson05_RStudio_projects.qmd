@@ -32,7 +32,7 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 
 We will cover the following:
 
@@ -41,6 +41,22 @@ We will cover the following:
 3.  Formatting Scripts
 4.  Organizing your Files
 5.  RStudio Projects
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Overview
 
 In this lesson, we will treat the data analysis process like writing an essay. An essay is often a written work describing or defending one particular point of the author. Essays are composed of paragraphs. A paragraph discusses a single part of the essay's whole topic. Paragraphs are short collections of sentences, all in regard to the single point of the paragraph. Sentences are the building blocks of essay argumentation or description. Sentences are often built of subjects, verbs, and objects. People often use a text editor, like Microsoft Word or LaTeX, to write, format, and edit essays.
 

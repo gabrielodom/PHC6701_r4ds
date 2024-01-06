@@ -30,13 +30,29 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 In this lesson, we will cover the following:
 
 1. String Matching
 2. Modifying Strings
 3. Substring Extraction
 4. Trim and Pad Strings
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Getting Started
 
 
 ## More About this Lesson

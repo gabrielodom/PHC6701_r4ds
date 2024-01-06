@@ -6,6 +6,8 @@ author: "Gabriel J. Odom, PhD, ThD"
 # About
 These are the written lecture materials for the class PHC 6701 (commonly known as "Advanced R") at Florida International University's Stempel College of Public Health. The source code and data sets for this book are available here: <https://github.com/gabrielodom/PHC6701_r4ds>.
 
+The videos for the course material are all in playlists on YouTube. The playlists are numbered to correspond with the chapters of this book. The channel is here: <https://www.youtube.com/@OdomScience/playlists>
+
 
 
 # Getting Started

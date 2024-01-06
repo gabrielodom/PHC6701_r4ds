@@ -39,7 +39,20 @@ In this lesson, we will cover the following:
 5. The pipe (` %>% `) operator
 
 
-## A Quick Comment to Begin...
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Example Data
 When you use the RStudio IDE, you have access to a point-and-click data import guide for data files in many different forms. Such forms include tab-seperated, fixed-width, .csv, Stata, SAS, SPSS, Excel, and many others. A word of caution: you should practice importing the your data with the `read_fwf()`, `read_delim`, or `read_csv` functions (from the `readr` package) using the point-and-click RStudio interface. At each import, copy the code you build in the interactive window into a script so that you can see how the functions work. Once you are familiar with how these functions treat your data, then you can start writing the `readr` functions directly within a script instead of using the point-and-click RStudio IDE importing steps. 
 
 If you have never imported data before, this can be one of the most challenging tasks in data science. Also, you should read the ["Importing Data" Chapter](https://r4ds.hadley.nz/data-import) of *R for Data Science*, which covers importing data from a variety of sources. I have seen many problems in code because a tiny little piece of data was imported incorrectly, and this mistake wormed its way through an entire analysis. Don't let this happen to you.

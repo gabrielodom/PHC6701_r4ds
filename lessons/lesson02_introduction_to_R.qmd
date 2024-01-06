@@ -38,7 +38,7 @@ knitr::opts_chunk$set(echo = TRUE) # , eval = FALSE
 
 
 
-# Overview
+# Outline
 We will cover the following:
 
 1. The RStudio Interface
@@ -46,6 +46,13 @@ We will cover the following:
 3. R is an "Object-Oriented" Language
 4. R is a "Functional" Language
 5. Getting Help 
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
 
 </br>
 

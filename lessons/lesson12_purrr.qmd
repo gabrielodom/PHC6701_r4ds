@@ -40,7 +40,20 @@ In this lesson, we will cover the following:
 Because the point of this lesson is to meaningfully connect functions and vectors, we will review both concepts before adding new material.
 
 
-## Learning Resources
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Learning Resources
 This lesson borrows data from some material from Washington State University's [Department of Statistics](https://cougrstats.wordpress.com/2020/02/19/an-introduction-to-working-with-lists-using-purrr/). The link to the zipped data (1.7Mb unzipped) is: <https://drive.google.com/drive/folders/1HDeAg0EtqE_T1PuRBjKsczR8_ev3XKIA>.
 
 For this lesson, we will also use a simple subset of the Gapminder data. And, of course, we will need the `tidyverse` again:

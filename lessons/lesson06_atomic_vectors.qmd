@@ -29,7 +29,7 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 First of all, I'd like to acknowledge the Data Carpentry instructors for the ["R for Ecology" lesson](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html). We worked on updating that lesson back in 2018, so I did not write all of this lesson by myself. In this lesson, we will cover the following:
 
 1. Atomic Vectors
@@ -38,6 +38,22 @@ First of all, I'd like to acknowledge the Data Carpentry instructors for the ["R
 4. Attributes
 5. Named Subsetting
 6. Factors
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Overview
 
 Recall that **everything in R is an object**. The objects in R are broken up primarily like this:
 

@@ -28,7 +28,7 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 We will cover the following:
 
 1. The Layered Grammar of Graphics
@@ -39,6 +39,13 @@ We will cover the following:
 6. Labels
 7. Facets
 8. Organizing ggplot Code
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
 
 </br>
 

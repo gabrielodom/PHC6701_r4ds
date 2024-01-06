@@ -26,7 +26,7 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 We will cover the following:
 
 1. Why we need reproducible reporting
@@ -35,6 +35,13 @@ We will cover the following:
 4. Code Chunks and Output
 5. Annotating your Work
 6. Formatting you Annotations
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
 
 </br>
 

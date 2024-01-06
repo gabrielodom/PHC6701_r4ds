@@ -36,6 +36,13 @@ In this lesson, we will combine all of the skills we have learned so far to expl
 library(tidyverse)
 ```
 
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
 </br>
 
 *******************************************************************************

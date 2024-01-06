@@ -29,7 +29,7 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 In this lesson, we will cover the following:
 
 1. Subset Rows with `filter()`
@@ -40,7 +40,20 @@ In this lesson, we will cover the following:
 6. Using `*_join()` to Merge Tibbles
 
 
-## Common Functions
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Overview of Common Functions
 These functions all operate on tidy data frames:
 
 - `filter()`: return rows that match a certain set of conditions

@@ -29,13 +29,29 @@ What did we learn last class?
 
 
 
-# Overview
+# Outline
 In this lesson, we will cover the following:
 
 1. Control Flow in R
 2. Creating Functions
 3. Best Practices
 4. Function Scoping
+
+
+## Reading, Videos, and Assignments
+
+- Watch: <>
+- Read: 
+- Do: 
+
+</br>
+
+*******************************************************************************
+</br>
+
+
+
+# Getting Started
 
 
 ## Preliminary Comments
