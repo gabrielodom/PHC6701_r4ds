@@ -112,6 +112,13 @@
     "text": "Check the Install\nWhether the installation worked or not, you should delete the install files to clean up your computer. Hopefully you can find them easily (if you saved them to the desktop, they should be easy to find).\nFind RStudio on your computer and open it. You should see a window that looks like this:\n\nThis application window is broken into three panes: the console pane (left half), the environment pane (top right quarter), and the file pane (bottom right quarter).\n\nOur Very First R Code\nIn the console pane (on the left side of the screen), move your cursor to the prompt (the > symbol). Type (you don’t have to type the > symbol; it’s just there for reference)\n\n> \"Hello, world!\"\n\nYou should see your welcome message displayed back to you. Congratulations! You have just executed your very first R code. Unfortunately, things get a touch more challenging after this, but that is why we are here: to learn."
   },
   {
+    "objectID": "lessons/lesson14_github.html",
+    "href": "lessons/lesson14_github.html",
+    "title": "Lesson 14: Links for Getting Started with GitHub",
+    "section": "",
+    "text": "This is not actually a lesson, but it will probably become a lesson over time (as I add more material to this). For now, this “chapter” will simply be helpful links to get you started with Git and GitHub.\n\n\n\nWatch: no video at this time\nRead and Do (a bunch of stuff from Jenny Bryan’s Happy Git with R; these chapters are really short):\n\nhttps://happygitwithr.com/big-picture.html\nhttps://happygitwithr.com/github-acct.html\nhttps://happygitwithr.com/shell.html#shell\nhttps://happygitwithr.com/hello-git.html\nhttps://happygitwithr.com/ssh-keys.html\nhttps://happygitwithr.com/push-pull-github.html\nhttps://happygitwithr.com/rstudio-git-github.html"
+  },
+  {
     "objectID": "lessons/lesson10_stringr.html",
     "href": "lessons/lesson10_stringr.html",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
@@ -123,7 +130,7 @@
     "href": "lessons/lesson10_stringr.html#reading-videos-and-assignments",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2o-n3lhOI9-Z_sWN82x8We\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2o-n3lhOI9-Z_sWN82x8We\nRead:\n\nThe “Strings” chapter of R4DS (https://r4ds.hadley.nz/strings.html)\nThe “Regular Expressions” chapter of R4DS (https://r4ds.hadley.nz/regexps.html)\n\nDo: complete exercises from the readings"
   },
   {
     "objectID": "lessons/lesson10_stringr.html#more-about-this-lesson",
@@ -585,7 +592,7 @@
     "href": "lessons/lesson11_functions.html#reading-videos-and-assignments",
     "title": "Lesson 11: Functions and Control Flow in R",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR0Nzf-hiTavIBwFGyCC3P5G\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR0Nzf-hiTavIBwFGyCC3P5G\nRead:\n\nSections 2.4-2.6 of the “Very Basics” chapter of HOPR (https://rstudio-education.github.io/hopr/basics.html)\nThe “Control Flow” chapter of Advanced R (https://adv-r.hadley.nz/control-flow.html)\nThe “Functions” chapter of R4DS (https://r4ds.hadley.nz/functions.html)\nThe “Programs” chapter of HOPR (https://rstudio-education.github.io/hopr/programs.html)\nSections 6.1-6.5 of the “Functions” chapter of Advanced R (https://adv-r.hadley.nz/functions.html)\n\nDo: complete the exercises from the readings"
   },
   {
     "objectID": "lessons/lesson11_functions.html#preliminary-comments",
@@ -788,7 +795,7 @@
     "href": "lessons/lesson12_purrr.html#reading-videos-and-assignments",
     "title": "Lesson 12: Functional Iteration with purrr",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1dFYo-rrXGwRaMY8SIZU2Y\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1dFYo-rrXGwRaMY8SIZU2Y\nRead: these chapters from Jenny Bryan’s purrr:: package tutorial:\n\nhttps://jennybc.github.io/purrr-tutorial/bk00_vectors-and-lists.html\nhttps://jennybc.github.io/purrr-tutorial/ls00_inspect-explore.html\nBlog post supplement: https://www.rebeccabarter.com/blog/2019-08-19_purrr\nRead all of Wickham’s chapter on “Functionals” except for the “base R” section (9.7): https://adv-r.hadley.nz/functionals.html\nthe “Function Operators” chapter of Advanced R (https://adv-r.hadley.nz/function-operators.html)\n\nDo:\n\nDownload and save the data sets from the “Learning Resources” section below\nComplete exercises from the readings"
   },
   {
     "objectID": "lessons/lesson12_purrr.html#an-example",
@@ -1026,7 +1033,7 @@
     "href": "lessons/lesson13_eda_w_tidyverse.html#reading-videos-and-assignments",
     "title": "Lesson 13: Exploring Data with the Tidyverse",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1bwDUxzAc57JB2HdJ03V_o\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1bwDUxzAc57JB2HdJ03V_o\nRead:\n\nthe “Iteration” chapter of R4DS (https://r4ds.hadley.nz/iteration.html)\n\nDo: finish the exercise from this lesson"
   },
   {
     "objectID": "lessons/lesson13_eda_w_tidyverse.html#the-raw-data",
@@ -1229,7 +1236,7 @@
     "href": "lessons/lesson09_dplyr.html#reading-videos-and-assignments",
     "title": "Lesson 9: Data Manipulation with dplyr",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2Huix3BcCUJDB_vGchd6NH\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2Huix3BcCUJDB_vGchd6NH\nRead:\n\nThe “Data Transformation” chapter of R4DS (https://r4ds.hadley.nz/data-transform.html)\nThe “Data Tidying” chapter of R4DS (https://r4ds.hadley.nz/data-tidy.html)\nThe “Joins” chapter of R4DS (https://r4ds.hadley.nz/joins.html)\n\nDo: complete exercises from the readings"
   },
   {
     "objectID": "lessons/lesson09_dplyr.html#example-data",

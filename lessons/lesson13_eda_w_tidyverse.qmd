@@ -40,8 +40,9 @@ library(tidyverse)
 ## Reading, Videos, and Assignments
 
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR1bwDUxzAc57JB2HdJ03V_o>
-- Read: 
-- Do: 
+- Read:  
+    + the "Iteration" chapter of R4DS (<https://r4ds.hadley.nz/iteration.html>)
+- Do: finish the exercise from this lesson
 
 </br>
 

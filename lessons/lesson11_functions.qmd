@@ -41,8 +41,13 @@ In this lesson, we will cover the following:
 ## Reading, Videos, and Assignments
 
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR0Nzf-hiTavIBwFGyCC3P5G>
-- Read: 
-- Do: 
+- Read:  
+    + Sections 2.4-2.6 of the "Very Basics" chapter of HOPR (<https://rstudio-education.github.io/hopr/basics.html>)
+    + The "Control Flow" chapter of Advanced R (<https://adv-r.hadley.nz/control-flow.html>)
+    + The "Functions" chapter of R4DS (<https://r4ds.hadley.nz/functions.html>)
+    + The "Programs" chapter of HOPR (<https://rstudio-education.github.io/hopr/programs.html>)
+    + Sections 6.1-6.5 of the "Functions" chapter of Advanced R (<https://adv-r.hadley.nz/functions.html>)
+- Do: complete the exercises from the readings
 
 </br>
 

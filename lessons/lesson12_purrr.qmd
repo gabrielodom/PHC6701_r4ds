@@ -43,13 +43,21 @@ Because the point of this lesson is to meaningfully connect functions and vector
 ## Reading, Videos, and Assignments
 
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR1dFYo-rrXGwRaMY8SIZU2Y>
-- Read: 
+- Read: these chapters from Jenny Bryan's `purrr::` package tutorial:  
+    + <https://jennybc.github.io/purrr-tutorial/bk00_vectors-and-lists.html>
+    + <https://jennybc.github.io/purrr-tutorial/ls00_inspect-explore.html>
+    + Blog post supplement: <https://www.rebeccabarter.com/blog/2019-08-19_purrr>
+    + Read all of Wickham's chapter on "Functionals" except for the "base R" section (9.7): <https://adv-r.hadley.nz/functionals.html>
+    + the "Function Operators" chapter of Advanced R (<https://adv-r.hadley.nz/function-operators.html>) 
 - Do: 
+    + Download and save the data sets from the "Learning Resources" section below
+    + Complete exercises from the readings
 
 </br>
 
 *******************************************************************************
 </br>
+
 
 
 

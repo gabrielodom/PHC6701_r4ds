@@ -43,8 +43,11 @@ In this lesson, we will cover the following:
 ## Reading, Videos, and Assignments
 
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR2Huix3BcCUJDB_vGchd6NH>
-- Read: 
-- Do: 
+- Read:  
+    + The "Data Transformation" chapter of R4DS (<https://r4ds.hadley.nz/data-transform.html>)
+    + The "Data Tidying" chapter of R4DS (<https://r4ds.hadley.nz/data-tidy.html>)
+    + The "Joins" chapter of R4DS (<https://r4ds.hadley.nz/joins.html>)
+- Do: complete exercises from the readings
 
 </br>
 

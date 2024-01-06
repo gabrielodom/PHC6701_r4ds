@@ -26,6 +26,7 @@ website:
       - href: lessons/lesson11_functions.qmd
       - href: lessons/lesson12_purrr.qmd
       - href: lessons/lesson13_eda_w_tidyverse.qmd
+      - href: lessons/lesson14_github.qmd
       - about.qmd
 
 format:
