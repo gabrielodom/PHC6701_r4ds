@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel Odom">
-<meta name="dcterms.date" content="2019-08-21">
+<meta name="dcterms.date" content="2023-04-24">
 
-<title>PHC 6701: R for Data Science - Lesson 2 Supplement: R Scripts</title>
+<title>PHC 6701: R for Data Science - Lesson 14: Links for Getting Started with GitHub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -27,8 +27,8 @@ ul.task-list{list-style: none;}
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../lessons/lesson03_introduction_to_Quarto.html" rel="next">
-<link href="../lessons/lesson02_introduction_to_R.html" rel="prev">
+<link href="../about.html" rel="next">
+<link href="../lessons/lesson13_eda_w_tidyverse.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,7 +68,7 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Lesson 2 Supplement: R Scripts</h1>
+      <h1 class="quarto-secondary-nav-title">Lesson 14: Links for Getting Started with GitHub</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -108,7 +108,7 @@ ul.task-list{list-style: none;}
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link active">Lesson 2 Supplement: R Scripts</a>
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -178,7 +178,7 @@ ul.task-list{list-style: none;}
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link">Lesson 14: Links for Getting Started with GitHub</a>
+  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link active">Lesson 14: Links for Getting Started with GitHub</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,9 +195,9 @@ ul.task-list{list-style: none;}
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#writing-scripts-to-store-your-work" id="toc-writing-scripts-to-store-your-work" class="nav-link active" data-scroll-target="#writing-scripts-to-store-your-work">Writing Scripts to Store Your Work</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#my-first-r-script" id="toc-my-first-r-script" class="nav-link" data-scroll-target="#my-first-r-script">My First R Script</a></li>
+  <li><a href="#reading-videos-and-assignments" id="toc-reading-videos-and-assignments" class="nav-link" data-scroll-target="#reading-videos-and-assignments">Reading, Videos, and Assignments</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -207,7 +207,7 @@ ul.task-list{list-style: none;}
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Lesson 2 Supplement: R Scripts</h1>
+<h1 class="title d-none d-lg-block">Lesson 14: Links for Getting Started with GitHub</h1>
 </div>
 
 
@@ -224,7 +224,7 @@ ul.task-list{list-style: none;}
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 21, 2019</p>
+      <p class="date">April 24, 2023</p>
     </div>
   </div>
     
@@ -233,48 +233,24 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<section id="writing-scripts-to-store-your-work" class="level1">
-<h1>Writing Scripts to Store Your Work</h1>
-<p>So far, if you needed to repeat all of the work you have done in this class so far, you would be in serious trouble! If we can’t repeat what we did, then we certainly can’t call our work <em>reproducible</em>. One simple thing we can do is to write our code in a <em>script</em>.</p>
-<section id="my-first-r-script" class="level2">
-<h2 class="anchored" data-anchor-id="my-first-r-script">My First R Script</h2>
-<p>To create a new script, go to “File” &gt; “New File” &gt; “R Script”. The keyboard shortcut for this is <code>CTRL</code> + <code>Shift</code> + <code>N</code> on Windows, and <code>CMD</code> + <code>Shift</code> + <code>N</code> on Mac. You should now have a window that looks like this, with a <em>script pane</em> in the top left quarter of the screen:</p>
-<p><img src="../_figures/intro_first_script_empty.png" class="img-fluid"></p>
-<p>At the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of <strong>code comment</strong>, and should be marked as such.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Exercises
-</div>
-</div>
-<div class="callout-body-container callout-body" title="Exercises">
-<ol type="1">
-<li>Create a new script to run some of the commands you learned last lesson. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.</li>
-<li>Add some of the code from that lesson (a few operations).</li>
-<li>Add comments explaining to yourself what these operations are doing.</li>
-<li>Save your script with a good name, and—if possible—today’s date in <a href="https://www.cl.cam.ac.uk/~mgk25/iso-time.html">standard computer format</a>. (<strong>Mac Users:</strong> make sure you add <code>.R</code> to the end of your file name.) Notice that your file name font colour changed from red back to black. Why?</li>
-</ol>
-</div>
-</div>
-<p>This is what mine looks like:</p>
-<p><img src="../_figures/intro_first_script.png" class="img-fluid"></p>
-<p>As you learn more about R, your comments should quickly become more about <em>why</em> you did what you did, rather than <em>what</em> you did.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body" title="Exercise">
-<p>Read the Tidyverse Style Guide (<a href="https://style.tidyverse.org/" class="uri">https://style.tidyverse.org/</a>).</p>
-</div>
-</div>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>This is not actually a lesson, but it will probably become a lesson over time (as I add more material to this). For now, this “chapter” will simply be helpful links to get you started with Git and GitHub.</p>
+<section id="reading-videos-and-assignments" class="level2">
+<h2 class="anchored" data-anchor-id="reading-videos-and-assignments">Reading, Videos, and Assignments</h2>
+<ul>
+<li>Watch: no video at this time</li>
+<li>Read and Do (a bunch of stuff from Jenny Bryan’s <strong>Happy Git with R</strong>; these chapters are really short):
+<ul>
+<li><a href="https://happygitwithr.com/big-picture.html" class="uri">https://happygitwithr.com/big-picture.html</a></li>
+<li><a href="https://happygitwithr.com/github-acct.html" class="uri">https://happygitwithr.com/github-acct.html</a></li>
+<li><a href="https://happygitwithr.com/shell.html#shell" class="uri">https://happygitwithr.com/shell.html#shell</a></li>
+<li><a href="https://happygitwithr.com/hello-git.html" class="uri">https://happygitwithr.com/hello-git.html</a></li>
+<li><a href="https://happygitwithr.com/ssh-keys.html" class="uri">https://happygitwithr.com/ssh-keys.html</a></li>
+<li><a href="https://happygitwithr.com/push-pull-github.html" class="uri">https://happygitwithr.com/push-pull-github.html</a></li>
+<li><a href="https://happygitwithr.com/rstudio-git-github.html" class="uri">https://happygitwithr.com/rstudio-git-github.html</a></li>
+</ul></li>
+</ul>
 
 
 </section>
@@ -380,13 +356,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../lessons/lesson02_introduction_to_R.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lesson 2: Introduction to R</span>
+      <a href="../lessons/lesson13_eda_w_tidyverse.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lesson 13: Exploring Data with the Tidyverse</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../lessons/lesson03_introduction_to_Quarto.html" class="pagination-link">
-        <span class="nav-page-text">Lesson 3: Quarto for Reproducible Reports</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../about.html" class="pagination-link">
+        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
