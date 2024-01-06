@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "PHC 6701: R for Data Science // Advanced R",
     "section": "",
-    "text": "Getting Started\nComplete all of the steps below before the first day of class (I’ll be available via Zoom if you get stuck on any of these steps):\n\nSet up your computer:\n\nWindows: https://derailment.netlify.app/2019-11-01-configure-a-windows-pc-for-data-science/ (ignore the stuff about LaTeX)\nMac: https://derailment.netlify.app/2019-10-29-configure-a-mac-for-data-science/ (ignore the stuff about LaTeX)\n\nInstall R/Rstudio:\n\nWindows: https://derailment.netlify.app/2019-12-10-installing-r-rstudio-on-windows/\nMac: https://derailment.netlify.app/2019-11-16-installing-r-rstudio-on-a-mac/\n\nConfigure RStudio: https://derailment.netlify.app/2019-12-22-configuring-rstudio/\n(OPTIONAL) Join the community of R programmers on Slack: https://rfordatasci.com/.\nSign up for GitHub using your student email address: https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github"
+    "text": "Getting Started\nComplete all of the steps below before the first day of class (I’ll be available via Zoom if you get stuck on any of these steps):\n\nSet up your computer:\n\nWindows: https://derailment.netlify.app/2019-11-01-configure-a-windows-pc-for-data-science/ (ignore the stuff about LaTeX)\nMac: https://derailment.netlify.app/2019-10-29-configure-a-mac-for-data-science/ (ignore the stuff about LaTeX)\n\nInstall R/Rstudio:\n\nWindows: https://derailment.netlify.app/2019-12-10-installing-r-rstudio-on-windows/\nMac: https://derailment.netlify.app/2019-11-16-installing-r-rstudio-on-a-mac/\n\nConfigure RStudio: https://derailment.netlify.app/2019-12-22-configuring-rstudio/\n(OPTIONAL) Join the community of R programmers on Slack: https://rfordatasci.com/.\nSign up for GitHub using your student email address: https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github\n\n\n\nPre-Course Learning Assessment\nHere are some questions about some R basics. I don’t expect you to know the answer to any of these questions now (but it’s nice if you do). By the end of the semester, however, you will be able to answer all of these questions correctly.\nQuestions for R component of the final exam:\n\nEverything in R is an __________.\nAlmost everything R does uses a __________.\nYou want to create an atomic vector of stoplight colours named by their meaning. Which option should you use?\n\nlist(stop = \"red\", caution = \"yellow\", go = \"green\")\nlist(go = \"red\", drive_faster = \"yellow\", stop_and_check_Twitter = \"green\")\ntibble(stop = \"red\", caution = \"yellow\", go = \"green\")\nc(stop = \"red\", caution = \"yellow\", go = \"green\")\n\nYou want to save your stoplight colours as an object named colours_char. What is the appropriate function (based on our style guide) to use in order to assign a value to this object?\nWhich functions can be used to extract the “red” component of the colours_char atomic vector? Select all that apply (each correct answer is worth 1/8th of the point).\n\ncolours_char[\"stop\"]\ncolours_char[[\"stop\"]]\ncolours_char$\"stop\"\ncolours_char$stop\ncolours_char[1]\ncolours_char[[1]]\ncolours_char@\"stop\"\ncolours_char@stop\n\nWhat are the four most common types of atomic vectors in R, ordered from least to most complex?\nWe now create a non-atomic vector to store patient demographics named patients_ls. What expressions can be used to extract the “age” information (in the 5th position of the vector)? Select all that apply (each correct answer is worth 1/8th of the point).\n\npatients_ls[\"age\"]\npatients_ls[[\"age\"]]\npatients_ls$\"age\"\npatients_ls$age\npatients_ls[5]\npatients_ls[[5]]\npatients_ls@\"age\"\npatients_ls@age\n\nWhat helper functions tell us what kind of object an object named x is?\n\nstr(x); whatIs(x); typeof(x)\nstr(x); class(x); typeof(x)\nstr(x); class(x); whatIs(x)\nwhatIs(x); class(x); typeof(x)\n\nTrue or False: a list is a vector.\nIf you see the error \"could not find function \"read_csv\"\" or \"could not find function \"%>%\"\", what code will probably fix it?\nTrue or False: a tibble is a list.\nTrue or False: a tibble is an atomic vector.\nIn R, what is the difference between a Matrix and a Data Frame?\nChoose the Tidyverse functions that we have used to operate on columns of a tibble. Select all that apply.\n\nfilter()\nselect() / rename()\nmutate()\ngroup_by()\nsummarise()\npull()\narrange()\npivot_wider() / pivot_longer()\nleft_join() / full_join()\n\nChoose the Tidyverse functions that we have used to operate on rows of a tibble. Select all that apply.\n\nfilter()\nselect() / rename()\nmutate()\ngroup_by()\nsummarise()\npull()\narrange()\npivot_wider() / pivot_longer()\nleft_join() / full_join()\n\nWrite the R code to create a function that normalizes a numeric vector. Include complete documentation and a basic example for this function.\nSome of your data has a free text field with ZIP codes, stored in an object called cityStateZIP_char. What will str_extract(cityStateZIP_char, pattern = \"\\\\d{5}\") do?\nYou have 100 .csv files in a directory called data_raw/ that contains no other files. Write a basic batch import command using the purrr package.\nLabel the three main groups of layers in the following basic ggplot graph.\n\n\nggplot(data = mtcars) +                   # A\n  aes(x = disp, y = mpg, color = cyl) +   # B\n  geom_point(alpha = 0.75)                # C\n\nLine “A” is the ______________________________ layer.\nLine “B” is the ______________________________ layer.\nLine “C” is the ______________________________ layer."
   },
   {
     "objectID": "about.html",
@@ -18,7 +18,7 @@
     "href": "lessons/lesson01_greater_data_science.html",
     "title": "Lesson 1: Overview of Data Science",
     "section": "",
-    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\"\n\n\n\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR3kJGDD7iv9heS8RdNtFA5R\nRead: Donoho (2017): https://doi.org/10.1080/10618600.2017.1384734\nDo: nothing extra for now"
+    "text": "We will cover the following:\n\nThe Fear Factor\nThe Syllabus\nWhat is Data Science?\nWhat is Reproducibility?\n\"Hello, World\"\n\n\n\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR3kJGDD7iv9heS8RdNtFA5R\nRead: Donoho (2017): https://doi.org/10.1080/10618600.2017.1384734\nDo: Confirm that you are using the most up-to-date versions of R and RStudio. Troubleshoot issues (and reach out to the instructor / TAs as necessary)."
   },
   {
     "objectID": "lessons/lesson01_greater_data_science.html#data-preparation-and-exploration",
@@ -123,7 +123,7 @@
     "href": "lessons/lesson10_stringr.html#reading-videos-and-assignments",
     "title": "Lesson 10: Wrangling Character Strings with stringr",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2o-n3lhOI9-Z_sWN82x8We\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson10_stringr.html#more-about-this-lesson",
@@ -256,7 +256,7 @@
     "href": "lessons/lesson07_lists_and_tibbles.html#reading-videos-and-assignments",
     "title": "Lesson 7: Lists and Tibbles",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2B3z24nkzEYqwTtO2F9vu0\nRead:\n\nHOPR section 5.7-5.8, 5.11 (https://rstudio-education.github.io/hopr/r-objects.html)\nSections 3.5-3.7 of the “Vectors” chapter of Advanced R (https://adv-r.hadley.nz/vectors-chap.html)\nRead HOPR chapter 6 (https://rstudio-education.github.io/hopr/r-notation.html)\nSections 4.1-4.4 of the “Subsetting” chapter of Advanced R (https://adv-r.hadley.nz/subsetting.html)\nRead the “Tibbles” chapter (10) of the First Edition of R4DS (https://r4ds.had.co.nz/tibbles.html)\n\nDo: Complete the exercises from the readings; for HOPR, replace any call to the data.frame() function with tibble())"
   },
   {
     "objectID": "lessons/lesson07_lists_and_tibbles.html#review-of-objects",
@@ -375,7 +375,7 @@
     "href": "lessons/lesson06_atomic_vectors.html#reading-videos-and-assignments",
     "title": "Lesson 6: Atomic Vectors",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2h53ta5_PPzrmqfjEE1tXL\nRead:\n\nRead HOPR sections 5.1, 5.6 (https://rstudio-education.github.io/hopr/r-objects.html)\nRead HOPR section 5.2-5.5 (https://rstudio-education.github.io/hopr/r-objects.html)\nRead sections 3.1 – 3.4 of the “Vectors” chapter of Advanced R (https://adv-r.hadley.nz/vectors-chap.html)\n\nDo: Complete the exercises from the readings"
   },
   {
     "objectID": "lessons/lesson06_atomic_vectors.html#review-1",
@@ -585,7 +585,7 @@
     "href": "lessons/lesson11_functions.html#reading-videos-and-assignments",
     "title": "Lesson 11: Functions and Control Flow in R",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR0Nzf-hiTavIBwFGyCC3P5G\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson11_functions.html#preliminary-comments",
@@ -732,7 +732,7 @@
     "href": "lessons/lesson04_ggplot.html#reading-videos-and-assignments",
     "title": "Lesson 4: ggplot and the Layered Grammar of Graphics",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1G4vmlwfeyC5N09347q-Tg\nRead:\n\nthe “Data Visualization with ggplot2” chapter of R4DS (https://r4ds.hadley.nz/data-visualize.html)\nthe “Layers” chapter of R4DS (https://r4ds.hadley.nz/layers.html)\nhttps://ieeexplore.ieee.org/document/4118367\n\nDo:\n\nthe examples in the supplemental chapter (https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson04s_examples.html)\nthe exercises in the “Layers” chapter\nCreate a Quarto document with an meme image from the internet (link to the image; don’t download it)."
   },
   {
     "objectID": "lessons/lesson04_ggplot.html#unpacking-the-title",
@@ -788,7 +788,7 @@
     "href": "lessons/lesson12_purrr.html#reading-videos-and-assignments",
     "title": "Lesson 12: Functional Iteration with purrr",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1dFYo-rrXGwRaMY8SIZU2Y\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson12_purrr.html#an-example",
@@ -858,7 +858,7 @@
     "href": "lessons/lesson05_RStudio_projects.html#reading-videos-and-assignments",
     "title": "Lesson 5: RStudio Projects",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR3JAl4HSPCzFRpIr6KSgrOZ\nRead: The “Workflow” chapters of R for Data Science.\n\nhttps://r4ds.hadley.nz/workflow-basics.html\nhttps://r4ds.hadley.nz/workflow-pipes.html\nhttps://r4ds.hadley.nz/workflow-style.html\nhttps://r4ds.hadley.nz/workflow-scripts.html\nAbout how to organize your computer: https://www.earthdatascience.org/courses/intro-to-earth-data-science/open-reproducible-science/get-started-open-reproducible-science/best-practices-for-organizing-open-reproducible-science/\n\nDo:\n\nDraft an organization schema for your computer files\nCreate an RStudio project for this class in your folder for this class; save it on the desktop for now\nOrganize your school/work-related files into folders by class and/or project (this should take you a few hours up to a day)\nMove your folder and project for this class to the appropriate place on your computer (per the organization schema you created)"
   },
   {
     "objectID": "lessons/lesson05_RStudio_projects.html#everything-is-an-object",
@@ -949,7 +949,7 @@
     "href": "lessons/lesson02s_scripts.html",
     "title": "Lesson 2 Supplement: R Scripts",
     "section": "",
-    "text": "So far, if you needed to repeat all of the work you have done in this class so far, you would be in serious trouble! If we can’t repeat what we did, then we certainly can’t call our work reproducible. One simple thing we can do is to write our code in a script.\n\n\nTo create a new script, go to “File” > “New File” > “R Script”. The keyboard shortcut for this is CTRL + Shift + N on Windows, and CMD + Shift + N on Mac. You should now have a window that looks like this, with a script pane in the top left quarter of the screen:\n\nAt the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of code comment, and should be marked as such.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a new script to run some of the commands you learned last lesson. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.\nAdd some of the code from that lesson (a few operations).\nAdd comments explaining to yourself what these operations are doing.\nSave your script with a good name, and—if possible—today’s date in standard computer format. (Mac Users: make sure you add .R to the end of your file name.) Notice that your file name font colour changed from red back to black. Why?\n\n\n\nThis is what mine looks like:\n\nAs you learn more about R, your comments should quickly become more about why you did what you did, rather than what you did."
+    "text": "So far, if you needed to repeat all of the work you have done in this class so far, you would be in serious trouble! If we can’t repeat what we did, then we certainly can’t call our work reproducible. One simple thing we can do is to write our code in a script.\n\n\nTo create a new script, go to “File” > “New File” > “R Script”. The keyboard shortcut for this is CTRL + Shift + N on Windows, and CMD + Shift + N on Mac. You should now have a window that looks like this, with a script pane in the top left quarter of the screen:\n\nAt the top of your script, you should include information about who wrote the script, when it was written, and why. Note that this information is a special form of code comment, and should be marked as such.\n\n\n\n\n\n\nExercises\n\n\n\n\nCreate a new script to run some of the commands you learned last lesson. Add the meta-information at the top of your script. Notice that the colour of the file name changed from black to red.\nAdd some of the code from that lesson (a few operations).\nAdd comments explaining to yourself what these operations are doing.\nSave your script with a good name, and—if possible—today’s date in standard computer format. (Mac Users: make sure you add .R to the end of your file name.) Notice that your file name font colour changed from red back to black. Why?\n\n\n\nThis is what mine looks like:\n\nAs you learn more about R, your comments should quickly become more about why you did what you did, rather than what you did.\n\n\n\n\n\n\nExercise\n\n\n\nRead the Tidyverse Style Guide (https://style.tidyverse.org/)."
   },
   {
     "objectID": "lessons/lesson08_Data_Read_Write.html",
@@ -963,7 +963,7 @@
     "href": "lessons/lesson08_Data_Read_Write.html#reading-videos-and-assignments",
     "title": "Lesson 8: Importing Tidy Data",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1Qy90NsN3A-4d3kiTh8Mra\nRead:\n\nRead the “Data Import” chapter of R4DS (https://r4ds.hadley.nz/data-import.html)\nRead the note on the “Pipe” operator from R for Epidemiology, but note that their pipe operator is a different symbol (|> instead of %>%): https://www.r4epi.com/using-pipes\n\nDo:\n\nComplete the exercises from the “Data Import” chapter\nInstall the “nycflights13” package"
   },
   {
     "objectID": "lessons/lesson08_Data_Read_Write.html#example-data-food-stamp-usage-by-zip-code",
@@ -1026,7 +1026,7 @@
     "href": "lessons/lesson13_eda_w_tidyverse.html#reading-videos-and-assignments",
     "title": "Lesson 13: Exploring Data with the Tidyverse",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR1bwDUxzAc57JB2HdJ03V_o\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson13_eda_w_tidyverse.html#the-raw-data",
@@ -1096,7 +1096,7 @@
     "href": "lessons/lesson02_introduction_to_R.html#reading-videos-and-assignments",
     "title": "Lesson 2: Introduction to R",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR29avKyw6faFjTI4QpKkjZG\nRead: “The Very Basics” chapter of Hands-On Programming in R (HOPR), (https://rstudio-education.github.io/hopr/basics.html)\nDo:\n\nthe pre-course learning assessment and email your answers to me in a Word document.\nInstall the Tidyverse package suite for R (paste this code into your Console: install.packages(\"tidyverse\"), then press the Enter (Windows) / return (Mac) key; if RStudio prompts you to restart, do it)."
   },
   {
     "objectID": "lessons/lesson02_introduction_to_R.html#characters",
@@ -1166,7 +1166,7 @@
     "href": "lessons/lesson03_introduction_to_Quarto.html#reading-videos-and-assignments",
     "title": "Lesson 3: Quarto for Reproducible Reports",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2A3IFLVHtui-BRubvQmm_X\nRead:\n\nThe “Quarto” chapter of R for Data Science (https://r4ds.hadley.nz/quarto.html), skipping the sections on “Visual Editor”, “Figures”, and “Caching”\nthe “Communication” chapter of R4DS (https://r4ds.hadley.nz/communication.html)\nAn overview of Visual Rhetoric: https://owl.purdue.edu/owl/general_writing/visual_rhetoric/visual_rhetoric/index.html and https://colorado.aiga.org/2013/01/visual-rhetoric-an-introduction-for-students-of-visual-communication/\n\nDo:\n\nFind an old R script (from you, a classmate, or one of your previous instructors) and email it to me. I will pretend to grade it like a real assignment, so you can see how I grade code."
   },
   {
     "objectID": "lessons/lesson03_introduction_to_Quarto.html#setting-up-a-basic-qurto-file",
@@ -1229,7 +1229,7 @@
     "href": "lessons/lesson09_dplyr.html#reading-videos-and-assignments",
     "title": "Lesson 9: Data Manipulation with dplyr",
     "section": "Reading, Videos, and Assignments",
-    "text": "Reading, Videos, and Assignments\n\nWatch: <>\nRead:\nDo:"
+    "text": "Reading, Videos, and Assignments\n\nWatch: https://www.youtube.com/playlist?list=PLHKz7LkI0oR2Huix3BcCUJDB_vGchd6NH\nRead:\nDo:"
   },
   {
     "objectID": "lessons/lesson09_dplyr.html#example-data",
