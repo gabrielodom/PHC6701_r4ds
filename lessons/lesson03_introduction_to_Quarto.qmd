@@ -39,9 +39,14 @@ We will cover the following:
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR2A3IFLVHtui-BRubvQmm_X>
+- Read:
+    + The "Quarto" chapter of R for Data Science (<https://r4ds.hadley.nz/quarto.html>), skipping the sections on "Visual Editor", "Figures", and "Caching"
+    + the "Communication" chapter of R4DS (https://r4ds.hadley.nz/communication.html)
+    + An overview of Visual Rhetoric: <https://owl.purdue.edu/owl/general_writing/visual_rhetoric/visual_rhetoric/index.html> and <https://colorado.aiga.org/2013/01/visual-rhetoric-an-introduction-for-students-of-visual-communication/>
 - Do: 
+    + Find an old R script (from you, a classmate, or one of your previous instructors) and email it to me. I will pretend to grade it like a real assignment, so you can see how I grade code.
+
 
 </br>
 

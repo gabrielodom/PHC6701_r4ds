@@ -40,3 +40,9 @@ This is what mine looks like:
 ![](../_figures/intro_first_script.png)
 
 As you learn more about R, your comments should quickly become more about *why* you did what you did, rather than *what* you did.
+
+::: {.callout-note title="Exercise"}
+## Exercise
+Read the Tidyverse Style Guide (<https://style.tidyverse.org/>).
+:::
+

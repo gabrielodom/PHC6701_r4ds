@@ -50,9 +50,11 @@ We will cover the following:
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
-- Do: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR29avKyw6faFjTI4QpKkjZG>
+- Read: "The Very Basics" chapter of Hands-On Programming in R (HOPR),  (<https://rstudio-education.github.io/hopr/basics.html>)
+- Do:
+    + the [pre-course learning assessment](https://gabrielodom.github.io/PHC6701_r4ds/) and email your answers to me in a Word document.
+    + Install the Tidyverse package suite for R (paste this code into your Console: `install.packages("tidyverse")`, then press the `Enter` (Windows) / `return` (Mac) key; if RStudio prompts you to restart, do it).
 
 </br>
 

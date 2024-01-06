@@ -39,7 +39,7 @@ library(tidyverse)
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR1bwDUxzAc57JB2HdJ03V_o>
 - Read: 
 - Do: 
 

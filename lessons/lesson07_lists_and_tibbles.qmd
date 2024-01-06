@@ -44,9 +44,14 @@ First of all, I'd like to acknowledge once again the Data Carpentry instructors 
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
-- Do: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR2B3z24nkzEYqwTtO2F9vu0>
+- Read:  
+    + HOPR section 5.7-5.8, 5.11 (<https://rstudio-education.github.io/hopr/r-objects.html>)
+    + Sections 3.5-3.7 of the "Vectors" chapter of Advanced R (<https://adv-r.hadley.nz/vectors-chap.html>)
+    + Read HOPR chapter 6 (<https://rstudio-education.github.io/hopr/r-notation.html>)
+    + Sections 4.1-4.4 of the "Subsetting" chapter of Advanced R (<https://adv-r.hadley.nz/subsetting.html>)
+    + Read the "Tibbles" chapter (10) of the **First Edition** of R4DS (<https://r4ds.had.co.nz/tibbles.html>)
+- Do: Complete the exercises from the readings; for HOPR, replace any call to the `data.frame()` function with `tibble()`)
 
 </br>
 

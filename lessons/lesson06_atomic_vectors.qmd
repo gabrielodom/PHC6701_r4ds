@@ -42,9 +42,12 @@ First of all, I'd like to acknowledge the Data Carpentry instructors for the ["R
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
-- Do: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR2h53ta5_PPzrmqfjEE1tXL>
+- Read:  
+    + Read HOPR sections 5.1, 5.6 (<https://rstudio-education.github.io/hopr/r-objects.html>)
+    + Read HOPR section 5.2-5.5 (<https://rstudio-education.github.io/hopr/r-objects.html>)
+    + Read sections 3.1 -- 3.4 of the "Vectors" chapter of Advanced R (https://adv-r.hadley.nz/vectors-chap.html)
+- Do: Complete the exercises from the readings
 
 </br>
 

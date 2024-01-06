@@ -41,9 +41,13 @@ In this lesson, we will cover the following:
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
-- Do: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR1Qy90NsN3A-4d3kiTh8Mra>
+- Read:  
+    + Read the "Data Import" chapter of R4DS (<https://r4ds.hadley.nz/data-import.html>) 
+    + Read the note on the "Pipe" operator from **R for Epidemiology**, but note that their pipe operator is a different symbol (`|>` instead of `%>%`): <https://www.r4epi.com/using-pipes>
+- Do:  
+    + Complete the exercises from the "Data Import" chapter
+    + Install the "nycflights13" package
 
 </br>
 

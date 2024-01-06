@@ -22,3 +22,96 @@ Complete all of the steps below **before** the first day of class (I'll be avail
 3. Configure RStudio: <https://derailment.netlify.app/2019-12-22-configuring-rstudio/>
 4. (OPTIONAL) Join the community of R programmers on Slack: <https://rfordatasci.com/>.
 5. Sign up for GitHub **using your student email address**: <https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github>
+
+
+
+# Pre-Course Learning Assessment
+Here are some questions about some R basics. I don't expect you to know the answer to any of these questions now (but it's nice if you do). By the end of the semester, however, you will be able to answer all of these questions correctly.
+
+Questions for R component of the final exam:  
+
+1. Everything in R is an __________. 
+2. Almost everything R does uses a __________. 
+3. You want to create an atomic vector of stoplight colours named by their meaning. Which option should you use?
+
+    a. `list(stop = "red", caution = "yellow", go = "green")`
+    b. `list(go = "red", drive_faster = "yellow", stop_and_check_Twitter = "green")`
+    c. `tibble(stop = "red", caution = "yellow", go = "green")` 
+    d. `c(stop = "red", caution = "yellow", go = "green")`
+    
+4. You want to save your stoplight colours as an object named `colours_char`. What is the appropriate function (based on our style guide) to use in order to assign a value to this object?
+5. Which functions can be used to extract the "red" component of the colours_char atomic vector? Select all that apply (each correct answer is worth 1/8th of the point).
+
+    a. `colours_char["stop"]`
+    b. `colours_char[["stop"]]`
+    c. `colours_char$"stop"`
+    d. `colours_char$stop`
+    e. `colours_char[1]`
+    f. `colours_char[[1]]`
+    g. `colours_char@"stop"`
+    h. `colours_char@stop`
+    
+6. What are the four most common types of atomic vectors in R, ordered from least to most complex?
+7. We now create a non-atomic vector to store patient demographics named `patients_ls`. What expressions can be used to extract the "age" information (in the 5th position of the vector)? Select all that apply (each correct answer is worth 1/8th of the point).
+
+
+    a. `patients_ls["age"]`
+    b. `patients_ls[["age"]]`
+    c. `patients_ls$"age"`
+    d. `patients_ls$age`
+    e. `patients_ls[5]`
+    f. `patients_ls[[5]]`
+    g. `patients_ls@"age"`
+    h. `patients_ls@age`
+
+8. What helper functions tell us what kind of object an object named `x` is?
+
+    a. `str(x); whatIs(x); typeof(x)`
+    b. `str(x); class(x); typeof(x)`
+    c. `str(x); class(x); whatIs(x)`
+    d. `whatIs(x); class(x); typeof(x)`
+
+9. *True or False:* a list is a vector.
+10. If you see the error `"could not find function "read_csv""` or `"could not find function "%>%""`, what code will probably fix it?
+11. *True or False:* a tibble is a list. 
+12. *True or False:* a tibble is an atomic vector. 
+13. In R, what is the difference between a Matrix and a Data Frame?
+14. Choose the Tidyverse functions that we have used to operate on columns of a tibble. Select all that apply.
+
+    a. `filter()`
+    b. `select() / rename()`
+    c. `mutate()`
+    d. `group_by()`
+    e. `summarise()`
+    f. `pull()`
+    g. `arrange()`
+    h. `pivot_wider() / pivot_longer()`
+    i. `left_join() / full_join()` 
+
+15. Choose the Tidyverse functions that we have used to operate on rows of a tibble. Select all that apply.
+
+    a. `filter()`
+    b. `select() / rename()` 
+    c. `mutate()` 
+    d. `group_by()` 
+    e. `summarise()`
+    f. `pull()` 
+    g. `arrange()`
+    h. `pivot_wider() / pivot_longer()`
+    i. `left_join() / full_join()`
+    
+16. Write the R code to create a function that normalizes a numeric vector. Include complete documentation and a basic example for this function.
+17. Some of your data has a free text field with ZIP codes, stored in an object called `cityStateZIP_char`. What will `str_extract(cityStateZIP_char, pattern = "\\d{5}")` do?
+18. You have 100 `.csv` files in a directory called `data_raw/` that contains no other files. Write a basic batch import command using the `purrr` package.
+19. Label the three main groups of layers in the following basic ggplot graph.
+
+```{r eval=FALSE}
+ggplot(data = mtcars) +                   # A
+  aes(x = disp, y = mpg, color = cyl) +   # B
+  geom_point(alpha = 0.75)                # C
+```
+
+
+Line "A" is the ______________________________ layer.   
+Line "B" is the ______________________________ layer.  
+Line "C" is the ______________________________ layer. 

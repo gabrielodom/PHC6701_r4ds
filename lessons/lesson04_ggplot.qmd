@@ -43,9 +43,16 @@ We will cover the following:
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
-- Do: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR1G4vmlwfeyC5N09347q-Tg>
+- Read:
+    + the "Data Visualization with ggplot2" chapter of R4DS (<https://r4ds.hadley.nz/data-visualize.html>) 
+    + the "Layers" chapter of R4DS (<https://r4ds.hadley.nz/layers.html>)
+    + <https://ieeexplore.ieee.org/document/4118367>
+- Do:
+    + the examples in the supplemental chapter (<https://gabrielodom.github.io/PHC6701_r4ds/lessons/lesson04s_examples.html>)
+    + the exercises in the "Layers" chapter
+    + Create a Quarto document with an meme image from the internet (link to the image; don't download it).
+
 
 </br>
 

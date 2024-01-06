@@ -45,9 +45,18 @@ We will cover the following:
 
 ## Reading, Videos, and Assignments
 
-- Watch: <>
-- Read: 
+- Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR3JAl4HSPCzFRpIr6KSgrOZ>
+- Read: The "Workflow" chapters of **R for Data Science**.  
+    + <https://r4ds.hadley.nz/workflow-basics.html>
+    + <https://r4ds.hadley.nz/workflow-pipes.html>
+    + <https://r4ds.hadley.nz/workflow-style.html>
+    + <https://r4ds.hadley.nz/workflow-scripts.html>
+    + About how to organize your computer: <https://www.earthdatascience.org/courses/intro-to-earth-data-science/open-reproducible-science/get-started-open-reproducible-science/best-practices-for-organizing-open-reproducible-science/>
 - Do: 
+    + Draft an organization schema for your computer files
+    + Create an RStudio project for this class in your folder for this class; save it on the desktop for now
+    + Organize your school/work-related files into folders by class and/or project (*this should take you a few hours up to a day*)
+    + Move your folder and project for this class to the appropriate place on your computer (*per the organization schema you created*)
 
 </br>
 

@@ -27,7 +27,7 @@ We will cover the following:
 
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR3kJGDD7iv9heS8RdNtFA5R>
 - Read: Donoho (2017): <https://doi.org/10.1080/10618600.2017.1384734>
-- Do: nothing extra for now
+- Do: Confirm that you are using the most up-to-date versions of R and RStudio. Troubleshoot issues (and reach out to the instructor / TAs as necessary).
 
 </br>
 
