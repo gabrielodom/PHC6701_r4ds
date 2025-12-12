@@ -1,0 +1,125 @@
+---
+title: "R for Data Science Pre-Assessment"
+---
+
+Here are some questions about some R basics. I don't expect you to know the answer to any of these questions now (but it's nice if you do). By the end of the semester, however, you will be able to answer all of these questions correctly. I have partitioned this course into seven blocks, each roughly two weeks long. Here are some questions to test your knowledge for each block.
+
+
+## Introduction and Basic Scripting
+
+1. Data Science is the intersection of which three domains of expertise?
+2. Everything in R is an __________. 
+3. What is the appropriate syntax (based on the Tidyverse Style Guide) for the assignment operator in R? 
+
+
+## Quarto and ggplot2
+
+1. In a Quarto document, where are the place(s) you will find code in the YAML programming language?
+2. Quarto documents combine computing languages, such as R, Python, and SQL, with the meta-language YAML. What is the other major programming language used an a Quarto document, and where will you find it used?
+3. Label the three main groups of layers in the following basic ggplot2 graph.
+
+```{r}
+#| eval: false
+
+ggplot(data = mtcars) +                   # A
+  aes(x = disp, y = mpg, color = cyl) +   # B
+  geom_point(alpha = 0.75)                # C
+```
+
+Line "A" is the ______________________________ layer.   
+Line "B" is the ______________________________ layer.  
+Line "C" is the ______________________________ layer. 
+
+
+## Data Structures, Part 1
+
+1. What are the four most common types of atomic vectors in R, ordered from least to most complex?
+2. You want to create an *atomic* vector of stoplight colours named by their meaning. Which option should you use?
+
+    a. `list(stop = "red", caution = "yellow", go = "green")`
+    b. `list(go = "red", drive_faster = "yellow", stop_and_check_Twitter = "green")`
+    c. `tibble(stop = "red", caution = "yellow", go = "green")` 
+    d. `c(stop = "red", caution = "yellow", go = "green")`
+
+3. We assign the vector above to have the name `colours_char`. Which functions can be used to extract the "red" component of the `colours_char` atomic vector? Select all that apply.
+
+    a. `colours_char["stop"]`
+    b. `colours_char[["stop"]]`
+    c. `colours_char$"stop"`
+    d. `colours_char$stop`
+    e. `colours_char[1]`
+    f. `colours_char[[1]]`
+    g. `colours_char@"stop"`
+    h. `colours_char@stop` 
+
+
+## Data Structures, Part 2
+
+1. What helper functions tell us what kind of object an object named `x` is?
+
+    a. `str(x); whatIs(x); typeof(x)`
+    b. `str(x); class(x); typeof(x)`
+    c. `str(x); class(x); whatIs(x)`
+    d. `whatIs(x); class(x); typeof(x)`
+
+2. *True or False:*
+    
+    a. a list is a vector.
+    b. a tibble is a list.
+    c. a tibble is an atomic vector.
+    
+3. In R, what is the difference between a `matrix` and a `data.frame`?
+4. We now create a non-atomic vector to store patient demographics named `patients_ls`. What expressions can be used to extract the "age" information (in the 5th position of the vector)? Select all that apply.
+
+
+    a. `patients_ls["age"]`
+    b. `patients_ls[["age"]]`
+    c. `patients_ls$"age"`
+    d. `patients_ls$age`
+    e. `patients_ls[5]`
+    f. `patients_ls[[5]]`
+    g. `patients_ls@"age"`
+    h. `patients_ls@age`
+
+    
+## dplyr
+
+1. If you see the error `"could not find function 'read_csv'"` or `"could not find function '%>%'"`, what code will probably fix it?
+2. Choose the Tidyverse functions that we have used to operate on columns of a tibble. Select all that apply.
+
+    a. `filter()`
+    b. `select() / rename()`
+    c. `mutate()`
+    d. `group_by()`
+    e. `summarise()`
+    f. `pull()`
+    g. `arrange()`
+    h. `pivot_wider() / pivot_longer()`
+    i. `left_join() / full_join()` 
+
+3. Choose the Tidyverse functions that we have used to operate on rows of a tibble. Select all that apply.
+
+    a. `filter()`
+    b. `select() / rename()` 
+    c. `mutate()` 
+    d. `group_by()` 
+    e. `summarise()`
+    f. `pull()` 
+    g. `arrange()`
+    h. `pivot_wider() / pivot_longer()`
+    i. `left_join() / full_join()`
+
+
+## Functions and Iteration
+
+1. Almost everything R does uses a __________. 
+2. What is the default syntax to return a value from a function in R?
+3. Write the R code to create a function that normalizes a numeric vector. Include complete documentation and a basic example for this function.
+4. You have 100 `.csv` files in a directory called `data_raw/` that contains no other files. Write a basic batch import command using the `purrr` package.
+
+
+## Strings, Git+GitHub, and Tidy Workflows
+
+1. Some of your data has a free text field with ZIP codes, stored in an object called `cityStateZIP_char`. What will `str_extract(cityStateZIP_char, pattern = "\\d{5}")` do?
+2. What is Git?
+3. What should be your first step when writing a new data pipeline?

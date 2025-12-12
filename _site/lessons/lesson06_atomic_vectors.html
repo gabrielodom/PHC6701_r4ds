@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.35">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,12 +13,18 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -107,7 +83,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -116,8 +98,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -129,11 +113,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Lesson 6: Atomic Vectors</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/lesson06_atomic_vectors.html">Lesson 6: Atomic Vectors</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -141,123 +130,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">PHC 6701: R for Data Science</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 1: Overview of Data Science</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 2: Introduction to R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 2 Supplement: R Scripts</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 3: Quarto for Reproducible Reports</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 4: ggplot and the Layered Grammar of Graphics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 4 Supplement: ggplot Examples</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 5: RStudio Projects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link active">Lesson 6: Atomic Vectors</a>
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lesson 6: Atomic Vectors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">Lesson 7: Lists and Tibbles</a>
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 7: Lists and Tibbles</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 8: Importing Tidy Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 9: Data Manipulation with dplyr</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 9 Supplement: Compare dplyr and base R Subsetting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 10: Wrangling Character Strings with stringr</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 11: Functions and Control Flow in R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 12: Functional Iteration with purrr</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 13: Exploring Data with the Tidyverse</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link">Lesson 14: Links for Getting Started with GitHub</a>
+  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 14: Links for Getting Started with GitHub</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  <a href="../lessons/lesson00_preassessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R for Data Science Pre-Assessment</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
   <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a>
   <ul class="collapse">
@@ -303,7 +318,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Lesson 6: Atomic Vectors</h1>
+<h1 class="title">Lesson 6: Atomic Vectors</h1>
 </div>
 
 
@@ -323,11 +338,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">September 11, 2019</p>
     </div>
   </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">November 24, 2023</p>
+    </div>
+  </div>
     
   </div>
   
 
+
 </header>
+
 
 <section id="review" class="level1">
 <h1>Review</h1>
@@ -383,12 +407,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="atomic-vectors" class="level1">
 <h1>Atomic Vectors</h1>
 <p>In our previous sessions, we have talked about <em>atomic</em> vectors without ever defining them.</p>
-<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Important
 </div>
 </div>
@@ -418,7 +442,7 @@ Important
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>animals <span class="ot">&lt;-</span> <span class="fu">c</span>(mouse, rat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'mouse' not found</code></pre>
+<pre><code>Error: object 'mouse' not found</code></pre>
 </div>
 </div>
 <p>You can also use the <code>c()</code> function to add other elements to one of your existing vectors:</p>
@@ -433,18 +457,19 @@ Important
 </div>
 </div>
 <p>In the first line, we take the original vector <code>weight_g</code>, add the value <code>90</code> to the end of it, and save the result back into <code>weight_g</code>. The second time, we add the value <code>30</code> to the beginning, and again save the result back into <code>weight_g</code>. While we can do this over and over again to grow a vector, there are usually better ways to make a bigger vector (more on this in our lesson on functions).</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
 <p>When you execute the code <code>animals &lt;- c(mouse, rat)</code>, R returns an error complaining about the object <code>mouse</code> but not <code>rat</code>. Why?</p>
-</div>
+</section>
 </div>
 </section>
 <section id="atomic-classes" class="level2">
@@ -477,7 +502,7 @@ Exercise
 </div>
 </section>
 <section id="user-id-vector" class="level3">
-<h3 class="anchored" data-anchor-id="user-id-vector">“User ID” Vector</h3>
+<h3 class="anchored">“User ID” Vector</h3>
 <p>Let’s consider another example. Suppose we need to create an electronic ID card for ourselves. What information could we put on the ID? We want things like our name, our age, where we live, etc. The medical school wants to know where we’re from, our highest degrees earned, and how long we’ve worked here. We can create a vector with all of this information:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the vector</span></span>
@@ -492,18 +517,19 @@ Exercise
 [5] "Pembroke Pines" "FL"             "TX"             "2.1"           </code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-1" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise</h2>
 <p>My time employed, 2.1, is now in quotes. Why?</p>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -532,18 +558,19 @@ Exercise
 <pre><code>[1] "Gabriel" "Michael"</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-2" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise</h2>
 <p>Extract the names of my sisters. Extract their ages from the <code>ages_int</code> vector.</p>
-</div>
+</section>
 </div>
 </section>
 <section id="negative-position-subsetting" class="level2">
@@ -556,18 +583,19 @@ Exercise
 <pre><code>[1] "Gabriel"    "Michael"    "Christiana" "Olivia"     "Hannah"    </code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-3" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-3">Exercise</h2>
 <p>Remove me and my brother’s names from the <code>names_char</code> vector. Where did you have to put the negative sign? Could you put it somewhere else?</p>
-</div>
+</section>
 </div>
 </section>
 <section id="boolean-subsetting" class="level2">
@@ -629,7 +657,7 @@ Exercise
 </section>
 </section>
 <section id="repeating-values" class="level3">
-<h3 class="anchored" data-anchor-id="repeating-values">Repeating Values</h3>
+<h3 class="anchored">Repeating Values</h3>
 <p>Before we move on to the specific vector-type examples, it is helpful to have a function to repeat values. If you would like to create a vector of six <code>TRUE</code> values in a row, we can use the <code>rep()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="at">times =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -638,16 +666,17 @@ Exercise
 </div>
 </div>
 <p>We can combine this with the <code>c()</code> function for very powerful results.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
 <ol type="1">
 <li>Use the <code>c()</code> function with the <code>rep()</code> function to repeat the vector <code>TRUE, FALSE, FALSE</code> four times.</li>
 <li>Check the help file of the <code>rep()</code> function to create the vector below:</li>
@@ -657,11 +686,11 @@ Exercises
 <li>Now create this vector using arguments to the <code>rep()</code> function:</li>
 </ol>
 <pre><code>1 2 2 3 3 3 4 4 4 4 5 5 5 5 5</code></pre>
-</div>
+</section>
 </div>
 </section>
 <section id="logical-subsetting" class="level3">
-<h3 class="anchored" data-anchor-id="logical-subsetting">Logical Subsetting</h3>
+<h3 class="anchored">Logical Subsetting</h3>
 <p>We want to keep the ages for every other child starting after me:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ages_int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -673,21 +702,22 @@ Exercises
 <pre><code>[1] 29 25 21</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-1" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-1">Exercises</h2>
 <ol type="1">
 <li>Use Boolean subsetting with the <code>rep()</code> function to extract the last three ages.</li>
 <li>Use Boolean subsetting to “de-identify” your electronic ID vector.</li>
 </ol>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -730,18 +760,19 @@ Exercises
 </div>
 </div>
 <p>We immediately see an error: <code>non-numeric argument to binary operator</code>. What caused this? R says my age is <em>non-numeric</em>, but we clearly typed a number. What’s going on?</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-4" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-4">Exercise</h2>
 <p>Create an ID vector with the same components as mine for yourself and your neighbour.</p>
-</div>
+</section>
 </div>
 </section>
 <section id="vector-helper-functions" class="level2">
@@ -757,18 +788,19 @@ Exercise
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-5" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-5">Exercise</h2>
 <p>Objects of the class <code>numeric</code> have two storage modes (as returned by the <code>typeof()</code> function). What are they? What do you think these names mean, and how might they be related to the <em>storge mode</em> (how the computer stores objects)?</p>
-</div>
+</section>
 </div>
 <p><code>length()</code> tells you how many elements are in a particular vector:</p>
 <div class="cell">
@@ -802,29 +834,30 @@ Exercise
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "logical"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, 1L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">1</span>L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, 1L, <span class="fl">2.1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">1</span>L, <span class="fl">2.1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, 1L, <span class="fl">2.1</span>, <span class="st">"yeeeeeaaaaaaaaaaaahhhhhhhh"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">1</span>L, <span class="fl">2.1</span>, <span class="st">"yeeeeeaaaaaaaaaaaahhhhhhhh"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-6" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-6">Exercise</h2>
 <p>Recall the logical operators. Explain R’s results for the following:</p>
 <ul>
 <li><code>1 == TRUE</code></li>
@@ -834,7 +867,7 @@ Exercise
 <li><code>!0</code></li>
 </ul>
 <p><em>Hint: it may be helpful to combine some of these values into a single vector in order to see how R coerces their classes.</em></p>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -887,18 +920,19 @@ Exercise
 </div>
 </div>
 <p>Currently, the attributes of the <code>animals</code> object is <code>NULL</code> (this is how R describes something that is completely empty; this is not the same as R’s missing data tag, <code>NA</code>, that we saw earlier). However, the attributes of the <code>DrGabriel</code> object is not empty. In fact, it is a new type of data structure called a <code>list</code> that we will discuss in the next lesson.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-7" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-7">Exercise</h2>
 <p>Find the structure of the attributes of your ID vector.</p>
-</div>
+</section>
 </div>
 </section>
 <section id="creating-attributes" class="level2">
@@ -917,28 +951,29 @@ attr(,"suit")
 </div>
 </div>
 <p>This code says to assign the character <code>"hearts"</code> to a container named <code>"suit"</code> that <strong>is itself contained entirely within another object</strong>, the object <code>card</code>.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-2" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-2">Exercises</h2>
 <ol type="1">
 <li>Find the type and class of <code>1L</code> and <code>1</code>. What does the <code>L</code> do?</li>
 <li>Add an attribute to your ID vector. It can be anything you like.</li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 <section id="classes-are-attribute-dependent" class="level2">
 <h2 class="anchored" data-anchor-id="classes-are-attribute-dependent">Classes are Attribute-Dependent</h2>
 <p>One of the ways that R makes new classes available to you is by giving a normal atomic object a new set of attributes.</p>
 <section id="example" class="level3">
-<h3 class="anchored" data-anchor-id="example">Example</h3>
+<h3 class="anchored">Example</h3>
 <p>Let’s make a vector of two pairs of names:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>superheroes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
@@ -981,18 +1016,19 @@ Exercises
 </div>
 </div>
 <p>We can then see that many of the more exotic types of data are simple atomic types with additional attributes. In R, matrices are just atomic vectors with a <code>dim</code> attribute.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-8" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-8">Exercise</h2>
 <p>Look in the help file for the <code>attr()</code> function. What are some of the other “special” attributes that might change how R treats an atomic vector?</p>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -1029,18 +1065,19 @@ Exercise
 </div>
 </div>
 <p>Remember that <strong>everything in R is an object</strong>. The <code>-</code> sign is an object, specifically a function. When the <code>-</code> function is used with two arguments, like <code>5 - 2</code>, it is called a <em>binary</em> operator (because it takes in two objects, the 5 and the 2). When the <code>-</code> function is used with one argument, like <code>-2</code>, it is called a <em>unary</em> operator (because it takes in only one argument). This error says that a character string cannot be the argument of the <code>-</code> function.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-9" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-9">Exercise</h2>
 <p>Extract the ages of the oldest and youngest siblings (Gabriel and Hannah).</p>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -1083,16 +1120,17 @@ Levels: ScD PhD DrPH JD MD MBBS DO DNP</code></pre>
 </div>
 </div>
 <p>We saw above that the factor I made masquerades as a character, but it isn’t. This is one of the reasons that I don’t like using factors. Another reason is because they can exhibit strange properties.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-3" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-3">Exercises</h2>
 <ol type="1">
 <li>Create a factor of your degree program in this college. The Stempel options are PhD, MSW, MPH, or MADM.</li>
 <li>Look at your environment pane. What is the value of the factor vector you made?</li>
@@ -1106,7 +1144,7 @@ factor(c("MPH", "PhD")) == factor("PhD")</code></pre>
 <ol start="7" type="1">
 <li>Write and save a script to create the example objects we used in class for this lesson, including the <code>DrGabriel</code> named ID vector, your own ID vector, the <code>names_char</code> and <code>ages_int</code> vectors, and the matrix of super heroes.</li>
 </ol>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -1144,7 +1182,7 @@ factor(c("MPH", "PhD")) == factor("PhD")</code></pre>
 </div>
 </div>
 <section id="type-specific-missing-values" class="level3">
-<h3 class="anchored" data-anchor-id="type-specific-missing-values">Type-Specific Missing Values</h3>
+<h3 class="anchored">Type-Specific Missing Values</h3>
 <p>Because there are multiple types of atomic data, there are <em>technically</em> multiple types of <code>NA</code>. They all start with <code>NA</code>.</p>
 <ol type="1">
 <li><code>NA</code>: This is the missing value marker for a <strong>logical</strong> vector.</li>
@@ -1152,18 +1190,19 @@ factor(c("MPH", "PhD")) == factor("PhD")</code></pre>
 <li><code>NA_real_</code>: This is the missing value marker for a <strong>double</strong> vector. Remember that <strong>numeric</strong> vectors have two types: <code>integer</code> or <code>double</code>. This missing value breaks with the naming convention, but I don’t know why.</li>
 <li><code>NA_character_</code>: This is the missing value marker for a <strong>character</strong> vector.</li>
 </ol>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-10" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-10">Exercise</h2>
 <p>Confirm with both the <code>typeof()</code> and <code>class()</code> functions that these missing values have the types and classes that they should.</p>
-</div>
+</section>
 </div>
 </section>
 <section id="arithmetically-induced-missing-values" class="level3">
@@ -1184,12 +1223,12 @@ Exercise
 <pre><code>[1] -Inf</code></pre>
 </div>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note on Division by Zero
 </div>
 </div>
@@ -1252,9 +1291,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1266,17 +1319,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/d6d6e52e-2b0a-417a-ad51-33547ea826a7\.netlify\.app\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1286,55 +1373,320 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../lessons/lesson05_RStudio_projects.html" class="pagination-link">
+      <a href="../lessons/lesson05_RStudio_projects.html" class="pagination-link" aria-label="Lesson 5: RStudio Projects">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lesson 5: RStudio Projects</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../lessons/lesson07_lists_and_tibbles.html" class="pagination-link">
+      <a href="../lessons/lesson07_lists_and_tibbles.html" class="pagination-link" aria-label="Lesson 7: Lists and Tibbles">
         <span class="nav-page-text">Lesson 7: Lists and Tibbles</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

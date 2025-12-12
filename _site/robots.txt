@@ -1,1 +1,1 @@
-Sitemap: https://gabrielodom.github.io/PHC6701_r4ds/sitemap.xml
+Sitemap: https://d6d6e52e-2b0a-417a-ad51-33547ea826a7.netlify.app/sitemap.xml

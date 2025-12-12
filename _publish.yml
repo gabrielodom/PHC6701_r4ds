@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: d6d6e52e-2b0a-417a-ad51-33547ea826a7
+      url: 'https://gabriel.quarto.pub/phc-6701-r-for-data-science'

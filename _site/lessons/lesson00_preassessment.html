@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Gabriel Odom">
-<meta name="dcterms.date" content="2023-04-24">
 
-<title>PHC 6701: R for Data Science - Lesson 14: Links for Getting Started with GitHub</title>
+<title>PHC 6701: R for Data Science - R for Data Science Pre-Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../lessons/lesson00_preassessment.html" rel="next">
-<link href="../lessons/lesson13_eda_w_tidyverse.html" rel="prev">
+<link href="../about.html" rel="next">
+<link href="../lessons/lesson14_github.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/lesson14_github.html">Lesson 14: Links for Getting Started with GitHub</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/lesson00_preassessment.html">R for Data Science Pre-Assessment</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -213,13 +245,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link active">
+  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lesson 14: Links for Getting Started with GitHub</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson00_preassessment.html" class="sidebar-item-text sidebar-link">
+  <a href="../lessons/lesson00_preassessment.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">R for Data Science Pre-Assessment</span></a>
   </div>
 </li>
@@ -238,11 +270,14 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
-  <ul class="collapse">
-  <li><a href="#reading-videos-and-assignments" id="toc-reading-videos-and-assignments" class="nav-link" data-scroll-target="#reading-videos-and-assignments">Reading, Videos, and Assignments</a></li>
-  </ul></li>
+  <ul>
+  <li><a href="#introduction-and-basic-scripting" id="toc-introduction-and-basic-scripting" class="nav-link active" data-scroll-target="#introduction-and-basic-scripting">Introduction and Basic Scripting</a></li>
+  <li><a href="#quarto-and-ggplot2" id="toc-quarto-and-ggplot2" class="nav-link" data-scroll-target="#quarto-and-ggplot2">Quarto and ggplot2</a></li>
+  <li><a href="#data-structures-part-1" id="toc-data-structures-part-1" class="nav-link" data-scroll-target="#data-structures-part-1">Data Structures, Part 1</a></li>
+  <li><a href="#data-structures-part-2" id="toc-data-structures-part-2" class="nav-link" data-scroll-target="#data-structures-part-2">Data Structures, Part 2</a></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr">dplyr</a></li>
+  <li><a href="#functions-and-iteration" id="toc-functions-and-iteration" class="nav-link" data-scroll-target="#functions-and-iteration">Functions and Iteration</a></li>
+  <li><a href="#strings-gitgithub-and-tidy-workflows" id="toc-strings-gitgithub-and-tidy-workflows" class="nav-link" data-scroll-target="#strings-gitgithub-and-tidy-workflows">Strings, Git+GitHub, and Tidy Workflows</a></li>
   </ul>
 </nav>
     </div>
@@ -251,33 +286,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lesson 14: Links for Getting Started with GitHub</h1>
+<h1 class="title">R for Data Science Pre-Assessment</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Gabriel Odom </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 24, 2023</p>
-    </div>
-  </div>
   
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 6, 2024</p>
-    </div>
-  </div>
     
   </div>
   
@@ -286,27 +303,133 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<p>This is not actually a lesson, but it will probably become a lesson over time (as I add more material to this). For now, this “chapter” will simply be helpful links to get you started with Git and GitHub.</p>
-<section id="reading-videos-and-assignments" class="level2">
-<h2 class="anchored" data-anchor-id="reading-videos-and-assignments">Reading, Videos, and Assignments</h2>
-<ul>
-<li>Watch: no video at this time</li>
-<li>Read and Do (a bunch of stuff from Jenny Bryan’s <strong>Happy Git with R</strong>; these chapters are really short):
-<ul>
-<li><a href="https://happygitwithr.com/big-picture.html" class="uri">https://happygitwithr.com/big-picture.html</a></li>
-<li><a href="https://happygitwithr.com/github-acct.html" class="uri">https://happygitwithr.com/github-acct.html</a></li>
-<li><a href="https://happygitwithr.com/shell.html#shell" class="uri">https://happygitwithr.com/shell.html#shell</a></li>
-<li><a href="https://happygitwithr.com/hello-git.html" class="uri">https://happygitwithr.com/hello-git.html</a></li>
-<li><a href="https://happygitwithr.com/ssh-keys.html" class="uri">https://happygitwithr.com/ssh-keys.html</a></li>
-<li><a href="https://happygitwithr.com/push-pull-github.html" class="uri">https://happygitwithr.com/push-pull-github.html</a></li>
-<li><a href="https://happygitwithr.com/rstudio-git-github.html" class="uri">https://happygitwithr.com/rstudio-git-github.html</a></li>
-</ul></li>
-</ul>
-
-
+<p>Here are some questions about some R basics. I don’t expect you to know the answer to any of these questions now (but it’s nice if you do). By the end of the semester, however, you will be able to answer all of these questions correctly. I have partitioned this course into seven blocks, each roughly two weeks long. Here are some questions to test your knowledge for each block.</p>
+<section id="introduction-and-basic-scripting" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-and-basic-scripting">Introduction and Basic Scripting</h2>
+<ol type="1">
+<li>Data Science is the intersection of which three domains of expertise?</li>
+<li>Everything in R is an __________.</li>
+<li>What is the appropriate syntax (based on the Tidyverse Style Guide) for the assignment operator in R?</li>
+</ol>
 </section>
+<section id="quarto-and-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-and-ggplot2">Quarto and ggplot2</h2>
+<ol type="1">
+<li>In a Quarto document, where are the place(s) you will find code in the YAML programming language?</li>
+<li>Quarto documents combine computing languages, such as R, Python, and SQL, with the meta-language YAML. What is the other major programming language used an a Quarto document, and where will you find it used?</li>
+<li>Label the three main groups of layers in the following basic ggplot2 graph.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars) <span class="sc">+</span>                   <span class="co"># A</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg, <span class="at">color =</span> cyl) <span class="sc">+</span>   <span class="co"># B</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.75</span>)                <span class="co"># C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Line “A” is the ______________________________ layer.<br>
+Line “B” is the ______________________________ layer.<br>
+Line “C” is the ______________________________ layer.</p>
+</section>
+<section id="data-structures-part-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-structures-part-1">Data Structures, Part 1</h2>
+<ol type="1">
+<li><p>What are the four most common types of atomic vectors in R, ordered from least to most complex?</p></li>
+<li><p>You want to create an <em>atomic</em> vector of stoplight colours named by their meaning. Which option should you use?</p>
+<ol type="a">
+<li><code>list(stop = "red", caution = "yellow", go = "green")</code></li>
+<li><code>list(go = "red", drive_faster = "yellow", stop_and_check_Twitter = "green")</code></li>
+<li><code>tibble(stop = "red", caution = "yellow", go = "green")</code></li>
+<li><code>c(stop = "red", caution = "yellow", go = "green")</code></li>
+</ol></li>
+<li><p>We assign the vector above to have the name <code>colours_char</code>. Which functions can be used to extract the “red” component of the <code>colours_char</code> atomic vector? Select all that apply.</p>
+<ol type="a">
+<li><code>colours_char["stop"]</code></li>
+<li><code>colours_char[["stop"]]</code></li>
+<li><code>colours_char$"stop"</code></li>
+<li><code>colours_char$stop</code></li>
+<li><code>colours_char[1]</code></li>
+<li><code>colours_char[[1]]</code></li>
+<li><code>colours_char@"stop"</code></li>
+<li><code>colours_char@stop</code></li>
+</ol></li>
+</ol>
+</section>
+<section id="data-structures-part-2" class="level2">
+<h2 class="anchored" data-anchor-id="data-structures-part-2">Data Structures, Part 2</h2>
+<ol type="1">
+<li><p>What helper functions tell us what kind of object an object named <code>x</code> is?</p>
+<ol type="a">
+<li><code>str(x); whatIs(x); typeof(x)</code></li>
+<li><code>str(x); class(x); typeof(x)</code></li>
+<li><code>str(x); class(x); whatIs(x)</code></li>
+<li><code>whatIs(x); class(x); typeof(x)</code></li>
+</ol></li>
+<li><p><em>True or False:</em></p>
+<ol type="a">
+<li>a list is a vector.</li>
+<li>a tibble is a list.</li>
+<li>a tibble is an atomic vector.</li>
+</ol></li>
+<li><p>In R, what is the difference between a <code>matrix</code> and a <code>data.frame</code>?</p></li>
+<li><p>We now create a non-atomic vector to store patient demographics named <code>patients_ls</code>. What expressions can be used to extract the “age” information (in the 5th position of the vector)? Select all that apply.</p>
+<ol type="a">
+<li><code>patients_ls["age"]</code></li>
+<li><code>patients_ls[["age"]]</code></li>
+<li><code>patients_ls$"age"</code></li>
+<li><code>patients_ls$age</code></li>
+<li><code>patients_ls[5]</code></li>
+<li><code>patients_ls[[5]]</code></li>
+<li><code>patients_ls@"age"</code></li>
+<li><code>patients_ls@age</code></li>
+</ol></li>
+</ol>
+</section>
+<section id="dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr">dplyr</h2>
+<ol type="1">
+<li><p>If you see the error <code>"could not find function 'read_csv'"</code> or <code>"could not find function '%&gt;%'"</code>, what code will probably fix it?</p></li>
+<li><p>Choose the Tidyverse functions that we have used to operate on columns of a tibble. Select all that apply.</p>
+<ol type="a">
+<li><code>filter()</code></li>
+<li><code>select() / rename()</code></li>
+<li><code>mutate()</code></li>
+<li><code>group_by()</code></li>
+<li><code>summarise()</code></li>
+<li><code>pull()</code></li>
+<li><code>arrange()</code></li>
+<li><code>pivot_wider() / pivot_longer()</code></li>
+<li><code>left_join() / full_join()</code></li>
+</ol></li>
+<li><p>Choose the Tidyverse functions that we have used to operate on rows of a tibble. Select all that apply.</p>
+<ol type="a">
+<li><code>filter()</code></li>
+<li><code>select() / rename()</code></li>
+<li><code>mutate()</code></li>
+<li><code>group_by()</code></li>
+<li><code>summarise()</code></li>
+<li><code>pull()</code></li>
+<li><code>arrange()</code></li>
+<li><code>pivot_wider() / pivot_longer()</code></li>
+<li><code>left_join() / full_join()</code></li>
+</ol></li>
+</ol>
+</section>
+<section id="functions-and-iteration" class="level2">
+<h2 class="anchored" data-anchor-id="functions-and-iteration">Functions and Iteration</h2>
+<ol type="1">
+<li>Almost everything R does uses a __________.</li>
+<li>What is the default syntax to return a value from a function in R?</li>
+<li>Write the R code to create a function that normalizes a numeric vector. Include complete documentation and a basic example for this function.</li>
+<li>You have 100 <code>.csv</code> files in a directory called <code>data_raw/</code> that contains no other files. Write a basic batch import command using the <code>purrr</code> package.</li>
+</ol>
+</section>
+<section id="strings-gitgithub-and-tidy-workflows" class="level2">
+<h2 class="anchored" data-anchor-id="strings-gitgithub-and-tidy-workflows">Strings, Git+GitHub, and Tidy Workflows</h2>
+<ol type="1">
+<li>Some of your data has a free text field with ZIP codes, stored in an object called <code>cityStateZIP_char</code>. What will <code>str_extract(cityStateZIP_char, pattern = "\\d{5}")</code> do?</li>
+<li>What is Git?</li>
+<li>What should be your first step when writing a new data pipeline?</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -721,13 +844,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../lessons/lesson13_eda_w_tidyverse.html" class="pagination-link" aria-label="Lesson 13: Exploring Data with the Tidyverse">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lesson 13: Exploring Data with the Tidyverse</span>
+      <a href="../lessons/lesson14_github.html" class="pagination-link" aria-label="Lesson 14: Links for Getting Started with GitHub">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lesson 14: Links for Getting Started with GitHub</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../lessons/lesson00_preassessment.html" class="pagination-link" aria-label="R for Data Science Pre-Assessment">
-        <span class="nav-page-text">R for Data Science Pre-Assessment</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../about.html" class="pagination-link" aria-label="About">
+        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

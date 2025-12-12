@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.35">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,12 +13,18 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -107,7 +83,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -116,8 +98,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -129,11 +113,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Lesson 7: Lists and Tibbles</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lessons/lesson07_lists_and_tibbles.html">Lesson 7: Lists and Tibbles</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -141,123 +130,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">PHC 6701: R for Data Science</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Home</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">Lesson 1: Overview of Data Science</a>
+  <a href="../lessons/lesson01_greater_data_science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 1: Overview of Data Science</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">Lesson 2: Introduction to R</a>
+  <a href="../lessons/lesson02_introduction_to_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 2: Introduction to R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">Lesson 2 Supplement: R Scripts</a>
+  <a href="../lessons/lesson02s_scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 2 Supplement: R Scripts</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">Lesson 3: Quarto for Reproducible Reports</a>
+  <a href="../lessons/lesson03_introduction_to_Quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 3: Quarto for Reproducible Reports</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">Lesson 4: ggplot and the Layered Grammar of Graphics</a>
+  <a href="../lessons/lesson04_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 4: ggplot and the Layered Grammar of Graphics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">Lesson 4 Supplement: ggplot Examples</a>
+  <a href="../lessons/lesson04s_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 4 Supplement: ggplot Examples</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">Lesson 5: RStudio Projects</a>
+  <a href="../lessons/lesson05_RStudio_projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 5: RStudio Projects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">Lesson 6: Atomic Vectors</a>
+  <a href="../lessons/lesson06_atomic_vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 6: Atomic Vectors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link active">Lesson 7: Lists and Tibbles</a>
+  <a href="../lessons/lesson07_lists_and_tibbles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lesson 7: Lists and Tibbles</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">Lesson 8: Importing Tidy Data</a>
+  <a href="../lessons/lesson08_Data_Read_Write.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 8: Importing Tidy Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">Lesson 9: Data Manipulation with dplyr</a>
+  <a href="../lessons/lesson09_dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 9: Data Manipulation with dplyr</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">Lesson 9 Supplement: Compare dplyr and base R Subsetting</a>
+  <a href="../lessons/lesson09s_dplyr_v_base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 9 Supplement: Compare dplyr and base R Subsetting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">Lesson 10: Wrangling Character Strings with stringr</a>
+  <a href="../lessons/lesson10_stringr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 10: Wrangling Character Strings with stringr</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">Lesson 11: Functions and Control Flow in R</a>
+  <a href="../lessons/lesson11_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 11: Functions and Control Flow in R</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">Lesson 12: Functional Iteration with purrr</a>
+  <a href="../lessons/lesson12_purrr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 12: Functional Iteration with purrr</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">Lesson 13: Exploring Data with the Tidyverse</a>
+  <a href="../lessons/lesson13_eda_w_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 13: Exploring Data with the Tidyverse</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link">Lesson 14: Links for Getting Started with GitHub</a>
+  <a href="../lessons/lesson14_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 14: Links for Getting Started with GitHub</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  <a href="../lessons/lesson00_preassessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R for Data Science Pre-Assessment</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
   <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a>
   <ul class="collapse">
@@ -304,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Lesson 7: Lists and Tibbles</h1>
+<h1 class="title">Lesson 7: Lists and Tibbles</h1>
 <p class="subtitle lead">Gabriel Odom and Data Carpentry Collaborators</p>
 </div>
 
@@ -325,11 +340,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">September 18, 2019</p>
     </div>
   </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">November 27, 2023</p>
+    </div>
+  </div>
     
   </div>
   
 
+
 </header>
+
 
 <section id="review" class="level1">
 <h1>Review</h1>
@@ -547,16 +571,17 @@ $TimeEmpl
 <pre><code>[1] "list"</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
 <ol type="1">
 <li>Review constructing sequential integer vectors. Create a vector from -4 to -1 without the <code>c()</code> function.</li>
 <li>Use the help files to read about the <code>state.abb</code> object I used when making the factor for my current state. Did I create it? Where did it come from?</li>
@@ -564,7 +589,7 @@ Exercises
 <li>Update your ID card to a list format. Include an entry for at least two of your favourite foods as an atomic character vector.</li>
 <li>Open the R script you created last class. Make sure this script includes code to build the atomic vectors above, as well as the example ID lists.</li>
 </ol>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -638,7 +663,7 @@ Exercises
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>),</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">heightCM =</span> <span class="fu">c</span>(<span class="fl">183.5</span>, <span class="fl">182.9</span>, <span class="fl">177.8</span>, <span class="fl">188.0</span>, <span class="fl">190.5</span>),</span>
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">weightKg =</span> <span class="fu">c</span>(<span class="fl">74.8</span>, <span class="fl">91.2</span>, <span class="fl">75.7</span>, <span class="fl">95.3</span>, <span class="fl">106.6</span>),</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">firstRun =</span> <span class="fu">c</span>(1941L, 1940L, 1962L, 1939L, 1938L)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">firstRun =</span> <span class="fu">c</span>(<span class="dv">1941</span>L, <span class="dv">1940</span>L, <span class="dv">1962</span>L, <span class="dv">1939</span>L, <span class="dv">1938</span>L)</span>
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notice that when I create this tibble, each of the entries (columns) <strong>are the same length</strong> (5 elements each), within each column the <strong>classes do not change</strong> (column <code>heightCM</code> is all numeric, column <code>city</code> is all character, etc.).</p>
@@ -657,18 +682,19 @@ Exercises
 </div>
 </div>
 <p>We see that the classes of the columns are displayed under the column names.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
 <p>Add the code to create the tibble above to your script from last lesson.</p>
-</div>
+</section>
 </div>
 </section>
 <section id="optional-data-frames" class="level2">
@@ -690,7 +716,7 @@ Exercise
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">male =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>),</span>
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">heightCM =</span> <span class="fu">c</span>(<span class="fl">183.5</span>, <span class="fl">182.9</span>, <span class="fl">177.8</span>, <span class="fl">188.0</span>, <span class="fl">190.5</span>),</span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">weightKg =</span> <span class="fu">c</span>(<span class="fl">74.8</span>, <span class="fl">91.2</span>, <span class="fl">75.7</span>, <span class="fl">95.3</span>, <span class="fl">106.6</span>),</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">firstRun =</span> <span class="fu">c</span>(1941L, 1940L, 1962L, 1939L, 1938L)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">firstRun =</span> <span class="fu">c</span>(<span class="dv">1941</span>L, <span class="dv">1940</span>L, <span class="dv">1962</span>L, <span class="dv">1939</span>L, <span class="dv">1938</span>L)</span>
 <span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect</span></span>
@@ -725,22 +751,23 @@ Exercise
  $ firstRun : int  1941 1940 1962 1939 1938</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-1" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-1">Exercises</h2>
 <ol type="1">
 <li>What are some differences between tibbles and data frames that you can find?</li>
 <li>Check the help file of the <code>data.frame()</code> function. Read about the argument <code>stringsAsFactors</code>. What would you think if you saw code that included the expression <code>stringsAsFactors = FALSE</code>?</li>
 <li>Last class, we discussed naming conventions. Are the names within my vectors consistent? Why or why not? What might I do to make them better?</li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 <section id="inspecting-tibbles" class="level2">
@@ -790,18 +817,19 @@ Exercises
 </ul></li>
 </ul>
 <p>Note: the <code>head</code>, <code>tail</code>, <code>summary</code>, and <code>names</code> functions are “generic”; that is, they can be used on most other types of objects besides tibbles, including data frames and even atomic vectors. The <code>dim</code>, <code>nrow</code>, and <code>ncol</code> functions are also generic, but they are only applicable to rectangular, layered, or tabular data.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Optional Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-Exercise (OPTIONAL)
+<div class="callout-title-container flex-fill">
+Optional Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Optional Exercise">
+<section id="exercise-optional" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-optional">Exercise (OPTIONAL)</h2>
 <p>Tibbles include a lot of meta-data about themselves when they are printed. Which of the above functions would you have to use to find out the same information about a regular data frame?</p>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -813,7 +841,7 @@ Exercise (OPTIONAL)
 <section id="positive-positional-subsetting" class="level2">
 <h2 class="anchored" data-anchor-id="positive-positional-subsetting">Positive Positional Subsetting</h2>
 <section id="lists" class="level3">
-<h3 class="anchored" data-anchor-id="lists">Lists</h3>
+<h3 class="anchored">Lists</h3>
 <p>Let’s extract the eighth element (my age) of a non-atomic vector:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -850,25 +878,26 @@ Exercise (OPTIONAL)
 <p>This is the primary difference between atomic and non-atomic positional subsetting. Consider this figure:</p>
 <p><img src="../_figures/vectors_hadley_subset_pepper.png" class="img-fluid"></p>
 <p>The original object <code>x</code> is a list (the pepper container), and the first element of <code>x</code> is also a list (<code>x[1]</code>; still the pepper container, but now with only one packet of pepper). The contents of the first element’s inner list is an atomic vector (<code>x[[1]]</code>; the packet of pepper). To extract the contents of the <code>x[[1]]</code> atomic vector (the pepper), we subset one last time. Because <code>x[[1]]</code> itself is atomic, we can subset it by either <code>[</code> or <code>[[</code>; common standards have use use <code>[</code> for atomic vectors, however.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-2" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-2">Exercises</h2>
 <ol type="1">
 <li>Extract the first through third elements of the ID vector you created above using the <code>[</code> function.</li>
 <li>Extract the first through third elements of the ID vector you created above using the <code>[[</code> function. Does this work? What is different? Why?</li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 <section id="tibbles" class="level3">
-<h3 class="anchored" data-anchor-id="tibbles">Tibbles</h3>
+<h3 class="anchored">Tibbles</h3>
 <p>To extract the element in the second row and third column from a tibble, we can type (using <strong>row</strong>, <strong>column</strong> notation):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="dv">2</span>, <span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -904,29 +933,30 @@ Exercises
 5 Superman     </code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-3" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-3">Exercises</h2>
 <ol type="1">
 <li>Extract the second column for all rows. What is the class of this object? Do you think this is connected to the differences between <code>[</code> and <code>[[</code> for a list? Why or why not?</li>
 <li>What is the class of the second row, third column of this tibble?</li>
 <li>Look up the help file for the <code>pull()</code> function. How could this be useful?</li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 </section>
 <section id="negative-positional-subsetting" class="level2">
 <h2 class="anchored" data-anchor-id="negative-positional-subsetting">Negative Positional Subsetting</h2>
 <section id="lists-1" class="level3">
-<h3 class="anchored" data-anchor-id="lists-1">Lists</h3>
+<h3 class="anchored">Lists</h3>
 <p>Using the same negative subsetting framework, I’m going to “de-identify” my electronic ID card.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>DrGabriel_ls[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -957,25 +987,26 @@ $TimeEmpl
 [1] 2.1</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-4" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-4">Exercises</h2>
 <ol type="1">
 <li>Remove the age and ZIP from your ID vector.</li>
 <li>Can you use the <code>[[</code> function for negative subsetting with a list? Why not? <em>Hint: think back to the <code>class</code> of the objects returned by the <code>[</code> function vs the <code>[[</code> function.</em></li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 <section id="tibbles-1" class="level3">
-<h3 class="anchored" data-anchor-id="tibbles-1">Tibbles</h3>
+<h3 class="anchored">Tibbles</h3>
 <p>For tibbles, negative subsetting uses the same <strong>row</strong>, <strong>column</strong> notation as it does for positive subsetting.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="sc">-</span><span class="dv">1</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -998,21 +1029,22 @@ Exercises
 3 Superman      TRUE      190.    107.      1938</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-5" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-5">Exercises</h2>
 <ol type="1">
 <li>Combine postive and negative subsetting to create a table subset comparing the height of Wonder Woman and Green Lantern. Remove all other rows and columns.</li>
 <li>Combine postive and negative subsetting to create a table subset comparing each hero’s city and first publication date. Create a hypothesis to explain what you see.</li>
 </ol>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -1085,7 +1117,7 @@ Exercises
 </div>
 </section>
 <section id="list-subsetting" class="level3">
-<h3 class="anchored" data-anchor-id="list-subsetting">List Subsetting</h3>
+<h3 class="anchored">List Subsetting</h3>
 <p>Because tibbles are also lists, we can subset the columns of the tibble using a logical atomic vector with length equal to the number of columns. This code will let us keep every other column starting with the second column:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>heroes_df[<span class="fu">rep</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1100,18 +1132,19 @@ Exercises
 5 Superman      Metropolis        190.     1938</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-1" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise</h2>
 <p>Subset the tibble by every other row and column.</p>
-</div>
+</section>
 </div>
 </section>
 <section id="character-set-membership" class="level3">
@@ -1189,7 +1222,7 @@ Exercise
 </div>
 </section>
 <section id="character-relationships" class="level3">
-<h3 class="anchored" data-anchor-id="character-relationships">Character Relationships</h3>
+<h3 class="anchored">Character Relationships</h3>
 <p>How many heroes include the name “man” somewhere in their name? (<em>We will learn more about the <code>str_detect()</code> function in the <code>stringr::</code> lesson; for now, note that it returns <code>TRUE</code> or <code>FALSE</code> values.</em>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subset the names of the superheroes:</span></span>
@@ -1214,16 +1247,17 @@ Exercise
 3 001        Superman     Clark Kent / K… Metr… TRUE      190.    107.      1938</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-6" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-6">Exercises</h2>
 <ol type="1">
 <li>In the example above, why couldn’t we find Spider-Man?</li>
 <li>Find all the heroes who’s home city has the word “City” in it.</li>
@@ -1231,7 +1265,7 @@ Exercises
 <li>Use compound logic (recall the AND and OR symbols) to find the superheroes with less than average height and greater than average weight.</li>
 <li>Recall that code-writing best practices include that lines should not be longer than 80 characters wide. Your solution for the last question was most likely longer than that. What can you do to make the lines shorter and more easily readable?</li>
 </ol>
-</div>
+</section>
 </div>
 <!-- heroes_df[(heroes_df$heightCM < mean(heroes_df$heightCM)) & (heroes_df$weightKg > mean(heroes_df$weightKg)), ] -->
 </section>
@@ -1239,16 +1273,17 @@ Exercises
 <section id="lists-2" class="level2">
 <h2 class="anchored" data-anchor-id="lists-2">Lists</h2>
 <p>The rules for 1-dimensional non-atomic vectors are very different. The main difference is that most relational functions, such as <code>str_detect()</code>, <code>%in%</code>, <code>&lt;</code>, and others don’t always work on lists.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-7" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-7">Exercises</h2>
 <ol type="1">
 <li>Attempt to use logical subsetting to extract the following components of your ID vector:
 <ul>
@@ -1260,7 +1295,7 @@ Exercises
 <li>For the last three parts of Exercise 1, what were the major differences?</li>
 <li>When you received warning or error messages, can you explain what they mean?</li>
 </ol>
-</div>
+</section>
 </div>
 <p><br></p>
 <hr>
@@ -1287,22 +1322,23 @@ Exercises
 [1] 31</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-8" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-8">Exercises</h2>
 <ol type="1">
 <li>Extract the last name of your ID object with the <code>[</code> function. What is the class of this object?</li>
 <li>Extract the last name of your ID object with the <code>[[</code> function. What is the class of this object?</li>
 <li>If you need to extract your first name, last name, and age, should you use the <code>[</code> or the <code>[[</code> function? Why?</li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 <section id="tibbles-2" class="level2">
@@ -1340,16 +1376,17 @@ Exercises
 5 Clark Kent / Kal-El</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-9" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-9">Exercises</h2>
 <ol type="1">
 <li>Extract the names of the heroes with the <code>[</code> function. What is the class of this object?</li>
 <li>Extract the names of the heroes with the <code>[</code> function using <code>row, column</code> syntax. What is the class of this object?</li>
@@ -1357,7 +1394,7 @@ Exercises
 <li>If you need to extract the heroes’ name, height, and weight, should you use the <code>[</code> or the <code>[[</code> function? Why?</li>
 <li>Using both <code>[</code> and <code>[[</code>, extract from the tibble a column that doesn’t exist, <code>"Publisher"</code> for instance. What happens in these two cases?</li>
 </ol>
-</div>
+</section>
 </div>
 </section>
 <section id="the-operator" class="level2">
@@ -1383,18 +1420,19 @@ Exercises
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercise
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercise">
+<section id="exercise-2" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise</h2>
 <p>Look up the help file for the Tidyverse function <code>pull()</code>. Run <code>pull(heroes_df, city)</code>. Compare these results to <code>heroes_df$city</code>. Why do you think the <code>pull()</code> function might be useful?</p>
-</div>
+</section>
 </div>
 <section id="symbol-objects" class="level3">
 <h3 class="anchored" data-anchor-id="symbol-objects">Symbol Objects</h3>
@@ -1406,23 +1444,24 @@ Exercise
 <p>Notice that I did not type <code>myIntegers</code> in quotes (as <code>"myIntegers"</code>). When R sees a reference to something other than all letters, crazy symbols, or <code>TRUE</code> / <code>FALSE</code>, R interprets what you typed as a <em>symbol</em> to be evaluated (think back to our rules for naming objects in lesson 5). R will look in your Global Environment for the object named what you typed. In the example above, R isn’t taking the mean of the letters <code>myIntegers</code>, but rather replacing that symbol with the atomic vector <code>1:10</code>.</p>
 </section>
 <section id="symbol-subsetting" class="level3">
-<h3 class="anchored" data-anchor-id="symbol-subsetting">Symbol Subsetting</h3>
+<h3 class="anchored">Symbol Subsetting</h3>
 <p>We have seen this behaviour before, when we created plots with <code>ggplot</code>. The <code>aes()</code> function took in <code>displ</code> and <code>hwy</code> as symbols, and looked for objects with those names in the supplied <code>mpg</code> data set instead of in the Global environment. Because this is a very complex but powerful tool, we will return to it in a few lessons.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled" title="Exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Exercises
 </div>
 </div>
-<div class="callout-body-container callout-body" title="Exercises">
+<section id="exercises-10" class="level2 callout-body-container callout-body">
+<h2 class="anchored" data-anchor-id="exercises-10">Exercises</h2>
 <ol type="1">
 <li>Extract the non-existent <code>Publisher</code> column from the <code>heroes_df</code> tibble using the <code>$</code> function. What happens?</li>
 <li>Find all the heroes who’s home city has the word “City” in it using the <code>[</code> or the <code>$</code> functions (instead of the <code>[[</code> function). Remember that <code>$</code> takes in symbols instead of character strings. What is different? Did you expect some of this behaviour based on the list exercises?</li>
 </ol>
-</div>
+</section>
 </div>
 
 
@@ -1458,9 +1497,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1472,17 +1525,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/d6d6e52e-2b0a-417a-ad51-33547ea826a7\.netlify\.app\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1492,55 +1579,320 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../lessons/lesson06_atomic_vectors.html" class="pagination-link">
+      <a href="../lessons/lesson06_atomic_vectors.html" class="pagination-link" aria-label="Lesson 6: Atomic Vectors">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lesson 6: Atomic Vectors</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../lessons/lesson08_Data_Read_Write.html" class="pagination-link">
+      <a href="../lessons/lesson08_Data_Read_Write.html" class="pagination-link" aria-label="Lesson 8: Importing Tidy Data">
         <span class="nav-page-text">Lesson 8: Importing Tidy Data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

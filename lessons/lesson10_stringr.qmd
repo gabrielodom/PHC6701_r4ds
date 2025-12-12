@@ -87,7 +87,7 @@ data("outcomesCTN0094")
 
 outcome_df <- 
   outcomesCTN0094 %>% 
-  select(who, usePatternUDS, RsT_ctnNinetyFour_2023)
+  select(who, usePatternUDS, ctn0094_relapse_time)
 rm(outcomesCTN0094)
 ```
 
@@ -140,7 +140,7 @@ In the `outcome_df` data set, each symbol in the column `usePatternUDS` represen
 # Answer to exercise above, for you to confirm that you did it correctly:
 outcome_df <- 
   outcomesCTN0094 %>% 
-  select(who, usePatternUDS, RsT_ctnNinetyFour_2023)
+  select(who, usePatternUDS, ctn0094_relapse_time)
 
 # Inspect the data
 outcome_df
