@@ -1,1 +1,0 @@
-Sitemap: https://gabrielodom.github.io/PHC6701_r4ds/sitemap.xml
