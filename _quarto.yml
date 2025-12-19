@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: _site
 
 website:
   title: "PHC 6701: R for Data Science"
@@ -35,3 +36,4 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+
