@@ -21,8 +21,11 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
+      # This replaces setup-r-dependencies
+      - name: Install dependencies from renv.lock
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: 1
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
