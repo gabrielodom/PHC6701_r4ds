@@ -503,6 +503,6 @@ These rules may seem arbitrary, but they will help you in the long run. After al
 
 # Further Reading and Online Examples:
 
-- <https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf>
 - <http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html>
-- The \#TidyTuesday hashtag on Twitter: <https://twitter.com/hashtag/tidytuesday?lang=en>
+- <https://r-graph-gallery.com/ggplot2-package.html>
+- The \#TidyTuesday hashtag (formerly on Twitter, now on GitHub): <https://github.com/rfordatascience/tidytuesday>

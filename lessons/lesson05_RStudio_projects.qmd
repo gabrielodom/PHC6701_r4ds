@@ -48,10 +48,10 @@ We will cover the following:
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR3JAl4HSPCzFRpIr6KSgrOZ>
 - Read: The "Workflow" chapters of **R for Data Science**.  
     + <https://r4ds.hadley.nz/workflow-basics.html>
-    + <https://r4ds.hadley.nz/workflow-pipes.html>
+    + <https://r4ds.had.co.nz/pipes.html>
     + <https://r4ds.hadley.nz/workflow-style.html>
     + <https://r4ds.hadley.nz/workflow-scripts.html>
-    + About how to organize your computer: <https://www.earthdatascience.org/courses/intro-to-earth-data-science/open-reproducible-science/get-started-open-reproducible-science/best-practices-for-organizing-open-reproducible-science/>
+    + About how to organize your computer: <https://pose.open.ubc.ca/open-research/open-workflows/best-practices-for-organizing/>
 - Do: 
     + Draft an organization schema for your computer files
     + Create an RStudio project for this class in your folder for this class; save it on the desktop for now
@@ -318,7 +318,7 @@ These rules are loosely ordered by importance:
 ```
 
 4. Non-trivial **code should be annotated with helpful or clarifying comments**. Use the `#` (pound sign, or hashtag, depending on your age) to comment a single line of code in `R`. When you add comments to your code, try as much as possible to answer *why* you wrote the code that you did and the way you did, rather than simply parroting *what* your line of code does. Remember, comments should never simply "parrot" the code.
-5. **Lines in your script should be at or fewer than 80 characters wide** whenever possible. You can use the "Code GPS" on the bottom left of the Editor pane to tell you where in the script you are. Why 80 characters per line? Because we are [slaves](https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width) to [tradition](http://www.columbia.edu/cu/computinghistory/census-tabulator.html). Different people have different size computer monitors, and lines that are 80 characters wide can easily be displayed on all sorts of screens. Also, 80-character lines fit on a printed page or in vignette PDFs very well. This rule serves another purpose: if your lines are consistently over 80 characters, this is a signal to you that you need to make your code simpler. If this is not possible, then think of this as an opportunity to write a function to make your code cleaner.
+5. **Lines in your script should be at or fewer than 80 characters wide** whenever possible. You can use the "Code GPS" on the bottom left of the Editor pane to tell you where in the script you are. Why 80 characters per line? Because we are [slaves](https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width) to [tradition](https://www.ibm.com/history/punched-card-tabulator). Different people have different size computer monitors, and lines that are 80 characters wide can easily be displayed on all sorts of screens. Also, 80-character lines fit on a printed page or in vignette PDFs very well. This rule serves another purpose: if your lines are consistently over 80 characters, this is a signal to you that you need to make your code simpler. If this is not possible, then think of this as an opportunity to write a function to make your code cleaner.
 6. **Use two spaces (no tabs) for indentation**. If you ever decide to release a package, then spacing becomes important for R documentation and meta-data files. It's good to get into the habit of using the "two-space" indentation rule in any case; also, the RStudio IDE does this for you automatically most of the time.
 7. **Pad all operator calls with single spaces.** Similar to the "80 characters wide" rule, this rule has no bearing on how the code executes, but makes a world of difference to human readability. An exception is commas: commas have one space after but no space before. Overall, don'tmakecodehardertoreadthanithastobe, and GIVE YOUR CODE SOME SPACE. Examples:
     a.  `randErr_num <- rnorm(25, sd = 0.1)` instead of `randErr_num<-rnorm(25,sd=0.1)`.

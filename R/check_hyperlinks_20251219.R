@@ -98,4 +98,15 @@ links_df <-
 sum(links_df$is_broken)
 # 15 as of 2025-12-19. That's not bad.
 
-
+# UPDATE 2025-12-23: my code flags some DOI links as false positives. Maybe
+# because of all the redirects?
+# This is also a false positive: https://www.rapidtables.com/web/color/RGB_Color.html
+# We are down to 5 false positive links:
+# A tibble: 5 × 3
+# file                                      url                           is_broken
+# <chr>                                     <chr>                         <lgl>
+# 1 lessons/lesson01_greater_data_science.qmd https://doi.org/10.1080/1061… TRUE
+# 2 lessons/lesson01_greater_data_science.qmd https://doi.org/10.1080/1061… TRUE
+# 3 lessons/lesson01_greater_data_science.qmd https://doi.org/10.1001/jama… TRUE
+# 4 lessons/lesson04_ggplot.qmd               https://ieeexplore.ieee.org/… TRUE
+# 5 lessons/lesson04s_examples.qmd            https://www.rapidtables.com/… TRUE

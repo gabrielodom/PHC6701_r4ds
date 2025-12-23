@@ -44,7 +44,7 @@ In this lesson, we will cover the following:
 - Watch: <https://www.youtube.com/playlist?list=PLHKz7LkI0oR1Qy90NsN3A-4d3kiTh8Mra>
 - Read:  
     + Read the "Data Import" chapter of R4DS (<https://r4ds.hadley.nz/data-import.html>) 
-    + Read the note on the "Pipe" operator from **R for Epidemiology**, but note that their pipe operator is a different symbol (`|>` instead of `%>%`): <https://www.r4epi.com/using-pipes>
+    + Read the note on the "Pipe" operator from **R for Epidemiology**, but note that their pipe operator is a different symbol (`|>` instead of `%>%`): <https://www.r4epi.com/chapters/using_pipes/using_pipes>
 - Do:  
     + Complete the exercises from the "Data Import" chapter
     + Install the "nycflights13" package
@@ -116,7 +116,7 @@ Notice that we can import Excel, SAS, Stata, or SPSS data files, or we can impor
 
 
 ## The `readr` Package
-The `readr` package (<https://cran.r-project.org/web/packages/readr/README.html>) is the data import package of the `tidyverse`. If you want a good overview of how to use this package, read the ["Importing Data" chapter](https://r4ds.hadley.nz/data-import.html) of *R for Data Science*. We'll load the `tidyverse` package suite now.
+The `readr` package (<https://cran.r-project.org/web/packages/readr/readme/README.html>) is the data import package of the `tidyverse`. If you want a good overview of how to use this package, read the ["Importing Data" chapter](https://r4ds.hadley.nz/data-import.html) of *R for Data Science*. We'll load the `tidyverse` package suite now.
 ```{r load_tidyverse, message=FALSE}
 library(tidyverse)
 ```

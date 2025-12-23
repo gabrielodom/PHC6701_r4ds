@@ -129,8 +129,9 @@ These definitions are still the subject to [some considerable discussion](https:
 ## The Reproducibility Crisis
 Published bio-science is largely not reproducible:
 
+- The "File Drawer Problem" was summarized by [Rosenthal](https://pages.ucsd.edu/~cmckenzie/Rosenthal1979PsychBulletin.pdf) in 1979; he lamented, "journals [could be] filled with the 5% of the studies that show Type I errors, while the file drawers back at the lab are filled with the 95% of the studies that show nonsignificant (e.g., $p > .05$) results."
 - Oncology: 53 published articles tested, six successes (**11%**) ([Nature, 2012](https://www.nature.com/articles/483531a))
-- Psychology: 100 published articles, **39** successes ([Nature News, 2015](https://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433)); 71 published articles tested, 92 replication attempts, 35 successes (**38%**; the [PsychFileDrawer](http://www.psychfiledrawer.org/view_article_list.php) project is ongoing).
+- Psychology: 100 published articles, **39** successes ([Nature News, 2015](https://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433)); 71 published articles tested, 92 replication attempts, 35 successes (**38%** in 2019; the PsychFileDrawer project is now defunct, but some of their website was archived [here](https://web.archive.org/web/20201023132343/http://psychfiledrawer.org/)).
 - Pharmacology: 67 published models tested, 14 successes (**21%**) ([Nature Reviews, 2011](https://www.nature.com/articles/nrd3439-c1))
 
 
@@ -160,7 +161,7 @@ If you want your analyses and figures to be reproducible, then you must **use co
 
 
 # `"Hello, World"`
-Before we wrap up for the day, we need to write our first line of code in R. Here are the instructions to download and install R and RStudio, from the [EdX help pages](https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/):
+Before we wrap up for the day, we need to write our first line of code in R. Here are the instructions to download and install R and RStudio, from the [Georgia State University Libraries](https://research.library.gsu.edu/R/downloadR):
 
 
 ## Downloading and Installing R
