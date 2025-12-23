@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -475,8 +504,9 @@ Tip
 <h2 class="anchored" data-anchor-id="the-reproducibility-crisis">The Reproducibility Crisis</h2>
 <p>Published bio-science is largely not reproducible:</p>
 <ul>
+<li>The “File Drawer Problem” was summarized by <a href="https://pages.ucsd.edu/~cmckenzie/Rosenthal1979PsychBulletin.pdf">Rosenthal</a> in 1979; he lamented, “journals [could be] filled with the 5% of the studies that show Type I errors, while the file drawers back at the lab are filled with the 95% of the studies that show nonsignificant (e.g., <span class="math inline">\(p &gt; .05\)</span>) results.”</li>
 <li>Oncology: 53 published articles tested, six successes (<strong>11%</strong>) (<a href="https://www.nature.com/articles/483531a">Nature, 2012</a>)</li>
-<li>Psychology: 100 published articles, <strong>39</strong> successes (<a href="https://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433">Nature News, 2015</a>); 71 published articles tested, 92 replication attempts, 35 successes (<strong>38%</strong>; the <a href="http://www.psychfiledrawer.org/view_article_list.php">PsychFileDrawer</a> project is ongoing).</li>
+<li>Psychology: 100 published articles, <strong>39</strong> successes (<a href="https://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433">Nature News, 2015</a>); 71 published articles tested, 92 replication attempts, 35 successes (<strong>38%</strong> in 2019; the PsychFileDrawer project is now defunct, but some of their website was archived <a href="https://web.archive.org/web/20201023132343/http://psychfiledrawer.org/">here</a>).</li>
 <li>Pharmacology: 67 published models tested, 14 successes (<strong>21%</strong>) (<a href="https://www.nature.com/articles/nrd3439-c1">Nature Reviews, 2011</a>)</li>
 </ul>
 </section>
@@ -507,7 +537,7 @@ Tip
 </section>
 <section id="hello-world" class="level1">
 <h1><code>"Hello, World"</code></h1>
-<p>Before we wrap up for the day, we need to write our first line of code in R. Here are the instructions to download and install R and RStudio, from the <a href="https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/">EdX help pages</a>:</p>
+<p>Before we wrap up for the day, we need to write our first line of code in R. Here are the instructions to download and install R and RStudio, from the <a href="https://research.library.gsu.edu/R/downloadR">Georgia State University Libraries</a>:</p>
 <section id="downloading-and-installing-r" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-and-installing-r">Downloading and Installing R</h2>
 <p>You should have completed these steps before getting to this lesson, but here they are again regardless.</p>
